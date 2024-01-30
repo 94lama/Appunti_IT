@@ -1,0 +1,1 @@
+I linguaggi si dividono in #compilativi ed #interpretativi
