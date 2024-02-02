@@ -35,4 +35,27 @@ Il file del componente deve contenere un tag *script*, per  ed un *template*
 ```
 component: () import ('componentPath')
 ```
+# Metodi
+## useRoute
+Permette di utilizzare il #routing 
+```Vue
+const route = useRoute() //inizializzo il routing
+
+<img :src="post.image" class="img.thumbnail" v-bind=route.query />
+```
+# Attributi
+## v-bind
+Collega i valori attribuiti al tag
+```Vue
+<img :src="post.image" class="img.thumbnail" v-bind=route.query />
+```
+L'utilizzo di questo attributo può essere soggetto a problemi di #sicurezza, poiché permette l'inserimento di codice [[JavaScript]] all'interno del #tag ( #insecure-design  #cross-site-scripting ).
 # Composition API
+# [[Cybersecurity]]
+## #cross-site-scripting 
+### v-bind
+```Vue
+<h1 v-bind:immerHTML={window.location.search}></h1>
+```
+Questo tag permette l'esecuzione arbitraria di script tramite #URI
+

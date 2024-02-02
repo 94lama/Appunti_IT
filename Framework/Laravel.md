@@ -605,7 +605,7 @@ $table->foreignId('table2_id')->constrained();
 public function tables2 () {return $this->belongsToMany(Model_2::class);} //La funzione si inserisce in entrambi i modelli
 ```
 ##### #HTML 
-- Devo indicare nell'attributo **name** il valore come #arrray
+- Devo indicare nell'attributo **name** il valore come #array
 ```
 <input action="nome_parametro[]" />
 ```

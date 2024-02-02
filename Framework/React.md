@@ -30,7 +30,13 @@ npx create-react-app nome-app //preferibilmente in kebab case
 |-|-|
 |useEffect(() => {})||
 |useState()||
-
+## useEffect
+Si evoca quando si vogliono utilizzare particolari metodi built-in di [[JavaScript]] che richiedono l'utilizzo di 
+```Javascript
+useEffect(() => {
+	metodo stateful da applicare es. fetch(), 
+}, [<dependencies>])
+```
 # Componente
 Il componente si deve creare solo dopo aver stabilito tutti i dati da inserire al suo interno
 # REST
@@ -41,11 +47,18 @@ React ha delle funzioni native per accedere alle REST. Uana di queste è #Axios
 |Metodo|descrizione|
 |-|-|
 |get()|Accetta un #end-point come valore
-|then()|Metodo delle #request (-----), che  si attiva solo dopo aver ricevuto la risposta|
-
+|.then() |Metodo delle #request (-----), che  si attiva solo dopo aver ricevuto la risposta|
+## react-router-redux
+Permette di effettuare il #routing tra le varie pagine.
+```Javascript
+navigate(<URL>)
+```
+```Javascript
+dispatch(push({}))
+```
 # Framework
 
-# Cybersecurity
+# [[Cybersecurity]]
 ## #insecure-design 
 ### a
 React non controlla l'attributo **href** del tag **a**. Nel caso seguente il browser attiverà l' **alert**

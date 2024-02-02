@@ -174,7 +174,7 @@ Per evitare di utilizzare librerie o cdn di terze parti (ed esporsi a rischi), c
 <script src=<cdn desiderato> integrity=<hash della libreria preso dal sito originale> >...</script>
 ```
 ### #security-misconfiguration
-Nel caso sia necessario ricevere dei file dall'utente, è possibile che il #brownser converta automaticamente la tipologia di file in base al contenuto (ad esempio, scrivendo un codice JavaScript e salvandolo con .jpg).
+Nel caso sia necessario ricevere dei file dall'utente, è possibile che il #browser converta automaticamente la tipologia di file in base al contenuto (ad esempio, scrivendo un codice JavaScript e salvandolo con .jpg).
 ```HTTP
 <header
 	X-Content-Type-Options: nosniff
@@ -624,6 +624,9 @@ var_dump("password" == 0); //true
 Si può ovviare al problema utilizzando lo #strict-comparison-operator ===
 ## Borken OAuth
 La #broken-oauth è una particolare tipologia di #broken-authentication, che avviene qualora si utilizzi un processo di #oauth per effettuare il login.
+# Regression test
+Il #regression-test può essere fatto con [[Postman]], [[Python]] e consiste nell'analizzare il contenuto della #response ad una chiamata #http 
+
 # Normativa
 ## Italia
 - AGID
@@ -638,9 +641,10 @@ La #broken-oauth è una particolare tipologia di #broken-authentication, che avv
 # Tips
 - Tutte le rotte che hanno azione distruttiva devono essere trattati tramite form
 - siti come https:// ---continua
+- L'utilizzo di **npm audit** permette di tenere sotto controllo lo stato delle dependencies  tramite #audit
 # Glossario
-- #bruteforce - reiterazione automatica di decriptazione di dati protetti tramite programmi o siti appositi (tipo hashcat). Di solito viene usato su password basilari (rockyou.txt)
-- #sanificazione - validazione dei dati ricavati tramite input
+- #brute-force - reiterazione automatica di decriptazione di dati protetti tramite programmi o siti appositi (tipo hashcat). Di solito viene usato su password basilari (rockyou.txt)
+- #sanificare - validazione dei dati ricavati tramite input
 - #prepared-statement - 
 - #debolezza - Componente potenzialmente soggetta ad essere aggirata
 - #vulnerabilità - Quando viene sfruttata con successo una debolezza per perpetrare un attacco informatico

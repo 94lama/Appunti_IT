@@ -5,7 +5,7 @@
 # Introduzione
 La macchina per eseguire un programma in #JavaScript, #PhP  (o un qualsiasi altro linguaggio #interpretato), ne effettua la lettura, [[Traduzione]] ed  esecuzione. Il [[Protocollo di comunicazione]] tra due macchine avviene tramite messaggi di richiesta-risposta.
 
-[[Php]] (Hyper-text Pre-Processor) è un linguaggio #interpretato, basato sul linguaggio [[C]] e scritto seguendo la metodologia #OOP (Object-Oriented Program), che permette di modificare un file #HTML, di scrivere stringhe di HTML al suo interno (e modificarle) e di interagire con i [[Database]].
+[[Php]] (Hyper-text Pre-Processor) è un linguaggio #interpretato, basato sul linguaggio [[C]] e scritto seguendo la metodologia [[Object-Oriented Program]], che permette di modificare un file #HTML, di scrivere stringhe di HTML al suo interno (e modificarle) e di interagire con i [[Database]].
 
 La struttura esterna di un #codice #PhP è:
 	<?php [linee di codice] ?>
@@ -174,7 +174,7 @@ print_r($variabile)    //stampa il dato ed il tipo del dato
 ### count
 Ritorna la #lunghezza della variabile #array o di un #oggetto #enumerabile
 ### implode
-#unisce i vari elementi di un' #array
+#unire i vari elementi di un' #array
 ### unset
 #ripristina la #variabile scelta
 ### array_reduce
@@ -210,9 +210,9 @@ $output = shell_exec("ping -c 4" .$ip);
 ```
 pcntl_exec(string $path, array $args = [] $env_)
 ```
-## Object-Oriented Programing ( #OOP)
+## [[Object-Oriented Program]]
 ### Introduzione
-Php è un linguaggio (così come #JavaScript) che permette la programmazione in #OOP, ovvero di strutturare i codice in blocchi, che servono ad istanziare un nuovo oggetto. Questi blocchi prendono il nome di #classi.
+Php è un linguaggio (così come #JavaScript) che permette la programmazione in [OOP][Object-Oriented Program], ovvero di strutturare i codice in blocchi, che servono ad istanziare un nuovo oggetto. Questi blocchi prendono il nome di #classi.
 
 ```
 class Object {

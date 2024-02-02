@@ -1,4 +1,4 @@
-#angular è un #framework #front-end , sviluppato da Google e basato su [[TypeScript]] ed è dotato di #composition, ovvero la capacità di creare un componente e riutilizzarlo all'interno del progetto.
+Angular è un #framework #front-end , sviluppato da Google e basato su [[TypeScript]] ed è dotato di #composition, ovvero la capacità di creare un componente e riutilizzarlo all'interno del progetto.
 # Struttura
 |- node_modules/
 |- src/

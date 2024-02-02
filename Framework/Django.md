@@ -1,2 +1,2 @@
 # Introduzione
-E' un #framework di  [[Python]] per gestire il #backend dei siti #web
+E' un #framework di  [[Python]] per gestire il #back-end dei siti #web
