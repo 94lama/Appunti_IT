@@ -1,24 +1,70 @@
 # Comandi
+Concatenare comandi
 ```Linux
-& # esegue entrambi i comandi
+<comando_1> & <comando_2>
 ```
+Eseguire un comando nel caso quello precedente non venga eseguito correttamente 
 ```Linux
-||  # Se il primo comando non viene eseguito, esegue il secondo comando
+<comando_1> || <comando_2> 
 ```
-```Linux
-rm # Rimuove uno o più elementi
-```
-```Linux 
-rm -rf  # Come sopra, ma
-```
-```Bash
-npm install #installa #npm
-```
-```Bash
-node <nome file>.js # esegue il file 
-```
+Effettuare un comando come #superuser (SUperuser DO)
 ```Shell
-php -a # apre una #shell interattiva in php
+sudo <comando>
+```
+Rimuovere uno o più elementi
+```Linux
+rm <nome_file>
+```
+Rimuovere uno o più elementi con forzatura
+```Linux 
+rm -rf <nome_file>
+```
+Installare npm
+```Bash
+npm install
+```
+Eseguire un file con [[Node.js]]
+```Bash
+node <nome file>.js 
+```
+Aprire una #shell interattiva in [[Php]]
+```Shell
+php -a
+```
+Verificare l'utente con cui si sta operando
+```Shell
+whoami
+```
+Rimuovere un account
+```Shell
+sudo gpasswd -d <nome_utente> <nome_ambiente>
+```
+Verificare se ci sono porte aperte verso l'esterno in una macchina #port-scanning
+```bash
+nmap <nome_macchina>
+```
+Accedere ad una rete come cliente
+```shell
+<nome_macchina>-cli -h localhost
+```
+Filtro un comando in base ad una determinata stringa
+```shell
+<comando> | grep <stringa>
+```
+---boh
+```shell
+systemctl
+```
+Vedere l'albero dei processi
+```shell
+ps aux
+```
+## Opzioni
+```Bash
+-d #detach
+--help #lista dei comandi disponibili
+-it #interattivo
+-v #version
 ```
 # UNIX
 

@@ -73,3 +73,5 @@ var.expect.not.to.be.equal(<valore_non_aspettato>);
 var.expect.to.have.length(<lunghezza>);
 pm.expect.(<valore>).not.is.undefined;
 ```
+
+## [Cheerio](https://cheerio.js.org/)

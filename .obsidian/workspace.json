@@ -13,13 +13,38 @@
             "state": {
               "type": "markdown",
               "state": {
+                "file": "Tecnologie/Postman.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "996eedea7911d8cc",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Tecnologie/Linux.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "9d3abdd4136c8fab",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
                 "file": "Tecnologie/Docker.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -48,7 +73,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "tag:#OOP",
+                "query": "tag:#terminal",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -65,7 +90,8 @@
               "state": {}
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -159,17 +185,20 @@
       "workspaces:Manage workspace layouts": false
     }
   },
-  "active": "899640e87fd750eb",
+  "active": "9d3abdd4136c8fab",
   "lastOpenFiles": [
-    "Postman.md",
+    "Tecnologie/Linux.md",
+    "Tecnologie/Docker.md",
+    "Framework/Laravel.md",
+    "Cybersecurity.md",
+    "Linguaggi/JavaScript.md",
+    "Tecnologie/Postman.md",
     "Tecnologie/Metodologia Agile.md",
     "Waterfall.md",
-    "Linguaggi/JavaScript.md",
     "Linguaggi/Object-Oriented Program.md",
     "Linguaggi/Php.md",
     "Linguaggi/CSS.md",
     "Framework/Node.js.md",
-    "Cybersecurity.md",
     "Tecnologie/Github.md",
     "Comes/COMES - COmputo Metrico EStimativo.md",
     "Comes/COMES - COmputo Metrico EStimativo 1.md",
@@ -184,10 +213,7 @@
     "Informatica/Framework/Vue.js.md",
     "Informatica/Framework/React.md",
     "Informatica/Tecnologie/Metodologia Agile.md",
-    "Informatica/Tecnologie/Protocollo di comunicazione.md",
-    "Informatica/Tecnologie/MySQL.md",
     "Informatica/Immagini/Pasted image 20231207171620.png",
-    "Informatica/Tecnologie/Traduzione.md",
     "Informatica/Tecnologie",
     "Informatica/Linguaggi",
     "Linguaggi/Tecnologie",

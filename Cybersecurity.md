@@ -286,7 +286,7 @@ Acronimo delle minacce su cui va ad operare:
 #repudiation: Si nega l'aver effettuato una determinata azione
 #information-disclosure: Categoria che copre le violazioni di #privacy o fughe di dati
 #DoS: Mira ad interrompere il normale funzionamento di un sito
-#elevation-of-privilege: L'attaccante accede con un profilo base e ottiene livelli di accesso superiori
+#privilege-escalation : L'attaccante accede con un profilo base e ottiene livelli di accesso superiori
 E' il sistema con più ampia superficie di copertura per le potenziali #minaccia e/o #vulnerabilità.
 Alcune criticità di questa metodologia sono:
 - La necessità di avere delle conoscenze approfondite sulle minacce e vulnerabilità, su cui applicare il metodo
