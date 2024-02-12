@@ -60,6 +60,9 @@ Aggiungere alla cartella selezionata un file
 ```DOCKERFILE
 COPY ${<nome_variabile>}<percorso> 
 ```
+### Volumes
+Include i file che devono essere mantenuti anche dopo la chiusura del #container.
+E' possibile vedere dove sono localizzati i #volumes in container di fonti terze su https://hub.docker.com/
 ## docker-compose.yml
 E' un file che contiene i dati necessari (incluse #porte, localizzazioni di #database, dati di accesso, ) per creare l'ambiente su cui far partire il programma, utilizzando anche più #container.
 **NB. in environment non inserire le porte, perché renderebbe il container vulnerabile**
@@ -154,6 +157,10 @@ Creare i #secret
 ```Docker
 docker image rm <nome_immagine> <nome_immagine_2> ...
 ```
+Creare i #volumes 
+```Docker
+docker volume create --name <name>
+```
 Accedo all' #health 
 ```shell
 docker compose --da finire
@@ -161,6 +168,10 @@ docker compose --da finire
 Accedo alla shell di un #container
 ```shell
 docker compose exec -it <nome_container> sh 
+```
+Controllo le attività in esecuzione all'interno del #container
+```shell
+docker logs
 ```
 ## Opzioni
 ```Bash
@@ -172,6 +183,15 @@ docker compose exec -it <nome_container> sh
 # Cybersecurity
 ## #privilege-escalation 
 Nel caso si riesca ad accedere con un utente standard a Docker, è possibile aumentare i suoi privilegi tramite #terminale e prendere possesso della macchina
+### Prevenzione
+- Rafforzare il server e gli altri componenti nelle infrastrutture più critiche
+- Chiudere servizi e porte non necessari
+- Assicurarsi che gli user non più utilizzati siano cancellati
+- Assicurarsi che i file, le directories e i servizi abbiano i permessi corretti
+- Aderire al principio di minor privilegio quando si creano gruppi ed utenti
+- Imposta metodi di autenticazione sicuri per user e visitatori, assicurandosi che non vengano utilizzate le credenziali standard, impostare policies efficaci per le password (come l'identificazione a più fattori) nel modo più rigoroso possibile
+- Tieniti al passo con le #vulnerabilità più recenti, implementando continuamente gli aggiornamenti e le patch
+- Aderisci alle best practices del framework e/o dei linguaggi utilizzati
 ## #insecure-inclusion
 E' possibile sfruttare un parametro **ARG** impostato incorrettamente per modificare in maniera arbitraria la variabile a cui è collegata la variabile del #dockerfile.
 Nel caso non si utilizzino i #secret per creare le password degli account, preferendo utilizzare il file #env  è possibile che un utente terzo riesca ad entrare all'interno del sistema

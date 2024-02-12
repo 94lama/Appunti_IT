@@ -217,7 +217,39 @@ Tramite script #JavaScript si modifica lo style della pagina. Questo tipo di att
 ```
 Con questo attacco, per esempio, si può nascondere la #UI all'utente bersaglio, lasciandogli solo un input con un label con una richiesta di inserimento dati per sbloccare il normale funzionamento del sito (i dati inseriti saranno leggibili dall'attaccante)
 # DevSecOps Pipeline
+## Introduzione
+Il #DevOps è una metodologia di lavoro, utilizzata per ridurre i tempi di distribuzione attraverso l'automazione, fornire un #feedback continuo, migliorare la collaborazione del team e le capacità di affrontare il rilevamento degli errori
 ## Software Development Life Cycle ( #sdlc)
+### CI/CD
+Per #CI/CD si intende Continuous Integration and Continuous Devliery. Il CI/CD è una metodologia utilizzata per aumentare la velocità, ridurre gli errori e permettere di standardizzare i processi.
+Il #deployment di norma è effettuata da una singola persona, dopo che il prodotto ha raggiunto un livello di avanzamento apprezzabile (ad esempio ha raggiunto determinati obbettivi) ed è stato oggetto di verifica.
+### Software utilizzati
+#### Code
+I software sono utilizzati per il #versioning dell'applicazione. Questi software permettono di condividere il lavoro tramite creazione di più #branch, ovvero ramificazioni del progetto. 
+- [[GitHub]]
+- Git
+- Subversion
+- GitLab
+```Branching
+|- master
+|-- develop
+|--- feature_1
+|--- feature_2
+```
+#### Container
+Permettono di progettare in maniera riproducibile, senza la necessità di controllare la conformità delle varie #dependency, scalabile 
+- [[Docker]]
+- podman
+#### Pipeline
+Servono ad automatizzare le procedure.
+- [[Jenkins]]
+- Travis CI
+- GitHub Actions
+#### Infrastructure
+Può essere di tipo **On premise** o **cloud**, dove i secondi permettono di avere potenza di calcolo, spazi di archiviazione e servizi di business logic adattabili ed un costo variabile in base all'uso effettivo.
+- [[AWS]]
+- Azure
+- Google Cloud Platform
 ### Design
 #### Threat Modeling
 ![[Pasted image 20240108202659.png]]
@@ -249,7 +281,7 @@ Una #sandbox (tipo [[Docker]])
 - Analizzare l'applicazione e capire quali siano le componenti che potrebbero ricevere un #attacco (brainstorming)
 - Dare un punteggio agli asset ( #dati ) in base alla loro importanza
 - Definire le priorità per le quali allocare risorse
-## Fasi
+### Fasi
 Il #threat-modeling deve essere effettuato durante tutto il #sdlc 
 - Planning
 - Analysis
@@ -624,7 +656,19 @@ var_dump("password" == 0); //true
 Si può ovviare al problema utilizzando lo #strict-comparison-operator ===
 ## Borken OAuth
 La #broken-oauth è una particolare tipologia di #broken-authentication, che avviene qualora si utilizzi un processo di #oauth per effettuare il login.
-# Regression test
+# Strumenti di analisi
+## Software
+###  Static application security testing #SAST
+[[SonarQube]]
+Software che effettuano un'analisi statica del codice, effettuano #code-smell (verifica l'utilizzo anomalo di alcuni elementi)
+### Dynamic application security testing #DAST
+Verificano la presenza di vulnerabilità tentando degli #attacco. Per questo motivo è consigliato creare un'ambiente dedicato al testing per questi tool.
+### Software composition analysis #SCA
+[snyk], [aqua trivy]
+Effettuano analisi delle #dependency del codice e/o dei container, tramite verifica nel CVE di vulnerabilità e patch.
+## Commit scanning
+Permettono di evitare i #push contenenti #secret (dati sensibili, come password del database). [[git-secrets]]
+## Regression test
 Il #regression-test può essere fatto con [[Postman]], [[Python]] e consiste nell'analizzare il contenuto della #response ad una chiamata #http 
 
 # Normativa

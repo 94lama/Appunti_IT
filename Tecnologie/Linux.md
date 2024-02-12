@@ -1,13 +1,17 @@
 # Comandi
 Concatenare comandi
 ```Linux
-<comando_1> & <comando_2>
+<comando_1> && <comando_2>
 ```
 Eseguire un comando nel caso quello precedente non venga eseguito correttamente 
 ```Linux
 <comando_1> || <comando_2> 
 ```
-Effettuare un comando come #superuser (SUperuser DO)
+Accedere come utente root (chiede la password)
+```shell
+su
+```
+Effettuare un comando come #superuser (SUperuser DO). Effettuabile solo se l'utente fa parte dei **sudores**
 ```Shell
 sudo <comando>
 ```
@@ -58,6 +62,27 @@ systemctl
 Vedere l'albero dei processi
 ```shell
 ps aux
+```
+Interagire con un database remoto
+```shell
+redis-sli -h <nome_server>
+```
+Controllare lo spazio disponibile nelle varie partizioni
+```shell
+df -hT
+```
+Controllare lo spazio utilizzato dalle varie partizioni
+```shell
+lsblk
+```
+Comandi da inserire
+```shell
+chroot
+getent
+env
+sh #shell
+man <comando> # Ritorna i manuale del comando selezionato
+ssh <indirizzo_ip> -i <nome_utente> #prende la chiave privata
 ```
 ## Opzioni
 ```Bash
