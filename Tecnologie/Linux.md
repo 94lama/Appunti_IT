@@ -55,6 +55,10 @@ Filtro un comando in base ad una determinata stringa
 ```shell
 <comando> | grep <stringa>
 ```
+Stampo il percorso della cartella in cui mi trovo
+```shell
+pwd
+```
 ---boh
 ```shell
 systemctl

@@ -290,7 +290,21 @@ Il #threat-modeling deve essere effettuato durante tutto il #sdlc
 - Maintenance
 Si effettua seguendo delle fasi specifiche:
 1. --
-## Terminologia
+## CI-CD OWASP top 10
+### 1 - Insufficient Flow Control Mechanisms
+Nel caso di controlli insufficienti, è possibile che degli automatismi permettano di effettuare un #push direttamente nella branch **main**, incorrendo così in potenziali #merge
+### 2 - Inadequate Identity and Access Management
+Avviene quando alcuni utenti possiedono dei permessi troppo elevati (vale anche nel caso in cui alcuni utenti lascino il progetto e l'account non venga eliminato), o quando non viene gestito in maniera corretta il processo di iscrizione
+### 3 - Dependency Chain Abuse
+Avviene quando si scaricano #dependency non ufficiali. Per risolvere il problema, conviene sempre controllare i #chacksum (firma digitale del pacchetto), evitare di scaricare da internet se non dai siti ufficiali ed utilizzare in #pinning, ovvero specificando la versione specifica da utilizzare.
+### 4 - Poisoned Pipeline Execution #PPE
+Avviene quando un utente malevolo ottiene l'accesso ad una #pipeline presente online e la modifica.
+### 5 - Insufficient #PBAC (Pipeline-Based Access Controls)
+### 6 - Insufficient Credential Hygiene
+Avviene quando sono presenti dei #secret in chiaro nella #pipeline. E' inoltre preferibile ruotare le credenziali in maniera costante (almeno 2 volte l'anno).
+### 7 - Insecure System Configuration
+### 8 - Improper Artifact Integrity Validation
+Avviene quando non esiste un sistema di firma dei #commit. In questo caso è possibile che un attaccante riesca ad accedere all'account di uno sviluppatore ed immettere del codice malevolo all'interno del nostro progetto.
 ## Metodologie
 ### Modellare i dati
 #### Data flow diagram
@@ -662,9 +676,10 @@ La #broken-oauth è una particolare tipologia di #broken-authentication, che avv
 [[SonarQube]]
 Software che effettuano un'analisi statica del codice, effettuano #code-smell (verifica l'utilizzo anomalo di alcuni elementi)
 ### Dynamic application security testing #DAST
+[[Zap]]
 Verificano la presenza di vulnerabilità tentando degli #attacco. Per questo motivo è consigliato creare un'ambiente dedicato al testing per questi tool.
 ### Software composition analysis #SCA
-[snyk], [aqua trivy]
+[[snyk]], [[aqua trivy]]
 Effettuano analisi delle #dependency del codice e/o dei container, tramite verifica nel CVE di vulnerabilità e patch.
 ## Commit scanning
 Permettono di evitare i #push contenenti #secret (dati sensibili, come password del database). [[git-secrets]]
@@ -693,4 +708,4 @@ Il #regression-test può essere fatto con [[Postman]], [[Python]] e consiste nel
 - #debolezza - Componente potenzialmente soggetta ad essere aggirata
 - #vulnerabilità - Quando viene sfruttata con successo una debolezza per perpetrare un attacco informatico
 - #salt - Elemento che viene aggiunto al dato prima della criptazione per aumentare la complessità del risultato
-- #eppper - Ulteriore elemento aggiunto al dato (simile al #salt), ma non viene registrato nel server 
+- #peppper - Ulteriore elemento aggiunto al dato (simile al #salt), ma non viene registrato nel server 

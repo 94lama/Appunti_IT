@@ -139,11 +139,11 @@ docker run -v /:/host --rm -it alpine chroot /host sh
 ```
 Inizializzare un processo nel #kernel [[Linux]]
 ```Docker
-docker run -it ubuntu bash
+docker run -it ubuntu /bin/bash
 ```
 Collegare il terminale al #container già avviato 
 ```Docker
-docker exec -it <id container> bash
+docker exec -it <id container> /bin/bash
 ```
 Cambiare la root di accesso dell'utente
 ```Docker
