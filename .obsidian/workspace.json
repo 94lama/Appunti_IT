@@ -32,6 +32,18 @@
             }
           },
           {
+            "id": "35d80c76e8f3b3ed",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Linguaggi/Linux.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
             "id": "a0ec29ac9d44f7e3",
             "type": "leaf",
             "state": {
@@ -55,7 +67,8 @@
               }
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -121,7 +134,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Cybersecurity.md",
+                "file": "AWS.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -138,7 +151,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Cybersecurity.md",
+                "file": "AWS.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -161,7 +174,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Cybersecurity.md"
+                "file": "AWS.md"
               }
             }
           },
@@ -195,16 +208,17 @@
       "workspaces:Manage workspace layouts": false
     }
   },
-  "active": "9d3abdd4136c8fab",
+  "active": "003fed959cc06284",
   "lastOpenFiles": [
-    "Tecnologie/Zap.md",
-    "Cybersecurity.md",
-    "Tecnologie/SonarQube.md",
-    "AWS.md",
-    "aqua trivy.md",
-    "Tecnologie/snyk.md",
-    "Tecnologie/Linux.md",
     "Tecnologie/Docker.md",
+    "AWS.md",
+    "Linguaggi/Linux.md",
+    "Tecnologie/Object-Oriented Program.md",
+    "Cybersecurity.md",
+    "Tecnologie/Zap.md",
+    "Tecnologie/SonarQube.md",
+    "Tecnologie/aqua trivy.md",
+    "Tecnologie/snyk.md",
     "Tecnologie/Jenkins.md",
     "Tecnologie/Github.md",
     "Tecnologie/git-secrets.md",
@@ -216,7 +230,6 @@
     "Linguaggi/JavaScript.md",
     "Tecnologie/Metodologia Agile.md",
     "Waterfall.md",
-    "Linguaggi/Object-Oriented Program.md",
     "Linguaggi/Php.md",
     "Linguaggi/CSS.md",
     "Framework/Node.js.md",
