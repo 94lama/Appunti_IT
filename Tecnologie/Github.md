@@ -9,6 +9,22 @@ Inizializzare un progetto esistente su una repository esistente
 git add remote origin < 
 ```
 ## pull
+## commit
+Esistono delle [convenzioni](Conventional%20commit) per effettuare il #commit, visibili su [conventional commit](https://www.conventionalcommits.org/en/v1.0.0/)
+```sh
+git commit
+```
+Opzioni
+```sh
+-m "<commento>"
+```
+## merge
+E' 'na roba brutta da evitare quando possibile.
+### Fast-forward
+Il parametro #fast-forward è attivo di default 
+```sh
+git merge --no-ff
+```
 # Struttura
 ## Branches
 Le #branch sono delle ramificazioni del progetto.
@@ -21,6 +37,8 @@ Le #branch sono delle ramificazioni del progetto.
 | features | indica la singola feature da implementare |
 # Deploy keys
 Contiene tutte le chiavi utilzzate per effettuare i deploy
+# Conventional commits
+
 # [git-secrets](https://github.com/awslabs/git-secrets)
 Genera una nuova sotto-cartella di .git chiamata **secrets**.
 ```bash

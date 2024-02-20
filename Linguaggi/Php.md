@@ -3,7 +3,7 @@
 ### #framework 
 - [[Laravel]] 
 # Introduzione
-La macchina per eseguire un programma in #JavaScript, #PhP  (o un qualsiasi altro linguaggio #interpretato), ne effettua la lettura, [[Traduzione]] ed  esecuzione. Il [[Protocollo di comunicazione]] tra due macchine avviene tramite messaggi di richiesta-risposta.
+La macchina per eseguire un programma in #JavaScript, #PhP  (o un qualsiasi altro linguaggio #interpretato), ne effettua la lettura, [[Traduzione]] ed  esecuzione. Il [[Protocolli di comunicazione]] tra due macchine avviene tramite messaggi di richiesta-risposta.
 
 [[Php]] (Hyper-text Pre-Processor) è un linguaggio #interpretato, basato sul linguaggio [[C]] e scritto seguendo la metodologia [[Object-Oriented Program]], che permette di modificare un file #HTML, di scrivere stringhe di HTML al suo interno (e modificarle) e di interagire con i [[Database]].
 

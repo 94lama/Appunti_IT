@@ -1,6 +1,23 @@
 # Introduzione
 Docker è un software che permette di creare un #container nel quale far girare applicazioni. Un container è un' #immagine, ovvero un sistema isolato, dotato di #OS, in cui vengono successivamente implementate le caratteristiche desiderate.
 I container vengono utilizzati per eseguire processi, per poi terminare automaticamente.
+# Installazione
+## Ubuntu
+```sh
+# Add Docker's official GPG key:
+sudo apt-get update
+sudo apt-get install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+# Add the repository to Apt sources:
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+```
 # Struttura
 ## Makefile
 E' un file che gestisce le operazioni da effettuare all'apertura o a seguito di richiesta tramite bash
@@ -176,7 +193,11 @@ docker logs
 ## Opzioni
 ```Bash
 -H #definisce l'host
+-d #0_based 
+-it
+-p #posta da utilizzare
 -v
+--name #Nome del container (id)?? controllare
 --rm
 ```
 # Docker API

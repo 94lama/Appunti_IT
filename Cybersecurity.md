@@ -148,8 +148,8 @@ E' un metodo che permette di inserire strighe di codice all'interno dell'operazi
 ```Javascript
 const injectedCode = document.location.hash.replace("#", "");
 eval(injectedCode)
-// inserendo una stringa di codice nell'URI, l'eval(injectedCode) permette di eseguire il codice 
 ```
+	// inserendo una stringa di codice nell'URI, l'eval(injectedCode) permette di eseguire il codice 
 #### postMessage()
 Permette di collegare due o più pagine
  ```Javascript
@@ -202,11 +202,13 @@ Un altra tipologia di Redressing è attuabile tramite auto-compiler di HTML, CSS
 #### postMessage(message, origin)
 Nel caso il metodo sia compilato in maniera non corretta, l'utente potenzialmente invia il messaggio anche ad utenti terzi:
 ```Javascript
-window.opener.postMessage(message, '*'); //in questo caso l'utente invia il messaggio a tutti i server che stanno ascoltando
+window.opener.postMessage(message, '*');
 ```
+	in questo caso l'utente invia il messaggio a tutti i server che stanno ascoltando
 ``` JavaScript
-window.opener.postMesasge(message, "indirizzo dell'origine"); //in questo caso l'utente invia il messaggio solo al server origine 
+window.opener.postMesasge(message, "indirizzo dell'origine"); 
 ```
+	in questo caso l'utente invia il messaggio solo al server origine 
 ### #prototype-pollution
 Attacco che permette di modificare il metodo **__proto__** dell'oggetto base di JavaScript per eseguire velocemente comandi tramite metodo eval(). Sfruttando questo stratagemma è possibile eseguire attacchi #xss ed è inclusa nella categoria #insecure-design
 ### #CSS-injection
@@ -292,7 +294,7 @@ Si effettua seguendo delle fasi specifiche:
 1. --
 ## CI-CD OWASP top 10
 ### 1 - Insufficient Flow Control Mechanisms
-Nel caso di controlli insufficienti, è possibile che degli automatismi permettano di effettuare un #push direttamente nella branch **main**, incorrendo così in potenziali #merge
+Nel caso di controlli insufficienti, è possibile che degli automatismi permettano di effettuare un #push direttamente nella branch **main**, incorrendo così in potenziali #merge, oppure è possibile, nel caso il #repository fosse pubblico, che un utente esterno riesca ad effettuare un push non controllato.
 ### 2 - Inadequate Identity and Access Management
 Avviene quando alcuni utenti possiedono dei permessi troppo elevati (vale anche nel caso in cui alcuni utenti lascino il progetto e l'account non venga eliminato), o quando non viene gestito in maniera corretta il processo di iscrizione
 ### 3 - Dependency Chain Abuse
@@ -628,7 +630,9 @@ POST http://www.vulnerableapp.com/xml HTTP/1.1<?xml version="1.0" encoding="ISO-
 
 ### Prevenzione
 - Disabilitando la funzione Document Type Definition ( #DTD)
-	``` disable_external_entities(true)```
+	```
+	 disable_external_entities(true)
+	 ```
 - Gestire dati in formati semplici (es. #JSON )
 - Verificare in ambiente di #testing che le chiamate #xml abbiano le dovute restrizioni
 ## CSRF Attack

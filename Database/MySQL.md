@@ -35,7 +35,7 @@ Su terminal:
 
 ### Join
 Variante del prodotto cartesiano di più tabelle (che mostra tutte le possibili combinazioni tra i file)
-![[Pasted image 20231207171620.png]]
+![[SQL Join.png]]
 
 	SELECT key1, key2, key3 from table1, table2 where table1_fk == table2_pk;
 	SELECT key1, key2, key3 from table1, table2 inner JOIN on table1_fk == table2_pk;

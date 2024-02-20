@@ -79,6 +79,18 @@ Controllare lo spazio utilizzato dalle varie partizioni
 ```shell
 lsblk
 ```
+Visualizzare i gruppi di utenti esistenti nel server
+```shell
+groups
+```
+Visualizzare i gruppi a cui appartiene un utente
+```shell
+sudo groups <utente>
+```
+Aggiungere un user ad un gruppo (permessi)
+```shell
+sudo -aG <gruppo> <user>
+```
 Comandi da inserire
 ```shell
 chroot
@@ -90,6 +102,7 @@ ssh <indirizzo_ip> -i <nome_utente> #prende la chiave privata
 ```
 ## Opzioni
 ```Bash
+-aG #
 -d #detach
 --help #lista dei comandi disponibili
 -it #interattivo
@@ -127,3 +140,5 @@ wpscan --url <url> # fornisce informazioni relative al sito, ad l'autore del sit
 ```Kali
 wpscan --url <url> --password-attack xmlrpc -t 20 -U <nome utente> -P /usr/share/wordlists/rockyou.txt #effettua un #bruteforce sulla password dell'account selezionato
 ```
+## Hydra
+Software utilizzato per effettuare #brute-force su siti web.

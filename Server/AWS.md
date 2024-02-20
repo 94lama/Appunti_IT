@@ -21,9 +21,17 @@ Di norma si utilizzano più server per progetto. Su AWS i server devono essere l
 ssh ubuntu@<indirizzo_ip_server> -i <user_ssh>
 ```
 # Installazione di [[Docker]]
-prendere script da sito di docker in base al sistema operativo che si è installato nel server
-Durante l'installazione, nel caso si utlilizzi una memoria di piccole dimensioni, il server potrebbe andare in stato di #anger (sovraccarico). Per evitare ciò si utilizza lo #swap, ovvero una partizione (o file), situato nell'hard disk, che lavora come estensione della RAM.
-
+prendere script da sito di Docker in base al sistema operativo che si è installato nel server
+Durante l'installazione, nel caso si usi una memoria di piccole dimensioni, il server potrebbe andare in stato di #anger (sovraccarico). Per evitare ciò si utilizza lo #swap, ovvero una partizione (o file), situato nell'hard disk, che lavora come estensione della RAM.
+```sh
+sudo fallocate -l 4G /swapfile 
+sudo dd if=/dev/zero of=/swapfile bs=1M count=4096 
+sudo chmod 600 /swapfile 
+sudo mkswap /swapfile 
+sudo swapon /swapfile
+sudo nano /etc/fstab
+```
+	Inserire la riga /swapfile none swap sw 0 0
 Per installare Docker su Ubuntu bisogna scrivere nel terminale:
 ```sh
 for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc; do sudo apt-get remove $pkg; done
@@ -73,3 +81,9 @@ docker run --network api-net --name database -v /var/lib/postgresql/data:/var/li
 Per ridurre lo spazio utilizzato, si deve creare un nuovo volume da uno #snapshot
 # Attenzione
 - Nel caso si voglia aprire una nuova porta dal server, la si deve anche segnalare nella piattaforma di AWS
+# Indirizzi IP utili
+| Dominio | Tipo | Porte | Destinazione |
+| ---- | ---- | ---- | ---- |
+| GitHub | SSH | 22 | 140.82.121.0/24 |
+| Pubblico IPv4  |  |  | 0.0.0.0/0 |
+| Pubblico PIv6 |  |  | ::/0 |
