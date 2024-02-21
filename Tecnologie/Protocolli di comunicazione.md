@@ -53,6 +53,7 @@ E' assimilabile ai livelli Collegamento e Fisico della ISO/OSI
 ## Applicazione
 ### HTTP
 Il processo di comunicazione tra macchine, nel caso del web, è gestito tramite #protocollo #HTTP (Hyper-Text Transfer Protocol)
+### HTTPS
 ## Trasporto
 ### TCP
 Ovvero Transmission Control Protocol è un #protocollo **Orientato alla connessione** e quindi considerato affidabile.
@@ -73,24 +74,43 @@ Ovvero Internet Protocol. Si occupa della metodologia di frammentazione de instr
 ## Network
 
 # Altro
-## IPv4
-Si basa su dati di dimensione standard 32 bit, ovvero 4 byte. Ogni byte rappresenta un numero (da 0 a 255) ed è separato dagli altri byte da un punto #dotted-decimal 
+### SSH
+Secure SHell #ssh è un protocollo cifrato, che sostituisce il precedente telnet, che permette di accedere ad un altra macchina tramite righe di comando.
+Di default la #porte dedicata al protocollo SSH è la 22, sia per le comunicazioni #tcp che #udp.
+
+### IPv4
+L' #IPv4 si basa su dati di dimensione standard 32 bit, ovvero 4 byte. Ogni byte rappresenta un numero (da 0 a 255) ed è separato dagli altri byte da un punto #dotted-decimal 
 
 	102.54.94.97
-Questo indirizzo contiene due tipi principali di informazioni: la prima parte individua la rete fisica in cui il dispositivo è collegato, mentre la seconda identifica il dispositivo stesso:
-# REST
+Questo indirizzo contiene due tipi principali di informazioni: la prima parte individua la rete fisica in cui il dispositivo è collegato, mentre la seconda identifica il dispositivo stesso.
+#### Notazione cdir
+Aggiunge all'indirizzo IPv4 una indicazione relativa alla #subnet
+
+	102.54.94.97/24
+### IPv6
+### IPCM
+L' #IPCM è utilizzato per il monitoraggio delle reti 
+### REST
 Il #REST, o Representation State Transfer, è un sistema di trasmissione dei dati su  #http, basato su una struttura degli #URL #stateless, ovvero senza il concetto di #sessione. Utilizza 5 metodi di trattamento delle informazioni:
-## GET
+### GET
 Richiede delle informazioni
-## POST
+### POST
 Invia delle informazioni
-## PUT
+### PUT
 Modifica un'informazione in maniera integrale
-## PATCH
+### PATCH
 Modifica un'informazione in maniera parziale
-## DELETE
+### DELETE
 Cancella un'informazione
 
-# SOAP
+### SOAP
 Il Simple Object Access Protocol, o #soap un protocollo per lo scambio di messaggi tra componenti software. Comunemente comunica tramite il protocollo #http tramite il #metalinguaggio [[XML]] ed una struttura head-body, dove la head contiene parametri relativi instradamento, sicurezza, transazioni, mentre il body contiene il messaggio (chiamato anche carico utile o #payload).
-# SMTP
+### SMTP
+### DNS
+Domain Name System, serve ad attribuire un #dominio a degli indirizzi #IP, in modo tale da rendere più agevole la navigazione degli utenti (es. facebook.com, amazon.it).
+Il servizio si basa su dei #server DNS.
+# Porte standard
+22 - [[#SSH]]
+53 - [[#DNS]]
+80 - 
+443 - [[#HTTPS]]

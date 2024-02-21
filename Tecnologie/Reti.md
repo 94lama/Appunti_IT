@@ -28,7 +28,7 @@ ping <indirizzo_ip>
 	esere diverso di volta in volta
 Questo comando viene ripetuto all'infinito su [[Linux]] e [[iOs]], mentre solo 4 volte su [[Windows]]
 ### trace route
-Ritorna gli indirizzi dei server ( #gateway) attraverso i quali passa la trasmissione. Per Linux o iOS.
+Ritorna gli indirizzi dei server ( #gateway) in versione #IPv4, attraverso i quali passa la trasmissione. Per Linux o iOS.
 ```sh
 traceroute <indirizzo_ip>
 ```
