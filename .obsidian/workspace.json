@@ -20,18 +20,6 @@
             }
           },
           {
-            "id": "aafe991cc45ba699",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Tecnologie/Protocolli di comunicazione.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
             "id": "f818ec556d0fc2f6",
             "type": "leaf",
             "state": {
@@ -42,9 +30,21 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "603c21e907763dcc",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Linguaggi/Linux.md",
+                "mode": "source",
+                "source": false
+              }
+            }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -73,7 +73,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "```",
+                "query": "LINUX",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -90,7 +90,8 @@
               "state": {}
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -110,7 +111,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Tecnologie/Protocolli di comunicazione.md",
+                "file": "Linguaggi/Linux.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -127,7 +128,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Tecnologie/Protocolli di comunicazione.md",
+                "file": "Linguaggi/Linux.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -150,7 +151,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Tecnologie/Protocolli di comunicazione.md"
+                "file": "Linguaggi/Linux.md"
               }
             }
           },
@@ -184,13 +185,17 @@
       "workspaces:Manage workspace layouts": false
     }
   },
-  "active": "aafe991cc45ba699",
+  "active": "603c21e907763dcc",
   "lastOpenFiles": [
-    "Cybersecurity.md",
     "Tecnologie/Reti.md",
+    "Linguaggi/Linux.md",
+    "Cybersecurity.md",
+    "Tecnologie/SonarQube.md",
+    "Tecnologie/Jenkins.md",
+    "Tecnologie/git-secrets.md",
+    "Tecnologie/Protocolli di comunicazione.md",
     "Immagini/SQL Join.png",
     "Immagini/Pasted image 20230913102025.png",
-    "Tecnologie/Protocolli di comunicazione.md",
     "Immagini/Pasted image 20240219204523.png",
     "Protocollidi comunicazione.md",
     "Linguaggi/CSS.md",
@@ -198,17 +203,13 @@
     "Framework/Angular.md",
     "Tecnologie/aqua trivy.md",
     "Protocolli.md",
-    "Tecnologie/Jenkins.md",
     "Server/Terraform.md",
     "Tecnologie/Github.md",
-    "Linguaggi/Linux.md",
     "Sistemi Operativi.md",
-    "Tecnologie/SonarQube.md",
     "Tecnologie/Docker.md",
     "Jenknins.md",
     "terraform.tfstate.md",
     "Infrastructure as a Code.md",
-    "Tecnologie/git-secrets.md",
     "Metodologie",
     "Conventional commit.md",
     "Informazioni.md",

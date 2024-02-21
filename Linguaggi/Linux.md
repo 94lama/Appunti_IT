@@ -108,6 +108,8 @@ ssh <indirizzo_ip> -i <nome_utente> #prende la chiave privata
 -it #interattivo
 -v #version
 ```
+# Hardening
+
 # UNIX
 
 ```unix

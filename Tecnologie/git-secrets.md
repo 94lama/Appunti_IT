@@ -1,9 +1,10 @@
 # Introduzione
 # Installazione
-Scaricare il file dal sito e poi da Powershell:
+Clonare il repository dal [sito](https://github.com/awslabs/git-secrets.git) e poi eseguire da Powershell:
 ```Powershell
 ./install.ps1
 ```
+	NB. la directory .git-secrets/ dovrà contenere solo due file: git-secrets e git-secrets.1
 Per installarla sul nostro repository
 ```bash
 git secrets --install
