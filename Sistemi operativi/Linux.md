@@ -1,3 +1,4 @@
+Le varie versioni di Linux sono disponibili [qua]([https://distrowatch.com/](https://distrowatch.com/ "https://distrowatch.com/")).
 # Comandi
 Concatenare comandi
 ```Linux
@@ -19,14 +20,44 @@ Filtro un comando in base ad una determinata stringa
 ```shell
 <comando> | grep <stringa>
 ```
+Utilizzare il [linguaggio AWK](https://www.geeksforgeeks.org/awk-command-unixlinux-examples/) per generare dei #report
+```sh
+awk
+```
 Ripulire lo schermo
 ```sh
 clear
+```
+Modifica i permessi granulari di un file. #SUID
+```sh
+chmod <nome_file>
+```
+	chmod u-x, o-r <nome_file>
+	u: proprietario
+	g: gruppo
+	o: altri utenti (other)
+	aggiungere un permesso: +
+	rimuovere un permesso: -
+	r: read - 4
+	w: write - 2
+	x: execute - 1
+	s: SUID, ovvero Set owner User ID. Permette di far eseguire il file ad un utente (indipendentemente dai permessi assegnati) come fosse root
+	Nel caso si vogliano utilizzare i numeri, nel caso di combinazione di permessi, si possono sommare i numeri (6 per lettura e scrittura, 7 per tutti e 3)
+Modifica il proprietario di un file
+```sh
+chown <nome_utente>:<nome_gruppo> <nome_file>
 ```
 Controllare lo spazio disponibile nelle varie partizioni
 ```shell
 df -hT
 ```
+Controllare lo spazio disponibile nelle varie partizioni
+```shell
+find <directory>
+```
+	find / -perm -4000
+	-perm #cerca i file che hanno i permessi specificati
+	permessi: 1=read, 2=write, 3=execute, 4=SUID
 Rimuovere un account
 ```Shell
 gpasswd -d <nome_utente> <nome_ambiente>
@@ -41,6 +72,16 @@ Visualizzare le regole di accesso alla macchina ( #firewall)
 iptables -L -v -n
 ```
 	iptables -P INPUT DROP # cancella tutte le configurazioni  
+Visualizzare tutti i file e cartelle all'interno della directory corrente
+```shell
+ls
+```
+	-a # mostra anche i file nascosti
+	-l # mostra i dati in tabella
+	tabella: directory_1 directory_2 directory_3|permessi|utente|gruppo utente|dimensione|data di creazione|nome del file 
+	categorie utenti: proprietario, gruppo del proprietario, altri
+	directory può essere "d" se directory o "-"
+	permessi: r=read, w=write, x=execute, -=nessun perm
 Controllare lo spazio utilizzato dalle varie partizioni
 ```shell
 lsblk
@@ -57,10 +98,12 @@ Eseguire un file con [[Node.js]]
 ```Bash
 node <nome file>.js 
 ```
-Aprire una #shell interattiva in [[Php]]
+Aprire una #shell in [[Php]]
 ```Shell
-php -a
+php
 ```
+	OPZIONI:
+	-a # Apre la shell in maniera interattiva
 Vedere l'albero dei processi
 ```shell
 ps aux
@@ -68,7 +111,12 @@ ps aux
 Stampo il percorso della cartella in cui mi trovo
 ```shell
 pwd
-	```
+```
+Apro un terminale [[Python]]
+```shell
+python
+```
+	Il file ha permessi -rwsr-xr-x
 Interagire con un database remoto
 ```shell
 redis-sli -h <nome_server>
@@ -77,10 +125,8 @@ Rimuovere uno o più elementi
 ```sh
 rm <nome_file>
 ```
-Rimuovere uno o più elementi con forzatura
-```sh
-rm -rf <nome_file>
-```
+	OPZIONI:
+	-rf # Forza la rimozione
 Connettersi ad un'altra macchina da remoto tramite protocollo #ssh 
 ```sh
 ssh <indirizzo_ip> -i <chiave>
@@ -93,15 +139,22 @@ Effettuare un comando come #superuser (SUperuser DO). Effettuabile solo se l'ute
 ```Shell
 sudo <comando>
 ```
-Aggiungere un user ad un gruppo (permessi)
-```shell
-sudo -aG <gruppo> <user>
-```
+	OPZIONI:
+	-aG <gruppop> <user> # Aggiunge l'utente al gruppo-
 Esegue le funzionalità #sysctl
 ```shell
 sysctl
 ```
 	-p # riavvia il SO
+Aggiungo un nuovo utente (richiede permessi root)
+```sh
+useradd <nome_utente>
+```
+	-c #
+	-d # assegna una cartella specifica
+	-e # inserisce una data di "scadenza" all'utente
+	-p # 
+	useradd <utente> -p # inserisce l'utente su /etc/passwd
 Verificare l'utente con cui si sta operando
 ```Shell
 whoami
@@ -139,7 +192,7 @@ man <comando> # Ritorna i manuale del comando selezionato
 top # mostra i processi attivi nella macchina
 htop # come top, ma con una barra orizzontale per l'utilizzo della CPU
 ```
-## kali-linux
+## [kali-linux](https://www.kali.org/get-kali/#kali-installer-images)
 E' una versione di #linux molto utilizzata per #penetration-test e #forensic. La distribuzione contiene oltre 600 tool (soprattutto da riga di comando), alcune delle quali utili per effettuare attacchi informatici. L'utente di base si chiama **kali** e i comandi sono in base #unix (utilizzato, ad esempio, anche in #git-bash) .
 ```sh
 DEFAULT SETTINGS
@@ -164,6 +217,7 @@ password: kali
 |--host.deny # non presente di default
 |--ssh
 |---sshd_config # gestisce i permessi per effettuare chiamate in #ssh
+|--passwd
 |-home #contiene tutti gli utenti locali
 |-dev #contiene i file necessari per far funzionare i dispositivi
 |-lib #contiene i file di sistema
@@ -225,6 +279,12 @@ Permette di impostare i tasti per attivare le combinazioni [sysrq](https://linux
 	s - Cerca di fare il sync di tutti i filesystem montati
 	...
 
+##### passwd
+```passwd
+root:0:0:
+<nome_utente>:a:b:c:<nome>,,,:<percorso>:<percorso>
+```
+	a: permessi_root (0 si, 1 no) #rivedere
 ### Comandi extra
 ```sh
 netstat -rn # fornisce #gateway
@@ -249,3 +309,37 @@ Software utilizzato per effettuare #brute-force su siti web.
 Ci sono dei software che permettono di inviare dei [Three-way-handshake](<Protocolli di comunicazione#Three-way-handshake) incompleti ad una macchina bersaglio. La macchina risponderà con il secondo passaggio del processo. Nel caso le richieste vengano effettuate in grande quantità, si effettua un attacco chiamato #syn-flow ed il risultato è il down del sistema e la conseguente interruzione del servizio.
 #### Soluzione
 Impostare il parametro net.ipv4.tcp_syncookies = 1 nel file [[#sysctl.conf]]
+### #privilege-escalation
+#### Accesso a file sensibili per leggere dati di accesso
+Durante la creazione di server in Linux (così come tutti gli altri #OS), si deve porre particolare attenzione alla creazione e gestione degli utenti.
+Particolarmente sensibile è il file **/etc/passwd**, poiché contiene, ad esempio, i dati di tutti gli utenti che hanno accesso alla macchina.
+```sh
+cat /etc/passwd |awk -F: '($3 = 0) {print $1}'
+```
+	Visualizzare i nomi di tutti gli utenti con permessi root
+#### Tramite Python
+Apro il terminale di Python
+```sh
+python
+```
+Importo e accedo ad un nuovo #OS 
+```Python
+import os
+os.execl("/bin/bash", "bash", "-p")
+```
+Nel terminale sono nella shell. Nel terminale sono l'utente **root**
+```sh
+whoami
+```
+	Risultato: root
+##### Soluzione
+Il terminale Python ha il #SUID preimpostato. Quindi, lo devo quindi rimuovere.
+```sh
+chmod u-s /usr/bin/python3.11
+```
+	La versione di python installata può essere vista tramite python --version
+In questo modo l'utente potrà accedere al terminale Python, ma con i permessi prestabiliti dall'amministratore.
+### [Code scanning](Cybersecurity#SCA)
+
+# Annotazioni
+- Le distribuzioni di Linux, di solito, vengono provviste nativamente di [[Python]]

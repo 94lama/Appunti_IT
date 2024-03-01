@@ -75,3 +75,5 @@ pm.expect.(<valore>).not.is.undefined;
 ```
 
 ## [Cheerio](https://cheerio.js.org/)
+## [Retire.js](https://github.com/RetireJS/retire.js)
+Code scanning per applicazioni in JavaScript, con la possibilità di utilizzare un'estensione per [[Google Chrome]], [[Opera]].

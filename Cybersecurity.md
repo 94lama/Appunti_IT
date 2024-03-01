@@ -140,7 +140,6 @@ Il processo di implementazione del #ASVS, si effettua in vari passaggi:
 # Secure coding
 # Hardening
 # Front-end
-
 ## JavaScript
 ### #xss
 #### eval()
@@ -676,17 +675,110 @@ Si può ovviare al problema utilizzando lo #strict-comparison-operator ===
 La #broken-oauth è una particolare tipologia di #broken-authentication, che avviene qualora si utilizzi un processo di #oauth per effettuare il login.
 # Strumenti di analisi
 ## Software
-###  Static application security testing #SAST
+###  Static application security testing
+#SAST
 [[SonarQube]]
 Software che effettuano un'analisi statica del codice, effettuano #code-smell (verifica l'utilizzo anomalo di alcuni elementi)
-### Dynamic application security testing #DAST
+### Dynamic application security testing
+#DAST
 [[Zap]]
 Verificano la presenza di vulnerabilità tentando degli #attacco. Per questo motivo è consigliato creare un'ambiente dedicato al testing per questi tool.
-### Software composition analysis #SCA
+### Software composition analysis
+#SCA
 [[snyk]], [[aqua trivy]]
 Effettuano analisi delle #dependency del codice e/o dei container, tramite verifica nel CVE di vulnerabilità e patch.
-## Commit scanning
+#### [Dependency check](https://github.com/jeremylong/DependencyCheck)
+Applicativo open source, realizzato dall' #OWSAP, che effettua una #SCA dell'applicazione e crea un file [[HTML]] con il report.
+##### Installazione
+Scarico l'ultima versione
+```sh
+VERSION=$(curl -s https://jeremylong.github.io/DependencyCheck/current.txt)
+curl -Ls "https://github.com/jeremylong/DependencyCheck/releases/download/v$VERSION/dependency-check-$VERSION-release.zip" --output dependency-check.zip
+```
+Su windows:
+```sh
+.\bin\dependency-check.bat -h
+.\bin\dependency-check.bat --out . --scan [path to jar files to be scanned]
+```
+
+## Code scanning
+Per evitare errori, è possibile effettuare una scansione del codice sorgente. Questa operazione può essere effettuata seguendo 4 metodologie principali:
+- #SAST - Statica quando la scansione avviene senza eseguire il codice (tramite l'utilizzo di modelli di codice)
+- #DAST - Dinamica se richiede l'esecuzione del codice tramite l'esecuzione di attacchi noti e #fuzzing, ovvero l'utilizzo di input non validi)
+- #IAST - Interattiva se viene effettuata durante i vari stadi dell'applicazione
+- #SCA - Software Composition Analysis, ovvero vengono analizzate le dipendenze dell'applicazione.
+Avendo esse diversi punti di fora e debolezze, è consigliato sesso effettuare più tipi di testing (es. #SAST + #DAST).
+### SAST
+Static Analysis Security Testing, ovvero una scansione di un codice sorgente ( #white-box-testing) per rilevare vulnerabilità (tramite ricerca di pattern noti) ed evidenziarle. Queste metodologie possono riportare come risultato dell'analisi del **falsi positivi**, che potrebbero falsarne la veridicità in maniera più o meno grave.
+#### AST
+L'Abstract Syntax Tree #AST è una #data-structure che rappresenta la struttura del programma (paragonabile al #DOM), utilizzando un linguaggio formale
+##### Software
+- [[Semgrep]]
+
+### DAST
+Dynamic Analysis Security Testing, nota anche come #black-box-testing, utilizza strumenti per riprodurre attacchi noti e #fuzzing  per rilevare la presenza di vulnerabilità in stato di esecuzione dell'applicazione.
+#### Software
+##### [Dastardly](Burp#Dastardly)
+Strumento gratuito nella [versione community](https://github.com/PortSwigger/dastardly-github-action) (con funzionalità ridotte) per effettuare #penetration-test per analizzare 7 problemi di sicurezza.
+- #reflected-xss
+- #CORS
+- Dipendenze JavaScript vulnerabili
+- Content-type non specificato
+- Multiplo content-type specificato
+- 
+##### [[Zap]]
+Tool #open-source utilizzato per effettuare #penetration-test 
+### IAST
+Interactive Application Security Testing, va a unire le possibilità dei DAST e dei SAST. L'obbiettivo è fornire dei test di sicurezza all'interno dell'applicazione stessa, da utilizzare in fase di esecuzione, in qualunque fase di sviluppo.
+Gli strumenti #IAST vengono selezionati tenendo a mente:
+- Linguaggi di sviluppo utilizzati dal team
+- Ambito della codifica e le vulnerabilità operative coperte dallo strumento
+- Prestazioni veloci e basso tasso di falsi positivi
+- Supporto ai principali standard di sicurezza
+- Facilità di implementazione e integrazione con i flussi di lavoro di sviluppo esistenti e i set di strumenti #CI/CD.
+E' da considerare il fatto che questi strumenti possono influire sul corretto funzionamento della mia applicazione.
+#### Software
+- [[Veracode]]
+- [[Checkmarx]]
+- [[Contrast]]
+- [[Synopsys]]
+- [[Micro Focus Fortify]]
+- [[Rapid]]
+- [[Qualys]]
+- [[DongTai IAST]] ( #open-source )
+### SCA
+Software Composition Analysis, ovvero verifica la presenza di vulnerabilità note in tutte le #dependency del progetto (nella versione utilizzata). Un classico esempio di #SCA è il comando npm audit di [[Node.js]]:
+```sh
+npm audit
+```
+Un metodo per evitare l'utilizzo di repository esterne è l'utilizzo del cosiddetto #monorepo, ovvero un unico #repository utilizzato per tutti gli applicativi realizzati dall'azienda. Il problema principale di questo sistema però è il consumo di tempo necessario per aggiornare e mantenere il repository stesso.
+utilizzino software #open-source, si incorre a potenziali rischi, tra i quali:
+- Presenza di #vulnerabilità (scoperte ed incluse nel #CVE, o ancora non scoperte)
+- Licenza non adatta alla vendita del software finale
+#### Engine
+1. vedi slides
+2. Creazione di un elenco
+3. Verifica in #database per la presenza di #CVE note, delle licenze d'uso
+4. I risultati vengono resi disponibili agli utenti finali utilizzando diversi formati
+
+| Pro                             | Contro           |
+| ------------------------------- | ---------------- |
+| Facilità di automazione         | Alta complessità |
+| Facile integrazione con l' #IDE |                  |
+Vd slides per completare la tabella
+#### Software
+- [[Azul]]
+- [[Snyk]]
+- [[Quiet AI]]
+- [[Retire.js]]
+- [[OWASP Dependency Check]]
+
+### Commit scanning
 Permettono di evitare i #push contenenti #secret (dati sensibili, come password del database). [[git-secrets]]
+#### Programmi
+- [[git-secrets]]
+- [[Burp#Sensitive discover]]
+- [[gitleaks]]
 ## Regression test
 Il #regression-test può essere fatto con [[Postman]], [[Python]] e consiste nell'analizzare il contenuto della #response ad una chiamata #http 
 
@@ -700,12 +792,19 @@ Il #regression-test può essere fatto con [[Postman]], [[Python]] e consiste nel
 - Copyright
 - Privacy
 - Privacy Policy
-
+### ISO/IEC 27001
+Si occupa della sicurezza sotto un punto di vista olistico.
+### ISO/IEC 27034
+Si concentra sul lato #software
 # Tips
 - Tutte le rotte che hanno azione distruttiva devono essere trattati tramite form
 - siti come https:// ---continua
 - L'utilizzo di **npm audit** permette di tenere sotto controllo lo stato delle dependencies  tramite #audit
-# Glossario
+- Per effettuare #test è preferibile utilizzare un container con #juice-shop, scaricabile [qua](https://github.com/juice-shop/juice-shop?tab=readme-ov-file) ```
+	```sh
+	docker pull bkimminich/juice-shop && docker run --rm -p 3000:3000 bkimminich/juice-shop
+	```
+# [[Glossario]]
 - #brute-force - reiterazione automatica di decriptazione di dati protetti tramite programmi o siti appositi (tipo hashcat). Di solito viene usato su password basilari (rockyou.txt)
 - #sanificare - validazione dei dati ricavati tramite input
 - #prepared-statement - 

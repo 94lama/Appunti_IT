@@ -8,7 +8,7 @@
         "type": "tabs",
         "children": [
           {
-            "id": "9d3abdd4136c8fab",
+            "id": "1f835357acd29703",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -20,43 +20,42 @@
             }
           },
           {
-            "id": "f818ec556d0fc2f6",
+            "id": "27a3d5c0fa9d16e5",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Tecnologie/Reti.md",
+                "file": "Glossario.md",
                 "mode": "source",
                 "source": false
               }
             }
           },
           {
-            "id": "6567228c3fc64882",
+            "id": "69c49432f936bf91",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Tecnologie/Protocolli di comunicazione.md",
+                "file": "Linguaggi/HTML.md",
                 "mode": "source",
                 "source": false
               }
             }
           },
           {
-            "id": "603c21e907763dcc",
+            "id": "e73ac5209ea88eaa",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Linguaggi/Linux.md",
+                "file": "Sistemi operativi/Linux.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
-        ],
-        "currentTab": 2
+        ]
       }
     ],
     "direction": "vertical"
@@ -85,7 +84,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "endpoint",
+                "query": "linux",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -122,7 +121,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Tecnologie/Protocolli di comunicazione.md",
+                "file": "Cybersecurity.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -139,7 +138,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Tecnologie/Protocolli di comunicazione.md",
+                "file": "Cybersecurity.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -162,7 +161,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Tecnologie/Protocolli di comunicazione.md"
+                "file": "Cybersecurity.md"
               }
             }
           },
@@ -196,40 +195,42 @@
       "workspaces:Manage workspace layouts": false
     }
   },
-  "active": "6567228c3fc64882",
+  "active": "1f835357acd29703",
   "lastOpenFiles": [
-    "Linguaggi/Linux.md",
-    "Tecnologie/Protocolli di comunicazione.md",
+    "Burp.md",
+    "Cybersecurity.md",
+    "Glossario.md",
+    "Linguaggi/HTML.md",
+    "OWASP Dependency Check.md",
+    "Tecnologie/Zap.md",
+    "Sistemi operativi/Linux.md",
+    "Sistemi operativi/Windows.md",
+    "Tecnologie/Docker.md",
+    "Semgrep.md",
+    "Tecnologie/SonarQube.md",
+    "Tecnologie/Github.md",
     "Tecnologie/Reti.md",
+    "Linguaggi/JavaScript.md",
+    "Browser/Google Chrome.md",
+    "Browser",
+    "Framework/Node.js.md",
+    "Sistemi operativi",
+    "Linguaggi/Python.md",
+    "Server/Jenkins.md",
+    "Tecnologie/Protocolli di comunicazione.md",
     "Protocollidi comunicazione.md",
     "Protocolli.md",
     "Informazioni.md",
     "Framework/React.md",
-    "Cybersecurity.md",
-    "Tecnologie/SonarQube.md",
-    "Tecnologie/Jenkins.md",
     "Tecnologie/git-secrets.md",
     "Immagini/SQL Join.png",
     "Immagini/Pasted image 20230913102025.png",
     "Immagini/Pasted image 20240219204523.png",
     "Linguaggi/CSS.md",
     "Server/AWS.md",
-    "Framework/Angular.md",
-    "Tecnologie/aqua trivy.md",
-    "Server/Terraform.md",
-    "Tecnologie/Github.md",
-    "Sistemi Operativi.md",
-    "Tecnologie/Docker.md",
-    "Jenknins.md",
-    "terraform.tfstate.md",
-    "Infrastructure as a Code.md",
     "Metodologie",
-    "Conventional commit.md",
     "Database",
     "Server",
-    "[Linux].md",
-    "Metodologie/Object-Oriented Program.md",
-    "Tecnologie/Zap.md",
     "Immagini/Pasted image 20240108202659.png",
     "Informatica/Immagini/Pasted image 20231207171620.png",
     "Informatica/Tecnologie",
@@ -239,8 +240,6 @@
     "Informatica/Immagini/Pasted image 20240108202659.png",
     "Informatica/Immagini/Pasted image 20230913102025.png",
     "Informatica/Immagini",
-    "Informatica",
-    "Nuova cartella",
     "Immagini/Pasted image 20231207171504.png",
     "Untitled.canvas",
     "Untitled 1.canvas"

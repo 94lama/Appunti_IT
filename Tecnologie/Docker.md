@@ -146,9 +146,16 @@ Arrestare il container selezionato
 ```Docker
 docker stop nome_container o id_container
 ```
-Avviare in container selezionato nella porta selezionata
+Avviare un container
 ```Docker
-docker run -it <nome_container> o <id_container> <continua>
+docker run
+```
+	OPZIONI:
+	-it
+	--rm : rimuove il container dopo averlo eseguito
+Avviare il container selezionato nella porta selezionata
+```Docker
+docker run -it <nome_container> oppure <id_container> <continua>
 ```
 Avviare un container con i privilegi root
 ```shell
@@ -219,3 +226,6 @@ Nel caso non si utilizzino i #secret per creare le password degli account, prefe
 ## #exposed-environment
 Nel caso non si usino i #secret, è possibile che si crei una falla di protezione del sistema (sfruttabile, ad esempio, tramite il comando da shell **sh aux**).
 ## Server-Side Request Forgery #SSRF 
+
+# Link utili
+- https://github.com/opsxcq/docker-vulnerable-dvwa

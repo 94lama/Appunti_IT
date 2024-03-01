@@ -6,7 +6,11 @@ git clone <url>
 ```
 Inizializzare un progetto esistente su una repository esistente
 ```shell
-git add remote origin < 
+git add remote origin <nome_branch>
+```
+Per tornare all''ultimo punto stabile della stessa #branch attuale 
+```sh
+git checkout -- .
 ```
 ## pull
 ## commit
@@ -29,12 +33,12 @@ git merge --no-ff
 ## Branches
 Le #branch sono delle ramificazioni del progetto.
 
-| nome | utilizzo |
-| --- | ----- |
-| main | programma in fase di produzione |
-| release | programma in fase di staging pronto al #deploy |
-| development | codice in fase di sviluppo |
-| features | indica la singola feature da implementare |
+| nome        | utilizzo                                       |
+| ----------- | ---------------------------------------------- |
+| main        | programma in fase di produzione                |
+| release     | programma in fase di staging pronto al #deploy |
+| development | codice in fase di sviluppo                     |
+| features    | indica la singola feature da implementare      |
 # Deploy keys
 Contiene tutte le chiavi utilzzate per effettuare i deploy
 # Conventional commits
