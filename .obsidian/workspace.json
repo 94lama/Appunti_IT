@@ -8,12 +8,24 @@
         "type": "tabs",
         "children": [
           {
-            "id": "899640e87fd750eb",
+            "id": "1f835357acd29703",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Tecnologie/Docker.md",
+                "file": "Python.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "69c49432f936bf91",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Linguaggi/HTML.md",
                 "mode": "source",
                 "source": false
               }
@@ -48,7 +60,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "tag:#OOP",
+                "query": "python",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -65,7 +77,8 @@
               "state": {}
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -85,7 +98,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Tecnologie/Docker.md",
+                "file": "Python.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +115,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Tecnologie/Docker.md",
+                "file": "Python.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +138,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Tecnologie/Docker.md"
+                "file": "Python.md"
               }
             }
           },
@@ -159,35 +172,45 @@
       "workspaces:Manage workspace layouts": false
     }
   },
-  "active": "899640e87fd750eb",
+  "active": "1f835357acd29703",
   "lastOpenFiles": [
-    "Postman.md",
-    "Tecnologie/Metodologia Agile.md",
-    "Waterfall.md",
-    "Linguaggi/JavaScript.md",
-    "Linguaggi/Object-Oriented Program.md",
-    "Linguaggi/Php.md",
-    "Linguaggi/CSS.md",
-    "Framework/Node.js.md",
     "Cybersecurity.md",
+    "Python.md",
+    "Linguaggi/Object-Oriented Program.md",
+    "Waterfall.md",
+    "Tecnologie/Protocollo di comunicazione.md",
+    "Tecnologie/MySQL.md",
+    "Tecnologie/Metodologia Agile.md",
+    "Tecnologie/Linux.md",
+    "Tecnologie/Database.md",
+    "Postman.md",
+    "Immagini/Pasted image 20231207171620.png",
+    "Burp.md",
+    "Glossario.md",
+    "Linguaggi/HTML.md",
+    "OWASP Dependency Check.md",
+    "Tecnologie/Zap.md",
+    "Sistemi operativi/Linux.md",
+    "Sistemi operativi/Windows.md",
+    "Tecnologie/Docker.md",
+    "Semgrep.md",
+    "Tecnologie/SonarQube.md",
     "Tecnologie/Github.md",
-    "Comes/COMES - COmputo Metrico EStimativo.md",
-    "Comes/COMES - COmputo Metrico EStimativo 1.md",
-    "Informatica/Linguaggi/JavaScript.md",
-    "Informatica/Framework/Node.js.md",
-    "Informatica/Cybersecurity.md",
-    "Informatica/Framework/Angular.md",
-    "Informatica/Linguaggi/Php.md",
-    "Informatica/Tecnologie/Internet.md",
-    "Informatica/Framework/Django.md",
-    "Informatica/Framework/Laravel.md",
-    "Informatica/Framework/Vue.js.md",
-    "Informatica/Framework/React.md",
-    "Informatica/Tecnologie/Metodologia Agile.md",
-    "Informatica/Tecnologie/Protocollo di comunicazione.md",
-    "Informatica/Tecnologie/MySQL.md",
+    "Tecnologie/Reti.md",
+    "Linguaggi/JavaScript.md",
+    "Browser/Google Chrome.md",
+    "Browser",
+    "Framework/Node.js.md",
+    "Sistemi operativi",
+    "Linguaggi/Python.md",
+    "Immagini/SQL Join.png",
+    "Immagini/Pasted image 20230913102025.png",
+    "Immagini/Pasted image 20240219204523.png",
+    "Metodologie",
+    "Database",
+    "Server",
+    "Immagini/Pasted image 20240108202659.png",
     "Informatica/Immagini/Pasted image 20231207171620.png",
-    "Informatica/Tecnologie/Traduzione.md",
     "Informatica/Tecnologie",
     "Informatica/Linguaggi",
     "Linguaggi/Tecnologie",
@@ -195,15 +218,7 @@
     "Informatica/Immagini/Pasted image 20240108202659.png",
     "Informatica/Immagini/Pasted image 20230913102025.png",
     "Informatica/Immagini",
-    "Informatica",
-    "Nuova cartella",
-    "Immagini/Pasted image 20231207171620.png",
     "Immagini/Pasted image 20231207171504.png",
-    "Immagini/Pasted image 20240108202659.png",
-    "Immagini/Pasted image 20230913102025.png",
-    "Immagini",
-    "Informatica/Tecnologie",
-    "Framework",
     "Untitled.canvas",
     "Untitled 1.canvas"
   ]
