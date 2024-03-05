@@ -35,11 +35,11 @@ Si devono creare almeno due controllers: uno per i file pubblici ed uno per quel
 All'interno del file si possono ridefinire le funzioni di visualizzazione delle pagine:
 
 	 ---
-# Comandi da #terminal 
+# Comandi da #terminale 
 ### [Composer](https://getcomposer.org/)
 E' un gestore di pacchetti ( #package-manager ) per il linguaggio #PhP, La lista delle #librerie è indicata su **composer.json**  
 ### Artisan
-I comandi sono da inserire nel #terminal con il prefisso "php" (es. php artisan serve).
+I comandi sono da inserire nel #terminale con il prefisso "php" (es. php artisan serve).
 Laravel lavora principalmente per #array #associativo 
 
 |comando|azione|

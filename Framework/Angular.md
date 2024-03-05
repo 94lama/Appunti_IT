@@ -30,7 +30,7 @@ Angular è un #framework #front-end , sviluppato da Google e basato su [[TypeScr
 # Comandi
 ## Terminale
 Creazione di un componente:
-```Bash
+```sh
 ng generate component <nome componente>
 ```
 Creazione di un servizio:
@@ -53,12 +53,11 @@ Sono preceduti dal simbolo **@**, e sono utilizzati per definire i componenti
 @Component({
 	selector: 'app.root',
 	standalone: true
-	
 })
 ```
 
 ## Pipe
 Una Pipe è un metodo di trasformazione da un input ad un risultato
 ```Typescript
-<p>Testo | uppercase
+<p>Testo | uppercase </p>
 ```

@@ -127,7 +127,6 @@ Il processo di implementazione del #ASVS, si effettua in vari passaggi:
 # Secure coding
 # Hardening
 # Front-end
-
 ## JavaScript
 ### #xss
 #### eval()
@@ -135,8 +134,8 @@ E' un metodo che permette di inserire strighe di codice all'interno dell'operazi
 ```Javascript
 const injectedCode = document.location.hash.replace("#", "");
 eval(injectedCode)
-// inserendo una stringa di codice nell'URI, l'eval(injectedCode) permette di eseguire il codice 
 ```
+	// inserendo una stringa di codice nell'URI, l'eval(injectedCode) permette di eseguire il codice 
 #### postMessage()
 Permette di collegare due o più pagine
  ```Javascript
@@ -189,11 +188,13 @@ Un altra tipologia di Redressing è attuabile tramite auto-compiler di HTML, CSS
 #### postMessage(message, origin)
 Nel caso il metodo sia compilato in maniera non corretta, l'utente potenzialmente invia il messaggio anche ad utenti terzi:
 ```Javascript
-window.opener.postMessage(message, '*'); //in questo caso l'utente invia il messaggio a tutti i server che stanno ascoltando
+window.opener.postMessage(message, '*');
 ```
+	in questo caso l'utente invia il messaggio a tutti i server che stanno ascoltando
 ``` JavaScript
-window.opener.postMesasge(message, "indirizzo dell'origine"); //in questo caso l'utente invia il messaggio solo al server origine 
+window.opener.postMesasge(message, "indirizzo dell'origine"); 
 ```
+	in questo caso l'utente invia il messaggio solo al server origine 
 ### #prototype-pollution
 Attacco che permette di modificare il metodo **__proto__** dell'oggetto base di JavaScript per eseguire velocemente comandi tramite metodo **eval()**. Sfruttando questo stratagemma è possibile eseguire attacchi #xss ed è inclusa nella categoria #insecure-design
 ### #CSS-injection
@@ -204,7 +205,39 @@ Tramite script #JavaScript si modifica lo style della pagina. Questo tipo di att
 ```
 Con questo attacco, per esempio, si può nascondere la #UI all'utente bersaglio, lasciandogli solo un input con un label con una richiesta di inserimento dati per sbloccare il normale funzionamento del sito (i dati inseriti saranno leggibili dall'attaccante)
 # DevSecOps Pipeline
+## Introduzione
+Il #DevOps è una metodologia di lavoro, utilizzata per ridurre i tempi di distribuzione attraverso l'automazione, fornire un #feedback continuo, migliorare la collaborazione del team e le capacità di affrontare il rilevamento degli errori
 ## Software Development Life Cycle ( #sdlc)
+### CI/CD
+Per #CI/CD si intende Continuous Integration and Continuous Devliery. Il CI/CD è una metodologia utilizzata per aumentare la velocità, ridurre gli errori e permettere di standardizzare i processi.
+Il #deployment di norma è effettuata da una singola persona, dopo che il prodotto ha raggiunto un livello di avanzamento apprezzabile (ad esempio ha raggiunto determinati obbettivi) ed è stato oggetto di verifica.
+### Software utilizzati
+#### Code
+I software sono utilizzati per il #versioning dell'applicazione. Questi software permettono di condividere il lavoro tramite creazione di più #branch, ovvero ramificazioni del progetto. 
+- [[GitHub]]
+- Git
+- Subversion
+- GitLab
+```Branching
+|- master
+|-- develop
+|--- feature_1
+|--- feature_2
+```
+#### Container
+Permettono di progettare in maniera riproducibile, senza la necessità di controllare la conformità delle varie #dependency, scalabile 
+- [[Docker]]
+- podman
+#### Pipeline
+Servono ad automatizzare le procedure.
+- [[Jenkins]]
+- Travis CI
+- GitHub Actions
+#### Infrastructure
+Può essere di tipo **On premise** o **cloud**, dove i secondi permettono di avere potenza di calcolo, spazi di archiviazione e servizi di business logic adattabili ed un costo variabile in base all'uso effettivo.
+- [[AWS]]
+- Azure
+- Google Cloud Platform
 ### Design
 #### Threat Modeling
 ![[Pasted image 20240108202659.png]]
@@ -236,7 +269,7 @@ Una #sandbox (tipo [[Docker]])
 - Analizzare l'applicazione e capire quali siano le componenti che potrebbero ricevere un #attacco (brainstorming)
 - Dare un punteggio agli asset ( #dati ) in base alla loro importanza
 - Definire le priorità per le quali allocare risorse
-## Fasi
+### Fasi
 Il #threat-modeling deve essere effettuato durante tutto il #sdlc 
 - Planning
 - Analysis
@@ -245,7 +278,21 @@ Il #threat-modeling deve essere effettuato durante tutto il #sdlc
 - Maintenance
 Si effettua seguendo delle fasi specifiche:
 1. --
-## Terminologia
+## CI-CD OWASP top 10
+### 1 - Insufficient Flow Control Mechanisms
+Nel caso di controlli insufficienti, è possibile che degli automatismi permettano di effettuare un #push direttamente nella branch **main**, incorrendo così in potenziali #merge, oppure è possibile, nel caso il #repository fosse pubblico, che un utente esterno riesca ad effettuare un push non controllato.
+### 2 - Inadequate Identity and Access Management
+Avviene quando alcuni utenti possiedono dei permessi troppo elevati (vale anche nel caso in cui alcuni utenti lascino il progetto e l'account non venga eliminato), o quando non viene gestito in maniera corretta il processo di iscrizione
+### 3 - Dependency Chain Abuse
+Avviene quando si scaricano #dependency non ufficiali. Per risolvere il problema, conviene sempre controllare i #chacksum (firma digitale del pacchetto), evitare di scaricare da internet se non dai siti ufficiali ed utilizzare in #pinning, ovvero specificando la versione specifica da utilizzare.
+### 4 - Poisoned Pipeline Execution #PPE
+Avviene quando un utente malevolo ottiene l'accesso ad una #pipeline presente online e la modifica.
+### 5 - Insufficient #PBAC (Pipeline-Based Access Controls)
+### 6 - Insufficient Credential Hygiene
+Avviene quando sono presenti dei #secret in chiaro nella #pipeline. E' inoltre preferibile ruotare le credenziali in maniera costante (almeno 2 volte l'anno).
+### 7 - Insecure System Configuration
+### 8 - Improper Artifact Integrity Validation
+Avviene quando non esiste un sistema di firma dei #commit. In questo caso è possibile che un attaccante riesca ad accedere all'account di uno sviluppatore ed immettere del codice malevolo all'interno del nostro progetto.
 ## Metodologie
 ### Modellare i dati
 #### Data flow diagram
@@ -273,7 +320,7 @@ Acronimo delle minacce su cui va ad operare:
 #repudiation: Si nega l'aver effettuato una determinata azione
 #information-disclosure: Categoria che copre le violazioni di #privacy o fughe di dati
 #DoS: Mira ad interrompere il normale funzionamento di un sito
-#elevation-of-privilege: L'attaccante accede con un profilo base e ottiene livelli di accesso superiori
+#privilege-escalation : L'attaccante accede con un profilo base e ottiene livelli di accesso superiori
 E' il sistema con più ampia superficie di copertura per le potenziali #minaccia e/o #vulnerabilità.
 Alcune criticità di questa metodologia sono:
 - La necessità di avere delle conoscenze approfondite sulle minacce e vulnerabilità, su cui applicare il metodo
@@ -569,7 +616,9 @@ POST http://www.vulnerableapp.com/xml HTTP/1.1<?xml version="1.0" encoding="ISO-
 
 ### Prevenzione
 - Disabilitando la funzione Document Type Definition ( #DTD)
-	``` disable_external_entities(true)```
+	```
+	 disable_external_entities(true)
+	 ```
 - Gestire dati in formati semplici (es. #JSON )
 - Verificare in ambiente di #testing che le chiamate #xml abbiano le dovute restrizioni
 ## CSRF Attack
@@ -611,7 +660,113 @@ var_dump("password" == 0); //true
 Si può ovviare al problema utilizzando lo #strict-comparison-operator ===
 ## Borken OAuth
 La #broken-oauth è una particolare tipologia di #broken-authentication, che avviene qualora si utilizzi un processo di #oauth per effettuare il login.
-# Regression test
+# Strumenti di analisi
+## Software
+###  Static application security testing
+#SAST
+[[SonarQube]]
+Software che effettuano un'analisi statica del codice, effettuano #code-smell (verifica l'utilizzo anomalo di alcuni elementi)
+### Dynamic application security testing
+#DAST
+[[Zap]]
+Verificano la presenza di vulnerabilità tentando degli #attacco. Per questo motivo è consigliato creare un'ambiente dedicato al testing per questi tool.
+### Software composition analysis
+#SCA
+[[snyk]], [[aqua trivy]]
+Effettuano analisi delle #dependency del codice e/o dei container, tramite verifica nel CVE di vulnerabilità e patch.
+#### [Dependency check](https://github.com/jeremylong/DependencyCheck)
+Applicativo open source, realizzato dall' #OWSAP, che effettua una #SCA dell'applicazione e crea un file [[HTML]] con il report.
+##### Installazione
+Scarico l'ultima versione
+```sh
+VERSION=$(curl -s https://jeremylong.github.io/DependencyCheck/current.txt)
+curl -Ls "https://github.com/jeremylong/DependencyCheck/releases/download/v$VERSION/dependency-check-$VERSION-release.zip" --output dependency-check.zip
+```
+Su windows:
+```sh
+.\bin\dependency-check.bat -h
+.\bin\dependency-check.bat --out . --scan [path to jar files to be scanned]
+```
+
+## Code scanning
+Per evitare errori, è possibile effettuare una scansione del codice sorgente. Questa operazione può essere effettuata seguendo 4 metodologie principali:
+- #SAST - Statica quando la scansione avviene senza eseguire il codice (tramite l'utilizzo di modelli di codice)
+- #DAST - Dinamica se richiede l'esecuzione del codice tramite l'esecuzione di attacchi noti e #fuzzing, ovvero l'utilizzo di input non validi)
+- #IAST - Interattiva se viene effettuata durante i vari stadi dell'applicazione
+- #SCA - Software Composition Analysis, ovvero vengono analizzate le dipendenze dell'applicazione.
+Avendo esse diversi punti di fora e debolezze, è consigliato sesso effettuare più tipi di testing (es. #SAST + #DAST).
+### SAST
+Static Analysis Security Testing, ovvero una scansione di un codice sorgente ( #white-box-testing) per rilevare vulnerabilità (tramite ricerca di pattern noti) ed evidenziarle. Queste metodologie possono riportare come risultato dell'analisi del **falsi positivi**, che potrebbero falsarne la veridicità in maniera più o meno grave.
+#### AST
+L'Abstract Syntax Tree #AST è una #data-structure che rappresenta la struttura del programma (paragonabile al #DOM), utilizzando un linguaggio formale
+##### Software
+- [[Semgrep]]
+
+### DAST
+Dynamic Analysis Security Testing, nota anche come #black-box-testing, utilizza strumenti per riprodurre attacchi noti e #fuzzing  per rilevare la presenza di vulnerabilità in stato di esecuzione dell'applicazione.
+#### Software
+##### [Dastardly](Burp#Dastardly)
+Strumento gratuito nella [versione community](https://github.com/PortSwigger/dastardly-github-action) (con funzionalità ridotte) per effettuare #penetration-test per analizzare 7 problemi di sicurezza.
+- #reflected-xss
+- #CORS
+- Dipendenze JavaScript vulnerabili
+- Content-type non specificato
+- Multiplo content-type specificato
+- 
+##### [[Zap]]
+Tool #open-source utilizzato per effettuare #penetration-test 
+### IAST
+Interactive Application Security Testing, va a unire le possibilità dei DAST e dei SAST. L'obbiettivo è fornire dei test di sicurezza all'interno dell'applicazione stessa, da utilizzare in fase di esecuzione, in qualunque fase di sviluppo.
+Gli strumenti #IAST vengono selezionati tenendo a mente:
+- Linguaggi di sviluppo utilizzati dal team
+- Ambito della codifica e le vulnerabilità operative coperte dallo strumento
+- Prestazioni veloci e basso tasso di falsi positivi
+- Supporto ai principali standard di sicurezza
+- Facilità di implementazione e integrazione con i flussi di lavoro di sviluppo esistenti e i set di strumenti #CI/CD.
+E' da considerare il fatto che questi strumenti possono influire sul corretto funzionamento della mia applicazione.
+#### Software
+- [[Veracode]]
+- [[Checkmarx]]
+- [[Contrast]]
+- [[Synopsys]]
+- [[Micro Focus Fortify]]
+- [[Rapid]]
+- [[Qualys]]
+- [[DongTai IAST]] ( #open-source )
+### SCA
+Software Composition Analysis, ovvero verifica la presenza di vulnerabilità note in tutte le #dependency del progetto (nella versione utilizzata). Un classico esempio di #SCA è il comando npm audit di [[Node.js]]:
+```sh
+npm audit
+```
+Un metodo per evitare l'utilizzo di repository esterne è l'utilizzo del cosiddetto #monorepo, ovvero un unico #repository utilizzato per tutti gli applicativi realizzati dall'azienda. Il problema principale di questo sistema però è il consumo di tempo necessario per aggiornare e mantenere il repository stesso.
+utilizzino software #open-source, si incorre a potenziali rischi, tra i quali:
+- Presenza di #vulnerabilità (scoperte ed incluse nel #CVE, o ancora non scoperte)
+- Licenza non adatta alla vendita del software finale
+#### Engine
+1. vedi slides
+2. Creazione di un elenco
+3. Verifica in #database per la presenza di #CVE note, delle licenze d'uso
+4. I risultati vengono resi disponibili agli utenti finali utilizzando diversi formati
+
+| Pro                             | Contro           |
+| ------------------------------- | ---------------- |
+| Facilità di automazione         | Alta complessità |
+| Facile integrazione con l' #IDE |                  |
+Vd slides per completare la tabella
+#### Software
+- [[Azul]]
+- [[Snyk]]
+- [[Quiet AI]]
+- [[Retire.js]]
+- [[OWASP Dependency Check]]
+
+### Commit scanning
+Permettono di evitare i #push contenenti #secret (dati sensibili, come password del database). [[git-secrets]]
+#### Programmi
+- [[git-secrets]]
+- [[Burp#Sensitive discover]]
+- [[gitleaks]]
+## Regression test
 Il #regression-test può essere fatto con [[Postman]], [[Python]] e consiste nell'analizzare il contenuto della #response ad una chiamata #http 
 
 # Normativa
@@ -624,16 +779,23 @@ Il #regression-test può essere fatto con [[Postman]], [[Python]] e consiste nel
 - Copyright
 - Privacy
 - Privacy Policy
-
+### ISO/IEC 27001
+Si occupa della sicurezza sotto un punto di vista olistico.
+### ISO/IEC 27034
+Si concentra sul lato #software
 # Tips
 - Tutte le rotte che hanno azione distruttiva devono essere trattati tramite form
 - siti come https:// ---continua
 - L'utilizzo di **npm audit** permette di tenere sotto controllo lo stato delle dependencies  tramite #audit
-# Glossario
+- Per effettuare #test è preferibile utilizzare un container con #juice-shop, scaricabile [qua](https://github.com/juice-shop/juice-shop?tab=readme-ov-file) ```
+	```sh
+	docker pull bkimminich/juice-shop && docker run --rm -p 3000:3000 bkimminich/juice-shop
+	```
+# [[Glossario]]
 - #brute-force - reiterazione automatica di decriptazione di dati protetti tramite programmi o siti appositi (tipo hashcat). Di solito viene usato su password basilari (rockyou.txt)
 - #sanificare - validazione dei dati ricavati tramite input
 - #prepared-statement - 
 - #debolezza - Componente potenzialmente soggetta ad essere aggirata
 - #vulnerabilità - Quando viene sfruttata con successo una debolezza per perpetrare un attacco informatico
 - #salt - Elemento che viene aggiunto al dato prima della criptazione per aumentare la complessità del risultato
-- #eppper - Ulteriore elemento aggiunto al dato (simile al #salt), ma non viene registrato nel server 
+- #peppper - Ulteriore elemento aggiunto al dato (simile al #salt), ma non viene registrato nel server 

@@ -5,9 +5,7 @@ Node.js è un #framework #back-end per [[JavaScript]].
 #npm è il #package-manager di Node.js
 ## Librerie
 La lista delle librerie richieste è contenuta all'interno del fil **package.json**, mentre quella delle librerie installate (escluse le #cdn) è all'interno del file **package-lock.json**
-## Comandi
-
-### Installazione
+## Installazione
 L'installazione avviene, all'interno del progetto, tramite il comando
 ``` bash
 npm install
@@ -25,6 +23,16 @@ mentre, se si vuole avere solo una visualizzazione delle direttive importate, si
 ```Bash
 npm run dev //compila i vari file in maniera continua, utilizzata in fase di sviluppo
 ```
+## Comandi
+Eseguire una scansione del codice
+``` bash
+npm audit
+```
+Esegue l'analisi del codice ed effettua gli aggiornamenti delle #dependency vulnerabili (scartando quelle con l'etichetta **no fix available**, il quale fix potrebbe causare malfunzionamenti all'applicazione)
+``` bash
+npm audit fix
+```
+	--force # effettua il fix di tutte le dipendenze vulnerabili
 # package.json
 ```JSON
 node: "modules" //permette di utilizzare i metodi "import" ed "export" per gestire i pacchetti

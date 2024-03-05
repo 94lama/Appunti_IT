@@ -46,7 +46,7 @@ React ha delle funzioni native per accedere alle REST. Uana di queste è #Axios
 ### Metodi
 |Metodo|descrizione|
 |-|-|
-|get()|Accetta un #end-point come valore
+|get()|Accetta un #endpoint come valore
 |.then() |Metodo delle #request (-----), che  si attiva solo dopo aver ricevuto la risposta|
 ## react-router-redux
 Permette di effettuare il #routing tra le varie pagine.
