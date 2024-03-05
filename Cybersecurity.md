@@ -1,21 +1,8 @@
 # Introduzione
-
-## Referenti
-- Maurizio Zaccaria
-- Isabella Spadaro
-- Nicola Milella
-### Docenti
-- Giancarlo Valente
-- Nicola Milella
-- Davide Cariola
-- Andrea Mininni
-- Mirko Abbrescia
-### Partner
-- CYS4
 ## MITRE
 Organizzazione non-profit, fondata nel 1975, che si occupa di #cybersecurity.
 Mette a disposizione due archivi molto utili per la sicurezza:
-### Comon Vulnerabilities Enumeration ( #CVE )
+### Common Vulnerabilities Enumeration ( #CVE)
 Contiene informazioni molto utili sulle vulnerabilità e sulle debolezze dei siti web, framework e librerie, costantemente aggiornate (dopo che il framework colpito è riuscito a rimuovere la vulnerabilità).
 Contiene anche alcune possibili soluzioni per rimuovere le vulnerabilità
 ### Common Weaknesses Enumeration ( #CWE)
@@ -208,7 +195,7 @@ window.opener.postMessage(message, '*'); //in questo caso l'utente invia il mess
 window.opener.postMesasge(message, "indirizzo dell'origine"); //in questo caso l'utente invia il messaggio solo al server origine 
 ```
 ### #prototype-pollution
-Attacco che permette di modificare il metodo **__proto__** dell'oggetto base di JavaScript per eseguire velocemente comandi tramite metodo eval(). Sfruttando questo stratagemma è possibile eseguire attacchi #xss ed è inclusa nella categoria #insecure-design
+Attacco che permette di modificare il metodo **__proto__** dell'oggetto base di JavaScript per eseguire velocemente comandi tramite metodo **eval()**. Sfruttando questo stratagemma è possibile eseguire attacchi #xss ed è inclusa nella categoria #insecure-design
 ### #CSS-injection
 Tramite script #JavaScript si modifica lo style della pagina. Questo tipo di attacco si verifica quando si immettono delle variabili collegate tramite #URI:
 ```Browser

@@ -1,4 +1,7 @@
 #HTML è un linguaggio #markup, utilizzato per visualizzare contenuti tramite #browser.
+# Struttura
+## head
+## body
 # Tag
 Il #tag è una stringa utilizzata per indicare una articolare funzione di un componente. 
 

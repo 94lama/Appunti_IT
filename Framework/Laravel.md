@@ -695,7 +695,7 @@ E' possibile entrare nel server anche da #git-bash
 ##### SSL
 Se si clicca su **Obtain Certicifate**, Forge genera automaticamente un certificato #ssh, per rendere il protocollo **https**
 
-# Cybersecurity
+# [[Cybersecurity]]
 ## CVE
 ### 2021-3129 - #remote-code-execution
 Ignition, prima della versione 2.5.2, permetteva ad un attaccante di eseguire codice arbitrario all'interno del programma tramite i comandi **file_put_content()** e **file_get_content()** se il sito web è in #debug-mode.
