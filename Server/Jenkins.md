@@ -1,5 +1,15 @@
 Software scritto con linguaggio [[Java]], che permette di automatizzare la #pipeline di un progetto.
 # Installazione
+Qualora la macchina non abbia installato [[Java]], è necessario installarlo:
+```bash
+sudo apt update
+sudo apt install fontconfig openjdk-17-jre
+java -version
+openjdk version "17.0.8" 2023-07-18
+OpenJDK Runtime Environment (build 17.0.8+7-Debian-1deb12u1)
+OpenJDK 64-Bit Server VM (build 17.0.8+7-Debian-1deb12u1, mixed mode, sharing)
+```
+Poi sarà possibile installare Jenkins:
 ```shell
 sudo apt-get install jenkins 
 ```
@@ -7,7 +17,12 @@ Accedo al server tramite browser alla porta 8080.
 ```browser
 <indirizzo_ip>:8080
 ```
-Apparirà una pagina con un form di login, dove si dovrà inserire la password di Jenkins del server (la si trova salvata in un file all'interno del server)
+Recupero la password di Jenkins
+```sh
+cat /var/lib/jenkins/secrets/initialAdminPassword
+```
+	Copiare la password mostrata
+Apparirà una pagina con un form di login, dove si dovrà inserire la password di Jenkins appena copiata
 ```browser
 Username: admin
 Password: <password>
@@ -64,12 +79,13 @@ Acquisire i permessi di docker per l'user jenkins
 ```sh
 sudo usermod -aG docker jenkins
 ```
-Riavviare il servizio docker
+Riavviare Jenkins
 ```sh
 sudo service jenkins restart
 ```
 Rieffettuare il login
 
+Se si usa #AWS, seguire i [passaggi dedicati](AWS#Installazione%20di%20Docker)
 ## https
 
 ## VPN

@@ -1,7 +1,7 @@
 Sistema nato nel 1969 (con il  nome di ARPANET) per permettere lo scambio di informazioni tra due macchine, tramite l'architettura #client-server, **RIVEDERE** ovvero una struttura che permette di inviare informazioni da un #server ad un #client.
 
 # #http
-Nel 1991 è nato il World-Wide-Web: una rete di macchine, connessa tramite modello #http (Hyper-Text Transfer Protocol), basato sul modello #client-server, dove il client è gestito dal #browser, mentre il #server è gestito dal sito internet. Mentre la gestione del codice per eseguire azioni lato #browser è gestita di solito da linguaggi come [[JavaScript]], lato server si usano linguaggi come [[Php]], [[Python]], [[Java]], spesso accompagnati da relativi #framework appositi (come [[Laravel]], [[Django]], ecc.)
+Nel 1991 è nato il World-Wide-Web: una rete di macchine, connessa tramite modello #http (Hyper-Text Transfer Protocol), basato sul modello #client-server, dove il client è gestito dal #browser, mentre il #server è gestito dal sito internet. Mentre la gestione del codice per eseguire azioni lato #browser è gestita di solito da linguaggi come [[JavaScript]], lato server si usano linguaggi come [[Php]], [[Python 1]], [[Java]], spesso accompagnati da relativi #framework appositi (come [[Laravel]], [[Django]], ecc.)
 
 Tramite protocollo http è possibile inviare due tipi di messaggi: **Richiesta** e **Risposta** in maniera *stateless*, ovvero senza tenere traccia della tipologia di utente che ne usufruisce (caratteristica gestita da altre tecnologie, ad esempio i #cookies**, ovvero dei dati che vengono gestiti lato **client**).
 

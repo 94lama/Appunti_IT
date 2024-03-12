@@ -24,6 +24,10 @@ Utilizzare il [linguaggio AWK](https://www.geeksforgeeks.org/awk-command-unixlin
 ```sh
 awk
 ```
+Leggere il contenuto di un file
+```sh
+cat <nome_file>
+```
 Ripulire lo schermo
 ```sh
 clear
@@ -47,10 +51,19 @@ Modifica il proprietario di un file
 ```sh
 chown <nome_utente>:<nome_gruppo> <nome_file>
 ```
-Controllare lo spazio disponibile nelle varie partizioni
+Controllare lo spazio disponibile nelle varie partizioni del volume
 ```shell
 df -hT
 ```
+Preservare una porzione di spazio della #memoria ad un file. [Link](https://man7.org/linux/man-pages/man1/fallocate.1.html)
+```sh
+fallocate <directory_file>
+```
+	ES. sudo fallocate -l 4G /swapfile
+	OPZIONI:
+	-d # dig holes, ovvero frammenta lo spazio preservato
+	-l <dimensione> # es. KiB, MiB, GiB, PiB
+	-n <nome_file>
 Controllare lo spazio disponibile nelle varie partizioni
 ```shell
 find <directory>
@@ -86,6 +99,14 @@ Controllare lo spazio utilizzato dalle varie partizioni
 ```shell
 lsblk
 ```
+Aprire il manuale dei #comandi del #terminale per verificare le modalità d'uso di un comando
+```sh
+man <comando>
+```
+Modificare il contenuto di un file
+```sh
+nano <nome_file>
+```
 Verificare se ci sono porte aperte verso l'esterno in una macchina #port-scanning
 ```bash
 nmap <nome_macchina>
@@ -112,7 +133,7 @@ Stampo il percorso della cartella in cui mi trovo
 ```shell
 pwd
 ```
-Apro un terminale [[Python]]
+Apro un terminale [[Python 1]]
 ```shell
 python
 ```
@@ -131,6 +152,12 @@ Connettersi ad un'altra macchina da remoto tramite protocollo #ssh
 ```sh
 ssh <indirizzo_ip> -i <chiave>
 ```
+	Per chiudere la connessione, prenere Ctrl+D
+Per generare una #ssh-key 
+```sh
+ssh-keygen
+```
+	-t # Definire la tipologia di criptazione [dsa, ecdsa, ecdsa-k, ed25519, ed25519-sk, rsa]
 Accedere come utente root (chiede la password)
 ```shell
 su
@@ -139,8 +166,6 @@ Effettuare un comando come #superuser (SUperuser DO). Effettuabile solo se l'ute
 ```Shell
 sudo <comando>
 ```
-	OPZIONI:
-	-aG <gruppop> <user> # Aggiunge l'utente al gruppo-
 Esegue le funzionalità #sysctl
 ```shell
 sysctl
@@ -155,6 +180,18 @@ useradd <nome_utente>
 	-e # inserisce una data di "scadenza" all'utente
 	-p # 
 	useradd <utente> -p # inserisce l'utente su /etc/passwd
+Per modificare le caratteristiche di un utente
+```sh
+usermod
+```
+	Di solito si usa con sudo
+	OPZIONI:
+	-aG <gruppo> <user> # Aggiunge l'user al gruppo
+	
+Modificare il contenuto di un file
+```sh
+vim <nome_file>
+```
 Verificare l'utente con cui si sta operando
 ```Shell
 whoami
@@ -165,9 +202,14 @@ chroot
 getent
 env
 sh #shell
-man <comando> # Ritorna i manuale del comando selezionato
 ```
 ## Opzioni
+Le opzioni sono delle particolari ulteriori configurazioni che è possibile conferire al comando. si utilizzano dopo aver specificato il comando principale e sono precedute da un trattino es ```-a```. Possono variare a seconda del comando utilizzato.
+Per verificare le #opzioni disponibili per uno specifico comando
+```sh
+<comando> --help
+```
+
 ```Bash
 -A # append
 -aG #
@@ -342,4 +384,4 @@ In questo modo l'utente potrà accedere al terminale Python, ma con i permessi p
 ### [Code scanning](Cybersecurity#SCA)
 
 # Annotazioni
-- Le distribuzioni di Linux, di solito, vengono provviste nativamente di [[Python]]
+- Le distribuzioni di Linux, di solito, vengono provviste nativamente di [[Python 1]]

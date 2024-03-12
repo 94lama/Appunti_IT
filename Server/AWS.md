@@ -22,16 +22,28 @@ ssh ubuntu@<indirizzo_ip_server> -i <user_ssh>
 ```
 # Installazione di [[Docker]]
 prendere script da sito di Docker in base al sistema operativo che si è installato nel server
-Durante l'installazione, nel caso si usi una memoria di piccole dimensioni, il server potrebbe andare in stato di #anger (sovraccarico). Per evitare ciò si utilizza lo #swap, ovvero una partizione (o file), situato nell'hard disk, che lavora come estensione della RAM.
+Durante l'installazione, nel caso si usi una memoria di piccole dimensioni, il server potrebbe andare in stato di #anger (sovraccarico). Per evitare ciò si utilizza lo #swapfile, ovvero una partizione (o file), situato nell'hard disk, che lavora come estensione della RAM.
 ```sh
 sudo fallocate -l 4G /swapfile 
+```
+```sh
 sudo dd if=/dev/zero of=/swapfile bs=1M count=4096 
+
+```
+```sh
 sudo chmod 600 /swapfile 
+```
+```sh
 sudo mkswap /swapfile 
+```
+```sh
 sudo swapon /swapfile
+```
+```sh
 sudo nano /etc/fstab
 ```
-	Inserire la riga /swapfile none swap sw 0 0
+	Inserire la seguente riga:
+	/swapfile none swap sw 0 0
 Per installare Docker su Ubuntu bisogna scrivere nel terminale:
 ```sh
 for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc; do sudo apt-get remove $pkg; done
@@ -65,10 +77,10 @@ Installo Jenkins (vedi file di Jenkins)
 ## Installazione di un database
 ## PostGres
 Si può installare da container Docker
-# Utilizzo
+# Deploy
 ## Apertura di un immagine di Docker
-Le immagini possono essere cercate sul [link](https://hub.docker.com/)
-
+Le immagini possono essere cercate su [Docker hub](https://hub.docker.com/)
+### Esempi
 mongo/express
 ```sh
 docker pull mongo-express
@@ -77,6 +89,22 @@ Oppure, seguendo l'esempio di Simone:
 ```sh
 docker run --network api-net --name database -v /var/lib/postgresql/data:/var/lib/postgresql/data -e POSTGRES_PASSWORD=password -e POSTGRES_USER=api -e POSTGRES_DB=api -d postgres:14
 ```
+
+### Caricare le impostazioni del server da immagine Docker
+E' possibile automatizzare il caricamento di un server partendo da un'immagine [[Docker]].
+```sh
+ssh ubuntu@<indirizzo_ip> -i ${SSH_CREDNTIALS} -o StrictHostKey=no << EOF
+	docker container stop api || true && \
+	docker container rm api || true && \
+	docker container run -d --network <nome_network> --name <nome> -p <porta>:<porta> \
+	-e <variabile_ambiente>=<valore> \
+	${DOCKER_USER}/<nome_immagine>:latest && \
+	exit
+	EOF
+```
+	EOF (End Of File è un placeholder per indicare quale sia l'ultima riga del comando)
+	L'algoritmo <dato> || true && viene utilizzato per far continuare il processo anche nel caso il comando dia errore (es. se non ci sono container da imterroompere)
+	\ viene utilizzato per proseguire con le istruzioni nella riga successiva
 ## Ridurre lo spazio utilizzato
 Per ridurre lo spazio utilizzato, si deve creare un nuovo volume da uno #snapshot
 # Attenzione

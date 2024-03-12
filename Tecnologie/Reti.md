@@ -53,6 +53,6 @@ tracert <indirizzo_ip>
 ```
 E' possibile negare la risposta al comando. Nel caso il nodo non viene stampato nel terminale.
 # Protocolli
-## [TCP/IP](<Protocolli di comunicazione#TCP/IP>)
+## [TCP/IP](Protocolli%20di%20comunicazione.md#TCP/IP di comunicazione#TCP/IP>)
 # Software
 ## CISCO Packet Tracer
