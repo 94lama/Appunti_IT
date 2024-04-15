@@ -153,6 +153,11 @@ Connettersi ad un'altra macchina da remoto tramite protocollo #ssh
 ssh <indirizzo_ip> -i <chiave>
 ```
 	Per chiudere la connessione, prenere Ctrl+D
+	Nel caso si voglia accedere come uno specifico utente:
+	ssh <nome_utente>@<indirizzo_ip>
+	OPZIONI:
+	-p # porta
+
 Per generare una #ssh-key 
 ```sh
 ssh-keygen

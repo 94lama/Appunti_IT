@@ -1,5 +1,6 @@
 # Introduzione
-Servizio di #coud-server
+Servizio di [[Cloud Server]] gestito da Amazon
+
 # Creazione di un nuovo server
 - free tier eligible: permette di avere un periodo di uso gratuito
 ## Instance type
@@ -94,8 +95,8 @@ docker run --network api-net --name database -v /var/lib/postgresql/data:/var/li
 E' possibile automatizzare il caricamento di un server partendo da un'immagine [[Docker]].
 ```sh
 ssh ubuntu@<indirizzo_ip> -i ${SSH_CREDNTIALS} -o StrictHostKey=no << EOF
-	docker container stop api || true && \
-	docker container rm api || true && \
+	docker container stop <nome> || true && \
+	docker container rm <nome> || true && \
 	docker container run -d --network <nome_network> --name <nome> -p <porta>:<porta> \
 	-e <variabile_ambiente>=<valore> \
 	${DOCKER_USER}/<nome_immagine>:latest && \

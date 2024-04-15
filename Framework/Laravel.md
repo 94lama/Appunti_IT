@@ -145,7 +145,7 @@ A parte la cartella #public, tutte le cartelle sono nascoste al client
 |views|contiene i file php (prevalentemente in linguaggio html) delle pagine da visualizzare**|
 |routes|contiene i messaggi di #risposta alle richieste del #client|
 |vendor|contiene tutte le librerie necessarie per Laravel|
-** Nella cartella può anche essere inclusa una sottocartella chiamata **components**, che include le componenti HTML utilizzate (es. Head, Navbar, Footer). Le classe vanno create seguendo la metodologia delle [funzionalizzazione](Funzioni.md).
+** Nella cartella può anche essere inclusa una sottocartella chiamata **components**, che include le componenti HTML utilizzate (es. Head, Navbar, Footer). Le classe vanno create seguendo la metodologia della [funzionalizzazione](Funzioni.md).
 ### /app
 #### /HTTP
 ##### /Controllers
@@ -201,7 +201,7 @@ dove **percorso** rappresenta il percorso della vista (all'interno della cartell
 |  |  |
 ### /Providers
 #### AppServiceProvider
-Viene usata per condividere piccoli dati3
+Viene usata per condividere piccoli dati
 # #Comandi
 
 ### Classi

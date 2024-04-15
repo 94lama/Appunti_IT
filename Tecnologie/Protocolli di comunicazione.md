@@ -52,7 +52,21 @@ E' assimilabile ai livelli Collegamento e Fisico della ISO/OSI
 # Protocolli
 ## Applicazione
 ### HTTP
-Il processo di comunicazione tra macchine, nel caso del web, è gestito tramite #protocollo #HTTP (Hyper-Text Transfer Protocol)
+Il processo di comunicazione tra macchine, nel caso del web, è gestito tramite #protocollo #HTTP (Hyper-Text Transfer Protocol). Un messaggio HTTP è composto da un #header, che contiene le impostazioni del messaggio e da un #body, che di solito contiene le informazioni.
+#### Headers
+Ogni #header è sostanzialmente composto da una coppia chiave-valore.
+##### Content-Type
+Viene utilizzato per indicare la struttura del body. Il valore attribuito segue la struttura del [MIME](https://www.geeksforgeeks.org/http-headers-content-type/)
+```HTTP
+Contetn-Type: text/html; charset=utf-8
+```
+	ESEMPI DI VALORI:
+	application/xml
+	audio/mp3
+	image/jpeg
+	multipart/form-data
+	text/html
+	
 ### HTTPS
 ## Trasporto
 ### TCP
