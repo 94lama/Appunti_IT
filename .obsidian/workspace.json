@@ -8,6 +8,18 @@
         "type": "tabs",
         "children": [
           {
+            "id": "ac04db973ebdce02",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "AWS Specialist.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
             "id": "84bb94958bf0d9c4",
             "type": "leaf",
             "state": {
@@ -32,19 +44,31 @@
             }
           },
           {
-            "id": "ac04db973ebdce02",
+            "id": "50570ef23c897fc0",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "AWS Specialist.md",
+                "file": "Azure.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "6539ff8c1405e484",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Sistemi operativi/Linux.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -186,12 +210,15 @@
   },
   "active": "b4ab531b908acccf",
   "lastOpenFiles": [
-    "Server/AWS.md",
+    "Azure.md",
     "AWS Specialist.md",
     "Server/Cloud Server.md",
+    "Server/AWS.md",
+    "Pasted image 20240415163500.png",
+    "Pasted image 20240415140801.png",
+    "Sistemi operativi/Linux.md",
     "Tecnologie/Reti.md",
     "Framework/Django.md",
-    "Sistemi operativi/Linux.md",
     "Linguaggi/TypeScript.md",
     "Tecnologie/Protocolli di comunicazione.md",
     "Framework/React.md",
@@ -229,7 +256,6 @@
     "Informatica/Framework",
     "Informatica/Immagini/Pasted image 20240108202659.png",
     "Informatica/Immagini/Pasted image 20230913102025.png",
-    "Immagini/Pasted image 20231207171504.png",
     "Untitled.canvas",
     "Untitled 1.canvas"
   ]

@@ -1,5 +1,5 @@
 # Introduzione
-Servizio di [[Cloud Server]] gestito da Amazon
+Servizio di [[Cloud Server]] gestito da Amazon, prodotto leader nel campo #IaaS.
 
 # Creazione di un nuovo server
 - free tier eligible: permette di avere un periodo di uso gratuito
@@ -14,14 +14,15 @@ Permette di impostare le #porte aperte e le chiavi
 ## Storage
 AWS ha un programma di pagamento basato sullo spazio utilizzato per tempo utilizzato (calcolato in ore). I primi 30GB sono gratuiti per i primi 12 mesi
 # Server
-Di norma si utilizzano più server per progetto. Su AWS i server devono essere localizzati nella stessa regione 
+Di norma si utilizzano più server per progetto. Su AWS è consigliabile utilizzare i server  localizzati nella stessa regione di utilizzo. I prezzi variano in base alla localizzazione scelta. Di solito per prove, conviene utilizzare il data server ue-east-1 (per motivi legati ai costi e alla documentazione).
 - Pipeline (collega il server aperto al pubblico alla piattaforma di versionamento)
 - Deploy (server pubblico)
 ## Collegamento al server da terminale
 ```sh
 ssh ubuntu@<indirizzo_ip_server> -i <user_ssh>
 ```
-# Installazione di [[Docker]]
+# Utilizzo
+## Installazione di [[Docker]]
 prendere script da sito di Docker in base al sistema operativo che si è installato nel server
 Durante l'installazione, nel caso si usi una memoria di piccole dimensioni, il server potrebbe andare in stato di #anger (sovraccarico). Per evitare ciò si utilizza lo #swapfile, ovvero una partizione (o file), situato nell'hard disk, che lavora come estensione della RAM.
 ```sh
@@ -78,10 +79,10 @@ Installo Jenkins (vedi file di Jenkins)
 ## Installazione di un database
 ## PostGres
 Si può installare da container Docker
-# Deploy
-## Apertura di un immagine di Docker
+## Deploy
+### Apertura di un immagine di Docker
 Le immagini possono essere cercate su [Docker hub](https://hub.docker.com/)
-### Esempi
+#### Esempi
 mongo/express
 ```sh
 docker pull mongo-express
@@ -91,7 +92,7 @@ Oppure, seguendo l'esempio di Simone:
 docker run --network api-net --name database -v /var/lib/postgresql/data:/var/lib/postgresql/data -e POSTGRES_PASSWORD=password -e POSTGRES_USER=api -e POSTGRES_DB=api -d postgres:14
 ```
 
-### Caricare le impostazioni del server da immagine Docker
+#### Caricare le impostazioni del server da immagine Docker
 E' possibile automatizzare il caricamento di un server partendo da un'immagine [[Docker]].
 ```sh
 ssh ubuntu@<indirizzo_ip> -i ${SSH_CREDNTIALS} -o StrictHostKey=no << EOF
@@ -106,7 +107,7 @@ ssh ubuntu@<indirizzo_ip> -i ${SSH_CREDNTIALS} -o StrictHostKey=no << EOF
 	EOF (End Of File è un placeholder per indicare quale sia l'ultima riga del comando)
 	L'algoritmo <dato> || true && viene utilizzato per far continuare il processo anche nel caso il comando dia errore (es. se non ci sono container da imterroompere)
 	\ viene utilizzato per proseguire con le istruzioni nella riga successiva
-## Ridurre lo spazio utilizzato
+### Ridurre lo spazio utilizzato
 Per ridurre lo spazio utilizzato, si deve creare un nuovo volume da uno #snapshot
 # Attenzione
 - Nel caso si voglia aprire una nuova porta dal server, la si deve anche segnalare nella piattaforma di AWS

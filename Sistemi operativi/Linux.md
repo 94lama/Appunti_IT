@@ -389,4 +389,4 @@ In questo modo l'utente potrà accedere al terminale Python, ma con i permessi p
 ### [Code scanning](Cybersecurity#SCA)
 
 # Annotazioni
-- Le distribuzioni di Linux, di solito, vengono provviste nativamente di [[Python 1]]
+- Le distribuzioni di Linux, di solito, vengono provviste nativamente di [[Python]]
