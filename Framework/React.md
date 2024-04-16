@@ -26,21 +26,43 @@ npx create-react-app nome-app //preferibilmente in kebab case
 - si possono usare #props automatiche chiamate #children
 - sempre meglio usare map, filter e reduce per trattare le array perchè creano delle copie da manipolare ed evitare così danni permanenti ai dati
 # Metodi
-|metodo|descrizione|
-|-|-|
-|useEffect(() => {})||
-|useState()||
 ## useEffect
 Si evoca quando si vogliono utilizzare particolari metodi built-in di [[JavaScript]] che richiedono l'utilizzo di 
 ```Javascript
+import {useEffect} from 'react'
+
 useEffect(() => {
 	metodo stateful da applicare es. fetch(), 
-}, [<dependencies>])
+}, [<dependencies>]);
 ```
+## useState
+Si utilizza per definire lo stato iniziale di un componente
+```JavaScript
+import {useState} from 'react'
+
+const [var setVar] = useState(<valoreIniziale>);
+```
+	Per modificare il valore di var, si utilizza il metodo setVar()
 # Componente
-Il componente si deve creare solo dopo aver stabilito tutti i dati da inserire al suo interno
+Il componente si deve creare solo dopo aver stabilito tutti i dati da inserire al suo interno. Un componente è rappresentato da una funzione, il quale valore di **return** è un tag [[HTML]].
+```App.jsx
+import 'app.js'
+
+function App(){
+	return (
+		<>
+			<h1>Testo</h1>
+		</>
+	)
+}
+```
+	<> è un cosidetto #fragment, ovvero un tag simbolico, utilizzato per raggruppare i diversi tag di un return, senza che si vada a creare un generico elemento div
+
+## Componenti predefiniti
+### React.StrictMode
+Attivo di default, può causare una doppia esecuzione di alcuni comandi (es. console.log())
 # REST
-React ha delle funzioni native per accedere alle REST. Uana di queste è #Axios
+React ha delle funzioni native per accedere alle REST. Una di queste è #Axios
 # Librerie
 ## #Axios 
 ### Metodi

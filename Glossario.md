@@ -1,5 +1,7 @@
 - #brute-force - reiterazione automatica di decriptazione di dati protetti tramite programmi o siti appositi (tipo hashcat). Di solito viene usato su password basilari (rockyou.txt)
 - #debolezza - Componente potenzialmente soggetta ad essere aggirata
+- #malware
+- #malware-polimorfo - Malware il cui #codice sorgente viene modificato in #runtime
 - #prepared-statement - 
 - #peppper - Ulteriore elemento aggiunto al dato (simile al #salt), ma non viene registrato nel server
 - #salt - Elemento che viene aggiunto al dato prima della criptazione per aumentare la complessità del risultato

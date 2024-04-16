@@ -145,7 +145,7 @@ A parte la cartella #public, tutte le cartelle sono nascoste al client
 |views|contiene i file php (prevalentemente in linguaggio html) delle pagine da visualizzare**|
 |routes|contiene i messaggi di #risposta alle richieste del #client|
 |vendor|contiene tutte le librerie necessarie per Laravel|
-** Nella cartella può anche essere inclusa una sottocartella chiamata **components**, che include le componenti HTML utilizzate (es. Head, Navbar, Footer). Le classe vanno create seguendo la metodologia delle [funzionalizzazione](Funzioni.md).
+** Nella cartella può anche essere inclusa una sottocartella chiamata **components**, che include le componenti HTML utilizzate (es. Head, Navbar, Footer). Le classe vanno create seguendo la metodologia della [funzionalizzazione](Funzioni.md).
 ### /app
 #### /HTTP
 ##### /Controllers
@@ -201,7 +201,7 @@ dove **percorso** rappresenta il percorso della vista (all'interno della cartell
 |  |  |
 ### /Providers
 #### AppServiceProvider
-Viene usata per condividere piccoli dati3
+Viene usata per condividere piccoli dati
 # #Comandi
 
 ### Classi
@@ -695,7 +695,7 @@ E' possibile entrare nel server anche da #git-bash
 ##### SSL
 Se si clicca su **Obtain Certicifate**, Forge genera automaticamente un certificato #ssh, per rendere il protocollo **https**
 
-# Cybersecurity
+# [[Cybersecurity]]
 ## CVE
 ### 2021-3129 - #remote-code-execution
 Ignition, prima della versione 2.5.2, permetteva ad un attaccante di eseguire codice arbitrario all'interno del programma tramite i comandi **file_put_content()** e **file_get_content()** se il sito web è in #debug-mode.

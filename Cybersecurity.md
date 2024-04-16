@@ -1,21 +1,8 @@
 # Introduzione
-
-## Referenti
-- Maurizio Zaccaria
-- Isabella Spadaro
-- Nicola Milella
-### Docenti
-- Giancarlo Valente
-- Nicola Milella
-- Davide Cariola
-- Andrea Mininni
-- Mirko Abbrescia
-### Partner
-- CYS4
 ## MITRE
 Organizzazione non-profit, fondata nel 1975, che si occupa di #cybersecurity.
 Mette a disposizione due archivi molto utili per la sicurezza:
-### Comon Vulnerabilities Enumeration ( #CVE )
+### Common Vulnerabilities Enumeration ( #CVE)
 Contiene informazioni molto utili sulle vulnerabilità e sulle debolezze dei siti web, framework e librerie, costantemente aggiornate (dopo che il framework colpito è riuscito a rimuovere la vulnerabilità).
 Contiene anche alcune possibili soluzioni per rimuovere le vulnerabilità
 ### Common Weaknesses Enumeration ( #CWE)
@@ -209,7 +196,7 @@ window.opener.postMesasge(message, "indirizzo dell'origine");
 ```
 	in questo caso l'utente invia il messaggio solo al server origine 
 ### #prototype-pollution
-Attacco che permette di modificare il metodo **__proto__** dell'oggetto base di JavaScript per eseguire velocemente comandi tramite metodo eval(). Sfruttando questo stratagemma è possibile eseguire attacchi #xss ed è inclusa nella categoria #insecure-design
+Attacco che permette di modificare il metodo **__proto__** dell'oggetto base di JavaScript per eseguire velocemente comandi tramite metodo **eval()**. Sfruttando questo stratagemma è possibile eseguire attacchi #xss ed è inclusa nella categoria #insecure-design
 ### #CSS-injection
 Tramite script #JavaScript si modifica lo style della pagina. Questo tipo di attacco si verifica quando si immettono delle variabili collegate tramite #URI:
 ```Browser
@@ -718,7 +705,7 @@ L'Abstract Syntax Tree #AST è una #data-structure che rappresenta la struttura 
 ### DAST
 Dynamic Analysis Security Testing, nota anche come #black-box-testing, utilizza strumenti per riprodurre attacchi noti e #fuzzing  per rilevare la presenza di vulnerabilità in stato di esecuzione dell'applicazione.
 #### Software
-##### [Dastardly](Burp#Dastardly)
+##### [Dastardly](Burp.md#Dastardly)
 Strumento gratuito nella [versione community](https://github.com/PortSwigger/dastardly-github-action) (con funzionalità ridotte) per effettuare #penetration-test per analizzare 7 problemi di sicurezza.
 - #reflected-xss
 - #CORS
@@ -780,7 +767,7 @@ Permettono di evitare i #push contenenti #secret (dati sensibili, come password 
 - [[Burp#Sensitive discover]]
 - [[gitleaks]]
 ## Regression test
-Il #regression-test può essere fatto con [[Postman]], [[Python]] e consiste nell'analizzare il contenuto della #response ad una chiamata #http 
+Il #regression-test può essere fatto con [[Postman]], [[Python 1]] e consiste nell'analizzare il contenuto della #response ad una chiamata #http 
 
 # Normativa
 ## Italia

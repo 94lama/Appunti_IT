@@ -1,6 +1,6 @@
 # Introduzione
 Internet è la più grande rete al mondo, composta da nodi, attraverso i quali transitano dei dati. Al fine di far avvenire questo scambio di dati, si utilizza il metodo della **commutazione di pacchetto**.
-Questo metodo è composto da una serie di processi, che permettono di standardizzare i dati da inviare ed il metodo di spedizione, chiamati #protocollo.
+Questo metodo è composto da una serie di processi, che permettono di standardizzare i dati da inviare ed il metodo di spedizione, chiamati [[Protocolli di comunicazione]].
 ### [Subnetting](https://www.itimarconi.ct.it/sezioni/didatticaonline/informatica/lezionidisistemi/quinta/subnetting.htm)
 
 # Rete locale
@@ -52,7 +52,5 @@ Per Windows
 tracert <indirizzo_ip>
 ```
 E' possibile negare la risposta al comando. Nel caso il nodo non viene stampato nel terminale.
-# Protocolli
-## [TCP/IP](<Protocolli di comunicazione#TCP/IP>)
 # Software
 ## CISCO Packet Tracer

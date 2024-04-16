@@ -43,10 +43,12 @@ consoel.log(false||false) //result: false
 ```
 # Framework
 - [[Node.js]] - Framework #back-end 
-- [[React]] - Framework #front-end 
+- [[Vue.js]] -  Framework #front-end 
 
 # Librerie
 - [DOMpurify](https://www.npmjs.com/package/dompurify) - #sanificare  degli input
+- [[React]] - Libreria #front-end 
+
 ## [Chaijs](https://www.chaijs.com/)
 #chaijs permette di effettuare dei test.
 ### Metodi
@@ -77,3 +79,11 @@ pm.expect.(<valore>).not.is.undefined;
 ## [Cheerio](https://cheerio.js.org/)
 ## [Retire.js](https://github.com/RetireJS/retire.js)
 Code scanning per applicazioni in JavaScript, con la possibilità di utilizzare un'estensione per [[Google Chrome]], [[Opera]].
+
+# JSX
+E' un'estensione della sintassi di JavaScript, attraverso la quale possiamo scrivere del codice HTML attraverso funzioni di JavaScript e renderizzarlo.
+Si devono rispettare alcune regole>
+- Tutti i tag devono avere una chiusura
+- Alcuni attributi non possono essere utilizzati (ci sono degli attributi sostitutivi)
+- Le espressioni JSX si chiamano all'interno di parentesi graffe
+- Dopo la compilazione, le funzioni JSX diventano normali funzioni JavaScript

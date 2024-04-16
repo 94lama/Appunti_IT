@@ -43,6 +43,16 @@ Oggetto che permette di visualizzare e/o leggere file all'interno della macchina
 ```Struttura
 |-writeFileSync(<percorso><nome_file>) //Permette di creare un file
 ```
+## JSON Server
+Permette di creare un prototipo di database in JSON, da utilizzare in fase di #testing
+```sh
+npm install json-server
+```
+per utilizzarlo, una volta installato, bisognerà creare un file json (di solito di chiama ```db.json```), tramite il comando
+```sh
+npz json-server <percorso_file>/<nome_file>
+```
+
 # vite.config.js
 #vite è un file #JavaScript che permette di rendere un file #minificato (con attributo **.min**, ovvero contenente l'intero codice in una sola riga).
 # Librerie

@@ -27,7 +27,7 @@ Logging into Semgrep gets you access to:
 4. Try writing your own query interactively with `-e`. For example, a check for Python == where the left and right hand sides are the same (potentially a bug): `$ semgrep -e '$X == $X' --lang=py path/to/src`
 # [semgrep rules](https://github.com/semgrep/semgrep-rules)
 Sezione di #semgrep adibita alla collezione di regole, categorizzate per linguaggio di programmazione. I linguaggi inclusi sono:
-- [[Python]]
+- [[Python 1]]
 - [[Php]]
 - [[JavaScript]]
 - [[Java]]
