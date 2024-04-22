@@ -21,6 +21,8 @@ Di norma si utilizzano più server per progetto. Su AWS è consigliabile utilizz
 ```sh
 ssh ubuntu@<indirizzo_ip_server> -i <user_ssh>
 ```
+# API
+Amazon usa #S3 per integrare le #API all'interno del sistema.
 # Utilizzo
 ## Installazione di [[Docker]]
 prendere script da sito di Docker in base al sistema operativo che si è installato nel server
@@ -109,6 +111,8 @@ ssh ubuntu@<indirizzo_ip> -i ${SSH_CREDNTIALS} -o StrictHostKey=no << EOF
 	\ viene utilizzato per proseguire con le istruzioni nella riga successiva
 ### Ridurre lo spazio utilizzato
 Per ridurre lo spazio utilizzato, si deve creare un nuovo volume da uno #snapshot
+## Snapshot
+
 # Attenzione
 - Nel caso si voglia aprire una nuova porta dal server, la si deve anche segnalare nella piattaforma di AWS
 # Indirizzi IP utili

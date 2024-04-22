@@ -36,7 +36,7 @@ I pacchetti vengono trasmessi bit per bit attraverso il mezzo fisico di comunica
 
 ## TCP-IP
 ### Introduzione
-Il  #tcp-ip è il protocollo più importante, e funziona tramite suddivisione in pacchetti di piccole dimensioni delle informazioni, che vengono poi spediti separatamente e poi riassemblati dal ricevente, provvede all'instradamento dei pacchetti e controlla la buona riuscita della spedizione.
+Il Transmission Control Protocol  #tcp-ip è il protocollo più importante, e funziona tramite suddivisione in pacchetti di piccole dimensioni delle informazioni, che vengono poi spediti separatamente e poi riassemblati dal ricevente, provvede all'instradamento dei pacchetti e controlla la buona riuscita della spedizione.
 Un altro parametro da considerare è il mezzo di trasmissione dei pacchetti, che può essere un cavo, cos' come delle onde elettromagnetiche.
 E' il modello su cui si basa concettualmente la [[#ISO/OSI]]. Infatti si basa su dei livelli concettualmente simili
 ### Livelli
@@ -68,6 +68,9 @@ Contetn-Type: text/html; charset=utf-8
 	text/html
 	
 ### HTTPS
+Protocollo che consiste nella criptazione 
+### E2EE
+La End-to-end Encryption permette di crittare i dati non a livello di #server (come avviene nel #https)
 ## Trasporto
 ### TCP
 Ovvero Transmission Control Protocol è un #protocollo **Orientato alla connessione** e quindi considerato affidabile.

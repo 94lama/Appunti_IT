@@ -1,4 +1,18 @@
 Le varie versioni di Linux sono disponibili [qua]([https://distrowatch.com/](https://distrowatch.com/ "https://distrowatch.com/")).
+## Permessi
+- r = read (1)
+- w = write (2)
+- x = execute (4)
+
+I permessi vengono mostrati tramite una stringa suddivisa in 3 parti, ciascuna di 3 caratteri
+```permessi
+- rwx-w-rw-
+```
+	1 terzetto = utente proprietario
+	2 terzetto = gruppo
+	3 terzetto = altri utenti
+### Access Control List
+Le Access Control List #ACL permettono di dare permessi extra ad utenti specifici per uno specifico file o directory.
 # Comandi
 Concatenare comandi
 ```Linux
@@ -32,9 +46,15 @@ Ripulire lo schermo
 ```sh
 clear
 ```
-Modifica i permessi granulari di un file. #SUID
+Modifica il gruppo proprietario dell'elemento
 ```sh
-chmod <nome_file>
+chgrp <nome_gruppo> <nome_file>
+	```
+	OPZIONI:
+	-R # modifica tutti i file selezionati in maniera ricorsiva
+Modifica i permessi granulari di un file. #SUID, #SGID
+```sh
+chmod <permessi_utente><permessi_gruppo><permessi_utente_generico> <nome_file>
 ```
 	chmod u-x, o-r <nome_file>
 	u: proprietario
@@ -45,8 +65,10 @@ chmod <nome_file>
 	r: read - 4
 	w: write - 2
 	x: execute - 1
-	s: SUID, ovvero Set owner User ID. Permette di far eseguire il file ad un utente (indipendentemente dai permessi assegnati) come fosse root
-	Nel caso si vogliano utilizzare i numeri, nel caso di combinazione di permessi, si possono sommare i numeri (6 per lettura e scrittura, 7 per tutti e 3)
+	s: ovvero Set owner (user o group). Permette di far eseguire il file ad un utente (indipendentemente dai permessi assegnati) come fosse root
+	t: (Stick bit) Imposta gli utenti proprietari come unici utenti con permessi di cancellazione file (a parte il super user)
+	- Nel caso si vogliano utilizzare i numeri, nel caso di combinazione di permessi, si possono sommare i numeri (6 per lettura e scrittura, 7 per tutti e 3)
+	- Se le cartelle non hanno almeno permesso 4, verrà negato l'accesso
 Modifica il proprietario di un file
 ```sh
 chown <nome_utente>:<nome_gruppo> <nome_file>
@@ -75,11 +97,27 @@ Rimuovere un account
 ```Shell
 gpasswd -d <nome_utente> <nome_ambiente>
 ```
+Creo un nuovo gruppo
+```sh
+groupadd <nome_gruppo>
+```
+	ATTENZIONE:
+	Richiede l'accesso come root
+Elimino un gruppo
+```sh
+groupdel <nome_gruppo>
+```
+	Nel caso si voglia eliminare un gruppo che sia primario per un utente, il sistema lancerà un'avviso 
+	OPZIONI:
+	-f # forza la rimozione
+	-r # 
 Visualizzare i gruppi a cui appartiene un utente
 ```shell
 groups <utente>
 ```
 	Se non si inserisce l'utente, ritornerà tutti i gruppi del sistema
+	OPZIONI:
+	
 Visualizzare le regole di accesso alla macchina ( #firewall)
 ```shell
 iptables -L -v -n
@@ -90,6 +128,7 @@ Visualizzare tutti i file e cartelle all'interno della directory corrente
 ls
 ```
 	-a # mostra anche i file nascosti
+	-all # mostra tutte le directory e i file contenuti, in una vista tabellare che comprende permessi, 
 	-l # mostra i dati in tabella
 	tabella: directory_1 directory_2 directory_3|permessi|utente|gruppo utente|dimensione|data di creazione|nome del file 
 	categorie utenti: proprietario, gruppo del proprietario, altri
@@ -119,6 +158,10 @@ Eseguire un file con [[Node.js]]
 ```Bash
 node <nome file>.js 
 ```
+Aggiungere una password di un utente
+```sh
+passwd <user>
+```
 Aprire una #shell in [[Php]]
 ```Shell
 php
@@ -147,7 +190,16 @@ Rimuovere uno o più elementi
 rm <nome_file>
 ```
 	OPZIONI:
+	-r # Rimuove una cartella non vuota
 	-rf # Forza la rimozione
+Impostare una #ACL 
+```sh
+setfacl u:<user>:<permessi> <file>
+```
+	OPZIONI:
+	-m # mask, modifica la #ACL del file
+	-R # applica la regola in maniera ricorsiva
+	-x # riomuove la #ACL impostata
 Connettersi ad un'altra macchina da remoto tramite protocollo #ssh 
 ```sh
 ssh <indirizzo_ip> -i <chiave>
@@ -157,7 +209,6 @@ ssh <indirizzo_ip> -i <chiave>
 	ssh <nome_utente>@<indirizzo_ip>
 	OPZIONI:
 	-p # porta
-
 Per generare una #ssh-key 
 ```sh
 ssh-keygen
@@ -167,7 +218,9 @@ Accedere come utente root (chiede la password)
 ```shell
 su
 ```
-Effettuare un comando come #superuser (SUperuser DO). Effettuabile solo se l'utente fa parte dei **sudores**
+	OPZIONI:
+	-l # 
+Effettuare un comando come #superuser (SUperuser DO). Effettuabile solo se l'utente fa parte dei **sudoers**
 ```Shell
 sudo <comando>
 ```
@@ -176,15 +229,30 @@ Esegue le funzionalità #sysctl
 sysctl
 ```
 	-p # riavvia il SO
-Aggiungo un nuovo utente (richiede permessi root)
+Creo un nuovo utente (richiede permessi root)
 ```sh
 useradd <nome_utente>
 ```
+	L'utente viene registrato in 3 file: /etc/passwd, /etc/shadow e /etc/group
+	OPZIONI:
 	-c #
-	-d # assegna una cartella specifica
+	-d # crea una home directory
 	-e # inserisce una data di "scadenza" all'utente
-	-p # 
-	useradd <utente> -p # inserisce l'utente su /etc/passwd
+	-f 
+	-g <nome_gruppo> # aggiunge l'utente al gruppo come gruppo primario
+	-G <nome_gruppo> # aggiunge l'utente al gruppo come gruppo secondario (accetta anche array)
+	-m # sposta la directory corrente nella home del nuovo utente
+	-p <password> # imposta la password. Sconsigliato perchè rende la password visibile nella lista dei processi
+	-r # crea un account di sistema
+	-s /sbin/nologin # non imposta una shell di accesso per l'utente
+Eliminare un utente
+```sh
+userdel <nome_utente>
+```
+	ATTENZIONE:
+	Nel caso si cancellino più utenti, è possibile che Debian cancelli anche le password di root
+	OPZIONI:
+	
 Per modificare le caratteristiche di un utente
 ```sh
 usermod
@@ -248,7 +316,7 @@ password: kali
 ```
 ### Struttura del terminale
 ```bash
-|- (<utente>@<macchina>) -[<locallizzazione>]
+|- (<utente>@<macchina>) -[<localizzazione>]
 |- $
 ```
 	Nel caso ci si trovi nella cartella principale (di default /home/kali), la localizzazione sarà ~
@@ -271,7 +339,37 @@ password: kali
 |-media #contiene i supporti esterni
 ```
 #### etc
-	##### ssh/sshd_config
+##### group
+Contiene la lista dei gruppi
+```group
+<nome_gruppo>:x:a:b
+```
+	x = password del gruppo (se 'x' non c'è password)
+	a = Group ID
+	b = Utenti appartenenti al guppo
+##### passwd
+Il file contiene la lista di utenti registrati e i dati ad essi relativi. La password verrà inserita nel file solo nel caso l'utente venga creato non di default (es. root non avrà la password segnata nel file)
+```passwd
+root:0:0:
+<nome_utente>:a:b:c:<nome>,,,:<home_directory>:<shell_directory>
+```
+	a = password (se localizzata in un altro file sarà x) # rivedere: permessi_root (0 si, 1 no)
+	b = User ID
+	c = Group ID 
+	: #nuovo campo
+	:: = campo vuoto
+##### shadow
+File contenente le password.
+```shadow
+<username>:<password_cifrata>:a:b:c:d:e:f
+```
+	a = Data dell'ultimo cambio password
+	b = Numero minimo di giorni di attesa tra due cambi password
+	c = Numero massimo di giorni tra due cambi password
+	d = Giorni di preavviso per la scadenza della password
+	e = Numero di giorni per la disabilitazione dell'account dopo la scadenza della password
+	f = campo riservato
+##### ssh/sshd_config
 Gestire gli accessi al gruppo #root
 ```sshd_config
 # PermitRootLogin = 0 # permettere l'accesso all'utente root
@@ -325,13 +423,6 @@ Permette di impostare i tasti per attivare le combinazioni [sysrq](https://linux
 	o - Spegne il sistema
 	s - Cerca di fare il sync di tutti i filesystem montati
 	...
-
-##### passwd
-```passwd
-root:0:0:
-<nome_utente>:a:b:c:<nome>,,,:<percorso>:<percorso>
-```
-	a: permessi_root (0 si, 1 no) #rivedere
 ### Comandi extra
 ```sh
 netstat -rn # fornisce #gateway
