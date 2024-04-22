@@ -93,6 +93,10 @@ find <directory>
 	find / -perm -4000
 	-perm #cerca i file che hanno i permessi specificati
 	permessi: 1=read, 2=write, 3=execute, 4=SUID
+Visualizzare le #ACL di un file
+```sh
+getfacl <nome_file>
+```
 Rimuovere un account
 ```Shell
 gpasswd -d <nome_utente> <nome_ambiente>
