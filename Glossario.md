@@ -1,8 +1,11 @@
 - #brute-force - reiterazione automatica di decriptazione di dati protetti tramite programmi o siti appositi (tipo hashcat). Di solito viene usato su password basilari (rockyou.txt)
 - #cluster - E' un insieme di macchine utilizzate per il #back-end di un'applicazione.
 - #debolezza - Componente potenzialmente soggetta ad essere aggirata
+- #GAN - Global Area Network
+- #LAN - Local Area Network
 - #malware
 - #malware-polimorfo - Malware il cui #codice sorgente viene modificato in #runtime
+- #MAN - Metropolitan Area Network
 - #meltdown - 
 - #prepared-statement - 
 - #peppper - Ulteriore elemento aggiunto al dato (simile al #salt), ma non viene registrato nel server
@@ -16,3 +19,4 @@
 	- 0.4 - 0.99: Beta
 	- 1.0: Official release
 - #vulnerabilità - Quando viene sfruttata con successo una debolezza per perpetrare un attacco informatico
+- #WAN - Wide Area Network

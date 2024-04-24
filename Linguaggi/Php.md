@@ -10,7 +10,7 @@ La macchina per eseguire un programma in #JavaScript, #PhP  (o un qualsiasi altr
 La struttura esterna di un #codice #PhP è:
 	<?php [linee di codice] ?>
 
-Una #variabile è una [[Locazione di memoria]] che perette l'inserimento e la modifica di #dati. In PhP una variabile viene #dichiarata nel seguente modo:
+Una #variabile è una [[Macchina]] che perette l'inserimento e la modifica di #dati. In PhP una variabile viene #dichiarata nel seguente modo:
 	$variabile = 5;
 
 Il linguaggio è case sensitive e per convenzione si usa la #snake_syntax (ovvero l'utilizzo dell'underscore tra le parole) per programmare.
@@ -25,7 +25,7 @@ PHP permette di realizzare programmi eseguibili anche da terminale.
 
 		  php -S localhost:8000
 
-# [[Locazione di memoria]] #variabile
+# [[Macchina]] #variabile
 ```
 $variabile
 $array = ("valore_1", 2, "valore_3");

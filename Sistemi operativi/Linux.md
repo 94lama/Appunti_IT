@@ -66,7 +66,7 @@ chmod <permessi_utente><permessi_gruppo><permessi_utente_generico> <nome_file>
 	w: write - 2
 	x: execute - 1
 	s: ovvero Set owner (user o group). Permette di far eseguire il file ad un utente (indipendentemente dai permessi assegnati) come fosse root
-	t: (Stick bit) Imposta gli utenti proprietari come unici utenti con permessi di cancellazione file (a parte il super user)
+	t: (Sticky bit) Imposta gli utenti proprietari come unici utenti con permessi di cancellazione file (a parte il super user)
 	- Nel caso si vogliano utilizzare i numeri, nel caso di combinazione di permessi, si possono sommare i numeri (6 per lettura e scrittura, 7 per tutti e 3)
 	- Se le cartelle non hanno almeno permesso 4, verrà negato l'accesso
 Modifica il proprietario di un file
@@ -121,7 +121,10 @@ groups <utente>
 ```
 	Se non si inserisce l'utente, ritornerà tutti i gruppi del sistema
 	OPZIONI:
-	
+Verificare le informazioni di un utente
+```sh
+id <user>
+```
 Visualizzare le regole di accesso alla macchina ( #firewall)
 ```shell
 iptables -L -v -n
@@ -196,12 +199,12 @@ rm <nome_file>
 	OPZIONI:
 	-r # Rimuove una cartella non vuota
 	-rf # Forza la rimozione
-Impostare una #ACL 
+Impostare una #ACL di un file
 ```sh
 setfacl u:<user>:<permessi> <file>
 ```
 	OPZIONI:
-	-m # mask, modifica la #ACL del file
+	-m # modifica la #ACL del file
 	-R # applica la regola in maniera ricorsiva
 	-x # riomuove la #ACL impostata
 Connettersi ad un'altra macchina da remoto tramite protocollo #ssh 
