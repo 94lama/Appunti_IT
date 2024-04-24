@@ -20,72 +20,36 @@
             }
           },
           {
-            "id": "b4ab531b908acccf",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Server/Cloud Server.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "19c0d5f76b5da78a",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Tecnologie/Protocolli di comunicazione.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "312643448775e745",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Algoritmi.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "0f316121313f1ba9",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Tecnologie/Reti.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "d1c66ce4ad6aa94e",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Tecnologie/Macchina.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
             "id": "84bb94958bf0d9c4",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
                 "file": "Server/AWS.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "b3f56fcaf91fbca5",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Server/Azure.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "1ef7e1ead61ca984",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Tecnologie/Protocolli di comunicazione.md",
                 "mode": "source",
                 "source": false
               }
@@ -158,7 +122,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Tecnologie/Protocolli di comunicazione.md",
+                "file": "Server/Azure.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -175,7 +139,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Tecnologie/Protocolli di comunicazione.md",
+                "file": "Server/Azure.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -198,7 +162,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Tecnologie/Protocolli di comunicazione.md"
+                "file": "Server/Azure.md"
               }
             }
           },
@@ -232,23 +196,23 @@
       "workspaces:Manage workspace layouts": false
     }
   },
-  "active": "19c0d5f76b5da78a",
+  "active": "b3f56fcaf91fbca5",
   "lastOpenFiles": [
-    "Server/Cloud Server.md",
+    "Tecnologie/Protocolli di comunicazione.md",
+    "Server/Azure.md",
     "Server/AWS.md",
+    "Glossario.md",
+    "Server/Cloud Server.md",
     "Sistemi operativi/Linux.md",
     "AWS Specialist.md",
-    "Tecnologie/Protocolli di comunicazione.md",
     "Cybersecurity.md",
     "Algoritmi.md",
     "Tecnologie/Macchina.md",
     "Tecnologie/Reti.md",
     "Protocolli.md",
-    "Glossario.md",
     "Sistemi operativi/Virtualizzazione.md",
     "Server/Terraform.md",
     "Sistemi operativi/Windows.md",
-    "Server/Azure.md",
     "Immagini/Pasted image 20240415163500.png",
     "Immagini/Pasted image 20240415140801.png",
     "Framework/Django.md",

@@ -1,26 +1,55 @@
+[Documentazione](https://docs.aws.amazon.com/)
 # Introduzione
 Servizio di [[Cloud Server]] gestito da Amazon, prodotto leader nel campo #IaaS.
-
-# Creazione di un nuovo server
-- free tier eligible: permette di avere un periodo di uso gratuito
-## Instance type
-Ubuntu
-## Key pair (login)
-Inserire una chiave di protezione (consigliata protezione ED25519)
-## Network settings
-### Firewall
-Permette di impostare le #porte aperte e le chiavi
-- 0.0.0.0 indica una porta aperta a tutti
-## Storage
-AWS ha un programma di pagamento basato sullo spazio utilizzato per tempo utilizzato (calcolato in ore). I primi 30GB sono gratuiti per i primi 12 mesi
 # Server
 Di norma si utilizzano più server per progetto. Su AWS è consigliabile utilizzare i server  localizzati nella stessa regione di utilizzo. I prezzi variano in base alla localizzazione scelta. Di solito per prove, conviene utilizzare il data server ue-east-1 (per motivi legati ai costi e alla documentazione).
 - Pipeline (collega il server aperto al pubblico alla piattaforma di versionamento)
 - Deploy (server pubblico)
+## Creazione di un nuovo server
+- free tier eligible: permette di avere un periodo di uso gratuito
+### Instance type
+Ubuntu
+### Key pair (login)
+Inserire una chiave di protezione (consigliata protezione ED25519)
+### Network settings
+#### Firewall
+Permette di impostare le #porte aperte e le chiavi
+- 0.0.0.0 indica una porta aperta a tutti
+### Storage
+AWS ha un programma di pagamento basato sullo spazio utilizzato per tempo utilizzato (calcolato in ore). I primi 30GB sono gratuiti per i primi 12 mesi
 ## Collegamento al server da terminale
 ```sh
 ssh ubuntu@<indirizzo_ip_server> -i <user_ssh>
 ```
+# VPC
+L'Amazon Virtual Private Cloud è una rete privata ed isolata all'interno del Cloud AWS, che richiede un range di indirizzi [IPv4](Protocolli di comunicazione#IPv4) o [IPv6](<Protocolli di comunicazione#IPv6>) e permette di scegliere un range #cidr in base alle necessità.
+E' possibile scegliere in quale datacenter utilizzare in base all'***Availability Zone***, ovvero l'insieme di server AWS utilizzabili dall'utente, in base alla posizione geografica dello stesso.
+## Tipologie di VPC
+- Hardware VON
+- Direct Connect
+- VPN CloudHub
+- Software VPN
+## Subnet
+### Private subnet
+Sottorete accessibile solo all'interno della VPC. Esempi sono:
+- Data Store
+- Batch processing
+- Server Back-end
+### Public subnet
+Sottorete accessibile anche dall'esterno della VPC. Esempi sono:
+- Applicazione Web
+## UI
+### IP Address
+### Elastic Network Interfaces
+### Route tables
+### Network Address Translation
+### DHCP
+Dynamic Host Configuration Protocol
+### DNS
+Domain Name System. E' un servizio a pagamento utilizzabile tramite Route 53.
+### VPC Peering
+### VPC Endpoints
+### VPC Flow logs
 # API
 Amazon usa #S3 per integrare le #API all'interno del sistema.
 # Utilizzo
