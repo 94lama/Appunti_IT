@@ -52,6 +52,32 @@ Domain Name System. E' un servizio a pagamento utilizzabile tramite Route 53.
 ### VPC Flow logs
 # API
 Amazon usa #S3 per integrare le #API all'interno del sistema.
+# [IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html)
+La #IAM, o Identity Access Management è un servizio web che aiuta a controllare in modo sicuro l'accesso alle risorse di AWS tramite l'assegnazione di ruoli.
+## Termini
+- user
+- gruppo
+- ruolo
+- #policy
+- oggetto identity-provider
+## Federazione
+Servizio che consente l'accesso temporaneo alle risorse tramite password già utilizzate altrove (es. password aziendali).
+### Outside organization
+Sono tutti gli utenti che non possiedono un account AWS, ma possono comunque accedere a determinate risorse del cloud (es. tramite specifici user e password). Non fanno parte dell'organizzazione principale e devono essere sempre segnati.
+## Ruoli
+### Utente
+#### Gruppi
+Il funzionamento dei gruppi è simile a quello di [[Linux]].
+### Amministratore del servizio
+### Amministratore IAM
+Gestore delle #policy di accesso tramite #IAM. Queste possono essere preconfigurate, o impostate tramite file (di solito #JSON) 
+## [Tipologie di accesso](https://docs.aws.amazon.com/it_it/IAM/latest/UserGuide/introduction_identity-management.html#AccessControlMethods)
+### MFA
+E' possibile implementare un meccanismo di Autenticazione a Multi-Fattore ( #mfa) tramite #IAM.
+### SSO
+Il Single Sign-ON ( #SSO) è una tipologia di accesso che permette di richiedere una minore quantità di dati durante il login di un utente, qualora si stia effettuando il secondo (o più) accesso al sistema.
+## ABAC
+Attribute-Based Access Control ( #ABAC) è un meccanismo di gestione delle autorizzazioni tramite utilizzo di Attributi ( #tag)
 # Utilizzo
 ## Installazione di [[Docker]]
 prendere script da sito di Docker in base al sistema operativo che si è installato nel server
