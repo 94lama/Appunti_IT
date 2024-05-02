@@ -78,7 +78,40 @@ E' possibile implementare un meccanismo di Autenticazione a Multi-Fattore ( #mfa
 Il Single Sign-ON ( #SSO) è una tipologia di accesso che permette di richiedere una minore quantità di dati durante il login di un utente, qualora si stia effettuando il secondo (o più) accesso al sistema.
 ## ABAC
 Attribute-Based Access Control ( #ABAC) è un meccanismo di gestione delle autorizzazioni tramite utilizzo di Attributi ( #tag)
-# Utilizzo
+# EC2
+L'Elastic Compute Cloud (o EC2), è il servizio di virtualizzazione di AWS, che permette di creare macchine virtuali, utilizzabili per impostare database, siti web, ecc.
+Ogni #istanza si basa si un sistema operativo virtualizzato, creato tramite [[#AMI]] e può essere collegata ad un [[#S3]] e ad uno o più #snapshot.
+## AMI
+O Amazon Machine Image, sono dei file, preimpostati da Amazon, utilizzati come immagine per impostare le  macchine virtuali dell'EC2.
+## [Tipo di istanza](https://docs.aws.amazon.com/it_it/AWSEC2/latest/UserGuide/instance-types.html)
+### t2
+Consigliata per applicazioni web a basso traffico, database di piccole o medie dimensioni.
+#### micro
+Istanza idonea al piano gratuito.
+### r5
+Consigliata per DAS, ovvero Database ad alte prestazioni e cache di memoria distribuite
+### proton
+Chip creato nativamente da AWS per aumentare di molto le prestazioni di una macchina (non è un'istanza generica, ma può essere attivato all'interno di AWS) tramite una gestione automatica delle risorse ( #backup inclusi).
+## Ciclo di vita
+![[Pasted image 20240502095612.png]]
+### Attiva
+### Arresta
+### Termina
+Quando si chiede di terminare un' #istanza [[#Attiva]], AWS effettua un controllo di eventuali collegamenti ad altri servizi di AWS (ad esempio S3) e, in caso questi esistano, bloccherà la terminazione dell'istanza. Per questo motivo conviene [arrestare](#Arresta) l'istanza prima di terminarla.
+## Utilizzo
+### PuTTY
+1. Inserire indirizzo IP o nome Host dell'EC2 con cui ci si vuole connettere
+2. andare su ssh/auth/credentials e aprire il file .ppk con le credenziali
+3. Inizializzare il programma e accedere come **ec2-user**
+### [Inizializzazione di LAMP](https://docs.aws.amazon.com/it_it/AWSEC2/latest/UserGuide/ec2-lamp-amazon-linux-2.html)
+#### Linux 3
+```sh
+sudo ami
+```
+#### Linux 2
+```sh
+sudo yum
+```
 ## Installazione di [[Docker]]
 prendere script da sito di Docker in base al sistema operativo che si è installato nel server
 Durante l'installazione, nel caso si usi una memoria di piccole dimensioni, il server potrebbe andare in stato di #anger (sovraccarico). Per evitare ciò si utilizza lo #swapfile, ovvero una partizione (o file), situato nell'hard disk, che lavora come estensione della RAM.

@@ -449,6 +449,7 @@ wpscan --url <url> --password-attack xmlrpc -t 20 -U <nome utente> -P /usr/share
 ```
 ### Hydra
 Software utilizzato per effettuare #brute-force su siti web.
+
 ## Hardening
 ### #DDos 
 Ci sono dei software che permettono di inviare dei [Three-way-handshake](<Protocolli di comunicazione#Three-way-handshake) incompleti ad una macchina bersaglio. La macchina risponderà con il secondo passaggio del processo. Nel caso le richieste vengano effettuate in grande quantità, si effettua un attacco chiamato #syn-flow ed il risultato è il down del sistema e la conseguente interruzione del servizio.
