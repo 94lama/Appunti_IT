@@ -12,4 +12,5 @@ Verificare le #porte aperte su un indirizzo #IP
 telnet <indirizzo_ip>
 ```
 
-# Shell
+# Hyper-V
+#hypervisor default di Wondows. Serve a gestire la [[Virtualizzazione]].

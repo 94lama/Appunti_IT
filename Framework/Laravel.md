@@ -639,7 +639,7 @@ Un #server è una macchina dotata di almeno una scheda di memoria, una #RAM, e u
 Mettere online un progetto significa inserire all'interno di questa macchina l'app. I server hanno molteplici macchine, aventi potenze di calcolo diverse (spesso selezionabili tramite servizi in abbonamento).
 
 ### Programmi di gestione per le richieste #http 
-Sono suddivisi in due #stack: LAMP e LEMP
+Sono suddivisi in due #stack: [[#LAMP]] e [[#LEMP]]
 #### LAMP
 L = Linux
 A = [Apache](https://httpd.apache.org/)
@@ -650,7 +650,6 @@ L = Linux
 E = [NGINX](https://www.nginx.com/) (enginext)
 M = [[MySQL]]
 P = [[Php]]
-
 #### [Forge](https://forge.laravel.com/)
 Permette di gestire i server, collegandosi ad una piattaforma di gestione del #server (es. [DigitalOcean](https://www.digitalocean.com/))
 Per creare sito saranno necessari alcuni dati:

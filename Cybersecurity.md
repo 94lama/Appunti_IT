@@ -214,7 +214,7 @@ Il #deployment di norma è effettuata da una singola persona, dopo che il prodot
 ### Software utilizzati
 #### Code
 I software sono utilizzati per il #versioning dell'applicazione. Questi software permettono di condividere il lavoro tramite creazione di più #branch, ovvero ramificazioni del progetto. 
-- [[GitHub]]
+- [[Github]]
 - Git
 - Subversion
 - GitLab
@@ -755,7 +755,7 @@ utilizzino software #open-source, si incorre a potenziali rischi, tra i quali:
 Vd slides per completare la tabella
 #### Software
 - [[Azul]]
-- [[Snyk]]
+- [[snyk]]
 - [[Quiet AI]]
 - [[Retire.js]]
 - [[OWASP Dependency Check]]
