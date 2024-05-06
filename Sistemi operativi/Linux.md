@@ -485,7 +485,7 @@ chmod u-s /usr/bin/python3.11
 ```
 	La versione di python installata può essere vista tramite python --version
 In questo modo l'utente potrà accedere al terminale Python, ma con i permessi prestabiliti dall'amministratore.
-### [Code scanning](Cybersecurity#SCA)
+### [Code scanning](Cybersecurity.md#SCA)
 
 # Annotazioni
 - Le distribuzioni di Linux, di solito, vengono provviste nativamente di [[Python]]

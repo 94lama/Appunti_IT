@@ -9,7 +9,7 @@
 La scansione viene riportata in un file [[XML]], riportando le criticità con relativo un livello di criticità. Nel caso di implementazione in #CI/CD, la presenza di criticità di livello BASSO, MEDIO o ALTO, blocca automaticamente il flusso della #pipeline, mentre il livello INFO non la blocca.
 Dastardly utilizza i #container [[Docker]] per funzionare
 ## Funzionamento
-Per utilizzare Dastardly, è consigliato utilizzare un computer dedicato, o quantomeno un ambiente virtuale (tipo [kali-linux](Linux#kali-linux)).
+Per utilizzare Dastardly, è consigliato utilizzare un computer dedicato, o quantomeno un ambiente virtuale (tipo [kali-linux](Linux.md#kali-linux)).
 Creo una directory dedicata
 ```sh
 mkdir dastardly
@@ -47,7 +47,7 @@ References: Contiene una lista di link relativi all'attacco (da siti come Mitre,
 
 ```
 # Proxy
-Permette di simulare attacchi #man-in-the-middle, frapponendosi tra il browser della macchina utilizzata ed il server bersaglio., in maniera simile a [[ZAP]].
+Permette di simulare attacchi #man-in-the-middle, frapponendosi tra il browser della macchina utilizzata ed il server bersaglio., in maniera simile a [[Zap]].
 Per attivare il meccanismo di intercettazione basta cliccare su **Intercept on** (toggler che attiva e disattiva la funzionalità).
 La schermata è formata da una parte a sinistra, nella quale è possibile vedere i messaggi #request (e modificarli) e la response (nel caso venga inviata prima la request), e una parte a destra che contiene l'**inspector**, con varie funzionalità utili, tra le quali, ad esempio:
 - Testo selezionato

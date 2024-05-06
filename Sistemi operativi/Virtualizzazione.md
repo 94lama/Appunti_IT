@@ -3,7 +3,7 @@
 ## bare-metal
 Hypervisor di tipo 1 che non necessita di un #OS alla base. Offre performance maggiori, grazie al minore carico di utilizzo.
 ## hosted
-Hypervisor di tipo 2, che si appoggia su un sistema operativo (es. [Hyper-V](Windows#Hyper-V))
+Hypervisor di tipo 2, che si appoggia su un sistema operativo (es. [Hyper-V](Windows.md#Hyper-V))
 # Software di virtualizzazione
 ## [VirtualBox](**https://www.virtualbox.org/**)
 Software di [virtualizzazione di tipo 2](#hosted) open-source prodotto da Oracle

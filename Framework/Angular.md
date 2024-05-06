@@ -12,7 +12,7 @@ npx --package=@angular/cli
 ```
 	OPZIONI:
 	-p # package
-Nel caso non lo si avesse già, è necessario installare anche [Typescript](TypeScript#Installazione)
+Nel caso non lo si avesse già, è necessario installare anche [Typescript](TypeScript.md#Installazione)
 
 Per iniziare un nuovo progetto
 ```sh

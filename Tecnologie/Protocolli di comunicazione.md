@@ -152,7 +152,7 @@ Aggiunge all'indirizzo IPv4 una indicazione relativa alla #subnet. La notazione 
 	102.54.94.97/24
 	CIDR:
 	In questo caso ci sono 256 indirizzi collegati a questo indirizzo IPv4
-Una volta raggiunto il server avente indirizzo #ip desiderato, il [Router](Macchina#Router) si occuperà di smistare i dati tramite l'utilizzo di [tabelle di routing](<Macchina#Tabelle di routing>)
+Una volta raggiunto il server avente indirizzo #ip desiderato, il [Router](Macchina.md#Router) si occuperà di smistare i dati tramite l'utilizzo di [tabelle di routing](Macchina.md#Tabelle%20di%20routing di routing>)
 #### IPv6
 Evoluzione dell' [[#IPv4]], che consiste in una sequenza alfanumerica di dati.
 

@@ -15,7 +15,7 @@ Di solito è rappresentato nella WAN con l'indirizzo
 ```
 	I rimi due byte dipendono dal gestore ed eventualmente dalle impostazioni della rete.
 # DNS
-Il #DNS, o Domain Name System, è un algoritmo che associa un [IP](<Protocolli di comunicazione#IP>) ad un #URL
+Il #DNS, o Domain Name System, è un algoritmo che associa un [IP](Protocolli%20di%20comunicazione.md#IP di comunicazione#IP>) ad un #URL
 # Roba da smistare
 ## MAC
 Un #mac-addresss (dove MAC sta per _[Media Access Control](https://it.wikipedia.org/wiki/Media_Access_Control "Media Access Control")_), detto anche "indirizzo fisico" o "indirizzo Ethernet", è un codice di 48 [bit](https://it.wikipedia.org/wiki/Bit "Bit") associato ad ogni [dispositivo di rete](https://it.wikipedia.org/wiki/Scheda_di_rete "Scheda di rete") che implementa lo standard [Ethernet](https://it.wikipedia.org/wiki/Ethernet "Ethernet"). Il suo scopo principale è quello di attribuire un'identità univoca a ciascuno dei nodi collegati ad uno stesso segmento di rete, consentendo quindi comunicazioni locali di tipo [unicast](https://it.wikipedia.org/wiki/Unicast "Unicast").

@@ -85,7 +85,7 @@ sudo service jenkins restart
 ```
 Rieffettuare il login
 
-Se si usa #AWS, seguire i [passaggi dedicati](AWS#Installazione%20di%20Docker)
+Se si usa #AWS, seguire i [passaggi dedicati](AWS.md#Installazione%20di%20Docker)
 ## https
 
 ## VPN

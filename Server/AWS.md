@@ -22,7 +22,7 @@ AWS ha un programma di pagamento basato sullo spazio utilizzato per tempo utiliz
 ssh ubuntu@<indirizzo_ip_server> -i <user_ssh>
 ```
 # VPC
-L'Amazon Virtual Private Cloud è una rete privata ed isolata all'interno del Cloud AWS, che richiede un range di indirizzi [IPv4](Protocolli di comunicazione#IPv4) o [IPv6](<Protocolli di comunicazione#IPv6>) e permette di scegliere un range #cidr in base alle necessità.
+L'Amazon Virtual Private Cloud è una rete privata ed isolata all'interno del Cloud AWS, che richiede un range di indirizzi [IPv4](Protocolli di comunicazione#IPv4) o [IPv6](Protocolli%20di%20comunicazione.md#IPv6 di comunicazione#IPv6>) e permette di scegliere un range #cidr in base alle necessità.
 E' possibile scegliere in quale datacenter utilizzare in base all'***Availability Zone***, ovvero l'insieme di server AWS utilizzabili dall'utente, in base alla posizione geografica dello stesso.
 ## Tipologie di VPC
 - Hardware VON
@@ -94,7 +94,7 @@ Il #package-manager predefinito è
 sudo dnf
 ```
 ### Windows
-Utilizzare una porta [RDP](<Protocolli di comunicazione#RDP>) invece che [SSH](<Protocolli di comunicazione#SSH>) per la connessione. Per connettersi al server remoto è necessario  scaricare il file preposto alla connessione da remoto o tramite il #software Connessione da Remoto nel caso si utilizzi [[Windows]] mentre, nel caso si utilizzi [[iOs]], sarà necessario scaricare un software apposito.
+Utilizzare una porta [RDP](Protocolli%20di%20comunicazione.md#RDP di comunicazione#RDP>) invece che [SSH](Protocolli%20di%20comunicazione.md#SSH di comunicazione#SSH>) per la connessione. Per connettersi al server remoto è necessario  scaricare il file preposto alla connessione da remoto o tramite il #software Connessione da Remoto nel caso si utilizzi [[Windows]] mentre, nel caso si utilizzi [[iOs]], sarà necessario scaricare un software apposito.
 #### [Connettersi](https://docs.aws.amazon.com/it_it/AWSEC2/latest/WindowsGuide/connecting_to_windows_instance.html)
 
 ## [Tipo di istanza](https://docs.aws.amazon.com/it_it/AWSEC2/latest/UserGuide/instance-types.html)
@@ -208,7 +208,7 @@ Per ridurre lo spazio utilizzato, si deve creare un nuovo volume da uno #snapsho
 ## Snapshot
 
 # S3
-Il Simple Storage Service è il servizio di #storage  principale di Amazon, fruibile tramite [http](<Protocolli di comunicazione#HTTP>). Alcuni punti di forza de lservizio sono:
+Il Simple Storage Service è il servizio di #storage  principale di Amazon, fruibile tramite [http](Protocolli%20di%20comunicazione.md#HTTP di comunicazione#HTTP>). Alcuni punti di forza de lservizio sono:
 - Possiblilita di memorizzare un numero illimitato di oggetti in un bucket
 - Oggetti fino a 5TB
 - Durability e disponibilita del 99,9%
