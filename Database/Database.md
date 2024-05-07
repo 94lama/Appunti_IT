@@ -2,7 +2,7 @@
 I dati hanno bisogno di un contesto per essere considerati informazione. per far ciò si utilizzano i database.
 Un #database è una raccolta di dati organizzati e memorizzati in una o più tabelle, dove ogni elemento è descritto in una riga (o #record), mentre ogni #attributo è indicato in una specifica colonna.
 Una #colonna (di solito la prima) deve essere riservata ad un valore univoco, di norma identificato con l'ID, denominato #chiave-primaria. Come #ID è spesso utilizzato un numero intero positivo #incrementale.
-I database sono gestiti da un Motore di Database, ovvero un #software che consente di rappresentare, memorizzare e manipolare le tabelle. Alcuni esempi di motori db sono: [[MySQL]], [[SQLite]], entrambi i quali utilizzano [[SQL]] come linguaggio, [[PostGres]].
+I database sono gestiti da un Motore di Database, ovvero un #software che consente di rappresentare, memorizzare e manipolare le tabelle. Alcuni esempi di motori db sono: [[informatica/Database/MySQL]], [[SQLite]], entrambi i quali utilizzano [[informatica/Linguaggi/MySQL]] come linguaggio, [[PostGres]].
 #DBMS (DataBase Management System). A loro volta possono essere #relazionali o non relazionali. I primi, denominati #RDBMS (Relational DataBase Management System), sono organizzati a tabelle mentre i secondi, sono rappresentati da #oggetti e di norma sono più veloci dei primi.
 
 Un comando impartito al database si chiama #query.
