@@ -34,6 +34,7 @@ CREATE TABLE <nome_tabella> (
 	- DEFAULT
 	- NOT NULL
 	- PRIMARY KEY
+	- FOREIGN KEY
 	- UNIQUE
 	- UNSIGNED # utilizzabile per dati numerici. Corrisponde al modulo del numero (sempre positivo)
 	- ZEROFILL # utilizzabile per dati numerici. Permette di inserire degli zeri all'inizio del numero, in modo tale da avere numeri con lunghezza uguale
@@ -42,9 +43,57 @@ Per popolare una tabella
 INSERT INTO <tabella> (<nome_colonna_1>, <nome_colonna_2>...)
 VALUES (<valore_1>, <valore_2>) (<valore_1>, <valore_2>);
 ```
+Aggiornare un record
+```MySQL
+UPDATE <database>.<tabella> WHERE <condizioni>
+```
+## Query
+Selezionare determinate colonne di una tabella
+```MySQL
+SELECT <colonna> FROM <tabella>;
+```
+	Se <colonna> = *, si seleziona l'intera tabella
+Selezionare un determinato record da una tabella in base ad un parametro
+```MySQL
+SELECT <colonna_1>, <colonna_2> FROM <tabella> WHERE <colonna> <operazione>; 
+```
+	OPERAZIONE:
+	- BETWEEN <min> AND <max> # Ritorna parametri compresi tra due valori
+	- ORDER BY [ASC, DESC] # Ordina i risultati in ordine ascendente o discendente
+	- LIKE <pattern> # Trova i parametri che rientrano nel pattern
+### LIKE
+
+| Pattern | Descrizione                               |
+| ------- | ----------------------------------------- |
+| _       | Carattere qualsiasi                       |
+| %       | Presenza di uno o più caratteri qualsiasi |
+```MySQL
+SELECT * FROM <table> WHERE <colonna> LIKE "_a%d"
+```
+	La query selezionerà tutti i record che abbiano (nella colonna selezionata) la seconda lettera "a" e "d" come ultima lettera.
+## Relazioni
+**ATTENZIONE**
+Per creare relazioni tra tabelle, MySQL utilizza [[#InnoDB]] per la definizione delle tabelle
+```MySQL
+CREATE TABLE IF NOT EXISTS <tabella> (<colonne>) engine = InnoDB;
+```
+Per stabilire le relazioni si utilizza la #foreign-key 
+### 1-to-1
+```MySQL
+CREATE TABLE <tabella> (
+<colonne>
+FOREIGN KEY(<colonna>) REFERENCES <tabella>(<colonna>)
+);
+```
+### 1-to-Many
+### Many-to-Many
 ## Errori
+
 | Codice | Descrizione                         |
 | ------ | ----------------------------------- |
 | 1007   | Il database esiste già              |
 | 1046   | Non hai selezionato nessun database |
 |        |                                     |
+# Engine
+## InnoDB
+Permette inserimenti, relazioni, alcune operazioni #CRUD 
