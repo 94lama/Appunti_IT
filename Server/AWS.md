@@ -227,6 +227,26 @@ http://<nome_bucket>.s3.amazonaws.com/<Object_key>
 	versioning
 ## Glacier
 Servizio a pagamento utilizzato in coppia con [[#S3]], utilizzato per recuperare dati (anche grandi) entro 3-5 ore per definire il ciclo di vita dei dati del bucket.
+# Dynamo DB
+Database non relazionale #nosql.
+```Dymano
+{
+TableName: "Music",
+KeySchema: [
+	{
+		AttributeName: "Artist",
+		AttributeDefinition: "Definition"
+	}
+	]
+}
+```
+AWS fornisce un'interfaccia per l'inserimento di dati nel database, utilizzabile per evitare di inserire i dati tramite codice.
+# [RDS](https://docs.aws.amazon.com/it_it/AmazonRDS/latest/UserGuide/Welcome.html)
+Il Relational Database Service (RDS) permette di effettuare #backup cross-region. Permette di utilizzare linguaggi di gestione dei #database come:
+- [[informatica/Database/MySQL|MySQL]]
+- [[Informatica/Database/MariaDB|MariaDB]]
+- [[]]
+
 # Attenzione
 - Nel caso si voglia aprire una nuova porta dal server, la si deve anche segnalare nella piattaforma di AWS
 # Indirizzi IP utili

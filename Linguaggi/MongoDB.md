@@ -1,1 +1,0 @@
-E' un #database non relazionale

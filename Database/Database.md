@@ -17,6 +17,8 @@ Ci sono 4 tipologie di #query:
 ## DDL
 ## 
 
+# NoSQL
+Formato di database di tipo non relazionale, che permette di registrare dati in formato coppia **chiave-valore**.
 # Software per la visualizzazione
 [TablePlus](https://tableplus.com/) è un software che permette di connettersi ad un database a fare operazioni su di esso
 
