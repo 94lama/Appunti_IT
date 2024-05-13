@@ -101,6 +101,8 @@ Un esempio di applicazione del DaaS è un software per trasportare dei dati dall
 Lo #STaaS, ovvero Storage as a Service, 
 #### HaaS
 #HaaS, o Hardware as a Service, è la messa a disposizione dei soli componenti #hardware al cliente (ad esempio utilizzato per il mining).
+#### CaaS
+Il #caas, o Container as a Service, possiedono come fulcro del servizio il #container. Un esempio di Caas è [[Docker]].
 ### Servizi
 #### IaC
 #IaC: Infrastructure as a Code. Alcuni esempi sono: [[Terraform]]
