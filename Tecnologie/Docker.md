@@ -35,6 +35,10 @@ docker run
 ## docker-compose.yml
 E' un file che contiene i dati necessari (incluse #porte, localizzazioni di #database, dati di accesso, ) per creare l'ambiente su cui far partire il programma.
 **NB. in environment non inserire le porte, perché renderebbe il container vulnerabile**
+## Container
+## Image
+## Volume
+E' la componente correlata al [[Database]] e ne permette il collegamento con i [[#Container]]
 # Comandi
 Mostrare i processi in esecuzione
 ```Docker
