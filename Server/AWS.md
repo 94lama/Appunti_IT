@@ -207,6 +207,9 @@ ssh ubuntu@<indirizzo_ip> -i ${SSH_CREDNTIALS} -o StrictHostKey=no << EOF
 Per ridurre lo spazio utilizzato, si deve creare un nuovo volume da uno #snapshot
 ## Snapshot
 
+# ECS
+# EKS
+Elastic Kubernetes Services implementa [[Kubernetes]] all'interno di AWS.
 # S3
 Il Simple Storage Service è il servizio di #storage  principale di Amazon, fruibile tramite [http](Protocolli%20di%20comunicazione.md#HTTP di comunicazione#HTTP>). Alcuni punti di forza de lservizio sono:
 - Possiblilita di memorizzare un numero illimitato di oggetti in un bucket
@@ -247,6 +250,19 @@ Il Relational Database Service (RDS) permette di effettuare #backup cross-region
 - [[Informatica/Database/MariaDB|MariaDB]]
 - [[]]
 
+# AWS CLI
+Command-Line Interface si usa per immettere comandi ad AWS direttamente da terminale.
+## Installazione
+Per effettuare l'accesso bisogna creare una chiave di accesso dalla console di AWS (Navbar -> utente -> Credenziali di sicurezza -> Chiavi di accesso -> Crea chiave di accesso)
+## Configurazione
+```sh
+aws configure
+```
+	AWS Access Key ID - inserire la chiave
+	AWS Secret Access Key - inserire la chiave segreta 
+	Default region name - Inserire oil codice della regione in cui si opera (es. us-east-1) 
+	Default output format - JSON
+## [[Docker]]
 # Attenzione
 - Nel caso si voglia aprire una nuova porta dal server, la si deve anche segnalare nella piattaforma di AWS
 # Indirizzi IP utili
