@@ -78,6 +78,8 @@ E' possibile implementare un meccanismo di Autenticazione a Multi-Fattore ( #mfa
 Il Single Sign-ON ( #SSO) è una tipologia di accesso che permette di richiedere una minore quantità di dati durante il login di un utente, qualora si stia effettuando il secondo (o più) accesso al sistema.
 ## ABAC
 Attribute-Based Access Control ( #ABAC) è un meccanismo di gestione delle autorizzazioni tramite utilizzo di Attributi ( #tag)
+## Policy
+[Policy simulator](https://signin.aws.amazon.com/signin?redirect_uri=https%3A%2F%2Fpolicysim.aws.amazon.com%2Fhome%2Findex.jsp%3Fstate%3DhashArgs%2523%26isauthcode%3Dtrue&client_id=arn%3Aaws%3Aiam%3A%3A015428540659%3Auser%2Fpolicysim&forceMobileApp=0&code_challenge=L5HWMe5DQvLufKnzOFmJ-VuKOkHeX_OG1h2ymBEYJp4&code_challenge_method=SHA-256)
 # EC2
 L'Elastic Compute Cloud (o EC2), è il servizio di virtualizzazione di AWS, che permette di creare macchine virtuali, utilizzabili per impostare database, siti web, ecc.
 Ogni #istanza si basa si un sistema operativo virtualizzato, creato tramite [[#AMI]] e può essere collegata ad un [[#S3]] e ad uno o più #snapshot.
