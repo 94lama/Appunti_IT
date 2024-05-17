@@ -1,4 +1,5 @@
 [Sito internet](https://www.terraform.io/)
+Terraform è un servizio [IaC](<Cloud Server#IaC>) utilizzabile su tutti i provider cloud, creato da HashiCorp, che funziona sfruttando la struttura JSON per la creazione dei file e il CLI per l'immissione di input.
 # Installazione
 [link](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)
 
@@ -37,10 +38,11 @@ resource "<risorsa>" {
 	bucket = 
 }
 ```
-Il parametro backend permette di stabilire il luogo di salvataggio del file [terraform.tfstate](#terraform.tfstate). Per evitare conflitti, backend viene tenuto commentato in fase iniziale.
-## terraform.tfstate
+Il parametro backend permette di stabilire il luogo di salvataggio del file [terraform.tfstate](#tfstate). Per evitare conflitti, #back-end viene tenuto commentato in fase iniziale.
+## terraform
+### tfstate
 
-## terraform.tfvars
+### tfvars
 Importa nel progetto le variabili definite su [variables.tf](#variables.tf).
 ```terraform.tfvars
 <chiave_1> = <valore_1>
@@ -59,7 +61,7 @@ variable{
 ### Installazione
 Installare i servizi di AWS nel pc dal seguente [link](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html).
 
-### Comandi
+## Comandi
 Installare le #dependency. Verrà create un file README.md
 ```sh
 terraform init

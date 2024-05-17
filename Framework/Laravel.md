@@ -643,12 +643,12 @@ Sono suddivisi in due #stack: [[#LAMP]] e [[#LEMP]]
 #### LAMP
 L = Linux
 A = [Apache](https://httpd.apache.org/)
-M = [[MySQL]]
+M = [[informatica/Database/MySQL]]
 P = [[Php]] (utile perchè è un linguaggio lato server)
 #### LEMP
 L = Linux
 E = [NGINX](https://www.nginx.com/) (enginext)
-M = [[MySQL]]
+M = [[informatica/Database/MySQL]]
 P = [[Php]]
 #### [Forge](https://forge.laravel.com/)
 Permette di gestire i server, collegandosi ad una piattaforma di gestione del #server (es. [DigitalOcean](https://www.digitalocean.com/))

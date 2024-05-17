@@ -1,4 +1,4 @@
-# cd C:/Users/ricca/iCloudDrive/iCloud~md~obsidian/informatica
+git pull
 git add .
 git commit -m"Commit automatizzato"
 git push

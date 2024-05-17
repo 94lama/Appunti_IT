@@ -112,7 +112,7 @@ Nel terminale si digitano i seguenti comandi
 	ufw allow 'nxginx HTTP'
 	ufw enable -> y
 	apt install mysql-server -> y
-##### [[MySQL]]
+##### [[informatica/Database/MySQL]]
 	mysql -u root -p //Essendo un server Linux, non c'è bisogno di scrivere winpty prima
 	*Enter* //inizialmente l'utente root non ha una password di default, quindi si inserisce un valore vuoto
 	show databases //mostrerà 4 databases: information_schema, mysql, performance_schema e sys

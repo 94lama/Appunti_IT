@@ -78,6 +78,8 @@ E' possibile implementare un meccanismo di Autenticazione a Multi-Fattore ( #mfa
 Il Single Sign-ON ( #SSO) è una tipologia di accesso che permette di richiedere una minore quantità di dati durante il login di un utente, qualora si stia effettuando il secondo (o più) accesso al sistema.
 ## ABAC
 Attribute-Based Access Control ( #ABAC) è un meccanismo di gestione delle autorizzazioni tramite utilizzo di Attributi ( #tag)
+## Policy
+[Policy simulator](https://signin.aws.amazon.com/signin?redirect_uri=https%3A%2F%2Fpolicysim.aws.amazon.com%2Fhome%2Findex.jsp%3Fstate%3DhashArgs%2523%26isauthcode%3Dtrue&client_id=arn%3Aaws%3Aiam%3A%3A015428540659%3Auser%2Fpolicysim&forceMobileApp=0&code_challenge=L5HWMe5DQvLufKnzOFmJ-VuKOkHeX_OG1h2ymBEYJp4&code_challenge_method=SHA-256)
 # EC2
 L'Elastic Compute Cloud (o EC2), è il servizio di virtualizzazione di AWS, che permette di creare macchine virtuali, utilizzabili per impostare database, siti web, ecc.
 Ogni #istanza si basa si un sistema operativo virtualizzato, creato tramite [[#AMI]] e può essere collegata ad un [[#S3]] e ad uno o più #snapshot.
@@ -207,6 +209,9 @@ ssh ubuntu@<indirizzo_ip> -i ${SSH_CREDNTIALS} -o StrictHostKey=no << EOF
 Per ridurre lo spazio utilizzato, si deve creare un nuovo volume da uno #snapshot
 ## Snapshot
 
+# ECS
+# EKS
+Elastic Kubernetes Services implementa [[Kubernetes]] all'interno di AWS.
 # S3
 Il Simple Storage Service è il servizio di #storage  principale di Amazon, fruibile tramite [http](Protocolli%20di%20comunicazione.md#HTTP di comunicazione#HTTP>). Alcuni punti di forza de lservizio sono:
 - Possiblilita di memorizzare un numero illimitato di oggetti in un bucket
@@ -227,6 +232,39 @@ http://<nome_bucket>.s3.amazonaws.com/<Object_key>
 	versioning
 ## Glacier
 Servizio a pagamento utilizzato in coppia con [[#S3]], utilizzato per recuperare dati (anche grandi) entro 3-5 ore per definire il ciclo di vita dei dati del bucket.
+# Dynamo DB
+Database non relazionale #nosql.
+```Dymano
+{
+TableName: "Music",
+KeySchema: [
+	{
+		AttributeName: "Artist",
+		AttributeDefinition: "Definition"
+	}
+	]
+}
+```
+AWS fornisce un'interfaccia per l'inserimento di dati nel database, utilizzabile per evitare di inserire i dati tramite codice.
+# [RDS](https://docs.aws.amazon.com/it_it/AmazonRDS/latest/UserGuide/Welcome.html)
+Il Relational Database Service (RDS) permette di effettuare #backup cross-region. Permette di utilizzare linguaggi di gestione dei #database come:
+- [[informatica/Database/MySQL|MySQL]]
+- [[Informatica/Database/MariaDB|MariaDB]]
+- [[]]
+
+# AWS CLI
+Command-Line Interface si usa per immettere comandi ad AWS direttamente da terminale.
+## Installazione
+Per effettuare l'accesso bisogna creare una chiave di accesso dalla console di AWS (Navbar -> utente -> Credenziali di sicurezza -> Chiavi di accesso -> Crea chiave di accesso)
+## Configurazione
+```sh
+aws configure
+```
+	AWS Access Key ID - inserire la chiave
+	AWS Secret Access Key - inserire la chiave segreta 
+	Default region name - Inserire oil codice della regione in cui si opera (es. us-east-1) 
+	Default output format - JSON
+## [[Docker]]
 # Attenzione
 - Nel caso si voglia aprire una nuova porta dal server, la si deve anche segnalare nella piattaforma di AWS
 # Indirizzi IP utili
