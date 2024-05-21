@@ -5,10 +5,10 @@
 # Connessione al server
 Su terminal:
 
-|comando|descrizione|
-|-|-|
-|-u|user|
-|-p|password|
+| comando | descrizione |
+| ------- | ----------- |
+| -u      | user        |
+| -p      | password    |
 # Comandi
 I comandi originariamente dovevano essere scritti in MAIUSCOLO. Successivamente questa pratica è diventata opzionale.
 
@@ -129,16 +129,16 @@ Le JOIN possono essere effettuate in varie maniere diverse, in base alla tipolog
 - RIGHT - ritorna i dati presenti in entrambe le tabelle e quelli presenti solo nella seconda tabella
 - 
 # Tipologie di dati
-|Comando|Descrizione|
-|-|-|
-|not null|Imposta il valore come impossibile da essere nullo|
-|PRIMARY KEY(chiave)|Imposta la #primary-key|
-|FOREIGN KEY(chiave) REFERENCES tabella(chiave)|Imposta il dato come #foreign-key|
-|INT|Numero intero|
-|auto_increment|Imposta automaticamente il dato in maniera incrementale|
-|check(condizione)|Verifica se i campo rispetta la condizione impostata)|
-|CHAR(lungh.)|Dato di tipologia Stringa e lunghezza fissa lungh.|
-|VARCHAR(lungh.)|Dato di tiologia Stringa e lunghezza lungh.|
+| Comando                                        | Descrizione                                             |
+| ---------------------------------------------- | ------------------------------------------------------- |
+| not null                                       | Imposta il valore come impossibile da essere nullo      |
+| PRIMARY KEY(chiave)                            | Imposta la #primary-key                                 |
+| FOREIGN KEY(chiave) REFERENCES tabella(chiave) | Imposta il dato come #foreign-key                       |
+| INT                                            | Numero intero                                           |
+| auto_increment                                 | Imposta automaticamente il dato in maniera incrementale |
+| check(condizione)                              | Verifica se i campo rispetta la condizione impostata)   |
+| CHAR(lungh.)                                   | Dato di tipologia Stringa e lunghezza fissa lungh.      |
+| VARCHAR(lungh.)                                | Dato di tiologia Stringa e lunghezza lungh.             |
 
 ## Altri comandi utili
 - index: Definisce l'indice della tabella

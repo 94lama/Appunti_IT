@@ -60,7 +60,7 @@ Scansionare i file in base ai secrets impostati
 git secrets --scan <percorso>
 ```
 # Terminologia
-|termine|descrizione|
-|-|-|
-|pair programing|metodologia di programmazione nella quale i developers lavorano contemporaneamente, ma su file diversi per evitare conflitti|
+| termine         | descrizione                                                                                                                  |
+| --------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| pair programing | metodologia di programmazione nella quale i developers lavorano contemporaneamente, ma su file diversi per evitare conflitti |
 

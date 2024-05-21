@@ -80,23 +80,23 @@ Esempio
 Una volta inizializzato il progetto, verrà creata automaticamente un file ```manage.py``` ed una cartella avente il nome del progetto:
 ```Progetto
 project_name
-|- project_name
-|-- __init__.py
-|-- settings.py
-|-- urls.py
-|-- asgi.py
-|-- wsgi.py
-|-- nome_feature
-|--- migrations
-|--- __init__.py
-|--- admin.py
-|--- apps.py
-|--- models.py
-|--- tests.py
-|--- views.py
-|--- urls.py
-|- manage.py
-|- db.sqlite3 # Se il progetto utilizza mysqlite per gestire il #database
+├ project_name
+|	├ __init__.py
+|	├ settings.py
+|	├ urls.py
+|	├ asgi.py
+|	├ wsgi.py
+|	└ nome_feature
+|		├ migrations
+|		├ __init__.py
+|		├ admin.py
+|		├ apps.py
+|		├ models.py
+|		├ tests.py
+|		├ views.py
+|		└ urls.py
+├ manage.py
+└ db.sqlite3 # Se il progetto utilizza mysqlite per gestire il #database
 ```
 
 # Librerie

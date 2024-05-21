@@ -52,8 +52,8 @@ Domain Name System. E' un servizio a pagamento utilizzabile tramite Route 53.
 ### VPC Flow logs
 # API
 Amazon usa #S3 per integrare le #API all'interno del sistema.
-# [IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html)
-La #IAM, o Identity Access Management è un servizio web che aiuta a controllare in modo sicuro l'accesso alle risorse di AWS tramite l'assegnazione di ruoli.
+# IAM
+La [#IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html), o Identity Access Management è un servizio web che aiuta a controllare in modo sicuro l'accesso alle risorse di AWS tramite l'assegnazione di ruoli. E' il [Domain controller](<Reti#Domain controller>) di AWS.
 ## Termini
 - user
 - gruppo

@@ -7,16 +7,16 @@ Terraform è un servizio [IaC](<Cloud Server#IaC>) utilizzabile su tutti i provi
 Un progetto Terraform è composto da:
 ```Terraform
 
-|- terraform/
-|- erraform.lock.hcl
-|- main.tf
-|- terraform.tfstate
-|- terraform.tfstate.backup
+├ terraform/
+├ erraform.lock.hcl
+├ main.tf
+├ terraform.tfstate
+└ terraform.tfstate.backup
 web-app
-|-main.tf
-|- outputs.tf
-|- terraform.tfvars
-|- variables.tf
+├ main.tf
+├ outputs.tf
+├ terraform.tfvars
+└ variables.tf
 ```
 ## main.tf
 E' un file composto da un oggetto terraform che contiere la lista dei #provider, un oggetto per ogni provider in cui vengono stabilite :

@@ -23,32 +23,32 @@ ng new -S -s -t
 	-s # style inline
 	-t # template inline
 # Struttura
-|- node_modules/
-|- src/
-|-- app/
-|--- nome_componente/
-|--- app.component.css
-|--- app.component.js
-|--- app.component.spec.js
-|--- app.component.ts
-|--- app.config.js
-|--- app.routes.js
-|--- post.service.spec.ts
-|--- post.service.ts
-|-- assets/
-|-- favicon.ico
-|-- index.html
-|-- main.ts
-|-- styles.css
-|- .editorconfig
-|- .gitignore
-|- angular
-|- package.json
-|- package-lock.json
-|- README.md
-|- tsconfig.app.json
-|- tsconfig.json
-|- tsconfig.spec.json
+├ node_modules/
+├ src/
+|	├ app/
+|	|	├ nome_componente/
+|	|	├ app.component.css
+|	|	├ app.component.js
+|	|	├ app.component.spec.js
+|	|	├ app.component.ts
+|	|	├ app.config.js
+|	|	├ app.routes.js
+|	|	├ post.service.spec.ts
+|	|	└ post.service.ts
+|	├ assets/
+|	├ favicon.ico
+|	├ index.html
+|	├ main.ts
+|	└ styles.css
+├ .editorconfig
+├ .gitignore
+├ angular
+├ package.json
+├ package-lock.json
+├ README.md
+├ tsconfig.app.json
+├ tsconfig.json
+└ tsconfig.spec.json
 
 ## src
 ### app

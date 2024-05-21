@@ -219,10 +219,10 @@ I software sono utilizzati per il #versioning dell'applicazione. Questi software
 - Subversion
 - GitLab
 ```Branching
-|- master
-|-- develop
-|--- feature_1
-|--- feature_2
+└ master
+	└ develop
+		├ feature_1
+		└ feature_2
 ```
 #### Container
 Permettono di progettare in maniera riproducibile, senza la necessità di controllare la conformità delle varie #dependency, scalabile 
