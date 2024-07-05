@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Cybersecurity.md",
+                "file": "Server/AWS.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
         "state": {
           "type": "backlink",
           "state": {
-            "file": "Cybersecurity.md",
+            "file": "Server/AWS.md",
             "collapseAll": false,
             "extraContext": false,
             "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
         "state": {
           "type": "outgoing-link",
           "state": {
-            "file": "Cybersecurity.md",
+            "file": "Server/AWS.md",
             "linksCollapsed": false,
             "unlinkedCollapsed": true
           }
@@ -114,7 +114,7 @@
         "state": {
           "type": "outline",
           "state": {
-            "file": "Cybersecurity.md"
+            "file": "Server/AWS.md"
           }
         }
       }
@@ -133,9 +133,36 @@
   },
   "active": "1fe357d8caeed408",
   "lastOpenFiles": [
+    "Tecnologie/Protocolli di comunicazione.md",
+    "Server/AWS.md",
     "AWS Specialist.md",
+    "Tecnologie/Macchina.md",
+    "Sistemi operativi/Virtualizzazione.md",
+    "Tecnologie/Internet.md",
+    "Server/Cloud Server.md",
+    "Immagini/Pasted image 20230913102025.png",
+    "Framework/Vue.js.md",
+    "Linguaggi/Java.md",
+    "Librerie/DaisyUI.md",
+    "Linguaggi/CSS.md",
+    "Linguaggi/TypeScript.md",
+    "Immagini/Pasted image 20240108202659.png",
+    "Software/Burp.md",
+    "Linguaggi/Php.md",
+    "Framework/Laravel.md",
+    "Software/Semgrep.md",
+    "Database/Database.md",
+    "Linguaggi/HTML.md",
+    "Software/Zap.md",
+    "Tecnologie/OWASP Dependency Check.md",
+    "Metodologie/Object-Oriented Program.md",
     "Cybersecurity.md",
-    "Protocolli.md",
-    "Browser/Google Chrome.md"
+    "Sistemi operativi/Linux.md",
+    "Linguaggi/Python.md",
+    "Software/SonarQube.md",
+    "Infrastructure as a Code.md",
+    "Immagini/SQL Join.png",
+    "Immagini/Pasted image 20240219204523.png",
+    "Immagini/Pasted image 20240502095612.png"
   ]
 }

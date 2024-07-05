@@ -96,7 +96,7 @@ Il #package-manager predefinito è
 sudo dnf
 ```
 ### Windows
-Utilizzare una porta [RDP](Protocolli%20di%20comunicazione.md#RDP di comunicazione#RDP>) invece che [SSH](Protocolli%20di%20comunicazione.md#SSH di comunicazione#SSH>) per la connessione. Per connettersi al server remoto è necessario  scaricare il file preposto alla connessione da remoto o tramite il #software Connessione da Remoto nel caso si utilizzi [[Windows]] mentre, nel caso si utilizzi [[iOs]], sarà necessario scaricare un software apposito.
+Utilizzare una porta [RDP](<Protocolli%20di%20comunicazione.md#RDP di comunicazione#RDP>) invece che [SSH](<Protocolli%20di%20comunicazione.md#SSH di comunicazione#SSH>) per la connessione. Per connettersi al server remoto è necessario  scaricare il file preposto alla connessione da remoto o tramite il #software Connessione da Remoto nel caso si utilizzi [[Windows]] mentre, nel caso si utilizzi [[iOs]], sarà necessario scaricare un software apposito.
 #### [Connettersi](https://docs.aws.amazon.com/it_it/AWSEC2/latest/WindowsGuide/connecting_to_windows_instance.html)
 
 ## [Tipo di istanza](https://docs.aws.amazon.com/it_it/AWSEC2/latest/UserGuide/instance-types.html)
@@ -120,7 +120,7 @@ Quando si chiede di terminare un' #istanza [[#Attiva]], AWS effettua un controll
 2. andare su ssh/auth/credentials e aprire il file .ppk con le credenziali
 3. Inizializzare il programma e accedere come **ec2-user**
 ### [Inizializzazione di LAMP](https://docs.aws.amazon.com/it_it/AWSEC2/latest/UserGuide/ec2-lamp-amazon-linux-2.html)
-## Installazione di [[Docker]]
+### Installazione di [[Docker]]
 prendere script da sito di Docker in base al sistema operativo che si è installato nel server
 Durante l'installazione, nel caso si usi una memoria di piccole dimensioni, il server potrebbe andare in stato di #anger (sovraccarico). Per evitare ciò si utilizza lo #swapfile, ovvero una partizione (o file), situato nell'hard disk, che lavora come estensione della RAM.
 ```sh
@@ -172,12 +172,10 @@ Verifica che l'installazione ha avuto successo
 ```sh
 sudo docker run hello-world
 ```
-## Installazione di [[Jenkins]]
+### Installazione di [[Jenkins]]
 Installo Jenkins (vedi file di Jenkins)
-## Installazione di un database
-## PostGres
-Si può installare da container Docker
-## Deploy
+### Installazione di un database
+### Deploy
 ### Apertura di un immagine di Docker
 Le immagini possono essere cercate su [Docker hub](https://hub.docker.com/)
 #### Esempi
@@ -209,11 +207,10 @@ ssh ubuntu@<indirizzo_ip> -i ${SSH_CREDNTIALS} -o StrictHostKey=no << EOF
 Per ridurre lo spazio utilizzato, si deve creare un nuovo volume da uno #snapshot
 ## Snapshot
 
-# ECS
 # EKS
 Elastic Kubernetes Services implementa [[Kubernetes]] all'interno di AWS.
 # S3
-Il Simple Storage Service è il servizio di #storage  principale di Amazon, fruibile tramite [http](Protocolli%20di%20comunicazione.md#HTTP di comunicazione#HTTP>). Alcuni punti di forza de lservizio sono:
+Il Simple Storage Service è il servizio di #storage  principale di Amazon, fruibile tramite [http](<Protocolli%20di%20comunicazione.md#HTTP di comunicazione#HTTP>). Alcuni punti di forza de lservizio sono:
 - Possiblilita di memorizzare un numero illimitato di oggetti in un bucket
 - Oggetti fino a 5TB
 - Durability e disponibilita del 99,9%
@@ -250,7 +247,6 @@ AWS fornisce un'interfaccia per l'inserimento di dati nel database, utilizzabile
 Il Relational Database Service (RDS) permette di effettuare #backup cross-region. Permette di utilizzare linguaggi di gestione dei #database come:
 - [[informatica/Database/MySQL|MySQL]]
 - [[Informatica/Database/MariaDB|MariaDB]]
-- [[]]
 
 # AWS CLI
 Command-Line Interface si usa per immettere comandi ad AWS direttamente da terminale.
@@ -264,7 +260,10 @@ aws configure
 	AWS Secret Access Key - inserire la chiave segreta 
 	Default region name - Inserire oil codice della regione in cui si opera (es. us-east-1) 
 	Default output format - JSON
-## [[Docker]]
+
+# Amazon VPC
+Servizio di virtual private #cloud di Amazon.
+
 # Attenzione
 - Nel caso si voglia aprire una nuova porta dal server, la si deve anche segnalare nella piattaforma di AWS
 # Indirizzi IP utili
