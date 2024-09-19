@@ -7,7 +7,7 @@ Rispetto alle reti domestiche può aumentare il numero di macchine collegate all
 ## Reti di medie dimensioni
 Sono reti estese, che possono contenere migliaia di utenti (un esempio è una rete scolastica).
 ## Reti globali
-Un esempio è [[Internet]].
+Un esempio è [Internet](./Internet).
 
 # End point
 Gli endpoint sono i dispositivi che funzionano da tramite tra l'utente e la rete. Possono essere divisi in base alla tipologia di dispositivo e al suo utilizzo in:
