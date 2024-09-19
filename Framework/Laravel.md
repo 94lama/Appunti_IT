@@ -70,7 +70,7 @@ Può essere:
 	- model -mcr - migration, controller, resources
 # Installazione
 
-Scaricare Composermodel
+Scaricare Composer model
 ```
 composer global require laravel/installer
 laravel new app_name

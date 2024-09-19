@@ -22,17 +22,17 @@ Si usa per descrivere il Body del messaggio. Può essere rappresentato in:
 ### Tests
 Permette di scrivere i test in [[JavaScript]], fornendo un oggetto ausiliario **pm**, che si occuperà di gestire le richieste #http:
 ```pm
-|- test((<nome_test>) => { <funzione> })
-|- expect()
-|-- to. // o not.to, si posiziona dopo l'expect(<valore>)
-|--- be. 
-|---- equal()
-|---- undefined
-|--- contain()
-|--- include()
-|- response
-|-- code
-|-- responseTime
+├ test((<nome_test>) => { <funzione> })
+├ expect()
+|	└ to. // o not.to, si posiziona dopo l'expect(<valore>)
+|		├ be. 
+|		|	├ equal()
+|		|	└ undefined
+|		├ contain()
+|		└ include()
+└ response
+	├ code
+	└ responseTime
 ```
 Permette di scrivere i test da effettuare in [[JavaScript]], utilizzando delle variabili predefinite e l'ausilio di Chaijs per la verifica dei #test 
 ```Javascript

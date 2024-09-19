@@ -64,9 +64,9 @@ var.response;
 ```
 La **response** sarà un #oggetto con la seguente struttura:
 ```RESPONSE
-|-headers
-|--get()
-|-status
+├ headers
+|	└ get()
+└ status
 ```
 **Tipologie di verifica**
 ```Javascript

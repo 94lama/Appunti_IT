@@ -41,7 +41,7 @@ node: "modules" //permette di utilizzare i metodi "import" ed "export" per gesti
 ## fs
 Oggetto che permette di visualizzare e/o leggere file all'interno della macchina
 ```Struttura
-|-writeFileSync(<percorso><nome_file>) //Permette di creare un file
+└ writeFileSync(<percorso><nome_file>) //Permette di creare un file
 ```
 ## JSON Server
 Permette di creare un prototipo di database in JSON, da utilizzare in fase di #testing

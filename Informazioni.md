@@ -6,6 +6,14 @@ Gli appunti sono divisi per macro-categorie:
 - Framework
 - Server - Contiene i file relativi all'utilizzo di server i remoto (tipo [[AWS]])
 - Tecnologie - Contiene software, metodologie o quello che non rientra in altre categorie (possibile implementazione)
+## Simboli
+- ```├``` Rappresenta una diramazione della struttura rappresentata a cui segue un'altra diramazione
+- ```└``` Rappresenta l'ultima diramazione nello specifico livello della struttura rappresentata
+- <nome_variabile> Viene utilizzato per indicare l'inserimento di una variabile da parte dell'utente
+- ```[[<nome_pagina>]]``` Indica un link ad un'altra pagina del documento
+	- ```[<testo>](<link>)``` Indica un link ad un altro contenuto (può essere una pagina del documento o un URL) 
+	- ```[<testo>](<pagina#capitolo>)``` Indica il riferimento ad un capitolo specifico di un'altra pagina. Il testo visualizzato sarà quello compreso tra le parentesi quadre
+- 
 ## Deploy automatizzato
 Il file **ObsidianGit.bat** effettua il push automatico delle modifiche. Lo si può utilizzare previo pull del repository da GitHub
 # Termini utili

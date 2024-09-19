@@ -23,32 +23,32 @@ ng new -S -s -t
 	-s # style inline
 	-t # template inline
 # Struttura
-|- node_modules/
-|- src/
-|-- app/
-|--- nome_componente/
-|--- app.component.css
-|--- app.component.js
-|--- app.component.spec.js
-|--- app.component.ts
-|--- app.config.js
-|--- app.routes.js
-|--- post.service.spec.ts
-|--- post.service.ts
-|-- assets/
-|-- favicon.ico
-|-- index.html
-|-- main.ts
-|-- styles.css
-|- .editorconfig
-|- .gitignore
-|- angular
-|- package.json
-|- package-lock.json
-|- README.md
-|- tsconfig.app.json
-|- tsconfig.json
-|- tsconfig.spec.json
+├ node_modules/
+├ src/
+|	├ app/
+|	|	├ nome_componente/
+|	|	├ app.component.css
+|	|	├ app.component.js
+|	|	├ app.component.spec.js
+|	|	├ app.component.ts
+|	|	├ app.config.js
+|	|	├ app.routes.js
+|	|	├ post.service.spec.ts
+|	|	└ post.service.ts
+|	├ assets/
+|	├ favicon.ico
+|	├ index.html
+|	├ main.ts
+|	└ styles.css
+├ .editorconfig
+├ .gitignore
+├ angular
+├ package.json
+├ package-lock.json
+├ README.md
+├ tsconfig.app.json
+├ tsconfig.json
+└ tsconfig.spec.json
 
 ## src
 ### app
@@ -82,6 +82,11 @@ Creazione di un servizio:
 ```Bash
 ng generate service <nome servizio>
 ```
+Creazione di un'interfaccia, ovvero un modello di dati (es. utenti, messaggi):
+```sh
+ng g i model/NomeInterfaccia
+```
+	Crea un file.ts
 Avvio 
 ```Bash
 npm start
@@ -90,6 +95,8 @@ Avvio il server
 ```bash
 ng serve
 ```
+	OPZIONI
+	--open: apre la pagina iniziale predefinita nelle impostazioni
 
 ## Decoratori
 Sono preceduti dal simbolo **@**, e sono utilizzati per definire i componenti (dalla versione 17 hanno sostituito gli attributi ```ng<comando>```)
@@ -106,6 +113,7 @@ Sono preceduti dal simbolo **@**, e sono utilizzati per definire i componenti (d
 ```Angular
 @empty
 ```
+I deferrable sono componenti che vengono renderizzati in maniera ritardata
 ```Angular
 @defer
 ```
@@ -144,9 +152,10 @@ import {Component} from '@angular/core';
 ///[Componente]
 @Component({
 	selector: 'app.root', // rappresenta il tag da utilizzare per richiamare il componente
-	standalone: true
+	standalone: true // true per rendere il componente indipendente
 	template: `
 		<div>
+		{{variable}}
 		</div>
 	`,
 	styles: [],
@@ -154,7 +163,7 @@ import {Component} from '@angular/core';
 
 ///{Export}
 export class AppComponent {
-	titlke: '<nome_componente>'
+	title: '<nome_componente>'
 }
 ```
 	standalone: rende i lcomponente utilizzabile anche separatamente dal progetto originale

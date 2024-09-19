@@ -330,21 +330,22 @@ password: kali
 	Nel caso ci si trovi nella cartella root, la localizzazione sarà /
 ### Struttura
 ```root
-|-0
-|-bin #contiene file e applicazioni binari
-|-boot
-|-etc # contiene file di configurazione del sistema
-|--sysctl.conf
-|--host.allow # non presente di default
-|--host.deny # non presente di default
-|--ssh
-|---sshd_config # gestisce i permessi per effettuare chiamate in #ssh
-|--passwd
-|-home #contiene tutti gli utenti locali
-|-dev #contiene i file necessari per far funzionare i dispositivi
-|-lib #contiene i file di sistema
-|-media #contiene i supporti esterni
+├ 0
+├ bin #contiene file e applicazioni binari
+├ boot
+├ etc # contiene file di configurazione del sistema
+|	├ sysctl.conf
+|	├ host.allow # non presente di default
+|	├ host.deny # non presente di default
+|	├ ssh
+|	|	└ sshd_config 
+|	└  passwd
+├ home #contiene tutti gli utenti locali
+├ dev #contiene i file necessari per far funzionare i dispositivi
+├ lib #contiene i file di sistema
+└ media #contiene i supporti esterni
 ```
+	- ssh_config gestisce i permessi per effettuare chiamate in SSH
 #### etc
 ##### group
 Contiene la lista dei gruppi

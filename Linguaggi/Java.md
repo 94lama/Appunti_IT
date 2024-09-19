@@ -51,10 +51,10 @@ La dichiarazione di dati viene effettuata utilizzando il #camel-case.
 
 Nel caso si superi il dettaglio consentito, il programma arrotonderà il risultato.
 ## Literals
-|tipo|descrizione|
-|-|-|
-|long|40000000000000000L|
-|float|0.52F|
+| tipo  | descrizione        |
+| ----- | ------------------ |
+| long  | 40000000000000000L |
+| float | 0.52F              |
 ## Char
 Definiti da **'**
 ## Array

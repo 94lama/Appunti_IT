@@ -1,6 +1,7 @@
 - #brute-force - reiterazione automatica di decriptazione di dati protetti tramite programmi o siti appositi (tipo hashcat). Di solito viene usato su password basilari (rockyou.txt)
 - #cluster - E' un insieme di macchine utilizzate per il #back-end di un'applicazione.
 - #debolezza - Componente potenzialmente soggetta ad essere aggirata
+- #directory - Sistema di stoccaggio organizzato dei dati. Spesso definito da cartelle e sotto-cartelle
 - #GAN - Global Area Network
 - #LAN - Local Area Network
 - #malware

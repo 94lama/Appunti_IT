@@ -31,13 +31,13 @@ Confirm password: <password>
 # Pagina di comando
 ## Struttura
 ```Dashboard
-|- <nome_progetto>
-|-- Configuration
-|--- General
-|--- Source Code Management
-|--- Build Environment
-|--- Build Steps
-|--- Post-build Actions
+└ <nome_progetto>
+	└ Configuration
+		├ General
+		├ Source Code Management
+		├ Build Environment
+		├ Build Steps
+		└ Post-build Actions
 ```
 ## People
 ## Build history
