@@ -52,8 +52,8 @@ Per aumentare le prestazioni, di solito vengono create applicazioni per facilita
 ### Switch
 ### Hub
 ## Domain client
-# Rete locale
-Local Area Network ( #LAN). Nel caso due dispositivi si trovino nella stessa LAN, la rete di comunicazione è diretta.
+# LAN
+Local Area Network ( #LAN) è il sinomimo di Rete Locale. Nel caso due dispositivi si trovino nella stessa LAN, la rete di comunicazione è diretta.
 # Rete pubblica
 Nota anche come Wide Area Network ( #WAN). Nel caso due dispositivi vogliano comunicare tramite WAN, la comunicazione passa dal #gateway, ovvero un macchinario fornito da un #provider, che permette l'instradamento dei pacchetti all'interno di una rete, che dirige le comunicazioni con i dispositivi connessi alla rete pubblica.
 # Gateway

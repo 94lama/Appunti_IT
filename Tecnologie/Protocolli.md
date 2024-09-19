@@ -1,5 +1,5 @@
 # Modelli
-**![](https://lh7-us.googleusercontent.com/7K8eehOXd7rTScTou9-5panIKwoF3MDEiA-r7ZV_3d5MIs-lVkXOagof0JQiJ9_FixrNivXjU6dkx-5ocvz8j_-84JGhMAKCgaENCWPja5BunZbwtzt1qGPHRX1okr6rWZuV_1_CuNzdy4erBrG2Pw=s2048)**
+**![](![[Pasted image 20240919194502.png]]
 ## ISO/OSI
 La Pila #ISO/OSI rappresenta 7 fasi diverse del processo di comunicazione, tra loro consequenziali (ovvero non è possibile saltare protocolli per il passaggio da un punto iniziale ad un punto finale)
 ### Livelli
@@ -12,7 +12,7 @@ E' il momento in cui ci interfacciamo con un applicazione (che sia un software d
 I dati vengono convertiti in #PDU (Protocol Data Unit), ovvero un'unità di informazioni scambiata tra 2 entità in un protocollo di comunicazione a strati.
 il #PDU è composto da un #header e da un #body
 #### Presentazione
-Una volta che i dati vengono convertito in #PDU, quest'ultimo viene standardizzato tramite una serie di processi, tra i quali:
+Una volta che i dati vengono convertiti in #PDU, quest'ultimo viene standardizzato tramite una serie di processi, tra i quali:
 - Crittografia
 - Compressione
 - Formattazione
@@ -30,7 +30,7 @@ Nel caso si utilizzino protocolli affidabili, nel caso un pacchetto non venga ri
 #### Rete
 Iniziano le operazioni che consentono la trasmissione del pacchetto attraverso il mezzo fisico. In questo livello vengono aggiunte all' #header le informazioni relative al percorso.
 #### Collegamento
-Permette lo scambio di pacchetti tra nodi adiacenti della rete, attraverso il livello fisico. Offre un livello di comunicazione affidabile ed efficiente.
+I protocolli inerenti il Data Link permettono lo scambio di pacchetti tra nodi adiacenti della rete, attraverso il livello fisico. Offre un livello di comunicazione affidabile ed efficiente.
 Può essere rappresentato dai due #mac-address adiacenti
 #### Fisico
 I pacchetti vengono trasmessi bit per bit attraverso il mezzo fisico di comunicazione (cavo o wireless). Qua vengono definite forma e voltaggio del segnale, le caratteristiche del mezzo fisico e le caratteristiche elettriche e meccaniche delle #interfacce-di-rete
@@ -142,16 +142,30 @@ Remote Desktop Protocol, è un protocollo di connessione sicura di [[Windows]], 
 ### IP
 Ovvero Internet Protocol. Si occupa della metodologia di frammentazione de instradamento ( #routing) del pacchetto. La dimensione massima del pacchetto dipende dal materiale su cui viene instradato, ed è indicata dal Maximum Transmission Unit ( #mtu). Questo protocollo è gestito dal #gateway.
 #### IPv4
-L' #IPv4 si basa su dati di dimensione standard 32 bit, ovvero 4 byte. Ogni byte rappresenta un numero (da 0 a 255) ed è separato dagli altri byte da un punto #dotted-decimal 
+L' #IPv4 è un indirizzo, assegnato ad una rete [LAN](./Reti#LAN)
+si basa su dati di dimensione standard 32 bit, ovvero 4 byte. Ogni byte rappresenta un numero (da 0 a 255) ed è separato dagli altri byte da un punto #dotted-decimal 
 
 	102.54.94.97
+
 Questo indirizzo contiene due tipi principali di informazioni: la prima parte individua la rete fisica in cui il dispositivo è collegato, mentre la seconda identifica il dispositivo stesso.
+
+	102.54.94 = Network
+	97 = Host
 ##### Notazione CIDR
-Aggiunge all'indirizzo IPv4 una indicazione relativa alla #subnet. La notazione #cidr collega un numero ad una potenza di 2, partendo da /32 come 2^0.
+Aggiunge all'indirizzo IPv4 una indicazione relativa alla [subnet mask]( #subnet). La notazione #cidr collega un numero ad una potenza di 2, partendo da /32 come 2^0 e permette di stabilire quante macchine sono potenzialmente collegate alla sottorete di riferimento.
+
+```
+11000000.10101000.00100000.01100001 AND      (IP: 192.168.032.097)
+11111111.11111111.11111111.11100000 =        (Subnet mask 255.255.255.224)
+-------------------------------------
+11000000.10101000.00100000.01100000          (Subnet 192.168.032.096)
+```
+	Indica una sottorete all'indirizzo 192.168.032.096, che contiene 31 dispositivi (255 - 224) al suo interno.
 
 	102.54.94.97/24
 	CIDR:
 	In questo caso ci sono 256 indirizzi collegati a questo indirizzo IPv4
+
 Una volta raggiunto il server avente indirizzo #ip desiderato, il [Router](Macchina.md#Router) si occuperà di smistare i dati tramite l'utilizzo di [tabelle di routing](Macchina.md#Tabelle%20di%20routing di routing>)
 #### IPv6
 Evoluzione dell' [[#IPv4]], che consiste in una sequenza alfanumerica di dati.
@@ -162,6 +176,17 @@ Secure Socket Layer
 Versione aggiornata di [[#SSL]]
 ## Network
 
+## Data link
+### Ethernet
+Protocollo utilizzato per le comunicazioni tra due macchine collegate alla stessa rete.
+Un messaggio che utilizza questo protocollo ha una lunghezza standardizzata che varia da 64 a 1518 bytes, dei quali d 46 a 1500 sono dedicati ai dati da trasmettere, mentre i rimanenti vengono utilizzati per inserire i dati necessari alla trasmissione dello stesso, ovvero:
+1. Preambolo (7byte)
+2. Delimitatore di inizio frame (1 byte)
+3. Indirizzo MAC di destinazione (6 byte)
+4. Indirizzo MAC di provenienza (6 byte)
+5. Tipo di lunghezza (2 byte)
+6. Dati  (46-1500 byte)
+7. Frame di controllo della sequenza (4 byte)
 ## Fisico
 ### FTP
 Il File Transfer Protocol (o #FTP) è un protocollo organizzativo per l'utilizzo delle porte. Le porte possono avere 3 stati:
