@@ -109,6 +109,14 @@ Criteri di segmentazione di una rete possono essere:
 - Gruppo o funzionalità
 - Tipo di dispositivo
 
+## Network segmentation
+Il router non propaga le richieste di Broadcast o richieste indirizzate a indirizzi IPv4 privati (Dominio di 2 livello di Broadcast). Per trovare gli indirizzi MAC di tutte le macchine a cui inviare un messaggio, si usa il Protocollo di Risoluzione degli Indirizzi ([ARP](./Protocolli#ARP)), che permette di inviare una richiesta [Boradcast](#broadcast) a tutti gli indirizzi IP della rete locale. Per trovare gli indirizzi IPv4 invece, di solito si utilizza il [DHCP](./protocolli#dhcp), ovvero Dynamic Host Configuration Protocol (protocollo di configurazione dinamica degli host).
+Nel caso di reti di grosse dimensioni, inviare messaggi in broadcast porta a rallentamenti della rete. Per questo di solito si segmenta la rete in sottoreti per permettere di inviare messaggi in broadcast ad una quantità limitata di utenti e non intasare la rete.
+Criteri di segmentazione di una rete possono essere:
+- Localizzazione
+- Gruppo o funzionalità
+- Tipo di dispositivo
+
 Le comunicazioni sono suddivise anche in base al numero di dispositivi che devono ricevere i messaggi:
 ### Unicast
 Avviene quando un dispositivo invia un messaggio a solo un destinatario.

@@ -15,4 +15,3 @@ La raccolta é in continua evoluzione ed espansione quindi, sentitevi liberi di 
 - [OWASP](./Tecnologie/OWASP.md)
 - [Protocolli](./Tecnologie/Protocolli.md)
 - [Reti](./Tecnologie/Reti.md)
-
