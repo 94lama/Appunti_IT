@@ -150,4 +150,3 @@ Spesso (specialmente per le LAN domestiche) il ruolo di gateway viene svolto dal
 
 L'ISP (Internet Service Provider), di solito assegna, al router un indirizzo IP pubblico, da utilizzare per le comunicazione con la rete pubblica tramite protocollo [DHCP](./Protocolli#DHCP), rendendo così il router il dispositivo che gestisce gli scambi tra [LAN](./Reti#LAN) e [Internet](<./Reti#Rete pubblica>) e traduce gli indirizzi IP tramite le [maschere di sottorete](<./Reti#Subnet mask>).
 - [NAT](./Reti#NAT)
-
