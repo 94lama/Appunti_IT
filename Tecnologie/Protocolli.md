@@ -1,5 +1,5 @@
 # Modelli
-**![](![[Pasted image 20240919194502.png]]
+![[Pasted image 20240919194502.png]]
 ## ISO/OSI
 La Pila #ISO/OSI rappresenta 7 fasi diverse del processo di comunicazione, tra loro consequenziali (ovvero non è possibile saltare protocolli per il passaggio da un punto iniziale ad un punto finale)
 ### Livelli
@@ -140,9 +140,9 @@ Il protocollo è reso sicuro tramite utilizzo di criptazione tramite #chiave-asi
 Remote Desktop Protocol, è un protocollo di connessione sicura di [[Windows]], che permette l'accesso diretto alla macchina.
 ## Rete
 ### IP
-Ovvero Internet Protocol. Si occupa della metodologia di frammentazione de instradamento ( #routing) del pacchetto. La dimensione massima del pacchetto dipende dal materiale su cui viene instradato, ed è indicata dal Maximum Transmission Unit ( #mtu). Questo protocollo è gestito dal #gateway.
+Ovvero ***Internet Protocol***. Si occupa della metodologia di frammentazione de instradamento ( #routing) del pacchetto. La dimensione massima del pacchetto dipende dal materiale su cui viene instradato, ed è indicata dal Maximum Transmission Unit ( #mtu). Questo protocollo è gestito dal #gateway.
 #### IPv4
-L' #IPv4 è un indirizzo, assegnato ad una rete [LAN](./Reti#LAN)
+L' #IPv4 è un indirizzo, assegnato ad una rete [LAN](./Reti#LAN), che
 si basa su dati di dimensione standard 32 bit, ovvero 4 byte. Ogni byte rappresenta un numero (da 0 a 255) ed è separato dagli altri byte da un punto #dotted-decimal 
 
 	102.54.94.97
@@ -151,8 +151,18 @@ Questo indirizzo contiene due tipi principali di informazioni: la prima parte in
 
 	102.54.94 = Network
 	97 = Host
+
+Gli indirizzi IPv4 possono essere privati (indicati anche come indirizzi privati RFC1918) o pubblici. Nel primo caso appartengono ad un range specifico di IP:
+```
+10.0.0.0 - 10.255.255.255
+172.16.0.0 - 172.31.255.255
+192.168.0.0 - 192.168.255.255
+```
+	Questi IP privati sono relativi al network in cui si trovano (intranet), quindi non sono univoci per la rete pubblica: due reti diverse possono avere gli stessi IP privati.
+
+La traduzione da IP privato a pubblico avviene tramite [NAT], ovvero Network Address Translation (di solito la funzione è svolta dal [Router])
 ##### Notazione CIDR
-Aggiunge all'indirizzo IPv4 una indicazione relativa alla [subnet mask]( #subnet). La notazione #cidr collega un numero ad una potenza di 2, partendo da /32 come 2^0 e permette di stabilire quante macchine sono potenzialmente collegate alla sottorete di riferimento.
+Aggiunge all'indirizzo IPv4 una indicazione relativa alla [maschera di sottorete](<./Reti#Subnet mask>). La notazione #cidr collega un numero ad una potenza di 2, partendo da /32 come 2^0 e permette di stabilire quante macchine sono potenzialmente collegate alla sottorete di riferimento.
 
 ```
 11000000.10101000.00100000.01100001 AND      (IP: 192.168.032.097)
@@ -166,16 +176,103 @@ Aggiunge all'indirizzo IPv4 una indicazione relativa alla [subnet mask]( #subnet
 	CIDR:
 	In questo caso ci sono 256 indirizzi collegati a questo indirizzo IPv4
 
-Una volta raggiunto il server avente indirizzo #ip desiderato, il [Router](Macchina.md#Router) si occuperà di smistare i dati tramite l'utilizzo di [tabelle di routing](Macchina.md#Tabelle%20di%20routing di routing>)
-#### IPv6
-Evoluzione dell' [[#IPv4]], che consiste in una sequenza alfanumerica di dati.
+Una volta raggiunto il server avente indirizzo #ip desiderato, il [Router](Macchina.md#Router) si occuperà di smistare i dati tramite l'utilizzo di [tabelle di routing](Macchina.md#Tabelle%20di%20routing di routing>).
+Ovvero Internet Protocol versione 4. Si occupa della metodologia di frammentazione de instradamento ( #routing) del pacchetto.
+L' #IPv4 è un indirizzo, assegnato ad una rete [LAN](./Reti#LAN), che si basa su dati di dimensione standard da 32 bit (ovvero 4 byte). Ogni byte rappresenta un numero (da 0 a 255) ed è separato dagli altri byte da un punto.
 
+	102.54.94.97
+
+Questo indirizzo contiene due tipi principali di informazioni: la prima parte individua la rete fisica in cui il dispositivo è collegato, mentre la seconda identifica il dispositivo stesso.
+
+	102.54.94 = Rete
+	97 = Dispositivo o host
+
+Se un dispositivo ha un indirizzo IP diverso da quello della rete a cui è collegato, non avrà accesso alla rete stessa. Due reti separate possono comunicare tra loro tramite Routing.
+
+Gli indirizzi IPv4 possono essere privati (indicati anche come indirizzi privati RFC1918) o pubblici. Nel primo caso appartengono ad un range specifico di IP:
+```
+10.0.0.0 - 10.255.255.255
+172.16.0.0 - 172.31.255.255
+192.168.0.0 - 192.168.255.255
+```
+	Questi IP privati sono relativi al network in cui si trovano (intranet), quindi non sono univoci per la rete pubblica: due reti diverse possono avere gli stessi IP privati.
+
+La traduzione da IP privato a pubblico avviene tramite [NAT], ovvero Network Address Translation (di solito la funzione è svolta dal [Router])
+
+##### Indirizzi IPv4 speciali
+Alcuni indirizzi IP sono dedicati a funzionalità specifiche, come il broadcast di messaggi e gli indirizzi di rete e non possono essere assegnati agli **host**.
+
+###### Loopback
+Gli indirizzi loopbacksono utilizzati da un host per attrarre il traffico su se stesso (ad esempio per effettuare il **ping**)
+```
+127.0.0.0/8
+127.0.0.1
+127.255.255.254
+```
+###### Link-local
+Gli indirizzi link local sono usati per l'assegnazione automatica degli indirizzi IP (Automatic Private IP Addressing, o APIPA). Sono utilizzati dai client Windows per l'autoconfigurazione nel caso gli altri metodi di configurazione non abbiano avuto successo. Possono anche essere usati per il peer-to-peer (connessione paritaria tra due dispositivi, ovvero nella quale entrambi siano sia client che server, ovvero equivalenti).
+##### Indirizzamento Legacy Classful
+Ideato nel 1981, consisteva nella classificazione degli indirizzi in 5 categorie, in base alla numerazione dell'IP
+- Classe A (0.0.0.0/8 - 191.255.0.0/16), per le reti di grandi dimensioni (più di 16 milioni di hosts)
+- Classe B (128.0.0.0/16 - 191.255.0.0/6), per le reti medio-grandi (in media 65.000 hosts)
+- Classe C (192.0.0.0/24 - 233.255.255.0/24) per supportare reti di piccole dimensioni, con massimo 254 hosts
+- Classe D (224.0.0.0 - 239.0.0.0), dedicata al [multicast](#multicast)
+- Classe E (240.0.0.0 - 255.0.0.0), sperimentale.
+Questa classificazione è diventata antiquata a metà degli anni 90, con l'introduzione del World Wide Web, che ha portato un'evoluzione ad un raggruppamento senza classificazione, basato sull'allocazione degli indirizzi IP in base al numero di indirizzi che possono essere giustificati. La gestione degli stessi è affidata allo IANA (Autorità per l'Assegnazione dei Numeri in Internet), che smista gli indirizzi in base al RIR (Registro Internet Regionale) di riferimento, che gestisce i vari ISP (Internet Service Provider) locali:
+- **AfriNIC** (African Network Information Centre) - Africa Region
+- **APNIC** (Asia Pacific Network Information Centre) - Asia/Pacific Region
+- **ARIN** (American Registry for Internet Numbers) - North America Region
+- **LACNIC** (Regional Latin-American and Caribbean IP Address Registry) - Latin America and some Caribbean Islands
+- **RIPE NCC** (Réseaux IP Européens Network Coordination Centre) - Europe, the Middle East, and Central Asia
+#### IPv6
+E' un'evoluzione dell'[IPv4](#IPv4), ideata per risolvere il problema della carenza di disponibilità di nuovi indirizzi. L'IPv6 è un codice di lunghezza pari a 128bit (rispetto ai 32 dell'IPv4), consistente in 8 blocchi di codice esadecimale da 64 bit l'uno: ogni blocco ha un valore minimo di 0000 ad un massimo di ffff.
+```
+2001:0db8:acad:a088:0000:0000:0000:0123 = 128 bit
+0db8 = 16 bit
+0 = 0000 (4bit)
+d = 1101 (4bit)
+b = 1011 (4bit)
+8 = 1000 (4bit)
+```
+**ATTENZIONE**
+Si usano delle convenzioni per descrivere un indirizzo IPv6:
+- Si omettono gli zeri a sinistra del blocco (es. 00b2 diventa b2)
+- Due blocchi si separano dai due punti ```:```
+- Se uno o più blocchi consecutivi hanno valore vuoto, vengono saltati e rappresentati semplicemente con ```::```.
+- La regola precedente può essere utilizzata solo una volta
+Quindi il blocco può essere rappresentato anche in forma compressa
+```
+Forma estesa:
+2001:0db8:acad:0000:a088:0000:0000:0123
+
+Forma compressa:
+2001:db8:acad:0:a088::123
+```
+##### Migrazione da IPv4
+La migrazione da IPv4 a IPv6 è stata programmata per avvenite nell'arco di anni, nei quali i tecnici potranno aggiornare le reti tramite 3 tecnologie principali:
+###### Router dual stack
+Permettono di utilizzare contemporaneamente sia l'IPv4 che l'IPv6 per la stessa rete. 
+###### Tunneling
+Permette di tradurre un indirizzo IPv6 in una rete con IPv4 tramite #incapsulamento
+###### Traduzione
+Il NAT64 (Network Address Translation 64) permette ai dispositivi abilitati all'IPv6 di comunicare con i dispositivi IPv4 tramite una tecnologia simile al NAT per IPv4, effettuando una traduzione dell'intero pacchetto.
 ### SSL
 Secure Socket Layer
 ### TSL
 Versione aggiornata di [[#SSL]]
 ## Network
+### DHCP
 
+IL DHCP, o Dynamic Host Control Protocol (Protocollo di controllo dinamico degli host), è un protocollo di assegnazione automatica degli indirizzi IP agli host, che può essere utilizzato in alternativa all'assegnazione statica degli indirizzi, dove l'operatore assegna manualmente gli indirizzi IP ai vari dispositivi connessi.
+
+Mentre la configurazione statica permette di avere un maggior controllo della rete, il protocollo DHCP permette di avere una maggiore adattabilità, rendendo possibile effettuare il cambio di porta di accesso per il dispositivo e maggiore velocità di realizzazione (anche solo perché si evita di inserire gli indirizzi IP statici in ogni dispositivo e tenerne traccia).
+Nel caso di rete wireless, il Router lavora sia da DHCP client (in quanto elabora i messaggi da inviare all'ISP) che DHCP server (in quanto gestisce gli indirizzi IP dei dispositivi connessi alla rete).
+#### Configurare una rete con DHCP
+[Come attivare il DHCP su Windows](https://support.microsoft.com/it-it/windows/modificare-le-impostazioni-tcp-ip-bd0a07af-15f5-cd6a-363f-ca2b6f391ace)
+1. Il client invia in [#Broadcast] un pacchetto (chiamato **DHCP Discover**), contenente l'indirizzo MAC al Server DHCP.
+2. Il Server riceve il messaggio ed invia un **DHCP Offer**, contenente l'indirizzo IP assegnato, una [[#Gateway mask]] e l'Indirizzo [Gateway] di default.
+3. L'Host riceve il messaggio, invia una DHCP request di accettazione dell'offerta e aggiorna le proprie impostazioni IP
+4. Il Server aggiorna la Tabella degli indirizzi IP ed invia un messaggio di accettazione (Acknowledgement).
 ## Data link
 ### Ethernet
 Protocollo utilizzato per le comunicazioni tra due macchine collegate alla stessa rete.

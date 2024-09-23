@@ -65,7 +65,6 @@ I dati possono essere trasmessi in qualunque metodo che permetta di stabilire un
 - Onde radio
 ## Lunghezza di banda
 
-
 # Layer di accesso
 ## Incapsulamento e l'Ethernet Frame
 Si basa sul protocollo [Ethernet](./Protocolli.md#Ethernet)
@@ -88,96 +87,27 @@ Il processo si ripete per il messaggio di risposta, aggiornando la tabella anche
 ### Tabella di indirizzi MAC
 Una tabella di indirizzi MAC contiene una lista di indirizzi MAC, collegati alle varie porte, a cui possono venire collegati i vari dispositivi (o **host**. Ogni dispositivo ha un proprio indirizzo MAC).
 
-# Protocollo internet
-## IPv4
-[Vedi IPv4](informatica/Tecnologie/Protocolli.md#IPv4)
-Ovvero Internet Protocol versione 4. Si occupa della metodologia di frammentazione de instradamento ( #routing) del pacchetto.
-L' #IPv4 è un indirizzo, assegnato ad una rete [LAN](./Reti#LAN), che si basa su dati di dimensione standard da 32 bit (ovvero 4 byte). Ogni byte rappresenta un numero (da 0 a 255) ed è separato dagli altri byte da un punto.
-
-	102.54.94.97
-
-Questo indirizzo contiene due tipi principali di informazioni: la prima parte individua la rete fisica in cui il dispositivo è collegato, mentre la seconda identifica il dispositivo stesso.
-
-	102.54.94 = Rete
-	97 = Dispositivo o host
-
-Se un dispositivo ha un indirizzo IP diverso da quello della rete a cui è collegato, non avrà accesso alla rete stessa. Due reti separate possono comunicare tra loro tramite Routing.
-
-Gli indirizzi IPv4 possono essere privati (indicati anche come indirizzi privati RFC1918) o pubblici. Nel primo caso appartengono ad un range specifico di IP:
-```
-10.0.0.0 - 10.255.255.255
-172.16.0.0 - 172.31.255.255
-192.168.0.0 - 192.168.255.255
-```
-	Questi IP privati sono relativi al network in cui si trovano (intranet), quindi non sono univoci per la rete pubblica: due reti diverse possono avere gli stessi IP privati.
-
-La traduzione da IP privato a pubblico avviene tramite [NAT], ovvero Network Address Translation (di solito la funzione è svolta dal [Router])
-
-### Indirizzi IPv4 speciali
-Alcuni indirizzi IP sono dedicati a funzionalità specifiche, come il broadcast di messaggi e gli indirizzi di rete e non possono essere assegnati agli **host**.
-
-#### Loopback
-Gli indirizzi loopbacksono utilizzati da un host per attrarre il traffico su se stesso (ad esempio per effettuare il **ping**)
-```
-127.0.0.0/8
-127.0.0.1
-127.255.255.254
-```
-#### Link-local
-Gli indirizzi link local sono usati per l'assegnazione automatica degli indirizzi IP (Automatic Private IP Addressing, o APIPA). Sono utilizzati dai client Windows per l'autoconfigurazione nel caso gli altri metodi di configurazione non abbiano avuto successo. Possono anche essere usati per il peer-to-peer (connessione paritaria tra due dispositivi, ovvero nella quale entrambi siano sia client che server, ovvero equivalenti).
-### Subnet mask
-Una [maschera di sottorete](https://it.wikipedia.org/wiki/Maschera_di_sottorete) è un parametro di configurazione utilizzato per identificare la rete alla quale l'host è connesso. 
-### Indirizzamento Legacy Classful
-Ideato nel 1981, consisteva nella classificazione degli indirizzi in 5 categorie, in base alla numerazione dell'IP
-- Classe A (0.0.0.0/8 - 191.255.0.0/16), per le reti di grandi dimensioni (più di 16 milioni di hosts)
-- Classe B (128.0.0.0/16 - 191.255.0.0/6), per le reti medio-grandi (in media 65.000 hosts)
-- Classe C (192.0.0.0/24 - 233.255.255.0/24) per supportare reti di piccole dimensioni, con massimo 254 hosts
-- Classe D (224.0.0.0 - 239.0.0.0), dedicata al [multicast](#multicast)
-- Classe E (240.0.0.0 - 255.0.0.0), sperimentale.
-Questa classificazione è diventata antiquata a metà degli anni 90, con l'introduzione del World Wide Web, che ha portato un'evoluzione ad un raggruppamento senza classificazione, basato sull'allocazione degli indirizzi IP in base al numero di indirizzi che possono essere giustificati. La gestione degli stessi è affidata allo IANA (Autorità per l'Assegnazione dei Numeri in Internet), che smista gli indirizzi in base al RIR (Registro Internet Regionale) di riferimento, che gestisce i vari ISP (Internet Service Provider) locali:
-- **AfriNIC** (African Network Information Centre) - Africa Region
-- **APNIC** (Asia Pacific Network Information Centre) - Asia/Pacific Region
-- **ARIN** (American Registry for Internet Numbers) - North America Region
-- **LACNIC** (Regional Latin-American and Caribbean IP Address Registry) - Latin America and some Caribbean Islands
-- **RIPE NCC** (Réseaux IP Européens Network Coordination Centre) - Europe, the Middle East, and Central Asia
-
-## IPv6
-E' un'evoluzione dell'IPv4, ideata per risolvere il problema della carenza di disponibilità di nuovi indirizzi. L'IPv6 è un codice di lunghezza pari a 128bit (rispetto ai 32 dell'IPv4), consistente in 8 blocchi di codice esadecimale da 64 bit l'uno: ogni blocco ha un valore minimo di 0000 ad un massimo di ffff.
-```
-2001:0db8:acad:a088:0000:0000:0000:0123 = 128 bit
-0db8 = 16 bit
-0 = 0000 (4bit)
-d = 1101 (4bit)
-b = 1011 (4bit)
-8 = 1000 (4bit)
-```
-**ATTENZIONE**
-Si usano delle convenzioni per descrivere un indirizzo IPv6:
-- Si omettono gli zeri a sinistra del blocco (es. 00b2 diventa b2)
-- Due blocchi si separano dai due punti ```:```
-- Se uno o più blocchi hanno valore vuoto, vengono saltati e rappresentati semplicemente con ```::```.
-Quindi il blocco può essere rappresentato anche in forma compressa
-```
-Forma estesa:
-2001:0db8:acad:a088:0000:0000:0000:0123
-
-Forma compressa:
-2001:db8:acad:a088::123
-```
-### Migrazione da IPv4
-La migrazione da IPv4 a IPv6 è stata programmata per avvenite nell'arco di anni, nei quali i tecnici potranno aggiornare le reti tramite 3 tecnologie principali:
-#### Router dual stack
-Permettono di utilizzare contemporaneamente sia l'IPv4 che l'IPv6 per la stessa rete. 
-#### Tunneling
-Permette di tradurre un indirizzo IPv6 in una rete con IPv4 tramite #incapsulamento
-#### Traduzione
-Il NAT64 (Network Address Translation 64) permette ai dispositivi abilitati all'IPv6 di comunicare con i dispositivi IPv4 tramite una tecnologia simile al NAT per IPv4, effettuando una traduzione dell'intero pacchetto.
+# [Protocollo internet](./Protocolli#IP)
 
 ### DHCP
+
 IL DHCP, o Dynamic Host Control Protocol (Protocollo di controllo dinamico degli host), è un protocollo di assegnazione automatica degli indirizzi IP agli host, che può essere utilizzato in alternativa all'assegnazione statica degli indirizzi, dove l'operatore assegna manualmente gli indirizzi IP ai vari dispositivi connessi.
 
 Mentre la configurazione statica permette di avere un maggior controllo della rete, il protocollo DHCP permette di avere una maggiore adattabilità, rendendo possibile effettuare il cambio di porta di accesso per il dispositivo e maggiore velocità di realizzazione (anche solo perché si evita di inserire gli indirizzi IP statici in ogni dispositivo e tenerne traccia).
+Nel caso di rete wireless, il Router lavora sia da DHCP client (in quanto elabora i messaggi da inviare all'ISP) che DHCP server (in quanto gestisce gli indirizzi IP dei dispositivi connessi alla rete).
+#### Configurare una rete con DHCP
 [Come attivare il DHCP su Windows](https://support.microsoft.com/it-it/windows/modificare-le-impostazioni-tcp-ip-bd0a07af-15f5-cd6a-363f-ca2b6f391ace)
+1. Il client invia in [#Broadcast] un pacchetto (chiamato **DHCP Discover**), contenente l'indirizzo MAC al Server DHCP.
+2. Il Server riceve il messaggio ed invia un **DHCP Offer**, contenente l'indirizzo IP assegnato, una [[#Gateway mask]] e l'Indirizzo [Gateway] di default.
+3. L'Host riceve il messaggio, invia una DHCP request di accettazione dell'offerta e aggiorna le proprie impostazioni IP
+4. Il Server aggiorna la Tabella degli indirizzi IP ed invia un messaggio di accettazione (Acknowledgement).
+## Network segmentation
+Il router non propaga le richieste di Broadcast o richieste indirizzate a indirizzi IPv4 privati (Dominio di 2 livello di Broadcast). Per trovare gli indirizzi MAC di tutte le macchine a cui inviare un messaggio, si usa il Protocollo di Risoluzione degli Indirizzi ([ARP](./Protocolli#ARP)), che permette di inviare una richiesta [Boradcast](#broadcast) a tutti gli indirizzi IP della rete locale. Per trovare gli indirizzi IPv4 invece, di solito si utilizza il [DHCP](./protocolli#dhcp), ovvero Dynamic Host Configuration Protocol (protocollo di configurazione dinamica degli host).
+Nel caso di reti di grosse dimensioni, inviare messaggi in broadcast porta a rallentamenti della rete. Per questo di solito si segmenta la rete in sottoreti per permettere di inviare messaggi in broadcast ad una quantità limitata di utenti e non intasare la rete.
+Criteri di segmentazione di una rete possono essere:
+- Localizzazione
+- Gruppo o funzionalità
+- Tipo di dispositivo
 
 ## Network segmentation
 Il router non propaga le richieste di Broadcast o richieste indirizzate a indirizzi IPv4 privati (Dominio di 2 livello di Broadcast). Per trovare gli indirizzi MAC di tutte le macchine a cui inviare un messaggio, si usa il Protocollo di Risoluzione degli Indirizzi ([ARP](./Protocolli#ARP)), che permette di inviare una richiesta [Boradcast](#broadcast) a tutti gli indirizzi IP della rete locale. Per trovare gli indirizzi IPv4 invece, di solito si utilizza il [DHCP](./protocolli#dhcp), ovvero Dynamic Host Configuration Protocol (protocollo di configurazione dinamica degli host).
@@ -205,7 +135,7 @@ Esempio:
 	In questo caso 255.255.255.255 è un indirizzo standardizzato per indicare tutti i dispositivi
 
 ### Multicast
-Avviene quando un dispositivo invia un messaggio a specifici dispositivi (più di uno). L'indirizzo IPv4 destinato alle comunicazioni **multicast** è nel range tra 224.0.0.0 e 239.255.255.255.
+Avviene quando un dispositivo invia un messaggio a specifici dispositivi (più di uno). L'indirizzo IPv4 destinato alle comunicazioni **[multicast](#Multicast)** è nel range tra 224.0.0.0 e 239.255.255.255.
 Esempio:
 ```
 192.172.0.1 = Mittente
@@ -213,3 +143,7 @@ Esempio:
 ```
 
 Solo alcuni protocolli (come l'OSPF, che avviene tramite il canale 224.0.0.5) sono abilitati alla gestione di multicasting. I dispositivi che non supportano il protocollo scelto per la comunicazione, ignoreranno automaticamente i pacchetti ricevuti.
+## Gateway
+Il Gateway è un dispositivo che permette di inoltrare messaggi tra [LAN](./Reti#LAN) diverse (ognuna delle quali imposta un indirizzo IPv4 tramite DHCP o manualmente e inoltra lo stesso, assieme alla [sottomaschera di rete](<./Reti#Subnet mask>) ai dispositivi collegati.
+### Router
+Spesso (specialmente per le LAN domestiche) il ruolo di gateway viene svolto dal [Router].
