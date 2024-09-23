@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Server/AWS.md",
+                "file": "Tecnologie/Protocolli.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
         "state": {
           "type": "backlink",
           "state": {
-            "file": "Server/AWS.md",
+            "file": "Tecnologie/Protocolli.md",
             "collapseAll": false,
             "extraContext": false,
             "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
         "state": {
           "type": "outgoing-link",
           "state": {
-            "file": "Server/AWS.md",
+            "file": "Tecnologie/Protocolli.md",
             "linksCollapsed": false,
             "unlinkedCollapsed": true
           }
@@ -114,7 +114,7 @@
         "state": {
           "type": "outline",
           "state": {
-            "file": "Server/AWS.md"
+            "file": "Tecnologie/Protocolli.md"
           }
         }
       }
@@ -133,8 +133,9 @@
   },
   "active": "1fe357d8caeed408",
   "lastOpenFiles": [
-    "Tecnologie/Protocolli di comunicazione.md",
+    "Tecnologie/Networking.md",
     "Server/AWS.md",
+    "Tecnologie/Protocolli di comunicazione.md",
     "AWS Specialist.md",
     "Tecnologie/Macchina.md",
     "Sistemi operativi/Virtualizzazione.md",
@@ -160,7 +161,6 @@
     "Sistemi operativi/Linux.md",
     "Linguaggi/Python.md",
     "Software/SonarQube.md",
-    "Infrastructure as a Code.md",
     "Immagini/SQL Join.png",
     "Immagini/Pasted image 20240219204523.png",
     "Immagini/Pasted image 20240502095612.png"
