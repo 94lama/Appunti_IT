@@ -33,3 +33,32 @@ Teorema di #Bohm-Jacopini: Qualsiasi problema può essere risolto tramite tre co
 - #switch: Verifica se la variabile rientra in una serie di opzioni ed in caso esegue l'istruzione relativa alla prima opzione che risulta true 
 - #for: Esegue un'istruzione fino a quando il contatore impostato non rende vera la condizione
 - #while: Esegue un'istruzione fino a quando il contatore impostato non rende vera la condizione
+# Matematica booleana
+## Somma booleana
+Si effettua sostituendo la cifra 1 nel caso ci sia almeno un 1 tra i due valori e 0 nel caso non ci sia, ovvero:
+```
+1 + 0 = 1
+0 + 1 = 1
+0 + 0 = 0
+
+Quindi
+1100 +
+0101 =
+_______
+1101
+```
+
+## Moltiplicazione booleana
+Si effettua sostituendo la cifra 1 nel caso entrambi i valori siano 1 e 0 nel caso contrario, ovvero:
+```
+1 + 0 = 0
+0 + 1 = 0
+0 + 0 = 0
+1 + 1 = 1
+
+Quindi
+1100 +
+0101 =
+_______
+0100
+```

@@ -146,4 +146,8 @@ Solo alcuni protocolli (come l'OSPF, che avviene tramite il canale 224.0.0.5) so
 ## Gateway
 Il Gateway è un dispositivo che permette di inoltrare messaggi tra [LAN](./Reti#LAN) diverse (ognuna delle quali imposta un indirizzo IPv4 tramite DHCP o manualmente e inoltra lo stesso, assieme alla [sottomaschera di rete](<./Reti#Subnet mask>) ai dispositivi collegati.
 ### Router
-Spesso (specialmente per le LAN domestiche) il ruolo di gateway viene svolto dal [Router].
+Spesso (specialmente per le LAN domestiche) il ruolo di gateway viene svolto dal [Router]. In questo caso, essendo questo anche l'elemento di connessione tra la  tra [LAN](./Reti#LAN) e la [rete pubblica](<./Reti#Rete pubblica>), si è soliti utilizzare degli [IPv4](./Protocolli#IPv4) privati per i dispositivi collegati piuttosto che degli indirizzi pubblici, per separarli dalla rete pubblica.
+
+L'ISP (Internet Service Provider), di solito assegna, al router un indirizzo IP pubblico, da utilizzare per le comunicazione con la rete pubblica tramite protocollo [DHCP](./Protocolli#DHCP), rendendo così il router il dispositivo che gestisce gli scambi tra [LAN](./Reti#LAN) e [Internet](<./Reti#Rete pubblica>) e traduce gli indirizzi IP tramite le [maschere di sottorete](<./Reti#Subnet mask>).
+- [NAT](./Reti#NAT)
+
