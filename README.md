@@ -7,9 +7,9 @@ Consiglio di utilizzare Obsidian per la lettura (se si decide di scaricare la re
 - [Glossario](./Glossario.md)
 - [Informazioni](./Informazioni.md)
 ## Sistemi operativi
-- [Linux](<./Sistemi operativi/Linux.md>)
-- [Windows](<./Sistemi operativi/Windows.md>)
-- [Virtualizzazione](<./Sistemi operativi/Virtualizzazione.md>)
+- [Linux](<./Sistemi operativi/Linux>)
+- [Windows](<./Sistemi operativi/Windows>)
+- [Virtualizzazione](<./Sistemi operativi/Virtualizzazione>)
 ## Tecnologie:
 - [Macchina](./Tecnologie/Macchina.md)
 - [Networking](./Tecnologie/Networking.md)
