@@ -4,7 +4,47 @@ Questo metodo è composto da una serie di processi, che permettono di standardiz
 ## [Subnetting](https://www.itimarconi.ct.it/sezioni/didatticaonline/informatica/lezionidisistemi/quinta/subnetting.htm)
 Il subnetting consiste nel raggruppare i dispositivi connessi alla rete (creando appunto delle sottoreti) per facilitare l'applicazione di Policy di sicurezza e ridurre il peso delle chiamate [broadcast](./Networking#Broadcast) tra dispositivi. La definizione delle sottoreti avviene tramite [maschera di sottorete](<#Subnet mask>).
 ### Subnet mask
-Una [maschera di sottorete](https://it.wikipedia.org/wiki/Maschera_di_sottorete) è un parametro di configurazione utilizzato per identificare la rete alla quale l'host è connesso. Si basa su 4 blocchi numerici da 1 byte (8 bit) ciascuno, 
+Una [maschera di sottorete](https://it.wikipedia.org/wiki/Maschera_di_sottorete) è un parametro di configurazione utilizzato per identificare la rete alla quale l'host è connesso. Si basa su 4 blocchi numerici da 32 byte (256 bit) ciascuno, attraverso i quali è possibile identificare l'[indirizzo IP](./Protocolli#IPv4) della sottorete utilizzata, tramite [moltiplicazione booleana](<./Operatori#Moltiplicazione booleana>). 
+
+```
+Nel caso degli indirizzi IP questoprocesso si applica per ogni blocco, comparandolo alla maschera di sottorete, ad esempio:
+192 = 11000000
+255 = 11111111    La moltiplicazione permette di avere:
+______________
+	  11000000    ovvero 192, la cifra corretta del blocco analizzato.
+
+Complicando il discorso, questo permette di identificare l'IP nella sottorete di un dispositivo tramite indirizzo IP pubblico e maschera di sottorete:
+
+IPv4 =   192.168.0.10
+Subnet = 255.255.255.245
+
+Questo porterà ad identicifare l'indirizzo della sottorete:
+192.168.0
+Mentre l'indirizzo della sottorete si calcola tramite moltiplicazione:
+
+245 = 00001111
+10  = 11110101
+___________________
+      00000101 = 5
+
+IPv4 della sottorete: 192.168.0.5
+```
+
+#### NAT
+Utilizzando l'algoritmo delle maschere di sottorete, è possibile suddividere in maniera efficiente una rete. Per convenzione, gli indirizzi privati sono stati suddivisi in 3 categorie, ognuna delle quali ha delle maschere di sottorete preimpostate, al fine di suddividere le reti in base alla loro capienza: 
+```
+Per le reti di grandi dimensioni, in quanto permette di contenere più di 16 milioni di dispositivi (256 * 256 * 255), si usa: 
+10.0.0.0    -> 255.0.0.0
+
+Per le reti di medie dimensioni, in quanto permette di ospitare più di 65.000 dispositivi, si usa:
+172.16.0.0  -> 255.255.0.0
+
+Mentre, per le reti piccole (come quelle domestiche), è sufficiente ospitare fino a 255 dispositivi:
+192.168.0.0 -> 255.255.255.0
+```
+	Si ricorda che il valore 255 significa che il valore dello slot corrispondente non può essere modificato all'interno della sottorete. Quindi, ad esempio, la rete con primo blocco uguakle a 72, può contenere tutti gli indirizzi IP che vanno da 172.16.0.1 a 172.16.255.255 e così via.
+
+Questo processo prende il nome di Network Address Translation (Traduzione degli indirizzi di rete), o NAT.
 # Architettura
 ## Domain controller
 E' un server specifico addetto alla gestione delle richieste degli utenti, compreso lo smistamento dei collegamenti e la verifica degli accessi degli utenti, il loro ruolo e l'utilizzo delle risorse di rete.
@@ -56,7 +96,12 @@ Per aumentare le prestazioni, di solito vengono create applicazioni per facilita
 ### Hub
 ## Domain client
 # LAN
-Local Area Network ( #LAN) è il sinomimo di Rete Locale. Nel caso due dispositivi si trovino nella stessa LAN, la rete di comunicazione è diretta.
+Local Area Network ( #LAN) è il sinonimo di Rete Locale. Nel caso due dispositivi si trovino nella stessa LAN, la rete di comunicazione è diretta.
+Una rete locale consiste in una serie di dispositivi collegati tra loro. I principali sono:
+- Switch: permette di connettere tra loro più dispositivi;
+- Router: permette di connettersi alla [rete pubblica](<#Rete pubblica>) se ha anche funzionalità di [gateway](#Gateway) ([vedi differenze](https://community.fs.com/it/article/router-vs-gateway-what-is-the-similarity-and-difference.html)) o ad altre LAN;
+- Dispositivi [endpoint](./Networking#Endpoint).
+Nel caso di reti LAN aziendali, spesso esse vengono suddivise in [sottoreti](#Subnetting) tramite router, per facilitare i controlli di sicurezza, evitare il sovraffollamento o raggruppare i nodi secondo categorie (es. localizzazione geografica dei nodi, mansione lavorativa dei dipendenti, ecc.).
 # Rete pubblica
 Nota anche come Wide Area Network ( #WAN). Nel caso due dispositivi vogliano comunicare tramite WAN, la comunicazione passa dal #gateway, ovvero un macchinario fornito da un #provider, che permette l'instradamento dei pacchetti all'interno di una rete, che dirige le comunicazioni con i dispositivi connessi alla rete pubblica.
 # Gateway

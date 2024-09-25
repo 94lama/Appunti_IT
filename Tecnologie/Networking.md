@@ -9,7 +9,7 @@ Sono reti estese, che possono contenere migliaia di utenti (un esempio è una re
 ## Reti globali
 Un esempio è [Internet](./Internet).
 
-# End point
+# Endpoint
 Gli endpoint sono i dispositivi che funzionano da tramite tra l'utente e la rete. Possono essere divisi in base alla tipologia di dispositivo e al suo utilizzo in:
 - Dispositivi portativi;
 - Dispositivi casalinghi connessi alla rete (Smart home);
@@ -126,14 +126,14 @@ Avviene quando un dispositivo invia un messaggio a solo un destinatario.
 ```
 	Gli indirizzi IPv4 destinati alla ricezione di messaggi Unicast hanno una maschera di sottorete inclusa tra 1.1.1.1 e 223.255.255.255, con alcuni indirizzi utilizzati per specifici scopi.
 ### Broadcast
-Avviene quando un dispositivo invia un messaggio a tutti i dispositivi presenti nel network
-Esempio:
+Avviene quando un dispositivo invia un messaggio a tutti i dispositivi presenti nel network. Esempio:
 ```
 192.172.0.1 = Mittente
 255.255.255.255 = Destinatario
 ```
 	In questo caso 255.255.255.255 è un indirizzo standardizzato per indicare tutti i dispositivi
 
+Un messaggio broadcast è utilizzato per essere ricevuto da tutti i dispositivi della rete (il router on inoltra il messaggio al di fuori della sottorete [LAN](./Reti#LAN) del dispositivo emittente).
 ### Multicast
 Avviene quando un dispositivo invia un messaggio a specifici dispositivi (più di uno). L'indirizzo IPv4 destinato alle comunicazioni **[multicast](#Multicast)** è nel range tra 224.0.0.0 e 239.255.255.255.
 Esempio:
@@ -143,7 +143,11 @@ Esempio:
 ```
 
 Solo alcuni protocolli (come l'OSPF, che avviene tramite il canale 224.0.0.5) sono abilitati alla gestione di multicasting. I dispositivi che non supportano il protocollo scelto per la comunicazione, ignoreranno automaticamente i pacchetti ricevuti.
+Dato che di solito i dispositivi conoscono solo l'indirizzo IP del destinatario, ma non il MAC, viene utilizzato il protocollo [ARP](./Protocolli#ARP) per ritrovare l'indirizzo MAC corretto. Il protocollo ARP è un esempio di messaggio [Broadcast](#Broadcast)
 ## Gateway
 Il Gateway è un dispositivo che permette di inoltrare messaggi tra [LAN](./Reti#LAN) diverse (ognuna delle quali imposta un indirizzo IPv4 tramite DHCP o manualmente e inoltra lo stesso, assieme alla [sottomaschera di rete](<./Reti#Subnet mask>) ai dispositivi collegati.
 ### Router
-Spesso (specialmente per le LAN domestiche) il ruolo di gateway viene svolto dal [Router].
+Spesso (specialmente per le LAN domestiche) il ruolo di gateway viene svolto dal [Router]. In questo caso, essendo questo anche l'elemento di connessione tra la  tra [LAN](./Reti#LAN) e la [rete pubblica](<./Reti#Rete pubblica>), si è soliti utilizzare degli [IPv4](./Protocolli#IPv4) privati per i dispositivi collegati piuttosto che degli indirizzi pubblici, per separarli dalla rete pubblica.
+
+L'ISP (Internet Service Provider), di solito assegna, al router un indirizzo IP pubblico, da utilizzare per le comunicazione con la rete pubblica tramite protocollo [DHCP](./Protocolli#DHCP), rendendo così il router il dispositivo che gestisce gli scambi tra [LAN](./Reti#LAN) e [Internet](<./Reti#Rete pubblica>) e traduce gli indirizzi IP tramite le [maschere di sottorete](<./Reti#Subnet mask>).
+- [NAT](./Reti#NAT)

@@ -47,6 +47,47 @@ I doppini UTP sono classificati in categorie
 # Scheda di rete
 Permettono il collegamento alla rete. Sono composte da
 - Ingresso - doppino
+# Porte
+Sono dispositivi che permettono il collegamento della macchina con periferiche esterne. Le porte possono essere fisiche o di rete.
+## Porte di rete
+Sono porte adibite alla comunicazione tra dispositivi tramite [Rete](./Reti) e sono rappresentate da un sistema di numerazione a 16 bit (65.536 porte in totale). Queste sono raggruppate in base all'uso in base a convenzioni.
+
+| Porte       | Destinazione                                                                             |
+| ----------- | ---------------------------------------------------------------------------------------- |
+| 0-1023      | Porte destinate allo IANA e utilizzate a livello di sistema operativo (Well-known ports) |
+| 1024-49151  | Utilizzate come riferimento tra applicazioni                                             |
+| 59152-65535 | Liberamente utilizzabili                                                                 |
+
+### Socket
+L'utilizzo delle porte di rete è rappresentato aggiungendo alla fine dell'[IPv4](./Protocolli#IPv4) due punti e il numero della porta di riferimento.
+
+```192.168.0.1:80```
+	In questo caso sto indicando che la porta da utilizzare è la numero 80
+
+Questa rappresentazione delle porte prende il nome di socket.
+### IANA
+La [Internet Assigned Number Authority](https://www.iana.org/) è un organismo che ha la responsabilità di assegnare gli [indirizzi IP](./Protocolli#IP) e mantenere un registro dei protocolli utilizzati su [internet](<./Reti#Rete pubblica>).
+Le porte più utilizzate tramite protocollo [TCP](./Protcolli#TCP) o [UDP](./Protoclli#UDP) (dove segnalato) sono:
+
+| Porta | Destinazione                                 |
+| ----- | -------------------------------------------- |
+| 22    | Login tramite [SSH](./Protocolli#SSH)        |
+| 23    | Login tramite [Telnet](./Protocolli#Telnet)  |
+| 25    | [SMTP](./Protocolli#SMTP)                    |
+| 37    | Time (anche UDP)                             |
+| 53    | [DNS](./Protocolli#DNS) (anche UDP)          |
+| 67    | [DCHP](./Protocolli0#DCHP) Server (solo UDP) |
+| 68    | [DCHP](./Protocolli0#DCHP) Client (solo UDP) |
+| 69    | [TFTP](./Protofolli#TFTP)                    |
+| 80    | [HTTP](./Protocolli#HTTP)                    |
+| 109   | [POP](./Protocolli#POP)                      |
+| 110   | [POP](./Protocolli#POP)                      |
+| 139   | Login tramite [NetBIOS]()                    |
+| 143   | [IMAP](./Protocolli#IMAP)                    |
+| 161   | [SNMP](./Protocolli#SNMP) (solo UDP)         |
+| 443   | [SSL](./Protocolli#SSL)                      |
+
+# Particolari tipologie di macchine
 ## HUB
 Gli #hub, o ripetitori, sono dispositivi che collegano fra loro gli utenti, smistando i vari pacchetti da una macchina all'altra. Gli hub lavorano tramite banda condivisa.
 

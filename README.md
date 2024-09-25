@@ -1,6 +1,7 @@
 # Introduzione
-Riassunti di vari corsi, bootcamp ecc., relativi l'informatica. Gli appunti sono pubblici ed disponibili a chiunque voglia utilizzarli e/o implementarli.
-La raccolta é in continua evoluzione ed espansione quindi, sentitevi liberi di proporre anche modifiche all'organizzazione dei file.
+Riassunti (in italiano) di corsi, bootcamp, ed in generale qualunque cosa relativa l'informatica. Gli appunti sono pubblici ed disponibili a chiunque voglia utilizzarli, modificarli e/o implementarli.
+La raccolta è in continua evoluzione ed espansione quindi, sentitevi liberi di proporre anche modifiche all'organizzazione dei file.
+Consiglio di utilizzare Obsidian per la lettura (se si decide di scaricare la repository) per essere sicuri di non perdere nessun collegamento, in quanto è il software che utilizzo per prendere appunti.
 # Indice
 - [Cybersecurity](./Cybersecurity.md)
 - [Glossario](./Glossario.md)
