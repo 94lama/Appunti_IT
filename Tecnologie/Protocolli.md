@@ -1,5 +1,5 @@
 # Modelli
-![[Pasted image 20240919194502.png]]
+![](https://www.aiutocomputerhelp.it/wp-content/uploads/layer-logico-tcp-ip.jpg)
 ## ISO/OSI
 La Pila #ISO/OSI rappresenta 7 fasi diverse del processo di comunicazione, tra loro consequenziali (ovvero non è possibile saltare protocolli per il passaggio da un punto iniziale ad un punto finale)
 ### Livelli
