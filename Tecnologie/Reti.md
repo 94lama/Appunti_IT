@@ -96,7 +96,12 @@ Per aumentare le prestazioni, di solito vengono create applicazioni per facilita
 ### Hub
 ## Domain client
 # LAN
-Local Area Network ( #LAN) è il sinomimo di Rete Locale. Nel caso due dispositivi si trovino nella stessa LAN, la rete di comunicazione è diretta.
+Local Area Network ( #LAN) è il sinonimo di Rete Locale. Nel caso due dispositivi si trovino nella stessa LAN, la rete di comunicazione è diretta.
+Una rete locale consiste in una serie di dispositivi collegati tra loro. I principali sono:
+- Switch: permette di connettere tra loro più dispositivi;
+- Router: permette di connettersi alla [rete pubblica](<#Rete pubblica>) se ha anche funzionalità di [gateway](#Gateway) ([vedi differenze](https://community.fs.com/it/article/router-vs-gateway-what-is-the-similarity-and-difference.html)) o ad altre LAN;
+- Dispositivi [endpoint](./Networking#Endpoint).
+Nel caso di reti LAN aziendali, spesso esse vengono suddivise in [sottoreti](#Subnetting) tramite router, per facilitare i controlli di sicurezza, evitare il sovraffollamento o raggruppare i nodi secondo categorie (es. localizzazione geografica dei nodi, mansione lavorativa dei dipendenti, ecc.).
 # Rete pubblica
 Nota anche come Wide Area Network ( #WAN). Nel caso due dispositivi vogliano comunicare tramite WAN, la comunicazione passa dal #gateway, ovvero un macchinario fornito da un #provider, che permette l'instradamento dei pacchetti all'interno di una rete, che dirige le comunicazioni con i dispositivi connessi alla rete pubblica.
 # Gateway

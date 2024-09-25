@@ -55,45 +55,10 @@ Protocollo definito dalla IBM, è utilizzato prevalentemente in ambito bancario.
 # Protocolli
 **![](https://lh7-us.googleusercontent.com/wB9im8FVSfk_-eER1aUR7kMBpIB9iKWS7As8LPD4cPvPGd5bE2FjsCHTGGbV_ro_YO59dbyNBeZLgHn2E4x6yQYYo2ZnYDTv9P3Ww2gs-knQ0KniH-5v5FCWnKWUXelUlh2Z6vAaEKTPsALq737qwQ=s2048)**
 ## Applicazione
-### HTTP
-Il processo di comunicazione tra macchine, nel caso del web, è gestito tramite #protocollo #HTTP (Hyper-Text Transfer Protocol). Un messaggio HTTP è composto da un #header, che contiene le impostazioni del messaggio e da un #body, che di solito contiene le informazioni.
-#### Headers
-Ogni #header è sostanzialmente composto da una coppia chiave-valore.
-##### Content-Type
-Viene utilizzato per indicare la struttura del body. Il valore attribuito segue la struttura del [MIME](https://www.geeksforgeeks.org/http-headers-content-type/)
-```HTTP
-Content-Type: text/html; charset=utf-8
-```
-	ESEMPI DI VALORI:
-	application/xml
-	audio/mp3
-	image/jpeg
-	multipart/form-data
-	text/html
-	
-#### Status Code
-Gli #status-code sono dei codici che riassumono il risultato della query.
-
-| Codice | descrizione                                                                                         |
-| ------ | --------------------------------------------------------------------------------------------------- |
-| 1xx    | Risposta informativa (di solito relativa a problemi avvenuti durante la trasmissione dei pacchetti) |
-| 2xx    | Successo                                                                                            |
-| 200    | Ok                                                                                                  |
-| 3xx    | Reindirizzamento                                                                                    |
-| 4xx    | Client error                                                                                        |
-| 400    |                                                                                                     |
-| 404    | Not Found                                                                                           |
-| 5xx    | Server Error                                                                                        |
-| 502    | Termporary unavailable                                                                              |
-### HTTPS
-Protocollo che consiste nell'evoluzione dell' [[#HTTP]], che include un processo di criptazione dei dati (con protocollo [[#SSL]] o [[#TSL]]) durante la trasmissione degli stessi. 
-
-Questo permette di ottenere:
-- Autenticazione del sito web
-- Protezione della #privacy 
-- Integrità dei dati scambiati
-### SMTP
+### Email
+#### SMTP
 Simple Mail Transfer Protocol, è un protocollo utilizzato per la gestione delle #email (modificato nel 2008 con l'Extended SMTP) per mandare e ricevere messaggi al #server mail.
+#### SMTPS
 #### POP3
 Simple Mail Transfer Protocol, è un protocollo utilizzato per la gestione delle #email. Copia tutte le informazioni dal server alla macchina locale e le sincronizza lato esterno.
 
@@ -107,12 +72,82 @@ Simple Mail Transfer Protocol, è un protocollo utilizzato per la gestione delle
 | -------------------------- | --------------------------------------------- |
 | Risparmio spazio su client | Sincornizza tutto in base ai dati sul #server |
 
-### SMTPS
-### E2EE
+### File
+### Web
+#### DNS
+Domain Name System, serve ad attribuire un #dominio a degli indirizzi #IP, in modo tale da rendere più agevole la navigazione degli utenti (es. facebook.com, amazon.it).
+Il servizio si basa su dei #server DNS.
+E' il primo step per la navigazione su internet odierna, in quanto permette di semplificare il reindirizzamento al server corretto, grazie all'utilizzo di parole piuttosto che indirizzi IP.
+
+Permette di identificare l'IP dall'URL inviato e inviare come risposta l'indirizzo IP corretto del server.
+##### URI
+Lo Uniform Resource Identifier Indica il segnaposto del server con cui stabilire una connessione 
+```
+https://it.wikipedia.org/wiki/Uniform_Resource_Identifier#Relazione_fra_URI,_URL_e_URN
+```
+Rappresenta l'unione di URL e Fragment.
+##### URL
+Lo Uniform Resource Locator rappresenta la parte dell'URI adibita ad identificare lo specifico file visualizzato ed il protocollo utilizzato per la connessione
+```
+https://it.wikipedia.org/wiki/Uniform_Resource_Identifier
+```
+##### URN
+Lo Uniform Resource Name rappresenta unicamente il server con cui avviene la comunicazione ed il file richiesto
+```
+it.wikipedia.org/wiki/Uniform_Resource_Identifier
+```
+##### Fragment
+Identifica eventuali parametri utilizzati durante la chiamata all'interno dell'URI come, ad esempio, l'[anchor](./../Linguaggi/HTML#a) di riferimento o la query richiesta
+```
+#Relazione_fra_URI,_URL_e_URN
+```
+#### HTTP
+Il processo di comunicazione tra macchine, nel caso del web, è gestito tramite #protocollo #HTTP (Hyper-Text Transfer Protocol). Un messaggio HTTP è composto da un #header, che contiene le impostazioni del messaggio e da un #body, che di solito contiene le informazioni.
+##### Headers
+Ogni #header è sostanzialmente composto da una coppia chiave-valore.
+###### Content-Type
+Viene utilizzato per indicare la struttura del body. Il valore attribuito segue la struttura del [MIME](https://www.geeksforgeeks.org/http-headers-content-type/)
+```HTTP
+Content-Type: text/html; charset=utf-8
+```
+	ESEMPI DI VALORI:
+	application/xml
+	audio/mp3
+	image/jpeg
+	multipart/form-data
+	text/html
+	
+##### Status Code
+Gli #status-code sono dei codici che riassumono il risultato della query.
+
+| Codice | descrizione                                                                                         |
+| ------ | --------------------------------------------------------------------------------------------------- |
+| 1xx    | Risposta informativa (di solito relativa a problemi avvenuti durante la trasmissione dei pacchetti) |
+| 2xx    | Successo                                                                                            |
+| 200    | Ok                                                                                                  |
+| 3xx    | Reindirizzamento                                                                                    |
+| 4xx    | Client error                                                                                        |
+| 400    |                                                                                                     |
+| 404    | Not Found                                                                                           |
+| 5xx    | Server Error                                                                                        |
+| 502    | Termporary unavailable                                                                              |
+#### HTTPS
+Protocollo che consiste nell'evoluzione dell' [[#HTTP]], che include un processo di criptazione dei dati (con protocollo [[#SSL]] o [[#TSL]]) durante la trasmissione degli stessi. 
+
+Questo permette di ottenere:
+- Autenticazione del sito web
+- Protezione della #privacy 
+- Integrità dei dati scambiati
+### Altro
+#### E2EE
 La End-to-end Encryption permette di crittare i dati non a livello di #server (come avviene nel #https)
+## Presentazione
+## Sessione
 ## Trasporto
+I protocolli del livello 4 (trasporto) determinano la metodologia di trasmissione dei dati al livello di [internet](<./Reti#Rete pubblica>).
+Durante la sessione, entrambi i dispositivi mantengono aperte delle [porte](<./Macchina#Porte di rete>) prestabilite (identificate in coppia **origine - destinazione**) per permettere l'invio e l'ascolto costante di messaggi di risposta. Le porte vengono inserite nel pacchetto di dati da inviare tramite coppia di [socket](./Macchina#Socket).
 ### TCP
-Il #tcp, ovvero Transmission Control Protocol è un #protocollo **Orientato alla connessione** e quindi considerato affidabile.
+Il #tcp, ovvero Transmission Control Protocol è un #protocollo **Orientato alla connessione** e quindi considerato affidabile. La connessione è garantita dal three-way handshake, che assicura la connessione reciproca dei due dispositivi per tutta la sessione (durante la quale si potranno trasferire un numero variabile di pacchetti di dati, in base alla tipologia di connessione scelta), che verrà chiusa automaticamente una volta conclusa l'operazione desiderata.
 #### Three-way handshake
 ![[Pasted image 20240219204523.png]]
 E' un processo composto da 3 fasi di comunicazione, che viene eseguito ogni volta che avviene uno scambio di pacchetti tramite protocollo #tcp tra due dispositivi. 
@@ -122,7 +157,7 @@ Synchronization, ovvero il mittente invia un messaggio al destinatario
 Acknowledgement, ovvero il destinatario invia un messaggio al mittente confermando la ricezione del primo messaggio.
 Dopodichè un terzo messaggio viene inviato dal mittente al destinatario, contenente il pacchetto di dati.
 ### UDP
-Protocollo simile al [TCP](#TCP), ma senza la presenza del [[#Three-way handshake]]. L'assenza di quel processo permette all' #UDP una maggiore velocità (dovuta all'assenza di fase di riordinamento dei pacchetti), a discapito di una minore affidabilità di scambio. Per questo è spesso utilizzato, ad esempio, per i servizi di #streaming.
+L'User Datagram Protocol è un protocollo paragonabile al [TCP](#TCP), ma senza la presenza del [[#Three-way handshake]]. L'assenza di quel processo permette all' #UDP una maggiore velocità (dovuta all'assenza di fase di riordinamento dei pacchetti), a discapito di una minore affidabilità di scambio. Per questo è spesso utilizzato, ad esempio, per i servizi di #streaming.
 ### Telnet
 Protocollo di comunicazione tra macchine attraverso #shell. E' stato sostituito dal [[#SSH]] per motivi di sicurezza.
 ### SSH
@@ -261,9 +296,21 @@ Secure Socket Layer
 ### TSL
 Versione aggiornata di [[#SSL]]
 ## Network
-### DHCP
+A livello di Rete, i messaggi vengono smistati in base agli indirizzi MAC dei dispositivi in comunicazione.
+![[Pasted image 20240924110817.png]]
+Lo schema sopra mostra i dati utilizzati per smistare un messaggio in [internet](<./Reti#Rete pubblica>): gli indirizzi utilizzati sono i MAC di origine e destinazione, mentre il destinatario è identificato tramite IPv4. Il messaggio (già contenente i dati del destinatario) viene incapsulato e "decapsulato" più volte:
+1. LAN - Incapsulamento per l'inserimento degli indirizzi MAC della [LAN](./Reti#LAN) (aa-aa-aa, bb-bb-bb)
+2. LAN - Ricezione del messaggio da parte del router (bb-bb-bb), con successivo aggiornamento degli indirizzi MAC (bb-bb-bb, cc-cc-cc)
+3. WAN - Ricezione del messaggio da parte del router della rete del destinatario, con successivo aggiornamento degli indirizzi MAC (cc-cc-cc, dd-dd-dd)
+4. LAN - RIcezione del messaggio da parte del destinatario (ee-ee-ee, 55-55-55)
 
-IL DHCP, o Dynamic Host Control Protocol (Protocollo di controllo dinamico degli host), è un protocollo di assegnazione automatica degli indirizzi IP agli host, che può essere utilizzato in alternativa all'assegnazione statica degli indirizzi, dove l'operatore assegna manualmente gli indirizzi IP ai vari dispositivi connessi.
+L'associazione del flusso degli indirizzi MAC agli IP del messaggio è effettuata tramite:
+- [ARP](./Protocolli#ARP) (Address Resolution Protocol) nel caso di IPv4;
+- [ND](./Protocolli#ND) (Neighbor Discovery) nel caso di IPv6.
+### ARP
+Il protocollo ARP, o [Addresses Resolution Protocol](https://it.wikipedia.org/wiki/Address_Resolution_Protocol) (Protocollo di risoluzione degli indirizzi) serve ad identificare l'indirizzo MAC di un dispositivo collegato ad una [LAN](./Reti#LAN). Consiste in un invio di una request in [broadcast](./Networking#Broadcast), contenente l'indirizzo [IPv4](#IPv4) del destinatario. Il dispositivo il cui indirizzo IPv4 combacia con quello desiderato, invierà un messaggio di risposta, contenente il proprio indirizzo MAC al mittente. 
+### DHCP
+Il DHCP, o Dynamic Host Control Protocol (Protocollo di controllo dinamico degli host), è un protocollo di assegnazione automatica degli indirizzi IP agli host, che può essere utilizzato in alternativa all'assegnazione statica degli indirizzi, dove l'operatore assegna manualmente gli indirizzi IP ai vari dispositivi connessi.
 
 Mentre la configurazione statica permette di avere un maggior controllo della rete, il protocollo DHCP permette di avere una maggiore adattabilità, rendendo possibile effettuare il cambio di porta di accesso per il dispositivo e maggiore velocità di realizzazione (anche solo perché si evita di inserire gli indirizzi IP statici in ogni dispositivo e tenerne traccia).
 Nel caso di rete wireless, il Router lavora sia da DHCP client (in quanto elabora i messaggi da inviare all'ISP) che DHCP server (in quanto gestisce gli indirizzi IP dei dispositivi connessi alla rete).
@@ -273,6 +320,7 @@ Nel caso di rete wireless, il Router lavora sia da DHCP client (in quanto elabor
 2. Il Server riceve il messaggio ed invia un **DHCP Offer**, contenente l'indirizzo IP assegnato, una [[#Gateway mask]] e l'Indirizzo [Gateway] di default.
 3. L'Host riceve il messaggio, invia una DHCP request di accettazione dell'offerta e aggiorna le proprie impostazioni IP
 4. Il Server aggiorna la Tabella degli indirizzi IP ed invia un messaggio di accettazione (Acknowledgement).
+
 ## Data link
 ### Ethernet
 Protocollo utilizzato per le comunicazioni tra due macchine collegate alla stessa rete.
@@ -284,34 +332,11 @@ Un messaggio che utilizza questo protocollo ha una lunghezza standardizzata che 
 5. Tipo di lunghezza (2 byte)
 6. Dati  (46-1500 byte)
 7. Frame di controllo della sequenza (4 byte)
-## Fisico
-### FTP
-Il File Transfer Protocol (o #FTP) è un protocollo organizzativo per l'utilizzo delle porte. Le porte possono avere 3 stati:
-- Aperta
-- Chiusa
-- #honeypot - ovvero una porta "finta", ovvero riconosciuta come aperta dal sistema, ma atti a bloccare e analizzare i pacchetti ricevuti ([[Cybersecurity]])
 
-Si utilizza questo protocollo per:
-- Download/upload di file
-- Recupero di trasferimenti interrotti (deve essere impostato dal #provider)
-- Rimozione e rinomina di file
-- Creazione di #directory 
-- Navigazione tra #directory 
-
-#### Lista delle porte standard
-
-| Numero | Protocollo                     |
-| ------ | ------------------------------ |
-| 20     | FTP (data)                     |
-| 21     | FTP (comando)                  |
-| 22     | [[#SSH]]                       |
-| 25     | [[#SMTP]]                      |
-| 53     | [[#DNS]]                       |
-| 80     | [[#HTTP]]                      |
-| 443    | [[#HTTPS]]                     |
-| 1024 + | FTP lato client (porta random) |
-| 3389   | [[#RDP]]                       |
-| 8080   | [[#HTTP]]                      |
+Se l'host non possiede l'indirizzo MAC del destinatario
+- Se appartiene alla stessa [LAN](./Reti#LAN), invierà una richiesta ARP per ottenere l'indirizzo MAC e aggiornare la tabella di routing;
+- Se appartiene ad una rete diversa, inserirà l'indirizzo MAC del [Default gateway](./Reti#Gateway).
+### MAC
 ## Altro
 ### IPCM
 L' #IPCM è utilizzato per il monitoraggio delle reti 
@@ -327,12 +352,9 @@ Modifica un'informazione in maniera integrale
 Modifica un'informazione in maniera parziale
 #### DELETE
 Cancella un'informazione
-
 ### SOAP
 Il Simple Object Access Protocol, o #soap un protocollo per lo scambio di messaggi tra componenti software. Comunemente comunica tramite il protocollo #http tramite il #metalinguaggio [[XML]] ed una struttura head-body, dove la head contiene parametri relativi instradamento, sicurezza, transazioni, mentre il body contiene il messaggio (chiamato anche carico utile o #payload).
-### DNS
-Domain Name System, serve ad attribuire un #dominio a degli indirizzi #IP, in modo tale da rendere più agevole la navigazione degli utenti (es. facebook.com, amazon.it).
-Il servizio si basa su dei #server DNS.
+
 # Utilizzo dei protocolli
 ## Sovraffollamento
 il #sovraffollmento è  un eccessivo numero di richieste in un breve arco di tempo, che porta all'impossibilità del serve di rispondere in tempo normale.
