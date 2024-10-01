@@ -44,8 +44,8 @@ I doppini UTP sono classificati in categorie
 ## Fibra ottica
 ### FTTC
 ### FTTH
-# Scheda di rete
-Permettono il collegamento alla rete. Sono composte da
+# NIC
+Nota anche come [Scheda di rete](https://it.wikipedia.org/wiki/Scheda_di_rete), permette il collegamento alla rete e la trasmissione dei dati. E' composta da:
 - Ingresso - doppino
 # Porte
 Sono dispositivi che permettono il collegamento della macchina con periferiche esterne. Le porte possono essere fisiche o di rete.
@@ -102,6 +102,8 @@ Lo #switch è  un'evoluzione dell'[[#HUB]] in termini di performance. Permettono
 | --------------------------- | ------- |
 | Veloce                      | Costoso |
 | Maggiore lunghezza di banda |         |
+
+L'unico compito dello switch è quello di leggere gli indirizzo [MAC](./Protocolli#MAC) del pacchetto di dati (non legge, ad esempio, gli indirizzi IP dei dispositivi). Questi indirizzi MAC sono poi comparati ai dati presenti nella Tabella degli Indirizzi MAC (nota anche come Content Addressable Table, o CAM), al fine di verificare quali porte collegare.
 ## Modem
 Il #modem è un dispositivo di ricetrasmissione che ha funzionalità logiche di modulazione/demodulazione in trasmissioni analogiche e digitali.
 ## Router

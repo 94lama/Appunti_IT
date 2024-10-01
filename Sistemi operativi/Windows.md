@@ -3,7 +3,7 @@ Stampare la lista di comandi utilizzabile
 ```
 help
 ```
-Trovare l'indirizzo #IP della macchina su cui si opera
+Trovare l'indirizzo #IP e le configurazioni della [scheda di rete](./../Tecnologie/Macchina#NIC) della macchina su cui si opera
 ```
 ipconfig
 ```
@@ -52,3 +52,10 @@ tracert
 ## Server manager
 
 ## System manager
+
+# Scheda di rete
+## Accesso
+Avviene tramite **Pannello di Controllo**, nella categoria **Rete e Internet**. Per visualizzarne lo stato attuale, basta cliccare sulla voce **Visualizza attività e stato della rete**.
+
+Per vedere le proprietà della connessione wireless, ad esempio, si deve andare su ```Pannello di Controlle/Reti internet/Connessione di rete```,
+fare click col tasto destro del mouse su Wireless Network Connection e selezionare Proprietà, da dove sarà possibile, ad esempio, visualizzare l'[IP](./../Tecnologie/Protocolli#IP) del dispositivo e scegliere se assegnarlo in maniera statica o tramite [DHCP](./../Tecnologie/Protocolli#DHCP)

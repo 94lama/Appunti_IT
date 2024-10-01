@@ -3,6 +3,8 @@
 ## ISO/OSI
 La Pila #ISO/OSI rappresenta 7 fasi diverse del processo di comunicazione, tra loro consequenziali (ovvero non è possibile saltare protocolli per il passaggio da un punto iniziale ad un punto finale)
 ### Livelli
+Il modello rappresenta il flusso di dati suddiviso in 7 categorie (chiamate livelli), attraverso le quali il pacchetto viene analizzato e trattato per permetterne il trasporto
+![[./../Immagini/Pasted image 20240930152150.png]]
 #### Applicazione
 E' il momento in cui ci interfacciamo con un applicazione (che sia un software di mailing, un browser o un'app). A questo livello vengono supportati i servizi di rete, come:
 - Email
@@ -53,8 +55,8 @@ E' assimilabile ai livelli Collegamento e Fisico della ISO/OSI
 ## SNA
 Protocollo definito dalla IBM, è utilizzato prevalentemente in ambito bancario.
 # Protocolli
-**![](https://lh7-us.googleusercontent.com/wB9im8FVSfk_-eER1aUR7kMBpIB9iKWS7As8LPD4cPvPGd5bE2FjsCHTGGbV_ro_YO59dbyNBeZLgHn2E4x6yQYYo2ZnYDTv9P3Ww2gs-knQ0KniH-5v5FCWnKWUXelUlh2Z6vAaEKTPsALq737qwQ=s2048)**
 ## Applicazione
+![](https://lh7-us.googleusercontent.com/wB9im8FVSfk_-eER1aUR7kMBpIB9iKWS7As8LPD4cPvPGd5bE2FjsCHTGGbV_ro_YO59dbyNBeZLgHn2E4x6yQYYo2ZnYDTv9P3Ww2gs-knQ0KniH-5v5FCWnKWUXelUlh2Z6vAaEKTPsALq737qwQ=s2048)
 ### Email
 #### SMTP
 Simple Mail Transfer Protocol, è un protocollo utilizzato per la gestione delle #email (modificato nel 2008 con l'Extended SMTP) per mandare e ricevere messaggi al #server mail.
@@ -144,7 +146,7 @@ La End-to-end Encryption permette di crittare i dati non a livello di #server (c
 ## Presentazione
 ## Sessione
 ## Trasporto
-I protocolli del livello 4 (trasporto) determinano la metodologia di trasmissione dei dati al livello di [internet](<./Reti#Rete pubblica>).
+I protocolli del livello 4 (trasporto) determinano la metodologia di trasmissione dei dati al livello di [internet](<./Reti#Rete pubblica>), l'ordinamento dei dati e il controllo di flusso (ovvero la velocità di invio e eventualmente il controllo della avvenuta ricezione dei dati).
 Durante la sessione, entrambi i dispositivi mantengono aperte delle [porte](<./Macchina#Porte di rete>) prestabilite (identificate in coppia **origine - destinazione**) per permettere l'invio e l'ascolto costante di messaggi di risposta. Le porte vengono inserite nel pacchetto di dati da inviare tramite coppia di [socket](./Macchina#Socket).
 ### TCP
 Il #tcp, ovvero Transmission Control Protocol è un #protocollo **Orientato alla connessione** e quindi considerato affidabile. La connessione è garantita dal three-way handshake, che assicura la connessione reciproca dei due dispositivi per tutta la sessione (durante la quale si potranno trasferire un numero variabile di pacchetti di dati, in base alla tipologia di connessione scelta), che verrà chiusa automaticamente una volta conclusa l'operazione desiderata.
@@ -174,8 +176,40 @@ Il protocollo è reso sicuro tramite utilizzo di criptazione tramite #chiave-asi
 ### RDP
 Remote Desktop Protocol, è un protocollo di connessione sicura di [[Windows]], che permette l'accesso diretto alla macchina.
 ## Rete
+
+## Network
+### Descrizione
+Gestisce l'indirizzamento a livello logico e l'instradamento dei pacchetti e deve assicurare il corretto espletamento delle seguenti funzioni:
+- Tolleranza dei fallimenti (ovvero il processo di networking non deve interrompersi nel caso incontri un errore). Di solito avviene tramite cancellazione del messaggio errato e nella prosecuzione della coda di messaggi successivi e la ridondanza di connessioni tra i vari dispositivi;
+- Scalabilità, ovvero capacità di aumentare o ridurre considerevolmente il numero di periferiche connesse e in poco tempo;
+- Qualità del servizio, ovvero la capacità di mantenere un flusso di dati costante nel tempo, evitando rallentamenti o colli di bottglia. L'importante è tenere in considerazione il tipo di messaggio da trasportare e prioritizzare il traffico sensibile al passare del tempo;
+- Sicurezza, ovvero il controllo dei processi che avvengono nella rete, il blocco degli accessi in base a criteri di autorizzazione. I criteri si applicano secondo principi di **confidenzialità**, **integrità** e **disponibilità** dei dati.
+
+Confidenzialità: i dati devono essere accessibili solo agli utenti predefiniti.
+Disponibilità: i dati devono essere sempre accessibili in maniera affidabile.
+Integrità: il trasporto dei dati deve avvenire senza perdite o corruzione degli stessi.
+
+Il [router](./Macchina#Router) è un dispositivo che si occupa della gestione dei dati a livello 3 - Network.
+
+A livello di Rete, i messaggi vengono smistati in base agli indirizzi MAC dei dispositivi in comunicazione.
+![[Pasted image 20240924110817.png]]
+Lo schema sopra mostra i dati utilizzati per smistare un messaggio in [internet](<./Reti#Rete pubblica>): gli indirizzi utilizzati sono i MAC di origine e destinazione, mentre il destinatario è identificato tramite IPv4. Il messaggio (già contenente i dati del destinatario) viene incapsulato e "decapsulato" più volte:
+1. LAN - Incapsulamento per l'inserimento degli indirizzi MAC della [LAN](./Reti#LAN) (aa-aa-aa, bb-bb-bb)
+2. LAN - Ricezione del messaggio da parte del router (bb-bb-bb), con successivo aggiornamento degli indirizzi MAC (bb-bb-bb, cc-cc-cc)
+3. WAN - Ricezione del messaggio da parte del router della rete del destinatario, con successivo aggiornamento degli indirizzi MAC (cc-cc-cc, dd-dd-dd)
+4. LAN - RIcezione del messaggio da parte del destinatario (ee-ee-ee, 55-55-55)
+
+L'associazione del flusso degli indirizzi MAC agli IP del messaggio è effettuata tramite:
+- [ARP](./Protocolli#ARP) (Address Resolution Protocol) nel caso di IPv4;
+- [ND](./Protocolli#ND) (Neighbor Discovery) nel caso di IPv6.
 ### IP
 Ovvero ***Internet Protocol***. Si occupa della metodologia di frammentazione de instradamento ( #routing) del pacchetto. La dimensione massima del pacchetto dipende dal materiale su cui viene instradato, ed è indicata dal Maximum Transmission Unit ( #mtu). Questo protocollo è gestito dal #gateway.
+Il protocollo IP ha 3 caratteristiche principali:
+- **Connectionless**: Non c'è nessun tipo di connessione con il destinatario prima dell'dell'invio dei dati;
+- **Best effort**: L'indirizzo IP è inaffidabile(in quanto non garantisce la ricezione del messaggio)
+- **Media indipendent**: Non dipende dal mezzo di comunicazione utilizzato per trasportare il dato.
+
+Ci sono 2 protocolli principali: IPv4 e IPv6, dove il primo rappresenta attualmente quello più utilizzato ed il secondo un protocollo ideato per risolvere la progressiva scarsezza degli indirizzi IPv4 rispetto alla richiesta mondiale.
 #### IPv4
 L' #IPv4 è un indirizzo, assegnato ad una rete [LAN](./Reti#LAN), che
 si basa su dati di dimensione standard 32 bit, ovvero 4 byte. Ogni byte rappresenta un numero (da 0 a 255) ed è separato dagli altri byte da un punto #dotted-decimal 
@@ -184,7 +218,7 @@ si basa su dati di dimensione standard 32 bit, ovvero 4 byte. Ogni byte rapprese
 
 Questo indirizzo contiene due tipi principali di informazioni: la prima parte individua la rete fisica in cui il dispositivo è collegato, mentre la seconda identifica il dispositivo stesso.
 
-	102.54.94 = Network
+	102.54.94 = Network locale
 	97 = Host
 
 Gli indirizzi IPv4 possono essere privati (indicati anche come indirizzi privati RFC1918) o pubblici. Nel primo caso appartengono ad un range specifico di IP:
@@ -195,7 +229,9 @@ Gli indirizzi IPv4 possono essere privati (indicati anche come indirizzi privati
 ```
 	Questi IP privati sono relativi al network in cui si trovano (intranet), quindi non sono univoci per la rete pubblica: due reti diverse possono avere gli stessi IP privati.
 
-La traduzione da IP privato a pubblico avviene tramite [NAT], ovvero Network Address Translation (di solito la funzione è svolta dal [Router])
+La traduzione da IP privato a pubblico avviene tramite [NAT], ovvero Network Address Translation (di solito la funzione è svolta dal [Router]). Un'altra funzione svolta dal router è la frammentazione:
+Nel caso di pacchetti aventi dimensioni troppo elevate, infatti, il protocollo include un processo di divisione del pacchetto in più pacchetti per agevolarne il trasporto. Questo processo prende il nome di **Fragmentation** (processo che tuttavia, causa latenza nella connessione.
+
 ##### Notazione CIDR
 Aggiunge all'indirizzo IPv4 una indicazione relativa alla [maschera di sottorete](<./Reti#Subnet mask>). La notazione #cidr collega un numero ad una potenza di 2, partendo da /32 come 2^0 e permette di stabilire quante macchine sono potenzialmente collegate alla sottorete di riferimento.
 
@@ -234,8 +270,9 @@ Gli indirizzi IPv4 possono essere privati (indicati anche come indirizzi privati
 
 La traduzione da IP privato a pubblico avviene tramite [NAT], ovvero Network Address Translation (di solito la funzione è svolta dal [Router])
 
+
 ##### Indirizzi IPv4 speciali
-Alcuni indirizzi IP sono dedicati a funzionalità specifiche, come il broadcast di messaggi e gli indirizzi di rete e non possono essere assegnati agli **host**.
+Alcuni indirizzi IP sono dedicati a funzionalità specifiche, come il [broadcast]() di messaggi e gli indirizzi di rete e non possono essere assegnati agli **host**.
 
 ###### Loopback
 Gli indirizzi loopbacksono utilizzati da un host per attrarre il traffico su se stesso (ad esempio per effettuare il **ping**)
@@ -246,6 +283,7 @@ Gli indirizzi loopbacksono utilizzati da un host per attrarre il traffico su se 
 ```
 ###### Link-local
 Gli indirizzi link local sono usati per l'assegnazione automatica degli indirizzi IP (Automatic Private IP Addressing, o APIPA). Sono utilizzati dai client Windows per l'autoconfigurazione nel caso gli altri metodi di configurazione non abbiano avuto successo. Possono anche essere usati per il peer-to-peer (connessione paritaria tra due dispositivi, ovvero nella quale entrambi siano sia client che server, ovvero equivalenti).
+
 ##### Indirizzamento Legacy Classful
 Ideato nel 1981, consisteva nella classificazione degli indirizzi in 5 categorie, in base alla numerazione dell'IP
 - Classe A (0.0.0.0/8 - 191.255.0.0/16), per le reti di grandi dimensioni (più di 16 milioni di hosts)
@@ -259,6 +297,7 @@ Questa classificazione è diventata antiquata a metà degli anni 90, con l'intro
 - **ARIN** (American Registry for Internet Numbers) - North America Region
 - **LACNIC** (Regional Latin-American and Caribbean IP Address Registry) - Latin America and some Caribbean Islands
 - **RIPE NCC** (Réseaux IP Européens Network Coordination Centre) - Europe, the Middle East, and Central Asia
+
 #### IPv6
 E' un'evoluzione dell'[IPv4](#IPv4), ideata per risolvere il problema della carenza di disponibilità di nuovi indirizzi. L'IPv6 è un codice di lunghezza pari a 128bit (rispetto ai 32 dell'IPv4), consistente in 8 blocchi di codice esadecimale da 64 bit l'uno: ogni blocco ha un valore minimo di 0000 ad un massimo di ffff.
 ```
@@ -269,6 +308,7 @@ d = 1101 (4bit)
 b = 1011 (4bit)
 8 = 1000 (4bit)
 ```
+
 **ATTENZIONE**
 Si usano delle convenzioni per descrivere un indirizzo IPv6:
 - Si omettono gli zeri a sinistra del blocco (es. 00b2 diventa b2)
@@ -283,6 +323,8 @@ Forma estesa:
 Forma compressa:
 2001:db8:acad:0:a088::123
 ```
+
+Il protocollo IPv6, a differenza del suo [predecessore](#IPv4), non permette la frammentazione dei dati da parte del [router](./Macchina#Router).
 ##### Migrazione da IPv4
 La migrazione da IPv4 a IPv6 è stata programmata per avvenite nell'arco di anni, nei quali i tecnici potranno aggiornare le reti tramite 3 tecnologie principali:
 ###### Router dual stack
@@ -291,22 +333,33 @@ Permettono di utilizzare contemporaneamente sia l'IPv4 che l'IPv6 per la stessa 
 Permette di tradurre un indirizzo IPv6 in una rete con IPv4 tramite #incapsulamento
 ###### Traduzione
 Il NAT64 (Network Address Translation 64) permette ai dispositivi abilitati all'IPv6 di comunicare con i dispositivi IPv4 tramite una tecnologia simile al NAT per IPv4, effettuando una traduzione dell'intero pacchetto.
+
+#### Header
+![[./../Immagini/Pasted image 20240930154031.png]]
+L'intestazione (o header) di un pacchetto IP è un dati avente lunghezza fissa pari a 20B, che contiene le informazioni utili per il trasporto e la lettura dello stesso da parte del destinatario. L'header è composto da:
+- **Version** (4-bit): versione del protocollo IP utilizzata (in binario)
+- **Differntiated Servides** (8-bit): Noto anche come DiffServ o DS, specifica la priorità di ogni pacchetto. Può essere diviso in:
+	- DSCP (DiffServ Code Point)
+	- Explicit Congestion Notification (ECN)
+- **Time To Live** (8-bit): valore impostato dall'host che invia il pacchetto e che decrementa di 1 ogni volta che arriva ad un nuovo router. QUando raggiunge lo 0, il router scarta il pacchetto ed invia un messaggio [ICMP](#ICMP) (Internet Control Message Protocol) di tipo Time Exceeded (tempo scaduto) al mittente
+- **Protocol** (8-bit): Identifica il prossimo protocollo da utilizzare. Valori comuni sono:
+	- 1: ICMP
+	- 6: [TCP](#TCP)
+	- 17: [UDP](#UDP)
+- **Header checksum** (16-bit): slot utilizzata per identificare corruzioni dell'header IPv4
+- **Indirizzo IP mittente** (32-bit)
+- **Indirizzo IP Destinatario** (32-bit)
+
+Nel caso di utilizzo di IPv6, alcuni moduli dell'header variano. In particolare:
+![[./../Immagini/Pasted image 20240930193334.png]]
+Questa modifica dell'intestazione permette di ridurre lo spazio dell'header a 40-Byte nel caso di chiamata IPv6:
+![[./../Immagini/Pasted image 20240930193612.png]]
+
 ### SSL
 Secure Socket Layer
 ### TSL
 Versione aggiornata di [[#SSL]]
-## Network
-A livello di Rete, i messaggi vengono smistati in base agli indirizzi MAC dei dispositivi in comunicazione.
-![[Pasted image 20240924110817.png]]
-Lo schema sopra mostra i dati utilizzati per smistare un messaggio in [internet](<./Reti#Rete pubblica>): gli indirizzi utilizzati sono i MAC di origine e destinazione, mentre il destinatario è identificato tramite IPv4. Il messaggio (già contenente i dati del destinatario) viene incapsulato e "decapsulato" più volte:
-1. LAN - Incapsulamento per l'inserimento degli indirizzi MAC della [LAN](./Reti#LAN) (aa-aa-aa, bb-bb-bb)
-2. LAN - Ricezione del messaggio da parte del router (bb-bb-bb), con successivo aggiornamento degli indirizzi MAC (bb-bb-bb, cc-cc-cc)
-3. WAN - Ricezione del messaggio da parte del router della rete del destinatario, con successivo aggiornamento degli indirizzi MAC (cc-cc-cc, dd-dd-dd)
-4. LAN - RIcezione del messaggio da parte del destinatario (ee-ee-ee, 55-55-55)
 
-L'associazione del flusso degli indirizzi MAC agli IP del messaggio è effettuata tramite:
-- [ARP](./Protocolli#ARP) (Address Resolution Protocol) nel caso di IPv4;
-- [ND](./Protocolli#ND) (Neighbor Discovery) nel caso di IPv6.
 ### ARP
 Il protocollo ARP, o [Addresses Resolution Protocol](https://it.wikipedia.org/wiki/Address_Resolution_Protocol) (Protocollo di risoluzione degli indirizzi) serve ad identificare l'indirizzo MAC di un dispositivo collegato ad una [LAN](./Reti#LAN). Consiste in un invio di una request in [broadcast](./Networking#Broadcast), contenente l'indirizzo [IPv4](#IPv4) del destinatario. Il dispositivo il cui indirizzo IPv4 combacia con quello desiderato, invierà un messaggio di risposta, contenente il proprio indirizzo MAC al mittente. 
 ### DHCP
@@ -318,12 +371,22 @@ Nel caso di rete wireless, il Router lavora sia da DHCP client (in quanto elabor
 [Come attivare il DHCP su Windows](https://support.microsoft.com/it-it/windows/modificare-le-impostazioni-tcp-ip-bd0a07af-15f5-cd6a-363f-ca2b6f391ace)
 1. Il client invia in [#Broadcast] un pacchetto (chiamato **DHCP Discover**), contenente l'indirizzo MAC al Server DHCP.
 2. Il Server riceve il messaggio ed invia un **DHCP Offer**, contenente l'indirizzo IP assegnato, una [[#Gateway mask]] e l'Indirizzo [Gateway] di default.
-3. L'Host riceve il messaggio, invia una DHCP request di accettazione dell'offerta e aggiorna le proprie impostazioni IP
+3. L'Host riceve il messaggio, invia una **DHCP request** di accettazione dell'offerta e aggiorna le proprie impostazioni IP
 4. Il Server aggiorna la Tabella degli indirizzi IP ed invia un messaggio di accettazione (Acknowledgement).
 
 ## Data link
+Gestisce l'instradamento a livello Fisico. Lo [switch](./Macchina#Switch) si occupa della gestione di questo livello.
+### LLC
+E' un sottolivello del livello Data Link, corrispondente al protocollo IEEE 802.2, si occupa della comunicazione tra i livelli [2 (Data Link)](<#Data link>) e [3 (Network)](#Network). Si occupa di inserire informazioni relative al protocollo Network si sta utilizzando (ad esempio, permette làutilizzo di protocolli IPv4 e IPv6 allàinterno della stessa rete)
+### MAC
+Il Media Access Control (traducibile come Controllo dell'accesso al dispositivo) è un protocollo utilizzato dal [NIC](./Macchina#NIC), che assegna un codice composto da sei blocchi da due cifre esadecimali ciascuno, **univoco** e non modificabile al dispositivo su cui è installata la [Scheda di rete o NIC](./Macchina#NIC).
+```
+FF-FF-FF-FF-FF-FF
+```
+Si occupa dell'incapsulamento dei dati e del controllo all'accesso ai media, gestendone il flusso tramite controllo dei messaggi per fare in modo da processare sempre solo un messaggio per volta ed inserire gli altri messaggi in attesa, tramite algoritmi di retromarcia e ritrasmissione. Gestisce i processi tra il livello Data Link e il livello Fisico del modello ISO/OSI.
+
 ### Ethernet
-Protocollo utilizzato per le comunicazioni tra due macchine collegate alla stessa rete.
+Anche noto come  protocollo **IEEE 802.3**, Ethernet è un protocollo utilizzato per gestire le comunicazioni tra due macchine collegate alla stessa rete.
 Un messaggio che utilizza questo protocollo ha una lunghezza standardizzata che varia da 64 a 1518 bytes, dei quali d 46 a 1500 sono dedicati ai dati da trasmettere, mentre i rimanenti vengono utilizzati per inserire i dati necessari alla trasmissione dello stesso, ovvero:
 1. Preambolo (7byte)
 2. Delimitatore di inizio frame (1 byte)
@@ -333,11 +396,21 @@ Un messaggio che utilizza questo protocollo ha una lunghezza standardizzata che 
 6. Dati  (46-1500 byte)
 7. Frame di controllo della sequenza (4 byte)
 
-Se l'host non possiede l'indirizzo MAC del destinatario
+Se l'host che invia il messaggio non possiede l'indirizzo MAC del destinatario:
 - Se appartiene alla stessa [LAN](./Reti#LAN), invierà una richiesta ARP per ottenere l'indirizzo MAC e aggiornare la tabella di routing;
 - Se appartiene ad una rete diversa, inserirà l'indirizzo MAC del [Default gateway](./Reti#Gateway).
-### MAC
-## Altro
+Una volta inviato il messaggio, se la macchina ha l'indirizzo MAC corrispondente al destinatario, accetterà ed elaborerà il messaggio, altrimenti effettuerà il drop (il messaggio viene scartato).
+
+Il protocollo lavora anche a livello 1 [Fisico](#Fisico) del modello ISO/OSI (protocollo IEEE 802.3), istituendo degli standard a supporto delle seguenti larghezze di banda:
+- 10Mbps
+- 100 Mbps
+- 1000 Mbps
+- 10.000 Mbps
+- 40.000 Mbps
+- 100.000 Mbps
+## Fisico
+Gestisce il trasporto dei dati a livello materiale, ovvero come i dati vengono rappresentati materialmente. I mezzi di trasporto di dati più utilizzati sono la luce e l'elettricità. 
+# Altri protocolli
 ### IPCM
 L' #IPCM è utilizzato per il monitoraggio delle reti 
 ### REST
@@ -355,7 +428,7 @@ Cancella un'informazione
 ### SOAP
 Il Simple Object Access Protocol, o #soap un protocollo per lo scambio di messaggi tra componenti software. Comunemente comunica tramite il protocollo #http tramite il #metalinguaggio [[XML]] ed una struttura head-body, dove la head contiene parametri relativi instradamento, sicurezza, transazioni, mentre il body contiene il messaggio (chiamato anche carico utile o #payload).
 
-# Utilizzo dei protocolli
+# Possibili problematiche
 ## Sovraffollamento
 il #sovraffollmento è  un eccessivo numero di richieste in un breve arco di tempo, che porta all'impossibilità del serve di rispondere in tempo normale.
 ### Coda

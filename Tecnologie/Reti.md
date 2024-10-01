@@ -1,8 +1,21 @@
 # Introduzione
 Internet è la più grande rete al mondo, composta da nodi, attraverso i quali transitano dei dati. Al fine di far avvenire questo scambio di dati, si utilizza il metodo della **commutazione di pacchetto**.
-Questo metodo è composto da una serie di processi, che permettono di standardizzare i dati da inviare ed il metodo di spedizione, chiamati [[Protocolli di comunicazione]].
+Questo metodo è composto da una serie di processi, che permettono di standardizzare i dati da inviare ed il metodo di spedizione, chiamati [Protocolli di comunicazione](./Protocolli).
 ## [Subnetting](https://www.itimarconi.ct.it/sezioni/didatticaonline/informatica/lezionidisistemi/quinta/subnetting.htm)
 Il subnetting consiste nel raggruppare i dispositivi connessi alla rete (creando appunto delle sottoreti) per facilitare l'applicazione di Policy di sicurezza e ridurre il peso delle chiamate [broadcast](./Networking#Broadcast) tra dispositivi. La definizione delle sottoreti avviene tramite [maschera di sottorete](<#Subnet mask>).
+Il router non propaga le richieste di Broadcast o richieste indirizzate a indirizzi IPv4 privati (Dominio di 2 livello di Broadcast). Per trovare gli indirizzi MAC di tutte le macchine a cui inviare un messaggio, si usa il Protocollo di Risoluzione degli Indirizzi ([ARP](./Protocolli#ARP)), che permette di inviare una richiesta [Boradcast](#broadcast) a tutti gli indirizzi IP della rete locale. Per trovare gli indirizzi IPv4 invece, di solito si utilizza il [DHCP](./protocolli#dhcp), ovvero Dynamic Host Configuration Protocol (protocollo di configurazione dinamica degli host).
+Nel caso di reti di grosse dimensioni, inviare messaggi in broadcast porta a rallentamenti della rete. Per questo di solito si segmenta la rete in sottoreti per permettere di inviare messaggi in broadcast ad una quantità limitata di utenti e non intasare la rete.
+Criteri di segmentazione di una rete possono essere:
+- Localizzazione
+- Gruppo o funzionalità
+- Tipo di dispositivo
+
+Questi criteri sono anche alla base del modello [Hierarchical Network Design](./Reti#HND).
+
+Le comunicazioni sono suddivise anche in base al numero di dispositivi che devono ricevere i messaggi:
+- [unicast](#unicast)
+- [multicast](#multicast)
+- [boradcast](#broadcast)
 ### Subnet mask
 Una [maschera di sottorete](https://it.wikipedia.org/wiki/Maschera_di_sottorete) è un parametro di configurazione utilizzato per identificare la rete alla quale l'host è connesso. Si basa su 4 blocchi numerici da 32 byte (256 bit) ciascuno, attraverso i quali è possibile identificare l'[indirizzo IP](./Protocolli#IPv4) della sottorete utilizzata, tramite [moltiplicazione booleana](<./Operatori#Moltiplicazione booleana>). 
 
@@ -45,7 +58,50 @@ Mentre, per le reti piccole (come quelle domestiche), è sufficiente ospitare fi
 	Si ricorda che il valore 255 significa che il valore dello slot corrispondente non può essere modificato all'interno della sottorete. Quindi, ad esempio, la rete con primo blocco uguakle a 72, può contenere tutti gli indirizzi IP che vanno da 172.16.0.1 a 172.16.255.255 e così via.
 
 Questo processo prende il nome di Network Address Translation (Traduzione degli indirizzi di rete), o NAT.
+
+### Unicast
+Avviene quando un dispositivo invia un messaggio a solo un destinatario.
+```
+192.172.0.1 = Mittente
+192.172.0.20 = Destinatario
+```
+	Gli indirizzi IPv4 destinati alla ricezione di messaggi Unicast hanno una maschera di sottorete inclusa tra 1.1.1.1 e 223.255.255.255, con alcuni indirizzi utilizzati per specifici scopi.
+### Broadcast
+Avviene quando un dispositivo invia un messaggio a tutti i dispositivi presenti nel network. Esempio:
+```
+192.172.0.1 = Mittente
+255.255.255.255 = Destinatario
+```
+	In questo caso 255.255.255.255 è un indirizzo standardizzato per indicare tutti i dispositivi
+
+Un messaggio broadcast è utilizzato per essere ricevuto da tutti i dispositivi della rete (il router on inoltra il messaggio al di fuori della sottorete [LAN](./Reti#LAN) del dispositivo emittente).
+Il protocollo [ARP](./Protocolli#ARP) è un esempio di messaggio [Broadcast](#Broadcast).
+### Multicast
+Avviene quando un dispositivo invia un messaggio a specifici dispositivi (più di uno). L'indirizzo IPv4 destinato alle comunicazioni **[multicast](#Multicast)** è nel range tra ```224.0.0.0 - 239.255.255.255```, mentre il [MAC](./Protocolli#MAC) è ```01-00-5E```.
+Esempio:
+```
+192.172.0.1 = Mittente
+235.255.255.255 = Destinatario
+```
+Nel caso i dati incapsulati non siano in [IPv4](./Protocolli#IPv4), si utilizzano altri indirizzi MAC:
+- Se si usa un IPv6 (deve iniziare con ```ff00::/8```) il MAC sarà: ```33-33```
+- Se non è presente un indirizzo IP, si utilizzano protocolli come il [STP](./Protocolli#STP) o il [LLDP](./Protocolli#LLDP)
+
+Solo alcuni protocolli (come l'[OSPF](./Protocolli#OSPF), che avviene tramite il canale 224.0.0.5) sono abilitati alla gestione di multicasting. I dispositivi che non supportano il protocollo scelto per la comunicazione, ignoreranno automaticamente i pacchetti ricevuti.
+Dato che di solito i dispositivi conoscono solo l'indirizzo IP del destinatario, ma non il MAC, viene utilizzato il protocollo [ARP](./Protocolli#ARP) per ritrovare l'indirizzo MAC corretto.
+
+N.B. Il metodo Multicast deve contenere al suo interno tutti gli indirizzi dei destinatari.
+N.B. I messaggi di risposta saranno di tipo [unicast](#Unicast).
 # Architettura
+L'organizzazione dell'architettura delle reti serve a pianificare la creazione, lo sviluppo e il modo di utilizzo delle reti. Ruota su 4 principi cardine:
+- Tolleranza dei fallimenti (ovvero il processo di networking non deve interrompersi nel caso incontri un errore). Di solito avviene tramite cancellazione del messaggio errato e nella prosecuzione della coda di messaggi successivi e la ridondanza di connessioni tra i vari dispositivi;
+- Scalabilità, ovvero capacità di aumentare o ridurre considerevolmente il numero di periferiche connesse e in poco tempo;
+- Qualità del servizio, ovvero la capacità di mantenere un flusso di dati costante nel tempo, evitando rallentamenti o colli di bottiglia. L'importante è tenere in considerazione il tipo di messaggio da trasportare e prioritizzare il traffico sensibile al passare del tempo;
+- Sicurezza, ovvero il controllo dei processi che avvengono nella rete, il blocco degli accessi in base a criteri di autorizzazione. I criteri si applicano secondo principi di **confidenzialità**\*, **integrità**\*\* e **disponibilità**\*\*\* dei dati.
+
+\*Confidenzialità: i dati devono essere accessibili solo agli utenti predefiniti.
+\*\* Disponibilità: i dati devono essere sempre accessibili in maniera affidabile.
+\*\*\* Integrità: il trasporto dei dati deve avvenire senza perdite o corruzione degli stessi.
 ## Domain controller
 E' un server specifico addetto alla gestione delle richieste degli utenti, compreso lo smistamento dei collegamenti e la verifica degli accessi degli utenti, il loro ruolo e l'utilizzo delle risorse di rete.
 Di solito i Domain controllers sono organizzati per #cluster  (definiti dall'amministratore di sistema) di computer.
@@ -95,6 +151,22 @@ Per aumentare le prestazioni, di solito vengono create applicazioni per facilita
 ### Switch
 ### Hub
 ## Domain client
+## HND
+Lo Hierarchical Network Design, o Design Gerarchico della Rete, è un logaritmo di sviluppo delle reti, improntato ad ottimizzare il flusso di dati in base al raggruppamento di dispositivi per tipo di utilizzo.
+Il raggruppamento rende questo modello altamente scalabile perchè mantiene la rete ottimizzata e minimizza e riduce il numero di dispositivi in ascolto delle chiamate [broadcast](./Networking#Boradcast).
+Si compone di 3 livelli:
+- Acces Layer
+- Distribution layer
+- Core layer
+### Access
+Il livello di accesso rappresenta la sezione dove tutti i [dispositivi end-point]() sono collegati ed i relativi [switch](./Macchina#Switch) di livello 3 (dei quali un'uscita è riservata per il router) per collegarli alla rete.
+
+### Distribution
+Si compone della rete di [router](./Macchina#Router) che permettono il collegamento tra i vari gruppi di switch ed il Core.
+
+### Core
+E' responsabile della velocità della rete, raccogliendo tutti i fissi di dati inviati dai router e trasmetterli su [internet](<#Rete pubblica>). Consiste in un router super performante, con connessioni ridondanti (backup) e capace di trasmettere grandi quantità di dati in poco tempo. Un esempio di dispositivo commerciale di Core è il Cisco Catalyst 9600.
+
 # LAN
 Local Area Network ( #LAN) è il sinonimo di Rete Locale. Nel caso due dispositivi si trovino nella stessa LAN, la rete di comunicazione è diretta.
 Una rete locale consiste in una serie di dispositivi collegati tra loro. I principali sono:
