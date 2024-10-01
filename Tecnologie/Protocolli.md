@@ -118,8 +118,11 @@ Questo permette di ottenere:
 ### Altro
 #### E2EE
 La End-to-end Encryption permette di crittare i dati non a livello di #server (come avviene nel #https)
+
 ## Presentazione
+
 ## Sessione
+
 ## Trasporto
 I protocolli del livello 4 (trasporto) determinano la metodologia di trasmissione dei dati al livello di [internet](<./Reti#Rete pubblica>), l'ordinamento dei dati e il controllo di flusso (ovvero la velocità di invio e eventualmente il controllo della avvenuta ricezione dei dati).
 Durante la sessione, entrambi i dispositivi mantengono aperte delle [porte](<./Macchina#Porte di rete>) prestabilite (identificate in coppia **origine - destinazione**) per permettere l'invio e l'ascolto costante di messaggi di risposta. Le porte vengono inserite nel pacchetto di dati da inviare tramite coppia di [socket](./Macchina#Socket).
@@ -289,8 +292,6 @@ Identifica eventuali parametri utilizzati durante la chiamata all'interno dell'U
 ```
 #Relazione_fra_URI,_URL_e_URN
 ```
-
-## Rete
 
 ## Network
 In questa categoria rientrano tutti i protocolli che si occupano di passare i dati tra Reti diverse , tramite una trasmissione senza assicurazione di avvenuta consegna, senza la necessità di operare su una rete prestabilita.
