@@ -57,6 +57,7 @@ Protocollo definito dalla IBM, è utilizzato prevalentemente in ambito bancario.
 # Protocolli
 ## Applicazione
 ![](https://lh7-us.googleusercontent.com/wB9im8FVSfk_-eER1aUR7kMBpIB9iKWS7As8LPD4cPvPGd5bE2FjsCHTGGbV_ro_YO59dbyNBeZLgHn2E4x6yQYYo2ZnYDTv9P3Ww2gs-knQ0KniH-5v5FCWnKWUXelUlh2Z6vAaEKTPsALq737qwQ=s2048)
+![](https://lh7-us.googleusercontent.com/wB9im8FVSfk_-eER1aUR7kMBpIB9iKWS7As8LPD4cPvPGd5bE2FjsCHTGGbV_ro_YO59dbyNBeZLgHn2E4x6yQYYo2ZnYDTv9P3Ww2gs-knQ0KniH-5v5FCWnKWUXelUlh2Z6vAaEKTPsALq737qwQ=s2048)
 ### Email
 #### SMTP
 Simple Mail Transfer Protocol, è un protocollo utilizzato per la gestione delle #email (modificato nel 2008 con l'Extended SMTP) per mandare e ricevere messaggi al #server mail.
@@ -149,6 +150,146 @@ La comunicazione tra le due macchine avviene tramite #tunneling, ovvero un perco
 Il protocollo è reso sicuro tramite utilizzo di criptazione tramite #chiave-asimmetrica (ovvero utilizzo di chiave pubblica per criptare il messaggio e chiave privata per decriptarlo).
 ### RDP
 Remote Desktop Protocol, è un protocollo di connessione sicura di [[Windows]], che permette l'accesso diretto alla macchina.
+
+## Network
+In questa categoria rientrano tutti i protocolli che si occupano di passare i dati tra Reti diverse , tramite una trasmissione senza assicurazione di avvenuta consegna, senza la necessità di operare su una rete prestabilita.
+### Descrizione
+Gestisce l'indirizzamento a livello logico e l'instradamento dei pacchetti e deve assicurare il corretto espletamento delle seguenti funzioni:
+- Tolleranza dei fallimenti (ovvero il processo di networking non deve interrompersi nel caso incontri un errore). Di solito avviene tramite cancellazione del messaggio errato e nella prosecuzione della coda di messaggi successivi e la ridondanza di connessioni tra i vari dispositivi;
+- Scalabilità, ovvero capacità di aumentare o ridurre considerevolmente il numero di periferiche connesse e in poco tempo;
+- Qualità del servizio, ovvero la capacità di mantenere un flusso di dati costante nel tempo, evitando rallentamenti o colli di bottglia. L'importante è tenere in considerazione il tipo di messaggio da trasportare e prioritizzare il traffico sensibile al passare del tempo;
+- Sicurezza, ovvero il controllo dei processi che avvengono nella rete, il blocco degli accessi in base a criteri di autorizzazione. I criteri si applicano secondo principi di **confidenzialità**, **integrità** e **disponibilità** dei dati.
+
+Confidenzialità: i dati devono essere accessibili solo agli utenti predefiniti.
+Disponibilità: i dati devono essere sempre accessibili in maniera affidabile.
+Integrità: il trasporto dei dati deve avvenire senza perdite o corruzione degli stessi.
+
+Il [router](./Macchina#Router) è un dispositivo che si occupa della gestione dei dati a livello 3 - Network.
+
+A livello di Rete, i messaggi vengono smistati in base agli indirizzi MAC dei dispositivi in comunicazione.
+![[Pasted image 20240924110817.png]]
+Lo schema sopra mostra i dati utilizzati per smistare un messaggio in [internet](<./Reti#Rete pubblica>): gli indirizzi utilizzati sono i MAC di origine e destinazione, mentre il destinatario è identificato tramite IPv4. Il messaggio (già contenente i dati del destinatario) viene incapsulato e "decapsulato" più volte:
+1. LAN - Incapsulamento per l'inserimento degli indirizzi MAC della [LAN](./Reti#LAN) (aa-aa-aa, bb-bb-bb)
+2. LAN - Ricezione del messaggio da parte del router (bb-bb-bb), con successivo aggiornamento degli indirizzi MAC (bb-bb-bb, cc-cc-cc)
+3. WAN - Ricezione del messaggio da parte del router della rete del destinatario, con successivo aggiornamento degli indirizzi MAC (cc-cc-cc, dd-dd-dd)
+4. LAN - RIcezione del messaggio da parte del destinatario (ee-ee-ee, 55-55-55)
+
+L'associazione del flusso degli indirizzi MAC agli IP del messaggio è effettuata tramite:
+- [ARP](./Protocolli#ARP) (Address Resolution Protocol) nel caso di IPv4;
+- [ND](./Protocolli#ND) (Neighbor Discovery) nel caso di IPv6.
+### ARP
+Il protocollo ARP, o [Addresses Resolution Protocol](https://it.wikipedia.org/wiki/Address_Resolution_Protocol) (Protocollo di risoluzione degli indirizzi) serve ad identificare l'indirizzo MAC di un dispositivo collegato ad una [LAN](./Reti#LAN) tramite l'indirizzo IP dello stesso dispositivo. Consiste in un invio di una request in [broadcast](./Networking#Broadcast), contenente l'indirizzo [IPv4](#IPv4) del destinatario. Il dispositivo il cui indirizzo IPv4 combacia con quello desiderato, invierà un messaggio di risposta, contenente il proprio indirizzo MAC al mittente. Nel caso l'IP sia esterno alla [rete](./Reti#LAN), il MAC di risposta corrisponderà a quello del router.
+
+Il protocollo ARP è identificata con il codice 0x806.
+
+Un ARP request contiene:
+1. Ethernet header
+	- Indirizzo MAC [broadcast](./Reti#Broadcast) **ffff.ffff.ffff**
+	- Indirizzo MAC del mittente
+3. Pacchetto IP
+	- Indirizzo MAC del mittente
+	- Indirizzo IP del mittente
+
+#### ARP reply
+La ARP reply è il messaggio (UNICAST) di risposta che un computer invia, dopo aver ricevuto una richiesta ARP avente il proprio indirizzo IP come destinatario.
+Il mesaggio viene inviato solo dopo aver registrato nella propria [tabella degli indirizzi ARP](<#ARP table>) l'indirizzo IP e l'indirizzo MAC del mittente della ARP request.
+
+Un ARP reply contiene:
+1. Ethernet header
+	- Indirizzo MAC del destinatario
+	- Indirizzo MAC del mittente (della ARP reply)
+3. Pacchetto IP
+	- Indirizzo MAC del mittente (della reply)
+	- Indirizzo IP del mittente (della reply)
+
+#### ARP table
+Per identificare un indirizzo MAC partendo da un IP, il computer è dotato di una tabella degli indirizzi ARP (o Cache ARP), memorizzata nella [RAM](./Macchina#RAM). Ogni riga della tabella che non viene utilizzato per un determinato arco di tempo (di solito tra i 15 e i 45 secondi), viene rimosso.
+
+Se si invia il comando ```arp -a``` su [Windows](<./../Sistemi operativi/Windows>), sarà possibile vedere la [Tabella degli indirizzi ARP](<#ARP table>) del dispositivo
+
+| Internet address | Physical address | Type    |
+| ---------------- | ---------------- | ------- |
+| 192.168.10.1     | a0e0.af0d.e140   | dynamic |
+| 209.165.200.255  | a30d.6fe1.9d91   | dynamic |
+
+#### Problematiche
+- Nelle reti di grandi dimensioni, accendere molti dispositivi contemporaneamente potrebbe portare a rallentamenti alla rete stessa, dovuti alla moltitudine di richieste ARP da gestire.
+- Possibile [spoofing](./../Cybersecurity#Spoofing) degli indirizzi IPv4 (portando ad attacchi di tipo [ARP poisoning](<./../Cybersecurity#ARP Poisoning>))
+
+### DHCP
+Il DHCP, o Dynamic Host Control Protocol (Protocollo di controllo dinamico degli host), è un protocollo di assegnazione automatica degli indirizzi IP agli host, che può essere utilizzato in alternativa all'assegnazione statica degli indirizzi, dove l'operatore assegna manualmente gli indirizzi IP ai vari dispositivi connessi, che vengono mantenuti per un periodo di tempo definito dall'operatore.
+
+Mentre la configurazione statica permette di avere un maggior controllo della rete, il protocollo DHCP permette di avere una maggiore adattabilità, rendendo possibile effettuare il cambio di porta di accesso per il dispositivo e maggiore velocità di realizzazione (anche solo perché si evita di inserire gli indirizzi IP statici in ogni dispositivo e tenerne traccia).
+Nel caso di rete wireless, il Router lavora sia da DHCP client (in quanto elabora i messaggi da inviare all'ISP) che DHCP server (in quanto gestisce gli indirizzi IP dei dispositivi connessi alla rete).
+#### Configurare una rete con DHCP
+[Come attivare il DHCP su Windows](https://support.microsoft.com/it-it/windows/modificare-le-impostazioni-tcp-ip-bd0a07af-15f5-cd6a-363f-ca2b6f391ace)
+1. Il client invia in [#Broadcast] un pacchetto (chiamato **DHCPDISCOVER**), contenente l'indirizzo MAC al Server DHCP.
+2. Il Server riceve il messaggio ed invia un **DHCPOFFER, contenente l'indirizzo IP assegnato, una [[#Gateway mask]] e l'Indirizzo [Gateway] di default.
+3. L'Host riceve il messaggio, invia una **DHCPREQUEST** di accettazione dell'offerta e aggiorna le proprie impostazioni IP
+4. Il Server aggiorna la Tabella degli indirizzi IP ed invia un messaggio di accettazione (Acknowledgement, che può essere **DHCPACK** in caso di risposta positiva, o **DHCPNACK** in caso di risposta negativa).
+
+Nel caso di IPv6, il protocollo cambia i nomi delle richieste (mantenendone la ratio):
+1.  **SOLICIT**
+2. **ADVERTISE**
+3. **INFORMATION**
+4. **REQUEST**
+5. **REPLY**
+
+### DNS
+Domain Name System, serve ad attribuire un Fully Qualified Domain Name ( #dominio) a degli indirizzi #IP, in modo tale da rendere più agevole la navigazione degli utenti (es. facebook.com, amazon.it).
+Il servizio si basa su dei #server DNS.
+E' il primo step per la navigazione su internet odierna, in quanto permette di semplificare il reindirizzamento al server corretto, grazie all'utilizzo di parole piuttosto che indirizzi IP.
+
+Permette di identificare l'IP dall'URL inviato e inviare come risposta l'indirizzo IP corretto del server.
+
+#### Pacchetto
+Un messaggio DNS per essere ricevuto ed elaborato correttamente dal **Server DNS**, che verifica all'interno delle sue risorse se il dato richiesto è registrato o meno. I dati contenuti sul server fanno riferimento a:
+- A - Indirizzo IPv4 del dispositivo di riferimento
+- NS - Nome del Server
+- AAAA - Indirizzo IPv6 del dispositivo di riferimento
+- MX - registro di scambio email
+
+Nel caso il Server DNS non abbia al suo interno il dato richiesto, effettua una richiesta agli altri Server DNS alla ricerca del dato (ogni computer ha una propria tabella di indirizzi DNS nella [cache](./Macchina#Cache) in cui effettuare una prima ricerca)
+
+Ogni richiesta DNS contiene:
+- Domanda
+- Risposta
+- Authority
+- Altre informazioni
+
+#### Gerarchia
+Il protocollo DNS usa un sistema gerarchico per creare un database, bassato sui nomi di **dominio**. I principali sono:
+
+| Dominio | Proprietario              |
+| ------- | ------------------------- |
+| .com    | Aziende o business        |
+| .org    | Organizzazioni non-profit |
+| .au     | Australia                 |
+| .co     | Colombia                  |
+| .it     | Italia                    |
+![[./../Immagini/Pasted image 20241002001123.png]]
+#### URI
+Lo Uniform Resource Identifier Indica il segnaposto del server con cui stabilire una connessione 
+```
+https://it.wikipedia.org/wiki/Uniform_Resource_Identifier#Relazione_fra_URI,_URL_e_URN
+```
+Rappresenta l'unione di URL e Fragment.
+#### URL
+Lo Uniform Resource Locator rappresenta la parte dell'URI adibita ad identificare lo specifico file visualizzato ed il protocollo utilizzato per la connessione
+```
+https://it.wikipedia.org/wiki/Uniform_Resource_Identifier
+```
+#### URN
+Lo Uniform Resource Name rappresenta unicamente il server con cui avviene la comunicazione ed il file richiesto
+```
+it.wikipedia.org/wiki/Uniform_Resource_Identifier
+```
+#### Fragment
+Identifica eventuali parametri utilizzati durante la chiamata all'interno dell'URI come, ad esempio, l'[anchor](./../Linguaggi/HTML#a) di riferimento o la query richiesta
+```
+#Relazione_fra_URI,_URL_e_URN
+```
+
 ## Rete
 
 ## Network
@@ -298,6 +439,12 @@ Il protocollo IP ha 3 caratteristiche principali:
 - **Media indipendent**: Non dipende dal mezzo di comunicazione utilizzato per trasportare il dato.
 
 Ci sono 2 protocolli principali: IPv4 e IPv6, dove il primo rappresenta attualmente quello più utilizzato ed il secondo un protocollo ideato per risolvere la progressiva scarsezza degli indirizzi IPv4 rispetto alla richiesta mondiale.
+Il protocollo IP ha 3 caratteristiche principali:
+- **Connectionless**: Non c'è nessun tipo di connessione con il destinatario prima dell'dell'invio dei dati;
+- **Best effort**: L'indirizzo IP è inaffidabile(in quanto non garantisce la ricezione del messaggio)
+- **Media indipendent**: Non dipende dal mezzo di comunicazione utilizzato per trasportare il dato.
+
+Ci sono 2 protocolli principali: IPv4 e IPv6, dove il primo rappresenta attualmente quello più utilizzato ed il secondo un protocollo ideato per risolvere la progressiva scarsezza degli indirizzi IPv4 rispetto alla richiesta mondiale.
 #### IPv4
 L' #IPv4 è un indirizzo, assegnato ad una rete [LAN](./Reti#LAN), che
 si basa su dati di dimensione standard 32 bit, ovvero 4 byte. Ogni byte rappresenta un numero (da 0 a 255) ed è separato dagli altri byte da un punto #dotted-decimal 
@@ -305,8 +452,10 @@ si basa su dati di dimensione standard 32 bit, ovvero 4 byte. Ogni byte rapprese
 	102.54.94.97
 
 ##### Struttura
+##### Struttura
 Questo indirizzo contiene due tipi principali di informazioni: la prima parte individua la rete fisica in cui il dispositivo è collegato, mentre la seconda identifica il dispositivo stesso.
 
+	102.54.94 = Network locale
 	102.54.94 = Network locale
 	97 = Host
 
@@ -318,6 +467,10 @@ Gli indirizzi IPv4 possono essere privati (indicati anche come indirizzi privati
 ```
 	Questi IP privati sono relativi al network in cui si trovano (intranet), quindi non sono univoci per la rete pubblica: due reti diverse possono avere gli stessi IP privati.
 
+La traduzione da IP privato a pubblico avviene tramite [NAT], ovvero Network Address Translation (di solito la funzione è svolta dal [Router](./Macchina#Router)). Un'altra funzione svolta dal router è la frammentazione:
+Nel caso di pacchetti aventi dimensioni troppo elevate, infatti, il protocollo include un processo di divisione del pacchetto in più pacchetti per agevolarne il trasporto. Questo processo prende il nome di **Fragmentation** (processo che tuttavia, causa latenza nella connessione.
+
+##### Routing
 La traduzione da IP privato a pubblico avviene tramite [NAT], ovvero Network Address Translation (di solito la funzione è svolta dal [Router](./Macchina#Router)). Un'altra funzione svolta dal router è la frammentazione:
 Nel caso di pacchetti aventi dimensioni troppo elevate, infatti, il protocollo include un processo di divisione del pacchetto in più pacchetti per agevolarne il trasporto. Questo processo prende il nome di **Fragmentation** (processo che tuttavia, causa latenza nella connessione.
 
@@ -378,7 +531,41 @@ broadcast =   192.168.  2.255
 
 Ovvero:
 ![[./../Immagini/Pasted image 20241001184553.png]]
+##### Notazione CIDR
+Aggiunge all'indirizzo IPv4 una indicazione relativa alla [maschera di sottorete](<./Reti#Subnet mask>). La notazione #cidr consiste nell'accoppiare l'indirizzo IPv4 ad un secondo numero (di solito una potenza di 2), fino ad un massimo di 31 e permette di identificare il numero massimo di macchine  collegabili alla sottorete di riferimento.
+Il numero (anticipato sempre dal simbolo **/**), identifica il numero di bit riservati alla [maschera di sottorete](<./Reti#Subnet mask>). Per identificare l'IP della sottorete di riferimento basta effettuare un [AND logico](<./Operatori#Moltiplicazione booleana>) tra indirizzo IP e maschera di sottorete:
+
+```
+11000000.10101000.00100000.01100001 AND      (IP: 192.168.032.097/27)
+11111111.11111111.11111111.11100000 =        (Subnet mask 255.255.255.224)
+-------------------------------------
+11000000.10101000.00100000.01100000          (Subnet 192.168.032.096)
+```
+	Indica una sottorete all'indirizzo 192.168.032.096, che contiene 31 dispositivi (255 - 224) al suo interno.
+
+	102.54.94.97/24
+	CIDR:
+	In questo caso ci sono un massimo di 256 indirizzi collegati a questo indirizzo IPv4, considerando quello del router stesso.
+
+Sempre tramite notazione CIDR, è possibile identificare il primo e l'ultimo host utilizzabile, assieme all'indirizzo per trasmissioni in [broadcast](./Reti#Broadcast): 
+- Primo indirizzo IP per host disponibile: sarà il primo ip immediatamente successivo rispetto all'indirizzo di sottorete
+- Indirizzo di broadcast: l'ultimo indirizzo disponibile della sottorete
+- Ultimo indirizzo IP per host: il penultimo indirizzo disponibile della sottorete
+
+```
+IPv4 =        192.168.  2. 38/24
+Subnet mask = 255.255.255.  0 (derivata dalla notazione cidr)
+Sottorete =   192.168.  2.  0
+
+Primo host =  192.168.  2.  1
+ultimo host = 192.168.  2.254
+broadcast =   192.168.  2.255
+```
+
+Ovvero:
+![[./../Immagini/Pasted image 20241001184553.png]]
 ##### Indirizzi IPv4 speciali
+Alcuni indirizzi IP sono dedicati a funzionalità specifiche, come il [broadcast]() di messaggi e gli indirizzi di rete e non possono essere assegnati agli **host**.
 Alcuni indirizzi IP sono dedicati a funzionalità specifiche, come il [broadcast]() di messaggi e gli indirizzi di rete e non possono essere assegnati agli **host**.
 
 ###### Loopback
