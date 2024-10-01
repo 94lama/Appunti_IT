@@ -149,7 +149,6 @@ La comunicazione tra le due macchine avviene tramite #tunneling, ovvero un perco
 Il protocollo è reso sicuro tramite utilizzo di criptazione tramite #chiave-asimmetrica (ovvero utilizzo di chiave pubblica per criptare il messaggio e chiave privata per decriptarlo).
 ### RDP
 Remote Desktop Protocol, è un protocollo di connessione sicura di [[Windows]], che permette l'accesso diretto alla macchina.
-## Rete
 
 ## Network
 In questa categoria rientrano tutti i protocolli che si occupano di passare i dati tra Reti diverse , tramite una trasmissione senza assicurazione di avvenuta consegna, senza la necessità di operare su una rete prestabilita.
