@@ -114,7 +114,6 @@ Questo permette di ottenere:
 - Protezione della #privacy 
 - Integrità dei dati scambiati
 
-
 ### Altro
 #### E2EE
 La End-to-end Encryption permette di crittare i dati non a livello di #server (come avviene nel #https)

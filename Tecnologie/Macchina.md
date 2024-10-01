@@ -91,6 +91,7 @@ Le porte più utilizzate tramite protocollo [TCP](./Protcolli#TCP) o [UDP](./Pro
 
 # RAM
 Random Access Memory.
+
 # Particolari tipologie di macchine
 ## HUB
 Gli #hub, o ripetitori, sono dispositivi che collegano fra loro gli utenti, smistando i vari pacchetti da una macchina all'altra. Gli hub lavorano tramite banda condivisa.

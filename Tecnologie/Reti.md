@@ -92,6 +92,7 @@ Dato che di solito i dispositivi conoscono solo l'indirizzo IP del destinatario,
 
 N.B. Il metodo Multicast deve contenere al suo interno tutti gli indirizzi dei destinatari.
 N.B. I messaggi di risposta saranno di tipo [unicast](#Unicast).
+
 # Architettura
 L'organizzazione dell'architettura delle reti serve a pianificare la creazione, lo sviluppo e il modo di utilizzo delle reti. Ruota su 4 principi cardine:
 - Tolleranza dei fallimenti (ovvero il processo di networking non deve interrompersi nel caso incontri un errore). Di solito avviene tramite cancellazione del messaggio errato e nella prosecuzione della coda di messaggi successivi e la ridondanza di connessioni tra i vari dispositivi;
