@@ -1,3 +1,5 @@
+E' una piattaforma basata su [git](./Git)
+
 # Comandi
 ## Inizializzazione di un progetto
 Clonare un progetto da una #repository esistente

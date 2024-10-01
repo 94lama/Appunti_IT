@@ -157,41 +157,56 @@ Verificare se ci sono porte aperte verso l'esterno in una macchina #port-scannin
 ```bash
 nmap <nome_macchina>
 ```
-Installare npm
+
+Installare i pacchetti contenuti nel file package.json tramite npm
 ```Bash
 npm install
 ```
+
+Cercare un Fully Qualified Domain Name nel server DNS di default (può essere anche la [cache](./Macchina#Cache) del dispositivo stesso) tramite [DNS](./Protocolli#DNS)
+```sh
+nslookup <sito web (opzionale)>
+```
+	N.B. Se non viene inserito nessun indirizzo, la shell entrerà in modelità lookup, dove potrai effettuare le ricerche inserendo il nome del sito desiderato (inserisci il comando exit per terminare il processo).
+
 Eseguire un file con [[Node.js]]
 ```Bash
 node <nome file>.js 
 ```
+
 Aggiungere una password di un utente
 ```sh
 passwd <user>
 ```
+
 Aprire una #shell in [[Php]]
 ```Shell
 php
 ```
 	OPZIONI:
 	-a # Apre la shell in maniera interattiva
+
 Vedere l'albero dei processi
 ```shell
 ps aux
 ```
+
 Stampo il percorso della cartella in cui mi trovo
 ```shell
 pwd
 ```
+
 Apro un terminale [[Python 1]]
 ```shell
 python
 ```
 	Il file ha permessi -rwsr-xr-x
+
 Interagire con un database remoto
 ```shell
 redis-sli -h <nome_server>
 ```
+
 Rimuovere uno o più elementi
 ```sh
 rm <nome_file>
@@ -199,6 +214,7 @@ rm <nome_file>
 	OPZIONI:
 	-r # Rimuove una cartella non vuota
 	-rf # Forza la rimozione
+
 Impostare una #ACL di un file
 ```sh
 setfacl u:<user>:<permessi> <file>
@@ -207,6 +223,7 @@ setfacl u:<user>:<permessi> <file>
 	-m # modifica la #ACL del file
 	-R # applica la regola in maniera ricorsiva
 	-x # riomuove la #ACL impostata
+
 Connettersi ad un'altra macchina da remoto tramite protocollo #ssh 
 ```sh
 ssh <indirizzo_ip> -i <chiave>
@@ -216,27 +233,32 @@ ssh <indirizzo_ip> -i <chiave>
 	ssh <nome_utente>@<indirizzo_ip>
 	OPZIONI:
 	-p # porta
+
 Per generare una #ssh-key 
 ```sh
 ssh-keygen
 ```
 	-t # Definire la tipologia di criptazione [dsa, ecdsa, ecdsa-k, ed25519, ed25519-sk, rsa]
+
 Accedere come utente root (chiede la password)
 ```shell
 su
 ```
 	OPZIONI:
 	-l # 
+
 Effettuare un comando come #superuser (SUperuser DO). Effettuabile solo se l'utente fa parte dei **sudoers**
 ```Shell
 sudo <comando>
 ```
+
 Esegue le funzionalità #sysctl
 ```shell
 sysctl
 ```
 	-p # riavvia il SO
-Creo un nuovo utente (richiede permessi root)
+
+Creare un nuovo utente (richiede permessi root)
 ```sh
 useradd <nome_utente>
 ```
@@ -252,6 +274,7 @@ useradd <nome_utente>
 	-p <password> # imposta la password. Sconsigliato perchè rende la password visibile nella lista dei processi
 	-r # crea un account di sistema
 	-s /sbin/nologin # non imposta una shell di accesso per l'utente
+
 Eliminare un utente
 ```sh
 userdel <nome_utente>
@@ -260,7 +283,8 @@ userdel <nome_utente>
 	Nel caso si cancellino più utenti, è possibile che Debian cancelli anche le password di root
 	OPZIONI:
 	
-Per modificare le caratteristiche di un utente
+
+Modificare le caratteristiche di un utente
 ```sh
 usermod
 ```
@@ -268,14 +292,17 @@ usermod
 	OPZIONI:
 	-aG <gruppo> <user> # Aggiunge l'user al gruppo
 	
+
 Modificare il contenuto di un file
 ```sh
 vim <nome_file>
 ```
+
 Verificare l'utente con cui si sta operando
 ```Shell
 whoami
 ```
+
 Comandi da inserire
 ```shell
 chroot
