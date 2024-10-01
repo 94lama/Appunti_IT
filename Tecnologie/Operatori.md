@@ -49,7 +49,7 @@ _______
 ```
 
 ## Moltiplicazione booleana
-Si effettua sostituendo la cifra 1 nel caso entrambi i valori siano 1 e 0 nel caso contrario, ovvero:
+Si effettua sostituendo la cifra 1 nel caso entrambi i valori siano 1 e 0 in tutti gli altri caso, ovvero:
 ```
 1 + 0 = 0
 0 + 1 = 0

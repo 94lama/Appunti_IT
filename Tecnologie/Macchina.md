@@ -44,6 +44,8 @@ I doppini UTP sono classificati in categorie
 ## Fibra ottica
 ### FTTC
 ### FTTH
+# Cache
+
 # NIC
 Nota anche come [Scheda di rete](https://it.wikipedia.org/wiki/Scheda_di_rete), permette il collegamento alla rete e la trasmissione dei dati. E' composta da:
 - Ingresso - doppino
@@ -87,6 +89,8 @@ Le porte più utilizzate tramite protocollo [TCP](./Protcolli#TCP) o [UDP](./Pro
 | 161   | [SNMP](./Protocolli#SNMP) (solo UDP)         |
 | 443   | [SSL](./Protocolli#SSL)                      |
 
+# RAM
+Random Access Memory.
 # Particolari tipologie di macchine
 ## HUB
 Gli #hub, o ripetitori, sono dispositivi che collegano fra loro gli utenti, smistando i vari pacchetti da una macchina all'altra. Gli hub lavorano tramite banda condivisa.
@@ -103,7 +107,11 @@ Lo #switch è  un'evoluzione dell'[[#HUB]] in termini di performance. Permettono
 | Veloce                      | Costoso |
 | Maggiore lunghezza di banda |         |
 
-L'unico compito dello switch è quello di leggere gli indirizzo [MAC](./Protocolli#MAC) del pacchetto di dati (non legge, ad esempio, gli indirizzi IP dei dispositivi). Questi indirizzi MAC sono poi comparati ai dati presenti nella Tabella degli Indirizzi MAC (nota anche come Content Addressable Table, o CAM), al fine di verificare quali porte collegare.
+L'unico compito dello switch è quello di leggere gli indirizzo [MAC](./Protocolli#MAC) del pacchetto di dati (non legge, ad esempio, gli indirizzi IP dei dispositivi). Questi indirizzi MAC sono poi comparati ai dati presenti nella **Tabella degli Indirizzi MAC** (nota anche come **Content Addressable Table**, o **CAM**), al fine di verificare quali porte collegare.
+
+### CAM
+La tabella include tutti gli indirizzi MAC da cui lo switch ha ricevuto un messaggio, correlati alla porta a cui sono collegati. Nel caso si ricevano più messaggi da una stessa porta (ad esempio se la porta è connessa ad un altro switch), la CAM viene popolata con tutti gli indirizzi MAC che riceve.
+
 ## Modem
 Il #modem è un dispositivo di ricetrasmissione che ha funzionalità logiche di modulazione/demodulazione in trasmissioni analogiche e digitali.
 ## Router

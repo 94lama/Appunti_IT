@@ -366,8 +366,8 @@ Tim Ferris - inventore di Wordpress
 
 Noto anche come #XEE, si verifica quando un entità XML contiene collegamenti ad altre entità XML non previste dal sistema, che permettono di inserire script malevoli per prelevare dati
 # Tipologie di attacco
-## [Broken Acess Authorization]( #broken-acess-authorization, #broken-access-control, #privilege-escalation)
-Attacco volto ad ottenere accesso a dati a cui non si sarebbe potuti accedere in condizioni normali (es. utente per un guest, o amministratore per un utente).
+## Broken Acess Authorization
+Noto anche come**Broken access control** o **Privilege escalation**, è un attacco volto ad ottenere accesso a dati a cui non si sarebbe potuti accedere in condizioni normali (es. utente per un guest, o amministratore per un utente).
 Può essere:
 - **Horizontal Authorization Control**, quando si ottengono dati di altri utenti con privilegi simili (utente -> utente)
 - **Vertical Authorization Control**, quando si ottiene accesso a dati visibili solo ad utenti con grado superiore (utente -> admin).
@@ -386,7 +386,7 @@ http://vulnerableapp.com/user/account?accountId=7800002
 ```
 ### Vertical Authorization Control
 Permettono di accedere al controllo di funzioni e/o dati disponibili solo ad un utente avente maggiori permessi
-## [Broken Cryptography]( #broken-cryptography)
+## Broken Cryptography
 Utilizzo di un #algoritmo di crittografia debole o già rotto in precedenza.
 Algoritmi considerati non sicuri sono:
 - #MD5
@@ -411,9 +411,23 @@ Per decidere quale algoritmo utilizzare occorre tener conto della complessità d
 - Preferisci soluzioni di *management* delle chiavi collegate con il sistema operativo, hardware o cloud provider
 - Fai revisionare le tue chiavi da un operatore terzo affidabile
 - Mantieniti aggiornato sulle metodologie di criptazione più efficaci e su quelle deprecate
+## Borken OAuth
+La #broken-oauth è una particolare tipologia di #broken-authentication, che avviene qualora si utilizzi un processo di #oauth per effettuare il login.
+## Comand Injection
+
+## CSRF Attack
+Di norma si attuano partendo da un attacco di #phishing per estrapolare i dati necessari, per poi effettuare l'accesso nell'account dell'utente
+### Prevenire
+- Utilizzo di #token #anti-forgery (come il CSRF-token di #Laravel) per tutti i metodi che modificano lo stato dell'applicazione
+- Double Submit Cookie Pattern (assegnare un valore casuale sia ad un cookie che ad un parametro della richiesta)
+- Utilizzare l'attributo **SameSite** per evitare le richieste cross-domain
+- Gestire correttamente #origin-header e #referrer-header
+- Utilizzare la #re-autentication
+- Utilizzare token usa e getta
+- Utilizzare tecnologia #captcha
 ## Injection
 Attacco che si basa sull'inserire stringhe di codice malevolo. Può essere effettuato sul database, sul sistema operativo, o comunque in qualunque ambito similare. 
-### [SQL Injection]( #sql-injection)
+#### SQL Injection
 Sono delle categorie di vulnerabilità che si verificano quando un'applicazione accetta dati non fidati da una fonte esterna, come input utente. L'attaccante inserisce o modifica dei dati nel database. E' l'attacco più semplice, così come quello che può causare i danni più gravi. Ci sono varie tipologie di #sql-injection:
 ### Tipologie di attacco
 #### Classic SQLi
@@ -442,70 +456,6 @@ E' possibile difendersi dalle #sql-injection tramite:
 - Utilizzo di Store Procedures (stringhe predefinite di codice per interagire con il database) (non efficace con tutte le tipologie di SQl  attack)
 - Usare un WAF (Web Application Firewall)
 - Utilizzare dei #framework dotati di un #ORM
-## [Security Misconfiguration]( #security-misconfiguration)
-Sono delle configurazioni fallaci, dovute all'errore umano durante la fase di scrittura del codice (dell'applicazione stessa, del framework o altro). Alcuni esempi sono:
-- ***Features*** ridondanti abilitate
-- Account con user e password di default
-- ***Features*** di sicurezza disabilitate o non configurate correttamente
-- Software datati
-- Utilizzo di password deboli o prevedibili
-- Mancanza (o configurazione errata) di Security Headers
-- #directory-listing non disabilitate (pagine dalle quali è possibile vedere la struttura dell'app)
-- Applicazioni lasciate dalla fase di sviluppo 
-### Evitare le Security Misconfiguration
-Alcune note per evitare questi errori sono:
-- Implementare procedure ripetibili e sicure di installazione
-- Rimuovere le features non necessarie
-- Configurare e tenere aggiornate le #patch nello stack
-- Automatizzare le procedure quando fattibile
-- Assicurare la corretta #configurazione e #deploy dei Security Header
-- Frammenta l'architettura dell'applicazione
-## [Insecurity Functionality Exposed]( #insecurity-functionality-exposed)
-Debolezza che si presenta quando alcune funzioni, inserite inizialmente per velocizzare alcuni compiti in fase di sviluppo, non vengono eliminate prima del deploy. 
-## [Unsafe Deserialization]( #unsafe-deserialization)
-La #serializzazione è il processo di conversione dello stato di un oggetto o una struttura dati in un formato memorizzabile o trasferibile. La #deserializzazione è il processo inverso. 
-### Prevenire la unsafe deserialization
-- Utilizza formati di dati semplici ovunque possibile
-- Usa modelli di serializzazione che usino solo #dati-primitivi 
-- Usa modelli di serializzazione che permettano la crittazione e la decrittazione dei dati in maniera sicura
-- Sostituisci la serializzazione dei dati con formati di solo dati, come il JSON
-## [Insufficient Logging & Monitoring]( #insufficient-logging #monitoring)
-Categoria ampia, che comprende in generale tutte le debolezze derivate dalla mancata registrazione ( #log) delle azioni compiute dagli utenti, ad esempio:
-- Configurazione errata del Security Information and Event Management ( #SIEM)
-- Scansioni di sicurezza non presenti, o predisposte in maniera errata
-- Una loro non corretta lettura ( #monitoring) dei dati di #log da parte degli specialisti.
-Per risolvere questo problema, conviene:
-- Fare riferimento a protocolli certificati, come l'[Health Insurance Portability and Accountability Act ](https://www.hhs.gov/hipaa/for-professionals/security/guidance/cybersecurity/index.html) ( #HIPAA), il [Payment Card Industry Data Security Standard]( https://www.pcisecuritystandards.org/)( #PCI-DSS) o il #Sarbanes-Oxley
-- Assicurare un #log verificabile, effettivo, centralizzato e con un adeguata ridondanza di:
-	- Errori di validazione degli input
-	- Autenticazioni
-	- Errori di applicazione e/o di sistema
-	- Problemi di connessione
-	- Rilevamento di caricamento file, alterazioni della configurazione, errori dei file di sistema
-	- Operazioni ad alto rischio (movimenti bancari es.)
-## [Server Site Request Forgery](#ssrf)
-La #SSRF avviene quando una richiesta di input lato #server non avviene adeguatamente monitorata (spesso quando viene effettuata una #richiesta HTTP ad un sito di #terze-parti). Spesso avvengono sfruttando la fiducia tra due applicazioni durante lo scambio di dati tramite richieste #API o lo scambio di file e/o pacchetti per compiere azioni malevole contro il server dei soggetti terzi con cui avviene lo scambio, o contro il server stesso che compie la richiesta, ad esempio tramite i protocolli:
-- file://
-- TCP
-### Precauzioni contro l'SSRF
-- Implementare una lista di indirizzi autorizzati (quando possibile)
-- Disabilitare Schemi URL inutilizzati
-- Non consegnare risposte raw da richieste del server
-- Ridurre al minimo la fiducia del server confugurando correttamente delle regole limite del #firewall
-## Vulnerable and Outdated Components
-L'utilizzo di framework, sistemi operativi, software o componenti vulnerabili e/o datati possono creare dei punti critici di debolezza del nostro sito. E' possibile avere delle debolezze dovute a:
-- Mancata conoscenza di tutti o componenti utilizzati
-- Carente informazione e aggiornamento sulle ultime novità dei vari pacchetti
-- Mancato aggiornamento della piattaforma
-- Testing carente o assente della compatibilità a seguito di patch
-### Soluzioni
-- Eliminare le dipendenze inutilizzate
-- Inventariare continuamente le versioni dei componenti lato client e server
-- Monitorare costantemente fonti come [Common Vulnerability and Exposures] e [National Vulnerability Database]
-- Utilizzare strumenti di analisi della composizione del software
-- Monitorare le librerie e i componenti non manutenuti
-- Preferire componenti con firma digitale (sicurezza di integrità) 
-- Utilizzo di software di controllo per lo stato di aggiornamento delle dependencies (es. OWASP Dependencies Check)
 ## Identification and Authentication Failures
 Precedentemente identificato come #broken-authentication, che indica quando un #attaccante impersona un altro utente per compiere azioni al suo posto. Possono essere causate da:
 - Controlli di autenticazione insufficienti
@@ -534,23 +484,29 @@ Può avvenire quando vengono utilizzate funzioni che selezionino in massa i camp
 Uso improprio di elenchi di password note (es rockyou.txt) per provare a loggarsi
 ### [Persistent session]( #persistent-session)
 Sfutta il salvataggio dei token di autenticazione da una sessione precedente (di un altro utente) per accedere.
-## Software and Data Integrity Failures
-Si concentra sulla formulazione di ipotesi relative agli aggiornamenti del software, ai dati critici e alle pipeline #CI/CD (Continuous Implementation/Continuous Deployment) senza verificarne l'integrità. E' uno dei maggiori impatti #CVE e #CVSS. Si verifica quando:
-- Ci si affida a plugin da fonti non attendibili
-- La #pipeline non è sicura e permette accessi non autorizzati o l'inserimento di codice maligno
-- Le funzionalità di aggiornamento non verificano l'integrità dello stesso
-- I dati sono [codificati] o [serializzati] in modo che l'aggressore possa vedere e/o modificarli. 
+## Inadequate Input validation
+La non adeguata predisposizione delle validazioni input (sia lato #client che #server) può portare a severi danni, in particolare se effettuato per transizioni economiche.
 ### Prevenzione
-- Utilizzo di firme digitali
--  Utilizzo di #repository affidabili
-- Utilizzo di software appositi (OWASP Dependency Check)
-- Processo di revisione efficace delle modifiche del codice
-- La #pipeline CI/CD ha un'adeguata segregazione
-- I dati serializzati non firmati o non crittografati non vengano inviati al #client
-## Cross-Site Scripting
-L'utente viene indirizzato verso un sito clone dell'originale, dal quale è possibile ricevere i dati inseriti dall'utente (es. funzioni di #debugging).
-## Comand Injection
-
+- Tratta tutti i dati come non affidabili
+- Assicurati che i meccanismi di validazioni siano impostati correttamente
+- Utilizza una lista predefinita di input quando possibile
+- Non inserire direttamente l'input nel database 
+## Insecurity Functionality Exposed
+Debolezza che si presenta quando alcune funzioni, inserite inizialmente per velocizzare alcuni compiti in fase di sviluppo, non vengono eliminate prima del deploy. 
+## Insufficient Logging & Monitoring
+Categoria ampia, che comprende in generale tutte le debolezze derivate dalla mancata registrazione ( #log) delle azioni compiute dagli utenti, ad esempio:
+- Configurazione errata del Security Information and Event Management ( #SIEM)
+- Scansioni di sicurezza non presenti, o predisposte in maniera errata
+- Una loro non corretta lettura ( #monitoring) dei dati di #log da parte degli specialisti.
+Per risolvere questo problema, conviene:
+- Fare riferimento a protocolli certificati, come l'[Health Insurance Portability and Accountability Act ](https://www.hhs.gov/hipaa/for-professionals/security/guidance/cybersecurity/index.html) ( #HIPAA), il [Payment Card Industry Data Security Standard]( https://www.pcisecuritystandards.org/)( #PCI-DSS) o il #Sarbanes-Oxley
+- Assicurare un #log verificabile, effettivo, centralizzato e con un adeguata ridondanza di:
+	- Errori di validazione degli input
+	- Autenticazioni
+	- Errori di applicazione e/o di sistema
+	- Problemi di connessione
+	- Rilevamento di caricamento file, alterazioni della configurazione, errori dei file di sistema
+	- Operazioni ad alto rischio (movimenti bancari es.)
 ## Security logging e Monitoring failures
 Di solito si scopre solo durante i #penetration-test o tramite discussioni con gli sviluppatori. Da ciò ne consegue che è difficile da identificare. In generale le cause possono essere:
 - Eventi verificabili non registrati
@@ -568,6 +524,78 @@ Di solito si scopre solo durante i #penetration-test o tramite discussioni con g
 - Le #transazioni di alto valore devono avere un #audit trail con controlli d' #integrità
 - Il team #DevSevOps deve stabilire un monitoraggio efficace
 - Stabilire e adottare un piano di risposta e ripristino
+## Security Misconfiguration
+Sono delle configurazioni fallaci, dovute all'errore umano durante la fase di scrittura del codice (dell'applicazione stessa, del framework o altro). Alcuni esempi sono:
+- ***Features*** ridondanti abilitate
+- Account con user e password di default
+- ***Features*** di sicurezza disabilitate o non configurate correttamente
+- Software datati
+- Utilizzo di password deboli o prevedibili
+- Mancanza (o configurazione errata) di Security Headers
+- #directory-listing non disabilitate (pagine dalle quali è possibile vedere la struttura dell'app)
+- Applicazioni lasciate dalla fase di sviluppo 
+### Evitare le Security Misconfiguration
+Alcune note per evitare questi errori sono:
+- Implementare procedure ripetibili e sicure di installazione
+- Rimuovere le features non necessarie
+- Configurare e tenere aggiornate le #patch nello stack
+- Automatizzare le procedure quando fattibile
+- Assicurare la corretta #configurazione e #deploy dei Security Header
+- Frammenta l'architettura dell'applicazione
+## Software and Data Integrity Failures
+Si concentra sulla formulazione di ipotesi relative agli aggiornamenti del software, ai dati critici e alle pipeline #CI/CD (Continuous Implementation/Continuous Deployment) senza verificarne l'integrità. E' uno dei maggiori impatti #CVE e #CVSS. Si verifica quando:
+- Ci si affida a plugin da fonti non attendibili
+- La #pipeline non è sicura e permette accessi non autorizzati o l'inserimento di codice maligno
+- Le funzionalità di aggiornamento non verificano l'integrità dello stesso
+- I dati sono [codificati] o [serializzati] in modo che l'aggressore possa vedere e/o modificarli. 
+### Prevenzione
+- Utilizzo di firme digitali
+-  Utilizzo di #repository affidabili
+- Utilizzo di software appositi (OWASP Dependency Check)
+- Processo di revisione efficace delle modifiche del codice
+- La #pipeline CI/CD ha un'adeguata segregazione
+- I dati serializzati non firmati o non crittografati non vengano inviati al #client
+## Spoofing
+E' un attacco che può avvenire ad ogni livello della ISO-OSI e che consiste nella falsicifazione dell'identità e/o di altro tipo di informazioni applicative ([fonte](https://it.wikipedia.org/wiki/Spoofing)).
+
+### ARP Poisoning
+Consiste nel sostituirsi ad un altro dispositivo ad una [ARP request](./Tecnologie/Protocolli#ARP)
+## SSRF
+La Server Site Request Forgery avviene quando una richiesta di input lato #server non avviene adeguatamente monitorata (spesso quando viene effettuata una #richiesta HTTP ad un sito di #terze-parti). Spesso avvengono sfruttando la fiducia tra due applicazioni durante lo scambio di dati tramite richieste #API o lo scambio di file e/o pacchetti per compiere azioni malevole contro il server dei soggetti terzi con cui avviene lo scambio, o contro il server stesso che compie la richiesta, ad esempio tramite i protocolli:
+- file://
+- TCP
+### Precauzioni contro l'SSRF
+- Implementare una lista di indirizzi autorizzati (quando possibile)
+- Disabilitare Schemi URL inutilizzati
+- Non consegnare risposte raw da richieste del server
+- Ridurre al minimo la fiducia del server confugurando correttamente delle regole limite del #firewall
+## Type juggling
+Durante il confronto tra una stringa e un numero, #PhP  tenta di convertire la stringa in un numero. Se la stringa non può essere convertita in un numero valido, viene automaticamente convertita nel valore 0.
+```
+var_dump("password" == 0); //true
+```
+Si può ovviare al problema utilizzando lo #strict-comparison-operator ===
+## Unsafe Deserialization
+La #serializzazione è il processo di conversione dello stato di un oggetto o una struttura dati in un formato memorizzabile o trasferibile. La #deserializzazione è il processo inverso. 
+### Prevenire la unsafe deserialization
+- Utilizza formati di dati semplici ovunque possibile
+- Usa modelli di serializzazione che usino solo #dati-primitivi 
+- Usa modelli di serializzazione che permettano la crittazione e la decrittazione dei dati in maniera sicura
+- Sostituisci la serializzazione dei dati con formati di solo dati, come il JSON
+## Vulnerable and Outdated Components
+L'utilizzo di framework, sistemi operativi, software o componenti vulnerabili e/o datati possono creare dei punti critici di debolezza del nostro sito. E' possibile avere delle debolezze dovute a:
+- Mancata conoscenza di tutti o componenti utilizzati
+- Carente informazione e aggiornamento sulle ultime novità dei vari pacchetti
+- Mancato aggiornamento della piattaforma
+- Testing carente o assente della compatibilità a seguito di patch
+### Soluzioni
+- Eliminare le dipendenze inutilizzate
+- Inventariare continuamente le versioni dei componenti lato client e server
+- Monitorare costantemente fonti come [Common Vulnerability and Exposures] e [National Vulnerability Database]
+- Utilizzare strumenti di analisi della composizione del software
+- Monitorare le librerie e i componenti non manutenuti
+- Preferire componenti con firma digitale (sicurezza di integrità) 
+- Utilizzo di software di controllo per lo stato di aggiornamento delle dependencies (es. OWASP Dependencies Check)
 ## XML Entity Expansion
 #xml è un formato testuale utilizzato per rappresentare informazioni strutturate. 
 Tramite attacchi #XEE è possibile:
@@ -621,18 +649,8 @@ POST http://www.vulnerableapp.com/xml HTTP/1.1<?xml version="1.0" encoding="ISO-
 	 ```
 - Gestire dati in formati semplici (es. #JSON )
 - Verificare in ambiente di #testing che le chiamate #xml abbiano le dovute restrizioni
-## CSRF Attack
-Di norma si attuano partendo da un attacco di #phishing per estrapolare i dati necessari, per poi effettuare l'accesso nell'account dell'utente
-### Prevenire
-- Utilizzo di #token #anti-forgery (come il CSRF-token di #Laravel) per tutti i metodi che modificano lo stato dell'applicazione
-- Double Submit Cookie Pattern (assegnare un valore casuale sia ad un cookie che ad un parametro della richiesta)
-- Utilizzare l'attributo **SameSite** per evitare le richieste cross-domain
-- Gestire correttamente #origin-header e #referrer-header
-- Utilizzare la #re-autentication
-- Utilizzare token usa e getta
-- Utilizzare tecnologia #captcha
-## Cross-Site Scripting (XSS)
-Utilizzo di #script per manipolare le interazioni tra utente e sito web.
+## XSS
+Il Cross-Site scriptinf si riferisce all'utilizzo di #script per manipolare le interazioni tra utente e sito web.
 ### Reflected XSS
 Viene utilizzato un link per far inviare all'utente colpito un codice malevolo per colpire il server del sito. Possono essere inviati, ad esempio, tramite siti malevoli o mail
 ### Stored XSS
@@ -645,21 +663,6 @@ Blocchi di codice #JavaScript (quindi non controllabili tramite #csrf-token)
 - Content Security Policy
 - utilizzare un framework moderno
 - in #PhP usare funzioni htmlentities() e htmlspecialchars() per effettuare l' #escaping delle variabili
-## Inadequate Input validation
-La non adeguata predisposizione delle validazioni input (sia lato #client che #server) può portare a severi danni, in particolare se effettuato per transizioni economiche.
-### Prevenzione
-- Tratta tutti i dati come non affidabili
-- Assicurati che i meccanismi di validazioni siano impostati correttamente
-- Utilizza una lista predefinita di input quando possibile
-- Non inserire direttamente l'input nel database 
-## Type juggling
-Durante il confronto tra una stringa e un numero, #PhP  tenta di convertire la stringa in un numero. Se la stringa non può essere convertita in un numero valido, viene automaticamente convertita nel valore 0.
-```
-var_dump("password" == 0); //true
-```
-Si può ovviare al problema utilizzando lo #strict-comparison-operator ===
-## Borken OAuth
-La #broken-oauth è una particolare tipologia di #broken-authentication, che avviene qualora si utilizzi un processo di #oauth per effettuare il login.
 # Strumenti di analisi
 ## Software
 ###  Static application security testing
