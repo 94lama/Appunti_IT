@@ -1,7 +1,6 @@
 # Locazione di memoria
 I dati possono essere di diverse tipologie:
-
-[primitivi]
+## Primitivi
 
 #interi
 
@@ -22,7 +21,7 @@ I dati possono essere di diverse tipologie:
 #string_interpolation: "elemento $variabile elemento"
 		Linguaggi che usano la string interpolation: [[Php]] 
 
-[non primitivi]
+## Non primitivi
 #array	 
 	
 	[1, "sdf", true, 2]
@@ -37,18 +36,80 @@ I dati possono essere di diverse tipologie:
 
 # Cablaggio
 Insieme di collegamenti e impianti fisici, che permettono l'interconnessione tipicamente nell'ambito di un edificio (o gruppo di edifici) per la realizzazione di una rete.
-## Cavo coassiale
-Cavo per TV
-## Doppino
-I doppini UTP sono classificati in categorie
+## Cavo di rame
+Mezzo di trasporto di impulsi elettrici. In quanto tale è suscettibile a:
+- Interferenza elettromagnetica o di onde radio
+- Crosstalk (ovvero un disturbo del campo elettrico causato da altri cavi vicini)
+### Cavo coassiale
+Cavo ormai quasi del tutto sostituito dall'[UTP](#UTP), è composto da un filo spesso di rame, avvolto da uno strato spesso di isolante plastico, a sua volta avvolto da una rete metallica a da uno strato protettivo finale per i danni fisici.
+Ci sono 4 tipi principali di connettori per il cavo coassiale:
+- Bayonet Neill-Concelman (BNC)
+- Tipo N
+- TIpo F
+
+Il cavo coassiale è ancora utilizzato durante:
+- L'installazione di reti wireless per collegare l'antenna all'equipaggiamento radio
+- Installazione di internet tramite cavo per trasportare il segnale dalla centralina all'interno delle abitazioni private (in sostituzione con il cavo in fibra)
+
+### UTP
+Gli Unshielded Twisted-Pair noti anche come doppini) sono composti da quattro coppie di cavi, ognuna delle quali intrecciata un numero diverso di volte su se stessa, avvolte da uno strato di materiale isolante (tipo plastica). Ogni coppia è identificabile dal colore dell'isolante. I cavi vengono intrecciati in coppia per ridurre il Crosstalk.
+Ci sono 4 categorie di UTP:
+- 3 - Usata originariamente per la trasmissione di dati sonori, in seguito utilizzata per la trasmissione di dati. Si riconosce perchè i cavi non sono intrecciati per formare la coppiaò
+- 5 - Usata per la trasmissione dei dati
+	- 5 - Bandwidth 100Mbps
+	- 5E - Bandwidth 1000Mbps
+- 6 - Viene aggiunto un separatore tra le coppie di cavi rispetto al modello 5 e supporta un traffico fino a 10Gbps
+- 7 - Simile al 6
+- 8 - Supporta un traffico fino a 80 Gbps
+
+#### Terminazioni
+I cavi UTP hanno diverse terminazioni, tra le quali le più importanti sono:
+- RJ-45 UTP, ovvero la classica terminazione per la porta Ethernet del computer
+- RJ-45 UTP Socket, ovvero la controparte femmina della terminazione, installata sui pc
+
+Le coppie di cavi vengono collegate alle terminazioni in base a degli standard, tra i quali i più importanti sono:
+![[./../Immagini/Pasted image 20241011131951.png]]
+
+### STP
+Gli Shielded Twisted-Pair sono una diretta evoluzione degli [UTP](#UTP), che provvede ad aumentarne la robustezza e la protezione da interferenze esterne tramite avvolgimento delle 4 coppie di cavi all'interno di un foglio metallico prima ed una rete metallica successivamente.
 ## Fibra ottica
+Composta da numerosi cavi in fibra di vetro. Si utilizza di norme per:
+- Collegamenti internet
+- Reti aziendali
+- Reti a lunga distanza
+- Cavi di rete sottomarini
+### Cavi
+Ci sono due modelli di cavi in fibra, che si differenziano sia per la dimensione, che per il metodo di trasporto del fascio:
+- SMF e MMF
+
+Mentre i cavi più vecchi permettono il trasporto unidirezionale dei fasci di luce (era quindi necessario installarli in coppie), quelli più recenti permettono uno scambio bidirezionale.
+#### SMF
+Il Single-Mode Fiber è un cavo composto da:
+- Un nucleo di vetro, nel quale passa il fascio di luce (diametro 9 micron)
+- Uno strato di rivestimento in vetro (diametro 125 micron)
+- Una copertura polimerica di colore giallo
+Trasporta il fascio di luce in maniera retta tramite laser e permette di coprire distanze fino a 100 km
+## MMF
+Il Multi-Mode Fiber è un cavo composto da:
+- Un nucleo di vetro, nel quale passa il fascio di luce (diametro 50-62.5 micron)
+- Uno strato di rivestimento in vetro (diametro 125 micron)
+- Una copertura polimerica di colore aranciuone
+Trasporta il fascio di luce (prodotto da un LED) tramite riflessione nelle varie superfici interne e permette di coprire distanze fino a 2 km
 ### FTTC
+Fiber-to-the-Cabin
 ### FTTH
+Fiber-to-the-House
 # Cache
 
 # NIC
-Nota anche come [Scheda di rete](https://it.wikipedia.org/wiki/Scheda_di_rete), permette il collegamento alla rete e la trasmissione dei dati. E' composta da:
+Nota anche come [Scheda di rete](https://it.wikipedia.org/wiki/Scheda_di_rete), permette il collegamento alla rete e la trasmissione dei **frame** (dati)). La NIC può essere di tipo fisico o wireless (di solito un dispositivo moderno ha entrambe le modalità installate).
+
+## Fisica
+E' composta da:
 - Ingresso - doppino
+
+## Wireless
+
 # Porte
 Sono dispositivi che permettono il collegamento della macchina con periferiche esterne. Le porte possono essere fisiche o di rete.
 ## Porte di rete
@@ -60,6 +121,7 @@ Sono porte adibite alla comunicazione tra dispositivi tramite [Rete](./Reti) e s
 | 1024-49151  | Utilizzate come riferimento tra applicazioni                                             |
 | 59152-65535 | Liberamente utilizzabili                                                                 |
 
+E' possibile controllare le porte ad uso comune libere di una macchina tramite il comando ```netstat```.
 ### Socket
 L'utilizzo delle porte di rete è rappresentato aggiungendo alla fine dell'[IPv4](./Protocolli#IPv4) due punti e il numero della porta di riferimento.
 
@@ -73,8 +135,10 @@ Le porte più utilizzate tramite protocollo [TCP](./Protcolli#TCP) o [UDP](./Pro
 
 | Porta | Destinazione                                 |
 | ----- | -------------------------------------------- |
-| 22    | Login tramite [SSH](./Protocolli#SSH)        |
-| 23    | Login tramite [Telnet](./Protocolli#Telnet)  |
+| 20    | [TCP](./Protocolli#TCP) - Data               |
+| 21    | TCP - Control                                |
+| 22    | [SSH](./Protocolli#SSH)                      |
+| 23    | [Telnet](./Protocolli#Telnet)                |
 | 25    | [SMTP](./Protocolli#SMTP)                    |
 | 37    | Time (anche UDP)                             |
 | 53    | [DNS](./Protocolli#DNS) (anche UDP)          |

@@ -177,6 +177,28 @@ Una rete locale consiste in una serie di dispositivi collegati tra loro. I princ
 Nel caso di reti LAN aziendali, spesso esse vengono suddivise in [sottoreti](#Subnetting) tramite router, per facilitare i controlli di sicurezza, evitare il sovraffollamento o raggruppare i nodi secondo categorie (es. localizzazione geografica dei nodi, mansione lavorativa dei dipendenti, ecc.).
 # Rete pubblica
 Nota anche come Wide Area Network ( #WAN). Nel caso due dispositivi vogliano comunicare tramite WAN, la comunicazione passa dal #gateway, ovvero un macchinario fornito da un #provider, che permette l'instradamento dei pacchetti all'interno di una rete, che dirige le comunicazioni con i dispositivi connessi alla rete pubblica.
+
+# VPN
+## Best practices
+- Vrifica delle perdite DNS e IP (DNS Leak Test)
+- Attiva il Kill Switch per verificare se la VPN è in uso o meno (se non in uso blocca le trasmissioni)
+- Verifica il protocollo di crittografia (minimo AES-256)
+- Controll ala politica di no-log
+- Effettua un test della velocità
+## VPN commerciali
+### Aziendali
+### Pubbliche
+#### Nord VPN
+#### ProtonVPN
+## Nuove sfide
+- Geoblocking avanzato delle VPN
+- Nuove tecnologie di sorveglianza
+- Evoluzione degli attacchi [man-in-the-middle](<./../Cybersecurity/#Man in the middle>)
+## Alternative
+- Rete TOR: Accesso solo ad account verificati: anonimato (quasi) completo, ma prestazioni lente
+- Reti Zero Trust: Accesso solo ad utenti verificati
+- SASE (Secure Access Service Edge): unisce varie tecnologie, come VPN, WAF, firewall e altre tecnologie per proteione cloud
+- Proxy: offrono anonimato, ma senza crittografia
 # Gateway
 E' il dispositivo che collega e gestisce i processi di comunicazione dalla rete privata a quella pubblica ( #WAN) i norma è identificato con il #router.
 Di solito è rappresentato nella WAN con l'indirizzo

@@ -18,40 +18,49 @@ Concatenare comandi
 ```Linux
 <comando_1> && <comando_2>
 ```
+
 Eseguire un comando nel caso quello precedente non venga eseguito correttamente 
 ```Linux
 <comando_1> || <comando_2> 
 ```
+
 Inserire un commento  
 ```Linux
 # commento 
 ```
+
 Accedere ad una rete come cliente
 ```shell
 <nome_macchina>-cli -h localhost
 ```
+
 Filtro un comando in base ad una determinata stringa
 ```shell
 <comando> | grep <stringa>
 ```
+
 Utilizzare il [linguaggio AWK](https://www.geeksforgeeks.org/awk-command-unixlinux-examples/) per generare dei #report
 ```sh
 awk
 ```
+
 Leggere il contenuto di un file
 ```sh
 cat <nome_file>
 ```
+
 Ripulire lo schermo
 ```sh
 clear
 ```
+
 Modifica il gruppo proprietario dell'elemento
 ```sh
 chgrp <nome_gruppo> <nome_file>
 	```
 	OPZIONI:
 	-R # modifica tutti i file selezionati in maniera ricorsiva
+
 Modifica i permessi granulari di un file. #SUID, #SGID
 ```sh
 chmod <permessi_utente><permessi_gruppo><permessi_utente_generico> <nome_file>
@@ -69,14 +78,24 @@ chmod <permessi_utente><permessi_gruppo><permessi_utente_generico> <nome_file>
 	t: (Sticky bit) Imposta gli utenti proprietari come unici utenti con permessi di cancellazione file (a parte il super user)
 	- Nel caso si vogliano utilizzare i numeri, nel caso di combinazione di permessi, si possono sommare i numeri (6 per lettura e scrittura, 7 per tutti e 3)
 	- Se le cartelle non hanno almeno permesso 4, verrà negato l'accesso
+
 Modifica il proprietario di un file
 ```sh
 chown <nome_utente>:<nome_gruppo> <nome_file>
 ```
+
 Controllare lo spazio disponibile nelle varie partizioni del volume
 ```shell
 df -hT
 ```
+
+Fare robe
+```sh
+eval "<comando>"
+```
+	OPZIONI:
+	- Avviare un ssh-agent: eval "$(ssh-agent)"
+
 Preservare una porzione di spazio della #memoria ad un file. [Link](https://man7.org/linux/man-pages/man1/fallocate.1.html)
 ```sh
 fallocate <directory_file>
@@ -86,6 +105,7 @@ fallocate <directory_file>
 	-d # dig holes, ovvero frammenta lo spazio preservato
 	-l <dimensione> # es. KiB, MiB, GiB, PiB
 	-n <nome_file>
+
 Controllare lo spazio disponibile nelle varie partizioni
 ```shell
 find <directory>
@@ -93,20 +113,24 @@ find <directory>
 	find / -perm -4000
 	-perm #cerca i file che hanno i permessi specificati
 	permessi: 1=read, 2=write, 3=execute, 4=SUID
+
 Visualizzare le #ACL di un file
 ```sh
 getfacl <nome_file>
 ```
+
 Rimuovere un account
 ```Shell
 gpasswd -d <nome_utente> <nome_ambiente>
 ```
+
 Creo un nuovo gruppo
 ```sh
 groupadd <nome_gruppo>
 ```
 	ATTENZIONE:
 	Richiede l'accesso come root
+
 Elimino un gruppo
 ```sh
 groupdel <nome_gruppo>
@@ -121,15 +145,18 @@ groups <utente>
 ```
 	Se non si inserisce l'utente, ritornerà tutti i gruppi del sistema
 	OPZIONI:
+
 Verificare le informazioni di un utente
 ```sh
 id <user>
 ```
+
 Visualizzare le regole di accesso alla macchina ( #firewall)
 ```shell
 iptables -L -v -n
 ```
 	iptables -P INPUT DROP # cancella tutte le configurazioni  
+
 Visualizzare tutti i file e cartelle all'interno della directory corrente
 ```shell
 ls
@@ -141,18 +168,22 @@ ls
 	categorie utenti: proprietario, gruppo del proprietario, altri
 	directory può essere "d" se directory o "-"
 	permessi: r=read, w=write, x=execute, -=nessun perm
+
 Controllare lo spazio utilizzato dalle varie partizioni
 ```shell
 lsblk
 ```
+
 Aprire il manuale dei #comandi del #terminale per verificare le modalità d'uso di un comando
 ```sh
 man <comando>
 ```
+
 Modificare il contenuto di un file
 ```sh
 nano <nome_file>
 ```
+
 Verificare se ci sono porte aperte verso l'esterno in una macchina #port-scanning
 ```bash
 nmap <nome_macchina>
@@ -185,6 +216,16 @@ php
 ```
 	OPZIONI:
 	-a # Apre la shell in maniera interattiva
+
+Richiedere un messaggio di risposta da un altro dispositivo
+```sh
+ping <indirizzo_ip>
+```
+	N.B. I seguenti indirizzi IPv4 sono utilizzati spesso durante i processi di troubleshooting:
+		  127.0.0.1 - Indirizzo di Loopback, che permette di verificare se l'interfaccia TCP/IP del dispositivo è configurata correttamente
+		  
+	N.B. I seguenti indirizzi IPv6 sono utilizzati spesso durante i processi di troubleshooting:
+		  ::1 - Indirizzo di Loopback, che permette di verificare se l'interfaccia TCP/IP del dispositivo è configurata correttamente
 
 Vedere l'albero dei processi
 ```shell
@@ -233,6 +274,17 @@ ssh <indirizzo_ip> -i <chiave>
 	ssh <nome_utente>@<indirizzo_ip>
 	OPZIONI:
 	-p # porta
+
+Aggiungere una chiave ssh all'agent
+```ssh
+ssh-add <percorso>
+```
+
+Impostare un ssh-agent
+```sh
+ssh-agent
+```
+	N.B. Nel caso il comando non vada a buon fine, lo sui può usare tramite eval
 
 Per generare una #ssh-key 
 ```sh
