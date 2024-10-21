@@ -289,6 +289,7 @@ Nel caso di IPv6, il protocollo cambia i nomi delle richieste (mantenendone la r
 5. **REPLY** (DHCPACK o DHCPNACK)
 
 
+
 ### DNS
 Domain Name System, serve ad attribuire un Fully Qualified Domain Name ( #dominio) a degli indirizzi #IP, in modo tale da rendere più agevole la navigazione degli utenti (es. facebook.com, amazon.it).
 Il servizio si basa su dei #server DNS.
@@ -649,7 +650,6 @@ broadcast =   192.168.  2.255
 
 Ovvero:
 ![[./../Immagini/Pasted image 20241001184553.png]]
-
 
 ### SSL
 Secure Socket Layer
