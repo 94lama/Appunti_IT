@@ -1,24 +1,13 @@
-# Introduzione
-## MITRE
-Organizzazione non-profit, fondata nel 1975, che si occupa di #cybersecurity.
-Mette a disposizione due archivi molto utili per la sicurezza:
-### Common Vulnerabilities Enumeration ( #CVE)
-Contiene informazioni molto utili sulle vulnerabilità e sulle debolezze dei siti web, framework e librerie, costantemente aggiornate (dopo che il framework colpito è riuscito a rimuovere la vulnerabilità).
-Contiene anche alcune possibili soluzioni per rimuovere le vulnerabilità
-### Common Weaknesses Enumeration ( #CWE)
-| N° | Nome | Descrizione |
-| ---- | ---- | ---- |
-|  |  |  |
-| 78 | Improper Neutralization of Special Elements used in an OS Command ( #OS-command-injection) | Inietta un comando nello **shell** del server |
-| 79 | Improper Neutralization of Input During Web Page Generation ( #cross-site-scripting ) | Inietta uno script malevolo |
-| 89 | Improper Neutralization of Special Elements ( #sql-injection) |  |
-| 90 | Improper Neutralization ( #LDAP-injection) | Inietta una query LDAP per accedere e/o manipolare dati sensibili |
-| 434 | Unrestricted Upload of File with Dangerous Type | Permette di caricare file di estensioni non desiderate (es. **.php**) all'interno del server, che possono essere successivamente aperti dall'utente malevolo stesso |
-| 611 | Improper restriction of XML External Entity reference | Inserisce nel codice XML una stringa URI che prelevano file esterni all'area prevista |
-| 1021 | Improper Resctiction of rendered UI Layers or Frames | Una pagina del sito viene utilizzato su un server esterno tramite es. #iframe per ingannare un utente ed estrapolare dati sensibili (es. dati di accesso) |
-|  |  |  |
-### Common Platform Enumeration ( #CPE)
-Archivio di software e/o framework disponibili, indicizzati.
+#  Introduzione
+La cybersecurity si occupa di prevenire e contrastare minacce ai sistemi informatici, che possono essere classificati in:
+- Attacchi software
+- Errori dei software
+- Sabotaggio
+- Errore umano
+- Furto
+- Danni all’hardware
+- Interruzione delle utilities (es. interruzione della corrente elettrica)
+- Disastri naturali
 ## Ruolo DevSecOps
 Il #DevSecOps è un esperto in sviluppo (Development), sicurezza (Security) e operazioni (Operate, ovvero gestione e sviluppo dell'app anche dopo la messa online). La sicurezza viene verificata in tutte le fasi del progetto
 ### Development
@@ -32,15 +21,7 @@ Il #DevSecOps è un esperto in sviluppo (Development), sicurezza (Security) e op
 - Operate
 - Monitor
 
-## Tipologie di attacchi
-### Denial of Service ( #DoS)
-Attacco che sfrutta una script o altri metodi per sovraccaricare il #server bersaglio ed impedirne il normale funzionamento per un determinato periodo di tempo
-### Distributed Denial of Service ( #DDos)
-Attacco simile al #dos, ma utilizza più macchine per portare a termine l'attacco
-### Injection
-#### SQL Injection
-Invio al #server di un codice malevolo che permette una manipolazione del #database tramite comandi #SQL, che ne permettono la lettura o la modifica dello stesso
-## Termingologia
+## Terminologia
 
 ### CIA Security Triad
 #CIA è l'acronimo di Confidentiality (il dato deve rimanere privato), Integrity (non dev'essere modificato) e Availability (il servizio dev'essere sempre disponibile). Questi 3 punti costituiscono la base della sicurezza informatica.
@@ -100,15 +81,127 @@ Modello informatico, alternativo al #perimeter-security (che si basa sul concett
 - Protezione dei dati (es. tramite crittografia)
 #### Adattamento di un sistema esistente al Zero-Trust Model
 Per agevolare il passaggio, anche da un punto di vista umano, spesso si segue un percorso, che porta dal metodo esistente, a quello desiderato.
+# Principi di sicurezza
+Per comprendere le aree di interesse della cybersecurity spesso si fa uso del cosiddetto Cybersecurity Cube, che aggrega i concetti in 3 categorie:
+## Confidenzialità dei dati
+Solo le persone autorizzate devono avere accesso ai dati. Richiede l’implementazione di cifratura e decrittazione dei dati come misura cautelativa.
+Un’alternativa alla cifratura è la tokenizzazione, ovvero la creazione di un valore randomico temporaneo da utilizzare come lasciapassare per ottenere accesso ai dati.
+
+- DRM: La gestione digitale dei diritti (Digital Rights Management) si occupa di proteggere i dati tramite meccanismi di cifratura, in modo che essi non possano essere copiati senza l’apposita chiave di decrittazione privata.
+- IRM: La gestioni diritti di informazione (Information Rights Management) si occupa della protezione dei dati tramite la creazione di un livello di controllo degli accessi al documento protetto che avvisa il proprietario in caso di apertura (es. la PEC)
+
+### Controllo degli accessi
+Avviene su più livelli, ognuno dei quali deve essere te tuo in considerazione:
+#### Fisico
+Consiste in tutti quegli ostacoli che permettono di prevenire o controllare l’accesso fisico alla rete. Alcune misure di controllo fisico sono:
+- Guardie
+- Recinzioni
+- Sistemi di allarme
+- Videocamere
+- Porte blindate
+
+#### Logico
+Sono tutte quelle misure di sicurezza che prevengono l’accesso logico alla rete, come:
+- Cifratura dei messaggi di testo
+- Firewall
+- Password
+- Controllo dei dati biometrici
+- Protocolli
+
+#### Amministrativo
+Racchiude tutte le policy e le procedure che permettono di discernere chi può da chi non deve avere accesso ai dati.
+- Policies
+- Procedure
+- Recensioni
+- Addestramento alla sicurezza
+- Classificazione dei dati
+- Controlli del background
+
+Alcune misure efficaci per la maggioranza dei criteri sono:
+##### Autenticazione
+Controlla l’effettiva identità dell’utente. Di solito consiste in due parametri:
+- Username (o email)
+- Password
+Il processo di autenticazione permette di definire con precisione l'identità dell'utente con cui è in corso la sessione.
+
+###### FIM
+La Gestione federata dell'identità (Federated Identity Management) avviene quando la gestione dell'autenticazione di un utente avviene a livello di raggruppamento di reti (ad es. quando si utilizza lo stesso utente per accedere ai servizi Google come Youtube, Gmail, ecc.).
+
+###### Password
+Consiste in un dato che (dovrebbe) essere in possesso unicamente dello specifico utente. In quanto tale è consigliabile seguire alcune linee guida durante la sua creazione, ovvero:
+- Avere lunghezza di almeno 10 caratteri
+- Includere lettere (sia maiuscole che minuscole), numeri e caratteri speciali
+- Conservarle in luoghi non protetti (come i Password Manager)
+- Cambiare la password spesso
+
+E' anche possibile utilizzare processi di [MFA](#MFA), ovvero la verifica di più fattori durante il processo di autenticazione per aumentare la sicurezza della rete. 
+
+##### Autorizzazione
+Verifica se l’utente abbia o meno il permesso di utilizzare determinati file. E' sempre consigliato considerare l'inserimento di procedure di autorizzazione anche per l'accesso alla rete stessa, così come per l'accesso a dati particolarmente sensibili, come password, email, ecc.
+Per praticità gli utenti vengono raggruppati per livello di autorizzazione.
+##### Contabilità
+Monitoraggio (log) dei processi e delle azioni effettuate dagli utenti e uso degli stessi per effettuare controlli ed analisi dei dati. Questa procedura aiuta a identificare eventuali errori, sbagli e tenere traccia delle azioni durante i processi di audit.
+
+## Integrità
+Solo le persone autorizzate possono modificare i dati. Richiede l’implementazione di cifratura dei dati come misura cautelativa, così come misure di validazione, controllo degli accessi e verifiche della consistenza. La frequenza necessaria dell’effettuazione di questi controlli dipende dall’importanza che ha il dato.
+
+## Disponibilità
+L’accesso ai dati deve essere il più possibile costante. Richiede l’implementazione di pratiche di ridondanza di servizi, link e gateway. Alcuni momenti in cui la disponibilità dei dati diventa un parametro critico sono:
+- Manutenzione
+- Disastri naturali
+- Attacchi informatici
+- Danneggiamenti dell’hardware
+Buone pratiche per evitare un’interruzione di disponibilità nei casi sopracitati sono:
+- Creazione di dati di backup multipli
+- Monitoraggio costante
+- Pianificazione delle procedure in caso di disastri
+- Testing dei backup
+- Aggiornamento dei software e del sistema operativo
+- Manutenzione degli equipaggiamenti (hardware)
+
+# Stato dei dati
+- In transito
+- A riposo
+- In processo
+
+# Salvaguardie
+- Persone
+- Tencologia
+- Policy e pratiche
+
 # Security Standards
 Gli standard di sicurezza hanno l'obiettivo di categorizzare e valutare le #vulnerabilità.
 ### Fondazioni
 - Open Web Application Security Project [#OWSAP](https://owasp.org/) è una fondazione che analizza e categorizza le vulnerabilità relative la sicurezza
 
-## OWASP Top 10
+## MITRE
+Organizzazione non-profit, fondata nel 1975, che si occupa di #cybersecurity.
+Mette a disposizione due archivi molto utili per la sicurezza:
+### CVE
+Le Common Vulnerabilities Enumeration contengono informazioni molto utili sulle vulnerabilità e sulle debolezze dei siti web, framework e librerie, costantemente aggiornate (dopo che il framework colpito è riuscito a rimuovere la vulnerabilità).
+Contiene anche alcune possibili soluzioni per rimuovere le vulnerabilità
+### CWE
+Common Weaknesses Enumeration
+
+| N° | Nome | Descrizione |
+| ---- | ---- | ---- |
+|  |  |  |
+| 78 | Improper Neutralization of Special Elements used in an OS Command ( #OS-command-injection) | Inietta un comando nello **shell** del server |
+| 79 | Improper Neutralization of Input During Web Page Generation ( #cross-site-scripting ) | Inietta uno script malevolo |
+| 89 | Improper Neutralization of Special Elements ( #sql-injection) |  |
+| 90 | Improper Neutralization ( #LDAP-injection) | Inietta una query LDAP per accedere e/o manipolare dati sensibili |
+| 434 | Unrestricted Upload of File with Dangerous Type | Permette di caricare file di estensioni non desiderate (es. **.php**) all'interno del server, che possono essere successivamente aperti dall'utente malevolo stesso |
+| 611 | Improper restriction of XML External Entity reference | Inserisce nel codice XML una stringa URI che prelevano file esterni all'area prevista |
+| 1021 | Improper Resctiction of rendered UI Layers or Frames | Una pagina del sito viene utilizzato su un server esterno tramite es. #iframe per ingannare un utente ed estrapolare dati sensibili (es. dati di accesso) |
+|  |  |  |
+### CPE
+Common Platform Enumeration
+Archivio di software e/o framework disponibili, indicizzati.
+
+## OWASP
+### OWASP Top 10
 - Algoritmi scnosigliati: sha1, md5 
-## CVE
-## CWE
+
 ## ASVS e MASVS
 Sono #standard di sicurezza ampiamente accettati e utilizzati per proteggere contro le vulnerabilità comuni e gli attacchi, basati su 3 livelli di maturità del sistema:
 1. Requisiti di base per tutte le applicazioni web
@@ -124,11 +217,23 @@ Il processo di implementazione del #ASVS, si effettua in vari passaggi:
 6. Monitoraggio e manutenzione
 7. Aggiornamenti e miglioramenti continui
 -----20:40-----
+
+# Policy
+La Security Policy è un documento che raccoglie le varie policies informative per l’utente, lo staff IT e i manager, riguardo i requisiti di protezione delle tecnologie e informazioni all’interno di un’azienda. I principali tipi di Policy sono:
+- Specifiche sull’autenticazione e l’identificazione degli utenti
+- Impostazioni riguardanti la password (lunghezza, tipo di caratteri, altre specifiche)
+- Definizione dei comportamenti ammessi nell’azienda 
+- Requisiti per l’accesso da remoto alla rete aziendale
+
+Riferiti al team IT, due documenti sono particolarmente importanti:
+- SOP (Standard Operating Procedure) o procedure per le operazioni standard
+- Linee guida: coprono le aree non incluse nelle SOP
+
 # Secure coding
-# Hardening
-# Front-end
-## JavaScript
-### #xss
+## Hardening
+## Front-end
+### JavaScript
+#### XSS
 #### eval()
 E' un metodo che permette di inserire strighe di codice all'interno dell'operazione
 ```Javascript
@@ -204,15 +309,15 @@ Tramite script #JavaScript si modifica lo style della pagina. Questo tipo di att
 127.0.0.1:800/#}body{display:none} //in questo modo si modifica l'attributo display del div body
 ```
 Con questo attacco, per esempio, si può nascondere la #UI all'utente bersaglio, lasciandogli solo un input con un label con una richiesta di inserimento dati per sbloccare il normale funzionamento del sito (i dati inseriti saranno leggibili dall'attaccante)
-# DevSecOps Pipeline
-## Introduzione
+## DevSecOps Pipeline
+### Introduzione
 Il #DevOps è una metodologia di lavoro, utilizzata per ridurre i tempi di distribuzione attraverso l'automazione, fornire un #feedback continuo, migliorare la collaborazione del team e le capacità di affrontare il rilevamento degli errori
-## Software Development Life Cycle ( #sdlc)
-### CI/CD
+### Software Development Life Cycle ( #sdlc)
+#### CI/CD
 Per #CI/CD si intende Continuous Integration and Continuous Devliery. Il CI/CD è una metodologia utilizzata per aumentare la velocità, ridurre gli errori e permettere di standardizzare i processi.
 Il #deployment di norma è effettuata da una singola persona, dopo che il prodotto ha raggiunto un livello di avanzamento apprezzabile (ad esempio ha raggiunto determinati obbettivi) ed è stato oggetto di verifica.
-### Software utilizzati
-#### Code
+#### Software utilizzati
+##### Code
 I software sono utilizzati per il #versioning dell'applicazione. Questi software permettono di condividere il lavoro tramite creazione di più #branch, ovvero ramificazioni del progetto. 
 - [[Github]]
 - Git
@@ -360,13 +465,172 @@ Avviene tramite l'utilizzo di una chiave pubblica e di una chiave privata
 #### Contro
 - Prestazioni
 - Complessità 
-# Weakness
-## [Improper Restriction of XML external entity Reference](https://cwe.mitre.org/data/definitions/611.html)
-Tim Ferris - inventore di Wordpress
+# Attacchi
+## Tutti i livelli
+### Spoofing
+E' un attacco che può avvenire ad ogni livello della ISO-OSI e che consiste nella falsicifazione dell'identità e/o di altro tipo di informazioni applicative ([fonte](https://it.wikipedia.org/wiki/Spoofing)).
 
-Noto anche come #XEE, si verifica quando un entità XML contiene collegamenti ad altre entità XML non previste dal sistema, che permettono di inserire script malevoli per prelevare dati
-# Tipologie di attacco
-## Broken Acess Authorization
+#### ARP Poisoning
+Consiste nel sostituirsi ad un altro dispositivo ad una [ARP request](./Tecnologie/Protocolli#ARP)
+
+## Rete
+
+
+## Collegamento
+Gli attacchi più comuni al livello 2 della pila ISO/osi sono:
+
+### Spoofing
+Utilizzo di credenziali falsificate durante la comunicazione con altri dispositivi relativamente a:
+- MAC
+- IP
+
+### MAC Flooding
+Invio massivo di richieste alla rete con lo scopo di rallentarla o bloccarla.
+
+## Bluesnarfing
+Connessione con un dispositivo bersaglio con conseguente furto di dati personali (come mail e lista dei contatti).
+## Bomba logica
+Programma malevolo che rimane inattiva fino alla realizzazione del trigger desiderato. Una bomba logica può causare danni logici (eliminazione di file o alterazione del database) o fisici (es. mandare in overload ventole o CPU)
+
+## Bufale
+Creazione di contenuti informativi falsi e/o fuorvianti per ottenere informazioni o per minare la credibilità del bersaglio. Questo attacco può anche presentarsi organizzato in vere e proprie campagne.
+
+## Injection
+La Code injection consiste nell’immissione di stringhe di codice all’interno di 
+## DOS
+Il Denial Of Service è un attacc che sfrutta una script o altri metodi per sovraccaricare il #server bersaglio ed impedirne il normale funzionamento per un determinato periodo di tempo
+
+### DDOS
+IL Distributed Denial of Service è un’evoluzione del #dos, ma utilizza più macchine per portare a termine l'attacco.
+
+## Dumpster diving
+Ottenere informazioni tramite controllo dei rifiuti prodotti dai dipendenti dell’azienda.
+
+## False Fatture
+Uso di false fatture per ricevere denaro o informazioni sensibili.
+
+## Grayware
+Presenza di applicazione non desiderata all’interno del dispositivo (che può come può non contenere malware)
+
+## Hijacking
+Dirottamento, ovvero accesso ad un dispositivo con successiva modifica delle credenziali, al fine di bloccare l’accesso del legittimo proprietario.
+
+### Bluejacking
+Hijacking di un dispositivo tramite connessione Bluetooth. L’accesso alla connessione bluetooth può avvenire grazie al range operativo ristretto della connessione Bluetooth.
+
+### DNS
+Il Dirottamento avviene quando un attaccante ottiene l’accesso all’account admin di un server, con successiva modifica delle credenziali (rendendo impossibile l’accesso all’utente proprietario). In questo modo l’attaccante può modificare l’ip di riferimento del DNS verso un sito malevolo. 
+
+## Impersonamento
+Pretendere di essere un’altra persona per poter chiedere (sfruttando i principi di autorità o fiducia) informazioni.
+
+## Keyboard logging
+Consiste nella lettura di tutti gli input immessi tramite tastiera tramite software.
+
+## Malware
+I malware sono software malevoli che hanno come scopo arrecare danno all'utente bersaglio. 
+Questi possono essere installati nel dispositivo in vari modi:
+- Download di antivirus da pop-up (o comunque da siti che siano diversi dal sito originale). Il software potrebbe essere stato alterato per contenere malware
+- Malware *fileless*, che si attivano all'avvio del Sistema operativo per poi disattivarsi al suo spegnimento
+- Script dannosi (indipendentemente dal linguaggio utilizzato)
+- Installazione non intenzionale di software di terze parti infettati
+### Trojan
+Malware che effettua operazioni malevole, mascherandole all’interno di un file legittimo modificato. I file su cui viene caricato il malware sono spesso di tipo non eseguibile.
+
+### Virus
+Software che, una volta eseguito, si replica all’interno del pc e inserisce il proprio codice all’interno di altri file, periferiche o dispositivi connessi alla stessa LAN. Un virus può essere anche innocuo, così come distruttivo per un pc (può ad esempio cancellare file).
+È possibile che un virus cambi la sua struttura per essere più difficile da identificare.
+
+### Worm
+Software malevolo che si duplica all’interno del pc infettato. A differenza del virus, non deve essere attivato da un altro software e si espande sfruttando vulnerabilità del sistema operativo e/o della rete con l’obiettivo di rallentare il dispositivo o la rete stessa.
+
+## Man-in-the-middle
+Consiste nel frapporsi tra un client ed un server per rubare e/o modificare informazioni durante il loro traporto.
+
+## Phishing
+Utilizzo di messaggi o mail ingannevoli per indurre l’utente a cliccare a link inseriti all’interno, che reindirizzano a siti malevoli.
+
+### Pharming
+Dirottamento dell’utente ad un sito copia del sito desiderato per fargli fare un supposto accesso e leggere i dati di autenticazione.
+
+### SMiShing
+Utilizzo di SMS per condurre un attacco phishing per far aprir un sito malevolo o una chiamata con l’attaccante.
+
+### Vishing
+Phishing effettuato tramite chiamate vocali.
+
+### Whaling
+Phishing su obiettivi di rilievo.
+
+## Piggyback
+Noto anche come Tailgating, consiste nel seguire a breve distanza una persona con permessi di accesso fisico in aree protette al fine di bypassare i controlli.
+
+## Prepending
+Sostituzione del tag “esterno” all’azienda con uno interno all’azienda per far credere che sia stata inviata dall’interno dell’ambiente aziendale.
+
+## Jamming
+Manomissione di strumenti di trasmissione o dati.
+
+### Frequenze radio
+Utilizzo di impulsi elettromagnetici per disturbare le frequenze radio di una connessione, di fatto interrompendola.
+
+## Ransomware
+Malware utilizzato con il particolare scopo di impedire all’utente attaccato di visualizzare/utilizzare i file del proprio pc (tramite cifratura o furto dei file), per chiedere un riscatto come condizione per il riottenimento dei dati.
+
+## Reindirizzamento
+Reindirizzamento automatico dell’url (tramite parametri specifici all’interno dell’url utilizzato) verso un sito malevolo.
+
+## Rogue access point
+Installazione di un punto di accesso wireless non desiderato all’interno di una rete, che ne permetta l’utilizzo senza autenticazione. Questo attacco facilita l’utilizzo di attacchi all’interno della rete (come il [Man-in-the-middle](#man-in-the-middle)).
+
+### Evil-twin
+Creazione di una rete temporanea, avente nome simile ad una rete esistente con l’obiettivo di indurre utenti a connettersi per avere accesso al loro traffico.
+
+## Shoulder surfing
+Consiste nel visualizzare l’inserimento di informazioni confidenziali (pin, password) durante l’immissione.
+
+## Social Engineering
+Macro categoria di attacco informatico, che consiste nell’ottenere informazioni e/o accesso ai sistemi informatici attraverso l’inganno di persone che lavorano all’interno dell’azienda oggetto dell’attacco. Gli attacchi sfruttano strategie ne si basano su concetti psicologico come:
+- Autorità
+- Intimidazione
+- Consenzo
+- Sicurezza
+- Urgenza
+- Familiarità 
+- Fiducia
+
+Le tipologie principali di social engineering sono:
+
+### Frode
+Utilizzo di identità falsa per ottenere credibilità durante il processo di richiesta di informazioni.
+
+### Quid-pro-quo
+Scambio di favori in cambio di informazioni.
+
+### Pretexting
+Consiste nell’utilizzo di menzogne o pretesti per ottenere informazioni.
+
+## Spoofing
+
+### DNS
+Falsificazione dei dati all’interno dei Server DNS per reindirizzare gli utenti finali verso siti con contenuto malevolo.
+
+## Typo squatting
+Utilizzo di URL simili a siti reali per la colmatura dei siti originali con intenti malevoli, sfruttando la possibilità che utenti ci entrino non intenzionalmente.
+
+## Watering Hole Attack
+Inserimenti di malware (almeno) uno dei siti più utilizzati dal bersaglio
+
+## XSS
+Il Cross-site Scripting consiste nell’ inserire codice malevolo all’interno di un sito web, che andrà successivamente ad infettare i dispositivi degli utenti che visitano il sito infettato. Di solito ha l’obiettivo di leggere dati di accesso e/o cookies al fine di poter impersonare l’utente.
+## Zero-day
+Attacco che avviene sfruttando vulnerabilità deep software non ancora note pubblicamente.
+
+## Application
+### API
+Abuso di un endpoint API.
+
+### Broken Acess Authorization
 Noto anche come**Broken access control** o **Privilege escalation**, è un attacco volto ad ottenere accesso a dati a cui non si sarebbe potuti accedere in condizioni normali (es. utente per un guest, o amministratore per un utente).
 Può essere:
 - **Horizontal Authorization Control**, quando si ottengono dati di altri utenti con privilegi simili (utente -> utente)
@@ -375,7 +639,7 @@ Questo tipo di attacco può essere prevenuto tramite:
 - Definire una *policy* chiara che stabilisca permessi e limiti per tipologia di utente
 - Testa la soluzione
 - Utilizza un #framework che includa un sistema di autorizzazioni al suo interno
-### Horizontal Authorization Control
+#### Horizontal Authorization Control
 Vulnerabilità sfruttabile tramite attacchi #idor (Insecure Direct Object References)
 ``` 
 http://vulnerableapp.com/user/account?accountId=7800001
@@ -384,9 +648,9 @@ http://vulnerableapp.com/user/account?accountId=7800001
 http://vulnerableapp.com/user/account?accountId=7800002
 	Modificando l'URI, può accedere alle informazioni dell'account con ID diverso
 ```
-### Vertical Authorization Control
+#### Vertical Authorization Control
 Permettono di accedere al controllo di funzioni e/o dati disponibili solo ad un utente avente maggiori permessi
-## Broken Cryptography
+### Broken Cryptography
 Utilizzo di un #algoritmo di crittografia debole o già rotto in precedenza.
 Algoritmi considerati non sicuri sono:
 - #MD5
@@ -405,19 +669,22 @@ Mentre, per crittografare password, di norma si usano:
 - #argon2
 - #PBKDF2
 Per decidere quale algoritmo utilizzare occorre tener conto della complessità dello stesso (tempo di esecuzione) e dell'importanza del dato che si vuole proteggere
-### Come proteggersi dalla #broken-cryptography
+#### Come proteggersi dalla #broken-cryptography
 - Non implementare algoritmi deprecati, preferisci quelli utilizzati dalla community e che rispettando gli standard
 - Non usare chiavi con un Vettore di Inizializzazione
 - Preferisci soluzioni di *management* delle chiavi collegate con il sistema operativo, hardware o cloud provider
 - Fai revisionare le tue chiavi da un operatore terzo affidabile
 - Mantieniti aggiornato sulle metodologie di criptazione più efficaci e su quelle deprecate
-## Borken OAuth
+### Borken OAuth
 La #broken-oauth è una particolare tipologia di #broken-authentication, che avviene qualora si utilizzi un processo di #oauth per effettuare il login.
-## Comand Injection
 
-## CSRF Attack
+### Buffer overflow
+Avviene quando dei dati più grandi del previsto vengono memorizzati nel buffer. Questo processo può portare al crash del sistema, alla corruzione di alcuni dati, o all’installazione di malware all’interno di un dispositivo.
+
+### CSRF
+Il Cross-Site Request Forgery avviene quando un utente malintenzionato riesce ad eseguire comandi tramite il dispositivo di un utente bersaglio.
 Di norma si attuano partendo da un attacco di #phishing per estrapolare i dati necessari, per poi effettuare l'accesso nell'account dell'utente
-### Prevenire
+#### Prevenire
 - Utilizzo di #token #anti-forgery (come il CSRF-token di #Laravel) per tutti i metodi che modificano lo stato dell'applicazione
 - Double Submit Cookie Pattern (assegnare un valore casuale sia ad un cookie che ad un parametro della richiesta)
 - Utilizzare l'attributo **SameSite** per evitare le richieste cross-domain
@@ -425,17 +692,30 @@ Di norma si attuano partendo da un attacco di #phishing per estrapolare i dati n
 - Utilizzare la #re-autentication
 - Utilizzare token usa e getta
 - Utilizzare tecnologia #captcha
-## Injection
+### Directory traversal
+Anche noto come Path traversal, consiste nella manipolazione del percorso di un sito web per leggere dati sensibili o eseguire file altrimenti protetti.
+
+### Error handling
+Utilizzo dei messaggi di errore per estrarre dati sensibili.
+
+### Injection
 Attacco che si basa sull'inserire stringhe di codice malevolo. Può essere effettuato sul database, sul sistema operativo, o comunque in qualunque ambito similare. 
-#### SQL Injection
+
+#### DLL
+Iniezione di codice all’interno di un file in formato Dynamic Link Library (libreria dinamica dei link, **.dll**). Questo permette di implementare funzionalità non previste all’interno del sistema operativo.
+
+#### LDAP
+Sfrutta delle vulnerabilità della lettura input del protocollo LDAP (protocollo leggero di accesso alla directory) per ottenere l’accesso ai server LDAP e ottenere dati sensibili.
+
+#### SQL
 Sono delle categorie di vulnerabilità che si verificano quando un'applicazione accetta dati non fidati da una fonte esterna, come input utente. L'attaccante inserisce o modifica dei dati nel database. E' l'attacco più semplice, così come quello che può causare i danni più gravi. Ci sono varie tipologie di #sql-injection:
-### Tipologie di attacco
-#### Classic SQLi
-#### Blind SQLi
+##### Tipologie di attacco
+###### Classic SQLi
+###### Blind SQLi
 Avviene quando il risultato della *query*di manipolazione non è visibile all' #attaccante
-#### Time-Based SQLi
-#### Error-Based SQLi
-#### Union-Based SQLi
+###### Time-Based SQLi
+###### Error-Based SQLi
+###### Union-Based SQLi
 Tramite tag input, permette di manipolare il database leggendo ed inserendo dati tramite comandi come:
 ```
 'union select col_1,col_2,[comando]# 
@@ -447,7 +727,7 @@ dove:
 - **col_1** rappresenta il primo dato della tabella
 - **comando** rappresenta la colonna in cui verranno inseriti i comandi necessari per capire la struttura, il #dms , la versione ecc. del database utilizzato per il sito
 - **#** Viene usato per commentare la parte finale del comando originale 
-### Difendersi dalla SQL Injection 
+##### Difendersi dalla SQL Injection 
 E' possibile difendersi dalle #sql-injection tramite:
 - Effettuare backups
 - Utilizzare comandi predefiniti per accedere al database e successivamente passare i parametri (*best practice*)
@@ -456,20 +736,23 @@ E' possibile difendersi dalle #sql-injection tramite:
 - Utilizzo di Store Procedures (stringhe predefinite di codice per interagire con il database) (non efficace con tutte le tipologie di SQl  attack)
 - Usare un WAF (Web Application Firewall)
 - Utilizzare dei #framework dotati di un #ORM
-## Identification and Authentication Failures
+#### XML
+Modifica di un file o una query XML all’interno di un sito web.
+
+### Identification and Authentication Failures
 Precedentemente identificato come #broken-authentication, che indica quando un #attaccante impersona un altro utente per compiere azioni al suo posto. Possono essere causate da:
 - Controlli di autenticazione insufficienti
 - Rottura dei meccanismi di protezione a livello dell'Oggetto
 - #session-fixation
 - #broken-credential-management
-### [Session fixation]( #session-fixation)
+#### Session-fixation
 Attacco che permette all' #attaccante di dirottare dei dati validi di autenticazione. In particolare sfrutta l'eventuale mancanza di creazione di un nuovo #session-id in fase di login, per riutilizzare una vecchia sessione (effettuata da un altro utente) ed operare al sotto il suo nome.
 Il #session-id è un token, implementabile tramite #cookie o nell' #URL del sito.
-### [Broken credential management]( #broken-credential-management )
+#### Broken credential management
 - #credential-stuffing
 - #brute-force attacks, ovvero provare ad accedere ad un account tentando forzatamente con un numero massivo di password
 - #password-spraying (ovvero tentare di accedere a molti account con delle password standard).
-#### Evitare attacchi Broken credential management
+##### Evitare attacchi Broken credential management
 - Usa #framework di autenticazione open-source famosi
 - Testa la correttezza dei meccanismi progettati
 - Ruota e invalida i #session-id 
@@ -478,22 +761,24 @@ Il #session-id è un token, implementabile tramite #cookie o nell' #URL del sito
 - Implementa meccanismi di blocco accesso dopo tentativi multipli di login con password errata
 - Utilizzo di #bastion-host o liste di ammissione per #IP
 - 
-### [Mass assignment]( #mass-assignment)
+#### Mass assignment
 Può avvenire quando vengono utilizzate funzioni che selezionino in massa i campi dati dal database (es. **all()**, o quando vengono inclusi tutti i campi nei #fillable su #Laravel)
-### [Credential stuffing]( #credential-stuffing)
+#### [Credential stuffing]( #credential-stuffing)
 Uso improprio di elenchi di password note (es rockyou.txt) per provare a loggarsi
-### [Persistent session]( #persistent-session)
+#### [Persistent session]( #persistent-session)
 Sfutta il salvataggio dei token di autenticazione da una sessione precedente (di un altro utente) per accedere.
-## Inadequate Input validation
+### Improper input handling
+Avviene quando un input non viene convalidato propriamente. Può portare ad attacchi di injection o buffer overflow.
+### Inadequate Input validation
 La non adeguata predisposizione delle validazioni input (sia lato #client che #server) può portare a severi danni, in particolare se effettuato per transizioni economiche.
-### Prevenzione
+#### Prevenzione
 - Tratta tutti i dati come non affidabili
 - Assicurati che i meccanismi di validazioni siano impostati correttamente
 - Utilizza una lista predefinita di input quando possibile
 - Non inserire direttamente l'input nel database 
-## Insecurity Functionality Exposed
+### Insecurity Functionality Exposed
 Debolezza che si presenta quando alcune funzioni, inserite inizialmente per velocizzare alcuni compiti in fase di sviluppo, non vengono eliminate prima del deploy. 
-## Insufficient Logging & Monitoring
+### Insufficient Logging & Monitoring
 Categoria ampia, che comprende in generale tutte le debolezze derivate dalla mancata registrazione ( #log) delle azioni compiute dagli utenti, ad esempio:
 - Configurazione errata del Security Information and Event Management ( #SIEM)
 - Scansioni di sicurezza non presenti, o predisposte in maniera errata
@@ -507,7 +792,22 @@ Per risolvere questo problema, conviene:
 	- Problemi di connessione
 	- Rilevamento di caricamento file, alterazioni della configurazione, errori dei file di sistema
 	- Operazioni ad alto rischio (movimenti bancari es.)
-## Security logging e Monitoring failures
+
+
+### Race condition attack
+Avviene quando un sistema computazionale viene forzato ad eseguire contemporaneamente due o più operazioni (che possono mirare allo stesso dato, portando ad una sua duplice modifica) contemporaneamente.
+
+### Remote code execution
+Permette all’attaccante di eseguire linee di codice con privilegi di amministratore, sfruttando le vulnerabilità di un’applicazione.
+
+
+### Replay
+Intercettazione e conseguente ripetizione o blocco temporaneo dei dati inviati da un’utente ad un server, con lo scopo di indirizzare le azioni dell’utente verso i propri scopi.
+
+### Resource exaustion
+Consiste nell’inondare un dispositivo di dati per causarne il crash, blocco temporaneo o danni alle componenti hardware.
+
+### Security logging e Monitoring failures
 Di solito si scopre solo durante i #penetration-test o tramite discussioni con gli sviluppatori. Da ciò ne consegue che è difficile da identificare. In generale le cause possono essere:
 - Eventi verificabili non registrati
 - Avvisi di errore senza messaggi di #log
@@ -517,14 +817,14 @@ Di solito si scopre solo durante i #penetration-test o tramite discussioni con g
 - #penetration-test e scansioni non attivano gli avvisi
 - L'applicazione non è in grado id identificare gli attacchi in tempo reale
 - Gli avvisi sono visibili anche all'utente e/o all'aggressore
-### Prevenzione
+#### Prevenzione
 - Registrazione di tutti gli errori di #login, controllo degli accessi e #convalida degli input
 - I #log devono essere registrati in un formato facilmente utilizzabile
 - I #log devono essere codificati correttamente per evitare  #injection 
 - Le #transazioni di alto valore devono avere un #audit trail con controlli d' #integrità
 - Il team #DevSevOps deve stabilire un monitoraggio efficace
 - Stabilire e adottare un piano di risposta e ripristino
-## Security Misconfiguration
+### Security Misconfiguration
 Sono delle configurazioni fallaci, dovute all'errore umano durante la fase di scrittura del codice (dell'applicazione stessa, del framework o altro). Alcuni esempi sono:
 - ***Features*** ridondanti abilitate
 - Account con user e password di default
@@ -534,7 +834,7 @@ Sono delle configurazioni fallaci, dovute all'errore umano durante la fase di sc
 - Mancanza (o configurazione errata) di Security Headers
 - #directory-listing non disabilitate (pagine dalle quali è possibile vedere la struttura dell'app)
 - Applicazioni lasciate dalla fase di sviluppo 
-### Evitare le Security Misconfiguration
+#### Evitare le Security Misconfiguration
 Alcune note per evitare questi errori sono:
 - Implementare procedure ripetibili e sicure di installazione
 - Rimuovere le features non necessarie
@@ -542,53 +842,48 @@ Alcune note per evitare questi errori sono:
 - Automatizzare le procedure quando fattibile
 - Assicurare la corretta #configurazione e #deploy dei Security Header
 - Frammenta l'architettura dell'applicazione
-## Software and Data Integrity Failures
+### Software and Data Integrity Failures
 Si concentra sulla formulazione di ipotesi relative agli aggiornamenti del software, ai dati critici e alle pipeline #CI/CD (Continuous Implementation/Continuous Deployment) senza verificarne l'integrità. E' uno dei maggiori impatti #CVE e #CVSS. Si verifica quando:
 - Ci si affida a plugin da fonti non attendibili
 - La #pipeline non è sicura e permette accessi non autorizzati o l'inserimento di codice maligno
 - Le funzionalità di aggiornamento non verificano l'integrità dello stesso
 - I dati sono [codificati] o [serializzati] in modo che l'aggressore possa vedere e/o modificarli. 
-### Prevenzione
+#### Prevenzione
 - Utilizzo di firme digitali
 -  Utilizzo di #repository affidabili
 - Utilizzo di software appositi (OWASP Dependency Check)
 - Processo di revisione efficace delle modifiche del codice
 - La #pipeline CI/CD ha un'adeguata segregazione
 - I dati serializzati non firmati o non crittografati non vengano inviati al #client
-## Spoofing
-E' un attacco che può avvenire ad ogni livello della ISO-OSI e che consiste nella falsicifazione dell'identità e/o di altro tipo di informazioni applicative ([fonte](https://it.wikipedia.org/wiki/Spoofing)).
-
-### ARP Poisoning
-Consiste nel sostituirsi ad un altro dispositivo ad una [ARP request](./Tecnologie/Protocolli#ARP)
-## SSRF
+### SSRF
 La Server Site Request Forgery avviene quando una richiesta di input lato #server non avviene adeguatamente monitorata (spesso quando viene effettuata una #richiesta HTTP ad un sito di #terze-parti). Spesso avvengono sfruttando la fiducia tra due applicazioni durante lo scambio di dati tramite richieste #API o lo scambio di file e/o pacchetti per compiere azioni malevole contro il server dei soggetti terzi con cui avviene lo scambio, o contro il server stesso che compie la richiesta, ad esempio tramite i protocolli:
 - file://
 - TCP
-### Precauzioni contro l'SSRF
+#### Precauzioni contro l'SSRF
 - Implementare una lista di indirizzi autorizzati (quando possibile)
 - Disabilitare Schemi URL inutilizzati
 - Non consegnare risposte raw da richieste del server
 - Ridurre al minimo la fiducia del server confugurando correttamente delle regole limite del #firewall
-## Type juggling
+### Type juggling
 Durante il confronto tra una stringa e un numero, #PhP  tenta di convertire la stringa in un numero. Se la stringa non può essere convertita in un numero valido, viene automaticamente convertita nel valore 0.
 ```
 var_dump("password" == 0); //true
 ```
 Si può ovviare al problema utilizzando lo #strict-comparison-operator ===
-## Unsafe Deserialization
+### Unsafe Deserialization
 La #serializzazione è il processo di conversione dello stato di un oggetto o una struttura dati in un formato memorizzabile o trasferibile. La #deserializzazione è il processo inverso. 
-### Prevenire la unsafe deserialization
+#### Prevenire la unsafe deserialization
 - Utilizza formati di dati semplici ovunque possibile
 - Usa modelli di serializzazione che usino solo #dati-primitivi 
 - Usa modelli di serializzazione che permettano la crittazione e la decrittazione dei dati in maniera sicura
 - Sostituisci la serializzazione dei dati con formati di solo dati, come il JSON
-## Vulnerable and Outdated Components
+### Vulnerable and Outdated Components
 L'utilizzo di framework, sistemi operativi, software o componenti vulnerabili e/o datati possono creare dei punti critici di debolezza del nostro sito. E' possibile avere delle debolezze dovute a:
 - Mancata conoscenza di tutti o componenti utilizzati
 - Carente informazione e aggiornamento sulle ultime novità dei vari pacchetti
 - Mancato aggiornamento della piattaforma
 - Testing carente o assente della compatibilità a seguito di patch
-### Soluzioni
+#### Soluzioni
 - Eliminare le dipendenze inutilizzate
 - Inventariare continuamente le versioni dei componenti lato client e server
 - Monitorare costantemente fonti come [Common Vulnerability and Exposures] e [National Vulnerability Database]
@@ -596,7 +891,7 @@ L'utilizzo di framework, sistemi operativi, software o componenti vulnerabili e/
 - Monitorare le librerie e i componenti non manutenuti
 - Preferire componenti con firma digitale (sicurezza di integrità) 
 - Utilizzo di software di controllo per lo stato di aggiornamento delle dependencies (es. OWASP Dependencies Check)
-## XML Entity Expansion
+### XML Entity Expansion
 #xml è un formato testuale utilizzato per rappresentare informazioni strutturate. 
 Tramite attacchi #XEE è possibile:
 - vedere file nel server
@@ -642,27 +937,36 @@ POST http://www.vulnerableapp.com/xml HTTP/1.1<?xml version="1.0" encoding="ISO-
 </foo>
 ```
 
-### Prevenzione
+#### Prevenzione
 - Disabilitando la funzione Document Type Definition ( #DTD)
 	```
 	 disable_external_entities(true)
 	 ```
 - Gestire dati in formati semplici (es. #JSON )
 - Verificare in ambiente di #testing che le chiamate #xml abbiano le dovute restrizioni
-## XSS
+### XSS
 Il Cross-Site scriptinf si riferisce all'utilizzo di #script per manipolare le interazioni tra utente e sito web.
-### Reflected XSS
+#### Reflected XSS
 Viene utilizzato un link per far inviare all'utente colpito un codice malevolo per colpire il server del sito. Possono essere inviati, ad esempio, tramite siti malevoli o mail
-### Stored XSS
+#### Stored XSS
 Lo script viene memorizzato in una pagina del sito e quindi riprodotto ogni volta che viene richiamata la pagina stessa (anche su utenti diversi)
-### DOM-based XSS
+#### DOM-based XSS
 Blocchi di codice #JavaScript (quindi non controllabili tramite #csrf-token)
-### Pevenzione
+#### Pevenzione
 - preferire le #whitelist alle #blacklist anche per le #input-validation
 - Output encoding
 - Content Security Policy
 - utilizzare un framework moderno
 - in #PhP usare funzioni htmlentities() e htmlspecialchars() per effettuare l' #escaping delle variabili
+
+# Weakness
+Vulnerabilità
+
+## [Improper Restriction of XML external entity Reference](https://cwe.mitre.org/data/definitions/611.html)
+Tim Ferris - inventore di Wordpress
+
+Noto anche come #XEE, si verifica quando un entità XML contiene collegamenti ad altre entità XML non previste dal sistema, che permettono di inserire script malevoli per prelevare dati.
+
 # Strumenti di analisi
 ## Software
 ###  Static application security testing
@@ -771,6 +1075,144 @@ Permettono di evitare i #push contenenti #secret (dati sensibili, come password 
 - [[gitleaks]]
 ## Regression test
 Il #regression-test può essere fatto con [[Postman]], [[Python 1]] e consiste nell'analizzare il contenuto della #response ad una chiamata #http 
+
+# Protezione
+Esistono strumenti pensati per proteggere in maniera passiva i sistemi.
+## Antimalware
+Sono software utilizzati per identificare e impedire l'accesso ai [malware](#malware) all'interno del dispositivo. 
+I malware possono essere inseriti nel dispositivo in vari modi:
+- Download di antivirus da pop-up (o comunque da siti che siano diversi dal sito originale). Il software potrebbe essere stato alterato per contenere malware
+- Malware *fileless*, che si attivano all'avvio del Sistema operativo per poi disattivarsi al suo spegnimento
+- Script dannosi (indipendentemente dal linguaggio utilizzato)
+- Installazione non intenzionale di software di terze parti infettati
+### Antivirus
+Monitora di continuo il pc e, in caso riconosca un virus, lo mette in quarantena  o lo elimina
+
+### Anti-adware
+Cerca programmi che espongano pubblicità all'interno del computer
+
+### Anti-phishing
+Blocca gli indirizzi IP di noti siti di Phishing e avvisa l'utente riguardo i sisti sospetti
+
+### Anti-spyware
+Programma che cerca keyloggers e altri spyware
+
+## Boot integrity
+Software che permette di stabilire se un sistema possa essere considerato affidabile, o se sia stato modificato durante la fase di avvio o caricamento.
+viene salvato un firmware (un software che esegue semplici funzioni di base del computer) all'interno della scheda madre e viene eseguito come primo passaggio dal computer.
+### Secure Boot
+E' stata creata una nuova Interfaccia di Firmware Unificata ed Estensibile (UEFI) come nuova versione di BIOS, che definisce la nuova interfaccia standard per operazioni tra firmware, sistema operativo e device esterni (funziona solo in modalità 64-bit). 
+
+Il firmware controlla l'affidabilità di ogni parte del software di avvio, inclusi i driver di firmware UEFI, le applicazioni UEFI e il sistema operativo. Se le firme sono valide, il sistema si avvia.
+
+### Measured Boot
+Provvede un protocollo di validazione più forte del Secure boot, in quanto misura tutti i vari componenti e ne salva un log all'interno del chip TMP, che potrà essere utilizzato per effettuare test di controllo da remoto. Permette anche di identificare applicazioni non fidate e di caricare prima gli anti'malware.
+
+## Firewall
+Sono software che permettono di filtrare i messaggi in ingresso in una rete. Devono essere
+- Resistenti agli attacchi informatici
+- Devono essere l'unico punto di contatto tra una LAN e una WAN
+- Applicano le [Policy di Controllo degli Accessi](#ACP)
+
+### Packet filtering
+Chiamati anche Stateless, sono firewall che sostanzialmente impediscono le comunicazioni basandosi su informazioni di livello 3 (Network) o livello 4 (Trasporto). Di solito fanno parte del Router Firewall.
+
+I benefici sono:
+- Facilità di implementazione di nuove regole
+- basso impatto sulle performance
+- facili da implementare e supportate dalla maggior parte dei router
+- offrono un grado iniziale di protezione al livello Network
+- svolgono quasi tutte le funzioni dei firewall più costosi ad una frazione del costo
+
+I lati negativi invece sono:
+- Sono suscettibili allo [spoofing](#sppoofing) IP
+- non filtrano efficacemente pacchetti frammentati
+- utilizzano ACL complesse, che sono difficili da implementare e manutenere
+- Non possono filtrare dinamicamente certi servizi.
+
+### Stateful firewall
+Sono i più versatili in quanto offrono meccanismi di protezione basati su informazioni a livello 3, 4 e 5 (Sessione) della pila ISO/OSI e permette di salvare le informazioni sui dati in un'apposita tabella dello stato.
+
+Benefici:
+- Sono spesso usati come primo mezzo di difesa grazie alla funzione di filtro offerta
+- rinforzano il filtraggio dei pacchetti grazie alla possibilità di implementare controlli più rigidi
+- Performance migliori rispetto ai [packet filtering](<#packet filtering>) firewall
+- buona difesa contro attacchi [DOS](#DOS)
+- offrono più informazioni nei log
+
+Contro:
+- Non prevengono attacchi a livello 7 - Applicazione
+- non tutti i protocollo sono stateful (UDP e ICMP non lo sono)
+- difficoltà nel tracciare connessioni che usano porte dinamiche
+- non supportano autenticazione dell'utente
+
+### HBF
+L'Endpoint firewall (o Host-based Firewall) è un [firewall](#Firewall) installato sul dispositivo stesso, utilizzato per consentire o negare il traffico del dispositivo con il resto della rete in base a meccanismi di controllo (bloccando la porta nella quale è in corso la sessione identificata come pericolosa) che funzionano però solo per connessioni aperte dall'host stesso.
+Alcuni HBF includono meccanismi di protezione delle Tabelle IP e dei TCP Wrapper.
+
+### Application Gateway firewall
+Blocca le connessioni ai livelli 3,4,5 e 7 (Applicazione) tramite utilizzo di un Proxy che funge da tramite per le connessioni tra gli endpoint all'interno della rete e l'esterno.
+
+### Firewall di ultima generazione
+Permettono di:
+- Integrare sistemi di prevenzione delle intrusioni
+- Aggiungere coscienza e controllo del livello 7 (Applicazione) per vedere e bloccare software rischiosi
+- Aggiornano i percorsi al fine di includere informazioni future
+- Tecniche per identificare le [minacce](#Threat) della sicurezza in evoluzione
+
+### Firewall trasparente
+Filtra il traffico IP tra una coppia di interfacce a ponte.
+
+### Firewall ibrido
+Una combinazione di due o più firewall tra quelli sopra menzionati.
+
+## Host encryption
+L'esempio più noto è l'[EFS](../os/windows#efs) (Windows Encrypting File System, ovvero Sistema di Crittazione dei File), che permette, appunto, di crittare file, cartelle, o l'intero hard drive.
+In quest'ultimo caso (noton anche come FDE, o Full-Disk Encryption), Windows si appoggia a BitLocker, che permette di utilizzare il BIOS come Modulo di Piattaforma Fidata (TPM).
+Il TPM è un chip specializzato, presente nella scheda madre, che salva le informazioni relative al sistema dell'host, come;
+- Chiavi di crittazione
+- Certificati digitali
+- Misure di integrità del sistema
+BitLocker To Go permette di cifrare dispositivi rimuovibili senza l'uso del TPM.
+## Patch Management
+Le patch sono aggiornamenti di software per risolvere [vulnerabilità](#weakness) presenti nel software stesso. Di solito il sistema operativo controlla e installa automaticamente le patch.
+A livello aziendale, spesso gli aggiornamenti vengono analizzati dal team di Cybersecurity prima di venire installati nei dispositivi all'interno della rete. Per facilitare questo compito, esistono i Patch Manager, ovvero software che permettono una gestione facilitata degli aggiornamenti delle patch, grazie al controllo tramite un'unica piattaforma la gestione delle patch per tutti i dispositivi della rete.
+
+## Minacce WLAN
+Le connessioni WLAN hanno il rischio extra di poter essere disturbate e/o intercettare da utenti malevoli (o ricevere altri tipi di disturbi).
+## Endpoint security
+
+### HBSS
+I Sistemi di Sicurezza Basati sull'Host raccolgono tutti i principali sistemi di protezione (malware, firewall, prevenzione di intrusione) i un unico ambiente. AV-TEST offre analisi indipendenti di alta qualità dei sistemi di protezione host-based.
+
+### Protezione dai malware Host-based
+La Protezione dai Malware Basata sull'Host è utilizzata per protegger ei  dispostivi end-point da malware.
+
+#### Antivirus/antimalware
+Utilizzato per identificare e mitigare virus/malware. Il processo di identificazione dei virus avviene seguendo una di queste tre metodologie:
+- Basato sulla firma
+- Basato sull'euristica (ovvero riconosce caratteristiche generalmente presenti all'interno dei virus)
+- Basato sul comportamento
+Di solito controllano l'end-point in tempo reale, verificando il traffico in corso. Nel caso l'antivirus sia installato in ogni host si chiama anche agent-based altrimenti, nel caso venga installato in un sistema centralizzato, si chiama agentless (utilizzati specialmente in ambito di virtualizzazione). L'agentless consuma anche meno risorse rispetto ad un sistema che utilizza antimalware agent'based su ogni endpoint. 
+
+### HIDS
+I Sistemi di identificazione dell'intrusione di Host sono software installati sul dispositivo (o nel server) per identificare l'eventuale presenza di attività sospetta e monitora eventuali richieste malevole e le registra nel Registro di Sistema.
+Sono software che consumano molte risorse e che potrebbero rallentare le prestazioni del dispositivo su cui sono installate.
+
+### HIPS
+I Sistemi di Prevenzione dell'Intrusione di Host sono software che monitorano l'attività del dispositivo e ricerca la presenza di attacchi conosciuti, anomalie o segnali di allarme tramite all'interno dei pacchetti in transito.
+Nel caso identifichi un'attività sospetta, il software allerta l'utente, logga l'attività sospetta, resetta la connessione e, in caso, effettua il drop del pacchetto.
+
+### EDR
+L'Endpoint Detection and Reponse è una soluzione che monitora costantemente il dispositivo endpoint e ne raccoglie dati. Analizza i dati raccolti e risponde a tutte le minacce identificate.
+Mentre un [antivirus](#antivirus) permette solo di bloccare l'accesso di un virus, un EDR può anche identificare le minacce presenti già all'interno del dispositivo.
+
+### DLP
+Il Data Loss Prevention (Prevenzione della Perdita di Dati) è un software che serve ad assicurare che i dati sensibili non vengano persi, utilizzati in modo errato o visualizzati da utenti non autorizzati.
+
+### NGF
+I Firewall di nuova generazione (New Generation Fierewall) sono dispositivi che combinano le classiche funzionalità di un firewall con altre funzionalità di filtraggio degli host all'interno della rete tramite inline Deep Packet Inspection(DPI, Ispezione profonda dei pacchetti) o sistemi IPS (Sistema di Protezione dalle Intrusioni).
+
 
 # Normativa
 ## Italia

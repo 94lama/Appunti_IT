@@ -168,6 +168,9 @@ Si compone della rete di [router](./Macchina#Router) che permettono il collegame
 ### Core
 E' responsabile della velocità della rete, raccogliendo tutti i fissi di dati inviati dai router e trasmetterli su [internet](<#Rete pubblica>). Consiste in un router super performante, con connessioni ridondanti (backup) e capace di trasmettere grandi quantità di dati in poco tempo. Un esempio di dispositivo commerciale di Core è il Cisco Catalyst 9600.
 
+# PAN
+La Personal Area Network, o area di lavoro personale, rappresenta l’insieme di dispositivi utilizzati dallo stesso utente (computer, smartphone, mouse, monitor, ecc) collegati tra loro di solito tramite Bluetooth.
+
 # LAN
 Local Area Network ( #LAN) è il sinonimo di Rete Locale. Nel caso due dispositivi si trovino nella stessa LAN, la rete di comunicazione è diretta.
 Una rete locale consiste in una serie di dispositivi collegati tra loro. I principali sono:
@@ -175,10 +178,51 @@ Una rete locale consiste in una serie di dispositivi collegati tra loro. I princ
 - Router: permette di connettersi alla [rete pubblica](<#Rete pubblica>) se ha anche funzionalità di [gateway](#Gateway) ([vedi differenze](https://community.fs.com/it/article/router-vs-gateway-what-is-the-similarity-and-difference.html)) o ad altre LAN;
 - Dispositivi [endpoint](./Networking#Endpoint).
 Nel caso di reti LAN aziendali, spesso esse vengono suddivise in [sottoreti](#Subnetting) tramite router, per facilitare i controlli di sicurezza, evitare il sovraffollamento o raggruppare i nodi secondo categorie (es. localizzazione geografica dei nodi, mansione lavorativa dei dipendenti, ecc.).
-# Rete pubblica
-Nota anche come Wide Area Network ( #WAN). Nel caso due dispositivi vogliano comunicare tramite WAN, la comunicazione passa dal #gateway, ovvero un macchinario fornito da un #provider, che permette l'instradamento dei pacchetti all'interno di una rete, che dirige le comunicazioni con i dispositivi connessi alla rete pubblica.
+
+## VLAN
+LAN di tipo virtuale, utilizzata per raggruppare diversi dispositivi all’interno di una rete tramite l’uso di uno Switch.
+
+## WLAN
+LAN collegata tramite tecnologia wireless (tipica rete domestica, dove i dispositivi sono connessi wireless al router). I protocolli di comunicazione più comuni sono [codificati dall'IEEE](https://it.wikipedia.org/wiki/IEEE_802.11):
+- 802.11
+- 802.11a
+- 802.11b
+- 802.11e
+- 802.11f
+- 802.11g
+- 802.11-2007
+- 802.11n (Wi-Fi 4)
+- 802.11s
+- 802.11ac
+- 802.11ax
+- 802.11axe
+- 802.11be
+- 802.11mc
+- 802.11p
+### WMN
+La Wireless Mesh Network utilizza multipli Access Point (AP, Punti di accesso).
+
+## CAN
+La Campus Area Network rappresenta u n gruppo di LAN interconnesse tra loro, appartenenti alla stessa organizzazione e operanti in una zona geografica limitata.
+
+## MAN
+La Metropolitan Area Network è una rete estesa a livello di campus o urbano, composta da diversi edifici connessi tramite connessione wireless o fibra ottica.
+
+## Autenticazione
+L'Autenticazione è una questione cruciale nelle reti LAN, siano esse pubbliche o private. L'autenticazione può avvenire tramite metodo Open o tramite condivisione di chiavi.
+
+### Open
+Permette di connettersi liberamente ad una rete. Sono consigliate solo nel caso la rete sia offerta al pubblico, senza che ci siano problematiche dal punto di vita della sicurezza.
+
+### Chiave condivisa
+SI utilizzano protocolli di connessione wireless crittati ([WEP], [WPA](./Protocolli#WPA), [WPA2], [WPA3])
+
+# WAN
+La Rete pubblica, nota anche come Wide Area Network ( #WAN). Nel caso due dispositivi vogliano comunicare tramite WAN, la comunicazione passa dal #gateway, ovvero un macchinario fornito da un #provider, che permette l'instradamento dei pacchetti all'interno di una rete, che dirige le comunicazioni con i dispositivi connessi alla rete pubblica.
 
 # VPN
+LA Virtual Private Network (Rete Privata Virtuale) è una rete utilizzata per connettersi ad una rete da parte in remoto in modo sicuro.
+
 ## Best practices
 - Vrifica delle perdite DNS e IP (DNS Leak Test)
 - Attiva il Kill Switch per verificare se la VPN è in uso o meno (se non in uso blocca le trasmissioni)

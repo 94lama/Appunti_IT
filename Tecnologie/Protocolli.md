@@ -257,7 +257,7 @@ Un ARP reply contiene:
 #### ARP table
 Per identificare un indirizzo MAC partendo da un IP, il computer è dotato di una tabella degli indirizzi ARP (o Cache ARP), memorizzata nella [RAM](./Macchina#RAM). Ogni riga della tabella che non viene utilizzato per un determinato arco di tempo (di solito tra i 15 e i 45 secondi), viene rimosso.
 
-Se si invia il comando ```arp -a``` su [Windows](<./../Sistemi operativi/Windows>), sarà possibile vedere la [Tabella degli indirizzi ARP](<#ARP table>) del dispositivo
+Se si invia il comando ```arp -a``` su [Windows](<Windows.md>), sarà possibile vedere la [Tabella degli indirizzi ARP](<#ARP table>) del dispositivo
 
 | Internet address | Physical address | Type    |
 | ---------------- | ---------------- | ------- |
@@ -282,11 +282,12 @@ Nel caso di rete wireless, il Router lavora sia da DHCP client (in quanto elabor
 4. Il Server aggiorna la Tabella degli indirizzi IP ed invia un messaggio di accettazione (Acknowledgement, che può essere **DHCPACK** in caso di risposta positiva, o **DHCPNACK** in caso di risposta negativa).
 
 Nel caso di IPv6, il protocollo cambia i nomi delle richieste (mantenendone la ratio):
-1.  **SOLICIT**
-2. **ADVERTISE**
-3. **INFORMATION**
-4. **REQUEST**
-5. **REPLY**
+1.  **SOLICIT** (DHCPDISCOVER)
+2. **ADVERTISE** (DHCPOFFER)
+3. **INFORMATION** (DHCPINFORM o DHCPREQUEST)
+4. **REQUEST** (DHCPREQUEST)
+5. **REPLY** (DHCPACK o DHCPNACK)
+
 
 
 ### DNS
@@ -345,7 +346,15 @@ Identifica eventuali parametri utilizzati durante la chiamata all'interno dell'U
 ```
 
 
+### EUI-64
+Protocollo definito dalla IEEE per generare indirizzo IPv6 [GUA](#ipv6#gua), che utilizza l'indirizzo [MAC](#MAC) di un client (48-bit), gli aggiunge altri 16-bit tra i due blocchi (codice produttore (OUI) e numero dispositivo). Questi 16 bit sono a loro volta scomponibili in:
+1. Primo ottetto dell'OUI
+2. Primo ottetto dell'OUI avente come ultima cifra:
+	1. 0 - Nel caso di indirizzo statico
+	2. 1 - Nel caso di dispositivo collegato alla rete
+
 ### ICMP
+#### Descrizione
 L'Internet Control Message Protocol è utilizzato per inviare messaggi informativi relativi allo stato delle sessioni IP (disponibile sia per IPv4 che per IPv6). I messaggi si possono dividere in categorie, in base alla loro funzione:
 
 #### Raggiungibilità
@@ -380,9 +389,21 @@ Sono di due tipi: Advertisement (RA) e Solicitation (RS).
 - RS - L'host invia un messaggio di richiesta per in indirizzo IPv6 al router e rimane in attesa di un messaggio RA che permetta di creare automaticamente un indirizzo IPv6 tramite protocollo SLAAC.
 
 ##### Network
-Sono i messaggi inviati alla rete in generale e sono di due tipi: Advertisement (NA) e Solicitation (NS)
-- NS - è utilizzato per effettuare un [DAD](#DAD) a seguito di una auto-assegnazione di indirizzo IPv6 tramite SLAAC.
-- NA - utilizzato per l'invio di messaggi [./Reti#Unicast] ad altri dispositivi. Viene usato, ad esempio, per rispondere ad un NS nel caso l'indirizzo IP risulti duplicato.
+Sono i messaggi inviati alla rete locale in generale ([Local-Link](#IPv6) scope) e sono di due tipi: Advertisement (NA) e Solicitation (NS)
+- NS - è utilizzato per effettuare un [DAD](#DAD) a seguito di una auto-assegnazione di indirizzo IPv6 tramite SLAAC. E' un messaggio inviato in [multicast](./Reti#Multicast) (Segnalato nell'indirizzo [MAC](#MAC) di destinazione)
+- NA - utilizzato per l'invio di messaggi [unicast](./Reti#Unicast) ad altri dispositivi. Viene usato, ad esempio, per rispondere ad un NS nel caso l'indirizzo IP risulti duplicato.
+
+##### ND
+Il protocollo ND, o Neighbor Discovery Protocol (letteralmente protocollo di scoperta dei vicini). Si utilizza per fornire 3 servizi:
+- Risoluzione degli indirizzi
+- Fornire servizi di redirezione
+- Router discovery
+E' un protocollo che si basa sull'utilizzo di messaggi ICMP per costruire la propria tabella degli indirizzi MAC, avendo come base gli indirizzo IPv6 dei dispositivi connessi alla [rete](,.Reti#LAN). Il protocollo si compone di 5 passaggi:
+1. Messaggi NS (Network Solicitation) per fornire una risoluzione di indirizzo (?)
+2. Ricezione dei messaggi NA per supportare l'allocazione degli indirizzi e la SLAAC
+3. Messaggio RS, per migliorare il parametro [Hop limit](#IP#Header)
+4. Ricezione del messaggio RA (Router advertisement)
+5. Redirezione del messaggio (?)
 
 ### IP
 #### Descrizione
@@ -472,8 +493,132 @@ Gli indirizzi IPv4 possono essere privati (indicati anche come indirizzi privati
 
 La traduzione da IP privato a pubblico avviene tramite [NAT], ovvero Network Address Translation (di solito la funzione è svolta dal [Router])
 
-##### Notazione CIDR
-Aggiunge all'indirizzo IPv4 una indicazione relativa alla [maschera di sottorete](<./Reti#Subnet mask>). La notazione #cidr consiste nell'accoppiare l'indirizzo IPv4 ad un secondo numero (di solito una potenza di 2), fino ad un massimo di 31 e permette di identificare il numero massimo di macchine  collegabili alla sottorete di riferimento.
+##### Indirizzi IPv4 speciali
+Alcuni indirizzi IP sono dedicati a funzionalità specifiche, come il [broadcast]() di messaggi e gli indirizzi di rete e non possono essere assegnati agli **host**.
+Alcuni indirizzi IP sono dedicati a funzionalità specifiche, come il [broadcast]() di messaggi e gli indirizzi di rete e non possono essere assegnati agli **host**.
+
+###### Loopback
+Gli indirizzi loopbacksono utilizzati da un host per attrarre il traffico su se stesso (ad esempio per effettuare il **ping**)
+```
+127.0.0.0/8
+127.0.0.1
+127.255.255.254
+```
+###### Link-local
+Gli indirizzi link local sono usati per l'assegnazione automatica degli indirizzi IP (Automatic Private IP Addressing, o APIPA). Sono utilizzati dai client Windows per l'autoconfigurazione nel caso gli altri metodi di configurazione non abbiano avuto successo. Possono anche essere usati per il peer-to-peer (connessione paritaria tra due dispositivi, ovvero nella quale entrambi siano sia client che server, ovvero equivalenti).
+
+##### Indirizzamento Legacy Classful
+Ideato nel 1981, consisteva nella classificazione degli indirizzi in 5 categorie, in base alla numerazione dell'IP
+- Classe A (0.0.0.0/8 - 191.255.0.0/16), per le reti di grandi dimensioni (più di 16 milioni di hosts)
+- Classe B (128.0.0.0/16 - 191.255.0.0/6), per le reti medio-grandi (in media 65.000 hosts)
+- Classe C (192.0.0.0/24 - 233.255.255.0/24) per supportare reti di piccole dimensioni, con massimo 254 hosts
+- Classe D (224.0.0.0 - 239.0.0.0), dedicata al [multicast](#multicast)
+- Classe E (240.0.0.0 - 255.0.0.0), sperimentale.
+Questa classificazione è diventata antiquata a metà degli anni 90, con l'introduzione del World Wide Web, che ha portato un'evoluzione ad un raggruppamento senza classificazione, basato sull'allocazione degli indirizzi IP in base al numero di indirizzi che possono essere giustificati. La gestione degli stessi è affidata allo IANA (Autorità per l'Assegnazione dei Numeri in Internet), che smista gli indirizzi in base al RIR (Registro Internet Regionale) di riferimento, che gestisce i vari ISP (Internet Service Provider) locali:
+- **AfriNIC** (African Network Information Centre) - Africa Region
+- **APNIC** (Asia Pacific Network Information Centre) - Asia/Pacific Region
+- **ARIN** (American Registry for Internet Numbers) - North America Region
+- **LACNIC** (Regional Latin-American and Caribbean IP Address Registry) - Latin America and some Caribbean Islands
+- **RIPE NCC** (Réseaux IP Européens Network Coordination Centre) - Europe, the Middle East, and Central Asia
+
+#### IPv6
+##### Descrizione
+E' un'evoluzione dell'[IPv4](#IPv4), ideata per risolvere il problema della carenza di disponibilità di nuovi indirizzi. L'IPv6 è un codice di lunghezza pari a 128bit (rispetto ai 32 dell'IPv4), consistente in 8 blocchi di codice esadecimale da 64 bit l'uno: ogni blocco ha un valore minimo di **0000** ad un massimo di **ffff**.
+```
+2001:0db8:acad:a088:0000:0000:0000:0123 = 128 bit
+0db8 = 16 bit
+0 = 0000 (4bit)
+d = 1101 (4bit)
+b = 1011 (4bit)
+8 = 1000 (4bit)
+```
+
+Come nel caso dell'IPv4, anche l'IPv6 può essere **pubblico** o **privato** (anche il funzionamento è simile). Nel primo caso si parla di [GUA](#GUA) (Global Unicast Address), mentre nel secondo di [LLA](#LLA) (Link-Local Address). 
+##### Struttura
+Può essere diviso in Prefisso e ID dell'interfaccia. Assieme questi due dati (aventi come somma delle lunghezze 128 bit), permettono di identificare con precisione il dispositivo di destinazione e la sottorete di riferimento:
+```IPv6
+[Prefisso]            [ID dell'interfaccia]
+2001:0db8:000a:0000 + 0000:0000:0000:0000
+```
+
+E' possibile rappresentare l'ID dell'interfaccia tramite [notazione CIDR](#CIDR), indicando la lunghezza dell'ID al termine del Prefisso (separati da uno "/"):
+```IPv6
+2001:0db8:000a::/64
+```
+
+**N.B.** E' consigliato utilizzare sempre un CIDR di 64, poiché il protocollo [SLAAC](#SLAAC) usa questo numero come predefinito per l'ID dell'interfaccia e quindi facilita la creazione e la gestione delle sottoreti.
+
+Anche in questo caso, ci sono dei metodi predefiniti di comunicazione all'interno della stessa [LAN](./Reti#LAN):
+- [Unicast](./Reti#Unicast)
+- [Multicast](./Reti#Multicast)
+- Anycast, simile alla [boradcast](./Reti#Broadcast).
+
+Gli indirizzi Anycast si presentano quando più dispositivi condividono ko stesso IPv6.
+
+**N.B.** Il metodo Broadcast è accessibile tramite comunicazione multicast aperta a tutti i dispositivi.
+##### Convenzioni
+Si usano delle convenzioni per descrivere un indirizzo IPv6:
+- Si omettono gli zeri a sinistra del blocco (es. 00b2 diventa b2)
+- Due blocchi si separano dai due punti ```:```
+- Se uno o più blocchi consecutivi hanno valore vuoto, vengono saltati e rappresentati semplicemente con ```::```.
+- La regola precedente può essere utilizzata solo una volta
+Quindi il blocco può essere rappresentato anche in forma compressa
+```
+Forma estesa:
+2001:0db8:acad:0000:a088:0000:0000:0123
+
+Forma compressa:
+2001:db8:acad:0:a088::123
+```
+
+Il protocollo IPv6, a differenza del suo [predecessore](#IPv4), non permette la frammentazione dei dati da parte del [router](./Macchina#Router).
+##### GUA
+Deve esser unico a livello globale, come nel caso degli indirizzi pubblici in [IPv4](#IPv4) e può essere scomposto in 3 parti:
+- [Prefisso](#ipv6#struttura) globale di routing;
+- ID di sottorete;
+- ID dell'interfaccia.
+
+E' possibile ottenere un GUA in 3 modi:
+- **SLAAC**: metodo **stateless** (ovvero non necessita che le informazioni vengano salvate da nessuna dispositivo) che prevede l'autoassegnazione di un IPv6 e la successiva comunicazione agli altri router;
+- **SLAAC** e **stateless DHCPv6 Server**: Dopo aver creato il proprio indirizzo GUA, il dispositivo invia dati relativi indirizzo del **server DNS** e **nome del dominio** al server DHCP
+- **Stateful DHCP**: Dopo un ciclo RA/RS con il router, il dispositivo invia un [DHCP solicit](<#DHCP#Configurare una rete con DHCP>) ad Server DHCP per ottenere un indirizzo IPv6 a registrare i propri dati sul server.
+In ognuno dei tre casi, il dispositivo potrà effettuare una chiamata [DAD](#DAD) per verificare che l'indirizzo sia effettivamente libero.
+
+**N.B.** Nel terzo caso l'IP verrà assegnato tramite protocollo [EUI-64](#eui-64) e non tramite [SLAAC](#slaac), quindi non sarà generato randomicamente dal dispositivo, ma avrà dal server (che conferirà di default un [CIDR](#cidr) di /64)
+
+L'IAAA ha assegnato agli indirizzi pubblici i seguenti prefissi globali di routing:
+- 001
+- 2000::/3
+Il GUA è composto da 3 parti:
+- Prefisso globale di routing
+- ID di sottorete
+- ID dell'interfaccia
+##### LLA
+Comparabile ad un indirizzo [IPv4](#IPv4) privato. E' identificabile dall'indirizzo riantrante nel range **fe80::/10** (ovvero tutti gli indirizzi inclusi tra fe80:: e febf::).
+
+Come nel caso degli IPv4 privati, anche un IPv6 privato può essere assegnato in maniera statica o dinamica (di solito tramite il metodo [EUI](#EUI), ovvero Extended Unique Identifier).
+##### Migrazione da IPv4 a IPv6
+La migrazione da IPv4 a IPv6 è stata programmata per avvenite nell'arco di anni, nei quali i tecnici potranno aggiornare le reti tramite 3 tecnologie principali:
+###### Router dual stack
+Permettono di utilizzare contemporaneamente sia l'IPv4 che l'IPv6 per la stessa rete. 
+###### Tunneling
+Permette di tradurre un indirizzo IPv6 in una rete con IPv4 tramite #incapsulamento
+###### Traduzione
+Il NAT64 (Network Address Translation 64) permette ai dispositivi abilitati all'IPv6 di comunicare con i dispositivi IPv4 tramite una tecnologia simile al NAT per IPv4, effettuando una traduzione dell'intero pacchetto.
+
+##### ULA
+Gli Unique Local Addresses, o indirizzi locali unici (leggi predefiniti) sono:
+
+| Indirizzo     | Utilizzo                             |
+| ------------- | ------------------------------------ |
+| 001           | GUA                                  |
+| 2000::/3      | GUA                                  |
+| 2001:db8::/32 | Documentazione                       |
+| fe80::/10     | IP privati                           |
+| ff02::1       | Multicast a tutti i nodi della LAN   |
+| ff02::2       | Multicast a tutti i router della LAN |
+#### CIDR
+Aggiunge all'indirizzo IPv4 (o IPv6) una indicazione relativa alla [maschera di sottorete](<./Reti#Subnet mask>). La notazione #cidr consiste nell'accoppiare l'indirizzo IPv4 ad un secondo numero (di solito una potenza di 2), fino ad un massimo di 31 e permette di identificare il numero massimo di macchine  collegabili alla sottorete di riferimento.
 Il numero (anticipato sempre dal simbolo **/**), identifica il numero di bit riservati alla [maschera di sottorete](<./Reti#Subnet mask>). Per identificare l'IP della sottorete di riferimento basta effettuare un [AND logico](<./Operatori#Moltiplicazione booleana>) tra indirizzo IP e maschera di sottorete:
 
 ```
@@ -506,74 +651,38 @@ broadcast =   192.168.  2.255
 Ovvero:
 ![[./../Immagini/Pasted image 20241001184553.png]]
 
-##### Indirizzi IPv4 speciali
-Alcuni indirizzi IP sono dedicati a funzionalità specifiche, come il [broadcast]() di messaggi e gli indirizzi di rete e non possono essere assegnati agli **host**.
-Alcuni indirizzi IP sono dedicati a funzionalità specifiche, come il [broadcast]() di messaggi e gli indirizzi di rete e non possono essere assegnati agli **host**.
-
-###### Loopback
-Gli indirizzi loopbacksono utilizzati da un host per attrarre il traffico su se stesso (ad esempio per effettuare il **ping**)
-```
-127.0.0.0/8
-127.0.0.1
-127.255.255.254
-```
-###### Link-local
-Gli indirizzi link local sono usati per l'assegnazione automatica degli indirizzi IP (Automatic Private IP Addressing, o APIPA). Sono utilizzati dai client Windows per l'autoconfigurazione nel caso gli altri metodi di configurazione non abbiano avuto successo. Possono anche essere usati per il peer-to-peer (connessione paritaria tra due dispositivi, ovvero nella quale entrambi siano sia client che server, ovvero equivalenti).
-
-##### Indirizzamento Legacy Classful
-Ideato nel 1981, consisteva nella classificazione degli indirizzi in 5 categorie, in base alla numerazione dell'IP
-- Classe A (0.0.0.0/8 - 191.255.0.0/16), per le reti di grandi dimensioni (più di 16 milioni di hosts)
-- Classe B (128.0.0.0/16 - 191.255.0.0/6), per le reti medio-grandi (in media 65.000 hosts)
-- Classe C (192.0.0.0/24 - 233.255.255.0/24) per supportare reti di piccole dimensioni, con massimo 254 hosts
-- Classe D (224.0.0.0 - 239.0.0.0), dedicata al [multicast](#multicast)
-- Classe E (240.0.0.0 - 255.0.0.0), sperimentale.
-Questa classificazione è diventata antiquata a metà degli anni 90, con l'introduzione del World Wide Web, che ha portato un'evoluzione ad un raggruppamento senza classificazione, basato sull'allocazione degli indirizzi IP in base al numero di indirizzi che possono essere giustificati. La gestione degli stessi è affidata allo IANA (Autorità per l'Assegnazione dei Numeri in Internet), che smista gli indirizzi in base al RIR (Registro Internet Regionale) di riferimento, che gestisce i vari ISP (Internet Service Provider) locali:
-- **AfriNIC** (African Network Information Centre) - Africa Region
-- **APNIC** (Asia Pacific Network Information Centre) - Asia/Pacific Region
-- **ARIN** (American Registry for Internet Numbers) - North America Region
-- **LACNIC** (Regional Latin-American and Caribbean IP Address Registry) - Latin America and some Caribbean Islands
-- **RIPE NCC** (Réseaux IP Européens Network Coordination Centre) - Europe, the Middle East, and Central Asia
-
-#### IPv6
-E' un'evoluzione dell'[IPv4](#IPv4), ideata per risolvere il problema della carenza di disponibilità di nuovi indirizzi. L'IPv6 è un codice di lunghezza pari a 128bit (rispetto ai 32 dell'IPv4), consistente in 8 blocchi di codice esadecimale da 64 bit l'uno: ogni blocco ha un valore minimo di 0000 ad un massimo di ffff.
-```
-2001:0db8:acad:a088:0000:0000:0000:0123 = 128 bit
-0db8 = 16 bit
-0 = 0000 (4bit)
-d = 1101 (4bit)
-b = 1011 (4bit)
-8 = 1000 (4bit)
-```
-
-**ATTENZIONE**
-Si usano delle convenzioni per descrivere un indirizzo IPv6:
-- Si omettono gli zeri a sinistra del blocco (es. 00b2 diventa b2)
-- Due blocchi si separano dai due punti ```:```
-- Se uno o più blocchi consecutivi hanno valore vuoto, vengono saltati e rappresentati semplicemente con ```::```.
-- La regola precedente può essere utilizzata solo una volta
-Quindi il blocco può essere rappresentato anche in forma compressa
-```
-Forma estesa:
-2001:0db8:acad:0000:a088:0000:0000:0123
-
-Forma compressa:
-2001:db8:acad:0:a088::123
-```
-
-Il protocollo IPv6, a differenza del suo [predecessore](#IPv4), non permette la frammentazione dei dati da parte del [router](./Macchina#Router).
-##### Migrazione da IPv4
-La migrazione da IPv4 a IPv6 è stata programmata per avvenite nell'arco di anni, nei quali i tecnici potranno aggiornare le reti tramite 3 tecnologie principali:
-###### Router dual stack
-Permettono di utilizzare contemporaneamente sia l'IPv4 che l'IPv6 per la stessa rete. 
-###### Tunneling
-Permette di tradurre un indirizzo IPv6 in una rete con IPv4 tramite #incapsulamento
-###### Traduzione
-Il NAT64 (Network Address Translation 64) permette ai dispositivi abilitati all'IPv6 di comunicare con i dispositivi IPv4 tramite una tecnologia simile al NAT per IPv4, effettuando una traduzione dell'intero pacchetto.
-
 ### SSL
 Secure Socket Layer
 ### TSL
 Versione aggiornata di [[#SSL]]
+
+### WPA
+Wi-fi Protected Access è un'evoluzione del WEP, che utilizza un metodo di crittazione [TKIP] (Protocollo di Integrità Temporale della Chiave) per crittare la chiave in maniera dinamica (cambia ad ogni pacchetto inviato).
+La versione personal richiede l'immissione di una password per ottenere l'accesso alla rete.
+
+### WPA2
+Evoluzione del WPA, utilizza il metodo di crittazione [AES] (Standard di Crittazione Avanzato). Come il WPA, richiede l'immissione di una password preimpostata per ottenere l'accesso nella versione Personal.
+
+### WPA3
+E' attualmente il metodo di protezione delle reti wireless più avanzato. Implementa gli ultimi metodi di sicurezza e impedisce l'uso dei metodi Legacy (datati). Non tutti i dispositivi sono abilitati all'uso di questo protocollo.
+Rispetto al WPA2, questo protocollo protegge anche dall'ascolto della comunicazione durante la fase di handshake dei dispositivi e del successivo uso del brute-force per identificare la chiave PSK.
+Questa casistica si evita grazie all'uso dell'Autenticazione Simultanea tra Eguali (SAE).
+
+Questo protocollo agevola anche la comunicazione con i dispositivi IoT tramite protocollo [DDP] (Protocollo di Approvvigionamento del Dispositivo), che permette a dispositivi *headless* (senza interfaccia grafica per cambiare le impostazioni) una connessione agevole e sicura alla rete.
+
+### WEP
+Versione datata di comunicazione per connessioni wireless tramite protocollo [RC4]. Ormai sostituita dai protocollo WPA. E' uno dei protocolli ammessi nel frame di controllo dello standard 802.11 ed il primo utilizzato per mettere in sicurezza le comunicazioni tramite chiave statica.
+
+### TKIP
+
+### AES
+Lo Standard Avanzato di Crittazione utilizza il protocollo CCMP (Protocollo per il Codice di Autenticazione Anti-Cifratura con Messaggio di Autenticazione tramite Block Chain)
+
+### PSK
+Chiave Pre-Condivisa
+
+### RADIUS
+Il Servizio di Autenticazione Utente Remota Dial-In è tilizzato nelle reti Enterprise
 
 ## Data link
 Gestisce l'instradamento dei **frame** a livello Fisico. Lo [switch](./Macchina#Switch) è un esempio di dispositivo che si occupa della gestione dei protocolli in questo livello. A differenza degli altri protocolli, questo livello aggiunge sia un header che un trailer al PDU. 
@@ -585,6 +694,10 @@ Il Media Access Control (traducibile come Controllo dell'accesso al dispositivo)
 FF-FF-FF-FF-FF-FF
 ```
 Si occupa dell'incapsulamento dei dati e del controllo all'accesso ai media, gestendone il flusso tramite controllo dei messaggi per fare in modo da processare sempre solo un messaggio per volta ed inserire gli altri messaggi in attesa, tramite algoritmi di retromarcia e ritrasmissione. Gestisce i processi tra il livello Data Link e il livello Fisico del modello ISO/OSI.
+
+Di solito il MAC si compone di due parti:
+1. Codice del produttore (OUI) (24-bit)
+2. Identificativo del prodotto (24-bit)
 
 ### Ethernet
 Anche noto come  protocollo **IEEE 802.3**, Ethernet è un protocollo utilizzato per gestire le comunicazioni tra due macchine collegate alla stessa rete.
@@ -680,7 +793,7 @@ Il Duplicate Address Detection è un protocollo utilizzato da un dispositivo per
 Il dispositivo invia un messaggio [Broadcast](./Reti#Broadcast) alla rete, contenente il proprio indirizzo IPv6. Nel caso un altro dispositivo abbia lo stesso indirizzo IPv6, invierà un messaggio di risposta ([NS](#ICMPv6#Network)) al primo host, contenente il proprio indirizzo [MAC](#MAC).
 
 ### SLAAC
-La Stateless Address Autoconfiguration permette ad un dispositivo di autoassegnarsi un indirizzo [IPv6](#IPv6) in base a dei parametri di partenza (come l'indirizzo del Gateway di default e la maschera di sottorete).
+La Stateless Address Autoconfiguration permette ad un dispositivo di autoassegnarsi un indirizzo [IPv6](#IPv6) in base a dei parametri di partenza (come l'indirizzo del Gateway di default e la maschera di sottorete). E' il protocollo utilizzato nelle reti [LAN](./Reti#LAN) per configurare un dispositivo abilitato ad IPv6 e fornirgli un proprio indirizzo IPv6 tramite protocollo [ICMPv6](#ICMPv6).
 
 # Possibili problematiche
 ## Sovraffollamento
