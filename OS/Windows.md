@@ -4,7 +4,7 @@ Stampare la lista di comandi utilizzabile
 help
 ```
 
-Trovare l'indirizzo #IP e le configurazioni della [scheda di rete](./../Tecnologie/Macchina#NIC) della macchina su cui si opera
+Trovare l'indirizzo [IP](./../Tecnologie/protocolli#ip) (o crearne/richiederne uno nuovo nel caso non sia impostato) e le configurazioni della [scheda di rete](./../Tecnologie/Macchina#NIC) della macchina su cui si opera
 ```
 ipconfig
 ```
@@ -13,6 +13,11 @@ ipconfig
 	/relase - Rilascia gli attuali settaggli DHCP
 	/renew - Rilascia le impostaioni attuali ed effettua una nuova 	chiamata DHCP per crearne di nuove
 	/displaydns - Mostra tutti i dati DNS nella cache
+
+Verifica il throughput tra client e server (scaricabile)
+```windows
+iperf3 <url>
+```
 
 Controlla e mostra i [socket](./../Tecnologie/Macchina#Socket) aperti per le comunicazioni in [TCP](./../Tecnologie/Protocolli#TCP)
 ```

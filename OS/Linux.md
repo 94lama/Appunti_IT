@@ -146,6 +146,11 @@ groups <utente>
 	Se non si inserisce l'utente, ritornerà tutti i gruppi del sistema
 	OPZIONI:
 
+Verificare i parametri delle interfacce di connessione (tipo IPv4, Ethernet)
+```sh
+ifconfig
+```
+
 Verificare le informazioni di un utente
 ```sh
 id <user>
@@ -183,6 +188,15 @@ Modificare il contenuto di un file
 ```sh
 nano <nome_file>
 ```
+
+Verifica la connessione ad un servizio tramite specifica porta
+```Sh
+ncat <indirizzo> <porta>
+```
+	N.B. È possibile utilizzare la forma abbreviata “nc”
+	OPZIONI:
+	-z | 
+	-V |
 
 Verificare se ci sono porte aperte verso l'esterno in una macchina #port-scanning
 ```bash
@@ -264,6 +278,11 @@ setfacl u:<user>:<permessi> <file>
 	-m # modifica la #ACL del file
 	-R # applica la regola in maniera ricorsiva
 	-x # riomuove la #ACL impostata
+
+Verificare la velocità di connessione ad internet
+```sh
+speedtest
+```
 
 Connettersi ad un'altra macchina da remoto tramite protocollo #ssh 
 ```sh

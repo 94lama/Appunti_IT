@@ -152,6 +152,10 @@ Le porte più utilizzate tramite protocollo [TCP](./Protcolli#TCP) o [UDP](./Pro
 | 143   | [IMAP](./Protocolli#IMAP)                    |
 | 161   | [SNMP](./Protocolli#SNMP) (solo UDP)         |
 | 443   | [SSL](./Protocolli#SSL)                      |
+| 1645  | Contabilità RADIUS                           |
+| 1646  | Contabilità RADIUS                           |
+| 1812  | Autenticazione RADIUS                        |
+| 1813  | Contabilità RADIUS                           |
 
 # RAM
 Random Access Memory.
@@ -174,12 +178,59 @@ Lo #switch è  un'evoluzione dell'[[#HUB]] in termini di performance. Permettono
 
 L'unico compito dello switch è quello di leggere gli indirizzo [MAC](./Protocolli#MAC) del pacchetto di dati (non legge, ad esempio, gli indirizzi IP dei dispositivi). Questi indirizzi MAC sono poi comparati ai dati presenti nella **Tabella degli Indirizzi MAC** (nota anche come **Content Addressable Table**, o **CAM**), al fine di verificare quali porte collegare.
 
+Durante la scelta di uno switch, sono da considerare diversi parametri:
+- Velocità (dipende dal tipo di cavi accettati e se sono half o full-duplex)
+- Numero di porte disponibili
+- Scalabilità (se é ampliabile o meno con altri moduli)
+- Manutenibilitá
+
+**N.B.** Nel caso di connessione tra full-duplex e half-duplex di solito avviene un conflitto con conseguente blocco delle comunicazioni. Alcuni switch hanno incorporato un meccanismo di auto negoziazione per evitare che il conflitto avvenga.
+
 ### CAM
 La tabella include tutti gli indirizzi MAC da cui lo switch ha ricevuto un messaggio, correlati alla porta a cui sono collegati. Nel caso si ricevano più messaggi da una stessa porta (ad esempio se la porta è connessa ad un altro switch), la CAM viene popolata con tutti gli indirizzi MAC che riceve.
+
+### Inoltro dati
+L’inoltro dei dati tramite switch può avvenire secondo due metodologie diverse:
+- Store-and-forward switching (memorizza e inoltra), dove lo switch riceve l’intero frame, verifica eventuali corruzioni e, in caso di loro assenza, inoltra il dato;
+- cut-forward switching (taglia e inoltra), dove lo switch inoltra le parti di frame che riceve, prima che completino il frame. L’unico dato necessario (completo prima che inizi la procedura) é l’indirizzo MAC di destinazione. Questo processo si divide in altre 2 categorie:
+	- fast-forward, dove i bit ricevuti vengono direttamente inoltrati
+	- Fragment-free, dove vengono memorizzati e analizzati i primi 64 Bytes del frammento (che sono quelli dove é più frequente incontrare un errore).
+
+Il primo metodo favorisce il controllo dei dati durante il processo, mentre il secondo la velocità di inoltro.
+
+#### Cavi
+Di solito si utilizzano cavi Crossover per connettere uno switch con un altro switch e cavi Straight-through negli altri casi, sebbene molti switch moderni utilizzino lo MDIX per adattare il cavo crossover a tutte le casistiche.
+
+### Buffering
+Traducibile come Tamponamento, consiste nel memorizzare i frame ricevuti. Lo si può utilizzare per lo store-and-forward switching, o perché la porta di destinazione risulta temporaneamente non disponibile. I dati possono essere salvati in 2 modi:
+- Su una compartimentazione della memoria dedicata alla specifica porta. In questo caso si crea una coda di trasmissione dal dato più vecchio al più recente e si inoltrano seguendo l’ordine 
+- Si crea un compartimento temporaneo e dinamico su cui allocare il dato, collegando il blocco alla porta di destinazione (ma dando la possibilità di modificarla)
 
 ## Modem
 Il #modem è un dispositivo di ricetrasmissione che ha funzionalità logiche di modulazione/demodulazione in trasmissioni analogiche e digitali.
 ## Router
 Sono strumenti più intelligenti dei [[#Modem]], in quanto permettono di trovare automaticamente percorsi alternativi per la trasmissione di pacchetti qualora si riscontrassero problemi di rallentamento o blocco del traffico nel percorso predefinito.
 Utilizza #protocollo [IP](Protocolli di comunicazione#IP), [IPX](Protocolli di comunicazione#IPX), ed [Apple talk](Protocolli di comunicazione#Apple talk).
-### Tabelle di routing
+
+### Tabella di routing
+La tabella di routing è un insieme di dati che serve a velocizzare la comunicazione tra macchine, grazie al salvataggio dei dati relativi all'indirizzo del destinatario del messaggio. La tabella di routing è utilizzata sia nel PC, che nei Router, è visualizzabile tramite il comando ```show ip route```, e offre prima una legenda informativa con la spiegazione dei vari acronimi utilizzati (nel caso di tabella memorrizzata su un Router), e poi la lista degli indirizzi memorizzati dalla macchina.
+
+| Codice | Descrizione           |
+| ------ | --------------------- |
+| L      | Connesso alla LAN     |
+| C      | Connessa direttamente |
+| B      | BGP                   |
+| M      | Mobile                |
+| U      | User static route     |
+| O      | OSPF                  |
+| D      | EIGRP                 |
+| S      | Route statica         |
+
+Esempio di tabella di routing IPv4 memorizzata su un dispositivo:
+
+| Destinazione    | Maschera di rete | Gateway      | Interfaccia   | Metriche | Descrizione   |
+| --------------- | ---------------- | ------------ | ------------- | -------- | ------------- |
+| 0.0.0.0         | 0.0.0.0          | 192.168.10.1 | 192.168.10.10 | 25       | IPv4 Computer |
+| 127.0.0.1       | 255.0.0.0        | On-link      | 127.0.0.1     | 306      | Main gateway  |
+| 127.255.255.255 | 255.255.255.255  | On-link      | 127.0.0.1     | 306      | Broadcast     |
+| 192.168.10.0    | 255.255.255.0    | On-link      | 192.168.10.10 | 306      |               |

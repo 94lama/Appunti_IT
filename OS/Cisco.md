@@ -13,8 +13,27 @@ La CLI ha due modalità di utilizzo (differenziate in base alla quantità di com
 - EXEC Privilegiata: permette di inviare tutti i comandi disponibili sull'IOS
 
 ## Switch
+Gli [switch](./../Tecnologie/Macchina#switch) sono elementi utilizzabili per collegare vari dispositivi tra loro all’interno della stessa LAN. Per configurare uno switch Cisco, basta collegare un computer (che sia fornito di software per comunicare con la switch, ad esempio Tera Term) alla porta di configurazione dello switch ([UTP](./../Tecnologie/Macchina#utp)) (situata sopra la porta dello storage). Per configurare lo switch connettere i cavi prima di avviare lo switch nel caso si voglia configurare in modalità out-of-band (senza che il computer sia connesso allo switch, evitando quindi problemi di connessione o di lentezza della rete al costo di doversi collegare direttamente allo switch fisicamente).
+
+Una volta avviato lo switch, Verranno letti automaticamente l’OS (sistema operativo, salvato nella memoria flash) e lo startup config (salvato nella NVRAM), che permetterà di caricare le configurazioni dello switch (running config).
 
 ## Router
+Dotato di:
+- Sistema operativo (OS)
+- Central processing unit (CPU)
+- Random-access memory (RAM)
+- Read-only memory (ROM)
+- Nonvolatile random-access memory (NVRAM)
+
+É un dispositivo che permette di direzionare il flusso di dati tra porte. Pertanto é composto da:
+- **Porte di console** - Permettono l’accesso diretto al dispositivo per la configurazione
+- **Interfacce LAN** - Possono essere GigabitLan o EthernetLan e permettono di collegare altri dispositivi al router
+- **Network Interface Modules (NIMs)** - Slot di espansione delle interfacce del router.
+
+### Configurazione
+L’accesso all’area di configurazione può essere effettuata tramite connessione fisica diretta (porte di console) o remota tramite interfaccia WAN, utilizzando il protocollo SSH o la porta aux (nel caso di uso della rete telefonica e modem).
+
+Durante l’avvio lo switch avvierà la POST per trovare il file bootstrap. Il bootstrap 
 
 # Comandi
 
@@ -36,18 +55,24 @@ show
 ```
 	PAROLE CHIAVE:
 		aaa
-		arp
+		arp | mostra la tabella ARP
+		cdp neighbors detail | Per convalida layer 1 e 2, mostra i dispositivi Cisco collegati
 		clock
 		dhcp
 		hosts
 		interfaces | Verifica lo stato delle interfacce e vede se ci sono messaggi di errore
 		ip
-		ip interface
-		ip route | Vwerifica le informazioni di routing del livello 3
+		ip interface [brief]
+		ipv6 interface [brief] | Mostra gil indirizzo IPv6 dei dispositivi collegati e utilizza il loro MAC per creare gli indirizzzi LLA. Dopodichè mostra gli indirizzi IPv6 privati e pubblici dei dispositivi, o l'indicazione che la porta è libera.
+		ip route | Verifica le informazioni di routing del livello 3
+		ipv6 route | Mostra gli indirizzi IPv6 dei dispositivi collegati con indicazione se il dispositivo è collegato in locale (L) o con IP pubblico (C)
 		mac
 		mac-address-table
+		port
 		protocols | Vede quali protocolli siano attivi
 		running-config | mostra le configurazioni dell'host
+		switch
+		tech-support | mostra una serie di show, utili nel caso di inoltro di un ticket
 		version | Verifica la memoria, le interfacce e le licenze del dispositivo
 
 ## EXEC Privilegiata
@@ -144,16 +169,27 @@ Uscire dall'interfaccia e tornare alla modalità configurazione
 exit
 ```
 
-Assegnare un indirizzo IP
+Assegnare un indirizzo IPv4
 ```cisco
 ip address [indirizzo ip] [maschera di sottorete]
 ```
+
+Assegnare un indirizzo IPv6 LLA
+```cisco
+ipv6 address [indirizzo ip]/[cidr]
+```
+	OPZIONI:
+	Nel caso si voglia usare un indirizzo privato, utilizzare l'argomento "link-local"
 
 Registrare l'indirizzo IP del gateway di default
 ```cisco
 ip degault-gateway [indirizzo ip]
 ```
 
+Attiva l'interfaccia
+```cisco
+no shutdown
+```
 #### Sottozona
 La sottozona è segnalata sulla CLI nell'area della **modalità di esecuzione**:
 ```cisco

@@ -4,12 +4,13 @@ La raccolta è in continua evoluzione ed espansione quindi, sentitevi liberi di 
 Consiglio di utilizzare Obsidian per la lettura (se si decide di scaricare la repository) per essere sicuri di non perdere nessun collegamento, in quanto è il software che utilizzo per prendere appunti.
 # Indice
 - [Cybersecurity](./Cybersecurity.md)
+- [Helpdesk](Helpdesk.md)
 - [Glossario](./Glossario.md)
 - [Informazioni](./Informazioni.md)
 ## Sistemi operativi
-- [Linux](<./Sistemi operativi/Linux>)
-- [Windows](<./Sistemi operativi/Windows>)
-- [Virtualizzazione](<./Sistemi operativi/Virtualizzazione>)
+- [Linux](<Linux.md>)
+- [Windows](<Windows.md>)
+- [Virtualizzazione](<Virtualizzazione.md>)
 ## Tecnologie:
 - [Macchina](./Tecnologie/Macchina.md)
 - [Networking](./Tecnologie/Networking.md)
