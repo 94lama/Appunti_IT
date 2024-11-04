@@ -85,6 +85,7 @@ Per agevolare il passaggio, anche da un punto di vista umano, spesso si segue un
 # Principi di sicurezza
 
 Per comprendere le aree di interesse della cybersecurity spesso si fa uso del cosiddetto Cybersecurity Cube, che aggrega i concetti in 3 categorie, note anche come CIA Security Triad:
+
 ## Confidenzialità dei dati
 Solo le persone autorizzate devono avere accesso ai dati. Richiede l’implementazione di cifratura e decrittazione dei dati come misura cautelativa.
 Un’alternativa alla cifratura è la tokenizzazione, ovvero la creazione di un valore randomico temporaneo da utilizzare come lasciapassare per ottenere accesso ai dati.
@@ -179,9 +180,11 @@ Gli standard sulla sicurezza sono gestiti da apposite agenzie e costantemente ag
 ## MITRE
 Organizzazione non-profit, fondata nel 1975, che si occupa di #cybersecurity.
 Mette a disposizione due archivi molto utili per la sicurezza:
+
 ### CVE
 Le Common Vulnerabilities Enumeration sono una lista delle principali vulnerabilità alla cybersecurity riscontrate, contenenti informazioni molto utili sulle vulnerabilità e sulle debolezze dei siti web, framework, librerie ecc., costantemente aggiornate (dopo che il framework colpito è riuscito a rimuovere la vulnerabilità).
 Contiene anche alcune possibili soluzioni per rimuovere le vulnerabilità
+
 ### CWE
 Common Weaknesses Enumeration
 
@@ -195,7 +198,7 @@ Common Weaknesses Enumeration
 | 434 | Unrestricted Upload of File with Dangerous Type | Permette di caricare file di estensioni non desiderate (es. **.php**) all'interno del server, che possono essere successivamente aperti dall'utente malevolo stesso |
 | 611 | Improper restriction of XML External Entity reference | Inserisce nel codice XML una stringa URI che prelevano file esterni all'area prevista |
 | 1021 | Improper Resctiction of rendered UI Layers or Frames | Una pagina del sito viene utilizzato su un server esterno tramite es. #iframe per ingannare un utente ed estrapolare dati sensibili (es. dati di accesso) |
-|  |  |  |
+
 ### CPE
 Common Platform Enumeration
 Archivio di software e/o framework disponibili, indicizzati.
@@ -467,6 +470,7 @@ Avviene tramite l'utilizzo di una chiave pubblica e di una chiave privata
 #### Contro
 - Prestazioni
 - Complessità 
+
 # Attacco
 ## Introduzione
 Un attacco informatico è un’azione che sfrutta determinate falle (fisiche o logiche) di una rete per ottenere accesso e/o eseguire azioni dannose per la rete stessa. Principalmente gli attacchi sono di due tipi:
@@ -701,8 +705,6 @@ Per risolvere questo problema, conviene:
 	- Rilevamento di caricamento file, alterazioni della configurazione, errori dei file di sistema
 	- Operazioni ad alto rischio (movimenti bancari es.)
 
-
-
 ### Phishing
 Utilizzo di messaggi o mail ingannevoli per indurre l’utente a cliccare a link inseriti all’interno, che reindirizzano a siti malevoli.
 
@@ -867,8 +869,10 @@ POST http://www.vulnerableapp.com/xml HTTP/1.1<?xml version="1.0" encoding="ISO-
 	 ```
 - Gestire dati in formati semplici (es. #JSON )
 - Verificare in ambiente di #testing che le chiamate #xml abbiano le dovute restrizioni
+
 ### XSS
 Il Cross-Site scripting (invio di stringhe di esecuzione attraverso i siti) si riferisce all'utilizzo di script per manipolare le interazioni tra utente e sito web.
+
 #### Reflected XSS
 Viene utilizzato un link per far inviare all'utente colpito un codice malevolo per colpire il server del sito. Possono essere inviati, ad esempio, tramite siti malevoli o mail
 #### Stored XSS
@@ -1252,6 +1256,7 @@ Alcuni esempi di software Antimalware commerciali sono:
 - AMP: Cisco Advanced Malware Protection
 - WSA: Cisco Web Security Appliance
 - ESA: Cisco Email Security Appliance
+
 ### Antivirus
 Monitora di continuo il pc e, in caso riconosca un virus, lo mette in quarantena  o lo elimina
 

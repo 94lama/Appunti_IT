@@ -1,6 +1,7 @@
 # Introduzione
 Internet è la più grande rete al mondo, composta da nodi, attraverso i quali transitano dei dati. Al fine di far avvenire questo scambio di dati, si utilizza il metodo della **commutazione di pacchetto**.
 Questo metodo è composto da una serie di processi, che permettono di standardizzare i dati da inviare ed il metodo di spedizione, chiamati [Protocolli di comunicazione](./Protocolli).
+
 ## [Subnetting](https://www.itimarconi.ct.it/sezioni/didatticaonline/informatica/lezionidisistemi/quinta/subnetting.htm)
 Il subnetting consiste nel raggruppare i dispositivi connessi alla rete (creando appunto delle sottoreti) per facilitare l'applicazione di Policy di sicurezza e ridurre il peso delle chiamate [broadcast](./Networking#Broadcast) tra dispositivi. La definizione delle sottoreti avviene tramite [maschera di sottorete](<#Subnet mask>).
 Il router non propaga le richieste di Broadcast o richieste indirizzate a indirizzi IPv4 privati (Dominio di 2 livello di Broadcast). Per trovare gli indirizzi MAC di tutte le macchine a cui inviare un messaggio, si usa il Protocollo di Risoluzione degli Indirizzi ([ARP](./Protocolli#ARP)), che permette di inviare una richiesta [Boradcast](#broadcast) a tutti gli indirizzi IP della rete locale. Per trovare gli indirizzi IPv4 invece, di solito si utilizza il [DHCP](./protocolli#dhcp), ovvero Dynamic Host Configuration Protocol (protocollo di configurazione dinamica degli host).
@@ -16,6 +17,7 @@ Le comunicazioni sono suddivise anche in base al numero di dispositivi che devon
 - [unicast](#unicast)
 - [multicast](#multicast)
 - [boradcast](#broadcast)
+
 ### Subnet mask
 Una [maschera di sottorete](https://it.wikipedia.org/wiki/Maschera_di_sottorete) è un parametro di configurazione utilizzato per identificare la rete alla quale l'host è connesso. Si basa su 4 blocchi numerici da 32 byte (256 bit) ciascuno, attraverso i quali è possibile identificare l'[indirizzo IP](./Protocolli#IPv4) della sottorete utilizzata, tramite [moltiplicazione booleana](<./Operatori#Moltiplicazione booleana>). 
 
@@ -268,6 +270,7 @@ Il Wireless LAN Controller è un dispositivo utilizzato per centralizzare il con
 
 ### LWAP
 L'AP Leggero è un Punto di Accesso (AP) ad una rete wireless che non agisce in maniera autonome, ma è gestito da un [WLC](#WLC).
+
 ### WMN
 La Wireless Mesh Network utilizza multipli Access Point (AP, Punti di accesso).
 

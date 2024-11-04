@@ -11,8 +11,10 @@ I permessi vengono mostrati tramite una stringa suddivisa in 3 parti, ciascuna d
 	1 terzetto = utente proprietario
 	2 terzetto = gruppo
 	3 terzetto = altri utenti
+
 ### ACL
 Le Access Control List (Liste di Controlli di Accesso) permettono di dare permessi extra ad utenti specifici per uno specifico file o directory.
+
 # Comandi
 Concatenare comandi
 ```Linux

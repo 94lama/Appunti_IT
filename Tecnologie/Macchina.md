@@ -243,4 +243,5 @@ Vengono utilizzati per memorizzare dati relativi a:
 - Autenticazione
 - Autorizzazione
 - Contabilità (accounting)
+
 I server AAA devono essere impostati per accettare unicamente messaggi tramite protocolli [RADIUS](./protocolli#radius) o [TACACS+] (uno dei due, da decidere in base alle necessità della rete, tenendo conto che il RADIUS non effettua cifratura del nome utente e dei dati contabili).
