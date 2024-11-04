@@ -8,6 +8,24 @@ La cybersecurity si occupa di prevenire e contrastare minacce ai sistemi informa
 - Danni all’hardware
 - Interruzione delle utilities (es. interruzione della corrente elettrica)
 - Disastri naturali
+
+Per analizzare il livello di sicurezza di una rete, spesso si fa riferimento a 4 concetti chiave:
+- **Minaccia**, ovvero il potenziale danno causato al proprietario della rete
+- **Vulnerabilità**, ovvero la singola debolezza del sistema che può essere sfruttata da un attore esterno
+- **Exploit**, ovvero il meccanismo di sfruttamento della vulnerabilità 
+- **Rischio**, la probabilità che il particolare exploit venga utilizzato, pesata in base al danno che essa causerebbe
+
+Il totale delle vulnerabilità presenti in un sistema viene anche chiamato **superficie d’attacco**.
+
+## Rischio
+Per pianificare miglioramenti alla sicurezza di un sistema, l’obiettivo è analizzare la stessa per identificare i vari rischi e operare secondo uno di questi 4 criteri:
+- Ridurre: correggere le impostazioni affinché si riduca la superficie d’attacco 
+- Trasferire: demandare enti terzi (es. il cloud provider) la soluzione al rischio
+- Evitare: eliminare la fonte del rischio dal sistema
+- Accettare: non effettuare nessuna operazione per rimuovere il rischio
+
+Il criterio da attuare dipenderà da fattori come la disponibilità di tempo e/o denaro del proprietario della rete, la facilità con cui il problema può essere risolto, il potenziale danno che ne consegue e la possibilità che esso avvenga.
+
 ## Ruolo DevSecOps
 Il #DevSecOps è un esperto in sviluppo (Development), sicurezza (Security) e operazioni (Operate, ovvero gestione e sviluppo dell'app anche dopo la messa online). La sicurezza viene verificata in tutte le fasi del progetto
 ### Development
@@ -23,23 +41,6 @@ Il #DevSecOps è un esperto in sviluppo (Development), sicurezza (Security) e op
 
 ## Terminologia
 
-### CIA Security Triad
-#CIA è l'acronimo di Confidentiality (il dato deve rimanere privato), Integrity (non dev'essere modificato) e Availability (il servizio dev'essere sempre disponibile). Questi 3 punti costituiscono la base della sicurezza informatica.
-#### #confidentiality
-- PII - Personal identity info
-- PHI - Personal health information
-- PCI - Payment card industry
-- Company proprietary data
-#### #integrity
-- Validazione input
-- Gestione degli errori
-- Controllo degli hash
-#### #availability
-- Services Uptime
-- Response time
-- Criticality
-- User requirements
-
 ### Secure by-Design
 Principio che si basa sull'applicazione dei principi di sicurezza sin dalla fase di #progettazione 
 ### Defense In-Depth
@@ -49,12 +50,12 @@ Strategie organizzative generali per la creazione di  un ambiente sicuro. Simula
 #### Controlli fisici
 Impediscono agli aggressori di ottenere l'accesso reale ai dati e sistemi informatici (es. chiavi magnetiche, porte bloccabili, ecc.)
 #### Controlli tecnici
-### Principle of Least Privilege ( #PoLP)
+### Principle of Least Privilege
 **Vantaggi**:
 - Migliore gestione dei permessi
 - Rallentamento della diffusione del malware
-- Semplificazione della conformità e miglioramento della preparazione agli #audit 
-Il #PoLP si implementa seguendo dei passaggi:
+- Semplificazione della conformità e miglioramento della preparazione agli audit 
+Il principio dei privilegi minimi si implementa seguendo dei passaggi:
 1. Verifica dei privilegi
 2. Configurazione predefinita di un privilegio minimo
 3. Separazione dei privilegi e degli account
@@ -82,7 +83,9 @@ Modello informatico, alternativo al #perimeter-security (che si basa sul concett
 #### Adattamento di un sistema esistente al Zero-Trust Model
 Per agevolare il passaggio, anche da un punto di vista umano, spesso si segue un percorso, che porta dal metodo esistente, a quello desiderato.
 # Principi di sicurezza
-Per comprendere le aree di interesse della cybersecurity spesso si fa uso del cosiddetto Cybersecurity Cube, che aggrega i concetti in 3 categorie:
+
+Per comprendere le aree di interesse della cybersecurity spesso si fa uso del cosiddetto Cybersecurity Cube, che aggrega i concetti in 3 categorie, note anche come CIA Security Triad:
+
 ## Confidenzialità dei dati
 Solo le persone autorizzate devono avere accesso ai dati. Richiede l’implementazione di cifratura e decrittazione dei dati come misura cautelativa.
 Un’alternativa alla cifratura è la tokenizzazione, ovvero la creazione di un valore randomico temporaneo da utilizzare come lasciapassare per ottenere accesso ai dati.
@@ -171,15 +174,17 @@ Buone pratiche per evitare un’interruzione di disponibilità nei casi sopracit
 
 # Security Standards
 Gli standard di sicurezza hanno l'obiettivo di categorizzare e valutare le #vulnerabilità.
-### Fondazioni
-- Open Web Application Security Project [#OWSAP](https://owasp.org/) è una fondazione che analizza e categorizza le vulnerabilità relative la sicurezza
+
+Gli standard sulla sicurezza sono gestiti da apposite agenzie e costantemente aggiornati tramite analisi dei contenuti presenti al dark web, AIS (Indicatore di Condivisione Automatizzato), ovvero un’infrastruttura che permette lo scambio in tempo reale di indicatori sulle vulnerabilità utilizzando determinati linguaggi standardizzati e strutturati come lo STIX (Espressione Strutturata delle Informazioni della Minaccia) o il TAXII (Scambio Automatizzato e Fidato di Informazioni di Intelligence)
 
 ## MITRE
 Organizzazione non-profit, fondata nel 1975, che si occupa di #cybersecurity.
 Mette a disposizione due archivi molto utili per la sicurezza:
+
 ### CVE
-Le Common Vulnerabilities Enumeration contengono informazioni molto utili sulle vulnerabilità e sulle debolezze dei siti web, framework e librerie, costantemente aggiornate (dopo che il framework colpito è riuscito a rimuovere la vulnerabilità).
+Le Common Vulnerabilities Enumeration sono una lista delle principali vulnerabilità alla cybersecurity riscontrate, contenenti informazioni molto utili sulle vulnerabilità e sulle debolezze dei siti web, framework, librerie ecc., costantemente aggiornate (dopo che il framework colpito è riuscito a rimuovere la vulnerabilità).
 Contiene anche alcune possibili soluzioni per rimuovere le vulnerabilità
+
 ### CWE
 Common Weaknesses Enumeration
 
@@ -300,9 +305,9 @@ window.opener.postMessage(message, '*');
 window.opener.postMesasge(message, "indirizzo dell'origine"); 
 ```
 	in questo caso l'utente invia il messaggio solo al server origine 
-### #prototype-pollution
+### Prototype-pollution
 Attacco che permette di modificare il metodo **__proto__** dell'oggetto base di JavaScript per eseguire velocemente comandi tramite metodo **eval()**. Sfruttando questo stratagemma è possibile eseguire attacchi #xss ed è inclusa nella categoria #insecure-design
-### #CSS-injection
+### CSS-injection
 Tramite script #JavaScript si modifica lo style della pagina. Questo tipo di attacco si verifica quando si immettono delle variabili collegate tramite #URI:
 ```Browser
 127.0.0.1:8000/#blue //colora lo sfondo un componente
@@ -408,29 +413,29 @@ Usato per visualizzare dei processi
 #### Attack tree
 Diagramma concettuale che mostra come un obbiettivo può essere attaccato
 #### Ishikawa diagram (o Fishbone diagram)
-Segno tutt
+
 ### Goal oriented
-#### #DREAD
-#### #PASTA
-#### #trike
+#### DREAD
+#### PASTA
+#### trike
 
 ### Motivation oriented
 
 ### Library (o list) Oriented
 
-#### #STRIDE
+#### STRIDE
 Acronimo delle minacce su cui va ad operare:
-#spoofing: 
-#tampering: 
-#repudiation: Si nega l'aver effettuato una determinata azione
-#information-disclosure: Categoria che copre le violazioni di #privacy o fughe di dati
-#DoS: Mira ad interrompere il normale funzionamento di un sito
-#privilege-escalation : L'attaccante accede con un profilo base e ottiene livelli di accesso superiori
-E' il sistema con più ampia superficie di copertura per le potenziali #minaccia e/o #vulnerabilità.
+spoofing: 
+tampering: 
+repudiation: Si nega l'aver effettuato una determinata azione
+information-disclosure: Categoria che copre le violazioni di privacy o fughe di dati
+DoS: Mira ad interrompere il normale funzionamento di un sito
+privilege-escalation : L'attaccante accede con un profilo base e ottiene livelli di accesso superiori
+E' il sistema con più ampia superficie di copertura per le potenziali minacce e/o vulnerabilità.
 Alcune criticità di questa metodologia sono:
 - La necessità di avere delle conoscenze approfondite sulle minacce e vulnerabilità, su cui applicare il metodo
 ##### Fasi
-1. Si costruisce un #data-flow-diagram, dove identifico le linee di fiducia
+1. Si costruisce un data-flow-diagram, dove identifico le linee di fiducia
 2. Si effettua una verifica per le varie categorie di attacco
 3. Si analizzano i risultati e si pianificano le risposte
 4. Si verifica l'efficacia delle risposte
@@ -465,170 +470,23 @@ Avviene tramite l'utilizzo di una chiave pubblica e di una chiave privata
 #### Contro
 - Prestazioni
 - Complessità 
-# Attacchi
+
+# Attacco
+## Introduzione
+Un attacco informatico è un’azione che sfrutta determinate falle (fisiche o logiche) di una rete per ottenere accesso e/o eseguire azioni dannose per la rete stessa. Principalmente gli attacchi sono di due tipi:
+- APT (Minacce Persistenti Avanzate) sono attacchi elaborati eseguiti a ripetizione (come il [DoS](#DoS)), effettuati di solito per analizzare o ottenere l’accesso ad una rete bersaglio. Questo tipo di attacchi di solito richiede una forte organizzazione e alte risorse economiche per essere effettuato
+- Attacchi Algoritmici, ovvero attacchi che sfruttano falle logiche o usano in maniera non convenzionale determinati componenti, per causare comportamenti non previsti alla macchina (es. la forzatura dell’uso totale della RAM per forzare l’arresto di un computer).
+
+Gli attacchi possono essere differenziati per **domini** di interesse e per **livelli** di comunicazione (di solito viene utilizzato il modello OSI) soggetti all’attacco. Un terzo metodo di categorizzazione degli attacchi è la motivazione alle loro spalle. Per quest’ultimo caso, esiste una classificazione standardizzata: la IOA (Indicatore d’attacco).
+
+## Dominio
+Descrive l’area di controllo, autorità o protezione che l’attaccante vuole sfruttare per portare a compimento un attacco informatico.
+
 ## Tutti i livelli
 ### Spoofing
 E' un attacco che può avvenire ad ogni livello della ISO-OSI e che consiste nella falsicifazione dell'identità e/o di altro tipo di informazioni applicative ([fonte](https://it.wikipedia.org/wiki/Spoofing)).
 
-#### ARP Poisoning
-Consiste nel sostituirsi ad un altro dispositivo ad una [ARP request](./Tecnologie/Protocolli#ARP)
-
-## Rete
-
-
-## Collegamento
-Gli attacchi più comuni al livello 2 della pila ISO/osi sono:
-
-### Spoofing
-Utilizzo di credenziali falsificate durante la comunicazione con altri dispositivi relativamente a:
-- MAC
-- IP
-
-### MAC Flooding
-Invio massivo di richieste alla rete con lo scopo di rallentarla o bloccarla.
-
-## Bluesnarfing
-Connessione con un dispositivo bersaglio con conseguente furto di dati personali (come mail e lista dei contatti).
-## Bomba logica
-Programma malevolo che rimane inattiva fino alla realizzazione del trigger desiderato. Una bomba logica può causare danni logici (eliminazione di file o alterazione del database) o fisici (es. mandare in overload ventole o CPU)
-
-## Bufale
-Creazione di contenuti informativi falsi e/o fuorvianti per ottenere informazioni o per minare la credibilità del bersaglio. Questo attacco può anche presentarsi organizzato in vere e proprie campagne.
-
-## Injection
-La Code injection consiste nell’immissione di stringhe di codice all’interno di 
-## DOS
-Il Denial Of Service è un attacc che sfrutta una script o altri metodi per sovraccaricare il #server bersaglio ed impedirne il normale funzionamento per un determinato periodo di tempo
-
-### DDOS
-IL Distributed Denial of Service è un’evoluzione del #dos, ma utilizza più macchine per portare a termine l'attacco.
-
-## Dumpster diving
-Ottenere informazioni tramite controllo dei rifiuti prodotti dai dipendenti dell’azienda.
-
-## False Fatture
-Uso di false fatture per ricevere denaro o informazioni sensibili.
-
-## Grayware
-Presenza di applicazione non desiderata all’interno del dispositivo (che può come può non contenere malware)
-
-## Hijacking
-Dirottamento, ovvero accesso ad un dispositivo con successiva modifica delle credenziali, al fine di bloccare l’accesso del legittimo proprietario.
-
-### Bluejacking
-Hijacking di un dispositivo tramite connessione Bluetooth. L’accesso alla connessione bluetooth può avvenire grazie al range operativo ristretto della connessione Bluetooth.
-
-### DNS
-Il Dirottamento avviene quando un attaccante ottiene l’accesso all’account admin di un server, con successiva modifica delle credenziali (rendendo impossibile l’accesso all’utente proprietario). In questo modo l’attaccante può modificare l’ip di riferimento del DNS verso un sito malevolo. 
-
-## Impersonamento
-Pretendere di essere un’altra persona per poter chiedere (sfruttando i principi di autorità o fiducia) informazioni.
-
-## Keyboard logging
-Consiste nella lettura di tutti gli input immessi tramite tastiera tramite software.
-
-## Malware
-I malware sono software malevoli che hanno come scopo arrecare danno all'utente bersaglio. 
-Questi possono essere installati nel dispositivo in vari modi:
-- Download di antivirus da pop-up (o comunque da siti che siano diversi dal sito originale). Il software potrebbe essere stato alterato per contenere malware
-- Malware *fileless*, che si attivano all'avvio del Sistema operativo per poi disattivarsi al suo spegnimento
-- Script dannosi (indipendentemente dal linguaggio utilizzato)
-- Installazione non intenzionale di software di terze parti infettati
-### Trojan
-Malware che effettua operazioni malevole, mascherandole all’interno di un file legittimo modificato. I file su cui viene caricato il malware sono spesso di tipo non eseguibile.
-
-### Virus
-Software che, una volta eseguito, si replica all’interno del pc e inserisce il proprio codice all’interno di altri file, periferiche o dispositivi connessi alla stessa LAN. Un virus può essere anche innocuo, così come distruttivo per un pc (può ad esempio cancellare file).
-È possibile che un virus cambi la sua struttura per essere più difficile da identificare.
-
-### Worm
-Software malevolo che si duplica all’interno del pc infettato. A differenza del virus, non deve essere attivato da un altro software e si espande sfruttando vulnerabilità del sistema operativo e/o della rete con l’obiettivo di rallentare il dispositivo o la rete stessa.
-
-## Man-in-the-middle
-Consiste nel frapporsi tra un client ed un server per rubare e/o modificare informazioni durante il loro traporto.
-
-## Phishing
-Utilizzo di messaggi o mail ingannevoli per indurre l’utente a cliccare a link inseriti all’interno, che reindirizzano a siti malevoli.
-
-### Pharming
-Dirottamento dell’utente ad un sito copia del sito desiderato per fargli fare un supposto accesso e leggere i dati di autenticazione.
-
-### SMiShing
-Utilizzo di SMS per condurre un attacco phishing per far aprir un sito malevolo o una chiamata con l’attaccante.
-
-### Vishing
-Phishing effettuato tramite chiamate vocali.
-
-### Whaling
-Phishing su obiettivi di rilievo.
-
-## Piggyback
-Noto anche come Tailgating, consiste nel seguire a breve distanza una persona con permessi di accesso fisico in aree protette al fine di bypassare i controlli.
-
-## Prepending
-Sostituzione del tag “esterno” all’azienda con uno interno all’azienda per far credere che sia stata inviata dall’interno dell’ambiente aziendale.
-
-## Jamming
-Manomissione di strumenti di trasmissione o dati.
-
-### Frequenze radio
-Utilizzo di impulsi elettromagnetici per disturbare le frequenze radio di una connessione, di fatto interrompendola.
-
-## Ransomware
-Malware utilizzato con il particolare scopo di impedire all’utente attaccato di visualizzare/utilizzare i file del proprio pc (tramite cifratura o furto dei file), per chiedere un riscatto come condizione per il riottenimento dei dati.
-
-## Reindirizzamento
-Reindirizzamento automatico dell’url (tramite parametri specifici all’interno dell’url utilizzato) verso un sito malevolo.
-
-## Rogue access point
-Installazione di un punto di accesso wireless non desiderato all’interno di una rete, che ne permetta l’utilizzo senza autenticazione. Questo attacco facilita l’utilizzo di attacchi all’interno della rete (come il [Man-in-the-middle](#man-in-the-middle)).
-
-### Evil-twin
-Creazione di una rete temporanea, avente nome simile ad una rete esistente con l’obiettivo di indurre utenti a connettersi per avere accesso al loro traffico.
-
-## Shoulder surfing
-Consiste nel visualizzare l’inserimento di informazioni confidenziali (pin, password) durante l’immissione.
-
-## Social Engineering
-Macro categoria di attacco informatico, che consiste nell’ottenere informazioni e/o accesso ai sistemi informatici attraverso l’inganno di persone che lavorano all’interno dell’azienda oggetto dell’attacco. Gli attacchi sfruttano strategie ne si basano su concetti psicologico come:
-- Autorità
-- Intimidazione
-- Consenzo
-- Sicurezza
-- Urgenza
-- Familiarità 
-- Fiducia
-
-Le tipologie principali di social engineering sono:
-
-### Frode
-Utilizzo di identità falsa per ottenere credibilità durante il processo di richiesta di informazioni.
-
-### Quid-pro-quo
-Scambio di favori in cambio di informazioni.
-
-### Pretexting
-Consiste nell’utilizzo di menzogne o pretesti per ottenere informazioni.
-
-## Spoofing
-
-### DNS
-Falsificazione dei dati all’interno dei Server DNS per reindirizzare gli utenti finali verso siti con contenuto malevolo.
-
-## Typo squatting
-Utilizzo di URL simili a siti reali per la colmatura dei siti originali con intenti malevoli, sfruttando la possibilità che utenti ci entrino non intenzionalmente.
-
-## Watering Hole Attack
-Inserimenti di malware (almeno) uno dei siti più utilizzati dal bersaglio
-
-## XSS
-Il Cross-site Scripting consiste nell’ inserire codice malevolo all’interno di un sito web, che andrà successivamente ad infettare i dispositivi degli utenti che visitano il sito infettato. Di solito ha l’obiettivo di leggere dati di accesso e/o cookies al fine di poter impersonare l’utente.
-## Zero-day
-Attacco che avviene sfruttando vulnerabilità deep software non ancora note pubblicamente.
-
-## Application
-### API
-Abuso di un endpoint API.
+## Applicazione
 
 ### Broken Acess Authorization
 Noto anche come**Broken access control** o **Privilege escalation**, è un attacco volto ad ottenere accesso a dati a cui non si sarebbe potuti accedere in condizioni normali (es. utente per un guest, o amministratore per un utente).
@@ -695,11 +553,65 @@ Di norma si attuano partendo da un attacco di #phishing per estrapolare i dati n
 ### Directory traversal
 Anche noto come Path traversal, consiste nella manipolazione del percorso di un sito web per leggere dati sensibili o eseguire file altrimenti protetti.
 
+### Email
+
+#### Attacco tramite allegati
+Il malware viene inserito tra gli allegati della mail e, una volta scaricato, infetta il dispositivo versaglio.
+
+#### Spoofing
+L'attaccante invia una mail avente come mittente un indirizzo legittimo per invogliare l'utente a inviare denaro o compiere azioni che altrimenti non avrebbe compiuto.
+
+#### Spam
+L'attaccante invia email contenenti pubblicità o file malevoli. Di solito contengono un messaggio che invoglia una risposta da parte dell'utente.
+
+#### Server aperti di inoltro di posta
+I server aperti di inoltro di posta (Open mail relay server) sono server pubblici (o server aziendali configurati in maniera errata) che lavorano con il protocollo [SMTP](./tecnologie/protocolli#smtp). Possono essere sfruttati da un attaccante per inoltrare messaggi di spam in grande quantità o inviare mail contenenti malware.  
+
+#### Attacco omografico
+L'[attacco omografico](https://it.wikipedia.org/wiki/Attacco_omografico) consiste nell'utilizzo di indirizzi URL simili ad altri indirizzi noti, utilizzando caratteri simili per confondere l'utente e fargli credere di essere i siti legittimi. Possono esser utilizzati numeri o caratteri di alfabeti diversi (come il greco o il cirillico). Esempi di siti omografici possono essere:
+
+| Sito reale       | Sito omografico                                                                                       |
+| ---------------- | ----------------------------------------------------------------------------------------------------- |
+| www.google.com   | www.g0ogle.com                                                                                        |
+| www.facebook.com | www.fаcebook.com (in questo caso il carattere "a" è stato sostituito con "а" dell'alfabeto cirillico) |
+
 ### Error handling
 Utilizzo dei messaggi di errore per estrarre dati sensibili.
 
+
+### HTTP
+#### Introduzione
+Gli attacchi che sfruttano il protocollo HTTP, di solito seguono i seguenti passaggi:
+1. L'utente visita una pagina compromessa
+2. La pagina compromessa reindirizza l'utente verso uno o più server compromessi
+3. Il server invia un explolit kit (di solito uno script in PHP) per analizzare il dispositivo dell'utente e cercare eventuali vulnerablilità e fornire una console di controllo all'attaccante per gestire l'attacco
+4. Dopo aver effettuato la scansione e aver trovato delle vulnerabilità, l'exploit kit invia il resoconto al server e richiede l'invio di codice malevolo che possa sfruttarle
+5. Il dispositivo è compromesso e si connette ad un Malware Server per scaricare il payload (che può essere un Malware, o un file di download di altri malware)
+6. Il Malware viene eseguito nel dispositivo dell'utente
+Tramite la lettura del log dello storico delle chiamate HTTP, è possibile comprendere la dinamica dell'attacco, facendo riferimento ai [codici di stato del messaggio](<./tecnologie/protocolli#http#status code>). Altre precauzioni da utilizzare per proteggersi da questo tipo di attacchi sono:
+- Tenere sempre aggiornato il sistema operativo ed il browser
+- Utilizzare un Web Proxy come Cisco Cloud Web Security o Cisco Web Security Appliance per bloccare siti malevoli
+- Utilizzare software come Cisco Umbrella per prevenire la navigazione verso siti malevoli conosciuti
+- Tenersi aggiornati riguardo le *best practices* dell'[OWASP](#owasp) durante lo sviluppo delle applicazioni web
+- Educare gli utenti mostrandogli come evitare gli attacchi web-based.
+
+#### iFrame malevoli
+Gli [iFrame](./linguaggi/html#iframe) sono comunemente utilizzati per inserire pubblicità all'interno di un sito web. E' tuttavia possibile utilizzare gli iframe per infettare un sito e collegarlo ad un sito malevolo, che potrà eseguire del codice in background, far visualizzare pubblicità spam, eseguire degli [exploit kit],  sul dispositivo dell'utente. Di solito in questi casi, si minimizzano le dimensioni dell'iframe, in modo tale che l'utente non possa identificarlo con facilità.
+
+#### HTTP 302 Cushioning
+Consiste nello sfruttare il [codice di reindirizzamento 302](<./tecnologie/protocolli#status code>) per reindirizzare in maniera lecita verso un server malevolo (tramite l'url sostitutivo presente nel messaggio). Il reindirizzamento può anche essere effettuato più volte prima di arrivare al sito malevolo.
+
+#### Domain shadowing
+L'attaccante prepara un dominio compromesso (tramite [sabotaggio](#hijacking) di un dominio legittimo) e molteplici sottodomini che serviranno per eseguire l'attacco. L'utilità dei sottodomini consiste nel 
+la facilità di rimozione e replicazione nel caso vengano scoperti. Di soolito questo attacco segue la seguente procedura:
+1. L'attaccante compromette un sito web legittimo
+2. collega il sito ai siti malevoli tramite messaggio 302
+3. viene utilizzato il Domain Shadowing per reindirizzare l'utente verso i server malevoli
+4. I server malevoli eseguono un [exploit kit] sul dispositivo dell'utente
+5. Il malware viene scaricato sul dispositivo dell'utente
+
 ### Injection
-Attacco che si basa sull'inserire stringhe di codice malevolo. Può essere effettuato sul database, sul sistema operativo, o comunque in qualunque ambito similare. 
+Attacco che si basa sull'inserire stringhe di codice malevolo. Può essere effettuato sul database, sul sistema operativo, o comunque in qualunque ambiente che accetti input per l'invio di comandi da eseguire.
 
 #### DLL
 Iniezione di codice all’interno di un file in formato Dynamic Link Library (libreria dinamica dei link, **.dll**). Questo permette di implementare funzionalità non previste all’interno del sistema operativo.
@@ -793,6 +705,20 @@ Per risolvere questo problema, conviene:
 	- Rilevamento di caricamento file, alterazioni della configurazione, errori dei file di sistema
 	- Operazioni ad alto rischio (movimenti bancari es.)
 
+### Phishing
+Utilizzo di messaggi o mail ingannevoli per indurre l’utente a cliccare a link inseriti all’interno, che reindirizzano a siti malevoli.
+
+#### Pharming
+Dirottamento dell’utente ad un sito copia del sito desiderato per fargli fare un supposto accesso e leggere i dati di autenticazione.
+
+#### SMiShing
+Utilizzo di SMS per condurre un attacco phishing per far aprir un sito malevolo o una chiamata con l’attaccante.
+
+#### Vishing
+Phishing effettuato tramite chiamate vocali.
+
+#### Whaling
+Phishing su obiettivi di rilievo.
 
 ### Race condition attack
 Avviene quando un sistema computazionale viene forzato ad eseguire contemporaneamente due o più operazioni (che possono mirare allo stesso dato, portando ad una sua duplice modifica) contemporaneamente.
@@ -800,11 +726,10 @@ Avviene quando un sistema computazionale viene forzato ad eseguire contemporanea
 ### Remote code execution
 Permette all’attaccante di eseguire linee di codice con privilegi di amministratore, sfruttando le vulnerabilità di un’applicazione.
 
-
 ### Replay
 Intercettazione e conseguente ripetizione o blocco temporaneo dei dati inviati da un’utente ad un server, con lo scopo di indirizzare le azioni dell’utente verso i propri scopi.
 
-### Resource exaustion
+### Resource exhaustion
 Consiste nell’inondare un dispositivo di dati per causarne il crash, blocco temporaneo o danni alle componenti hardware.
 
 ### Security logging e Monitoring failures
@@ -944,28 +869,268 @@ POST http://www.vulnerableapp.com/xml HTTP/1.1<?xml version="1.0" encoding="ISO-
 	 ```
 - Gestire dati in formati semplici (es. #JSON )
 - Verificare in ambiente di #testing che le chiamate #xml abbiano le dovute restrizioni
-### XSS
-Il Cross-Site scriptinf si riferisce all'utilizzo di #script per manipolare le interazioni tra utente e sito web.
+
+Il Cross-Site scripting (invio di stringhe di esecuzione attraverso i siti) si riferisce all'utilizzo di script per manipolare le interazioni tra utente e sito web.
+
 #### Reflected XSS
 Viene utilizzato un link per far inviare all'utente colpito un codice malevolo per colpire il server del sito. Possono essere inviati, ad esempio, tramite siti malevoli o mail
 #### Stored XSS
 Lo script viene memorizzato in una pagina del sito e quindi riprodotto ogni volta che viene richiamata la pagina stessa (anche su utenti diversi)
+
 #### DOM-based XSS
 Blocchi di codice #JavaScript (quindi non controllabili tramite #csrf-token)
-#### Pevenzione
-- preferire le #whitelist alle #blacklist anche per le #input-validation
+#### Prevenzione
+- Preferire l'utilizzi di #whitelist alle #blacklist anche per le #input-validation
 - Output encoding
 - Content Security Policy
 - utilizzare un framework moderno
 - in #PhP usare funzioni htmlentities() e htmlspecialchars() per effettuare l' #escaping delle variabili
+- Utilizzare un implementazione IPS per identificare e prevenire scipt malevoli
+- Utilizzare un Web Proxy per bloccare siti malevoli
 
+## Presentazione
+## Sessione
+### Session Hijacking
+
+## Trasporto
+### TCP SYN Flood
+L’attaccante effettua ripetutamente chiamate di richiesta di sincronizzazione al server bersaglio che, rispondendo a tutte le chiamate con un messaggio ACK, non riesce a rispondere in tempo alle chiamate legittime di SYN.
+
+### TCP Reset attack
+Viene inviato un segnale RST (reset) al server utilizzando l'indirizzo IP dell'obbiettivo ([spoofing](#spoofing)) per resettare la comuniucazione in corso. Questo attacco può condurre a successivi attacchi di tipo [session hijacking](<#session hijacking>).
+
+### UDP flood attack
+Ha come obiettivo il blocco della rete a causa delle troppe richieste da elaborare. Di solito l'attaccante utilizza tool come [UDP Unicorn] o [Low Orbit Ion Cannon] per preparare i pacchetti e automatizzarne l'invio. Il risultato è un attacco di tipo [DoS](#dos).
+
+## Rete
+
+### ARP
+#### ARP Cache poisoning
+Attacco che può essere utilizzato per gettare le basi per un [Man in the middle](#man-in-the-middle) e consiste nel sostituirsi ad un altro dispositivo ad una [ARP request](./Tecnologie/Protocolli#ARP)
+
+### ICMP
+Consiste nel pingare pacchetti echo agli host di una rete per scoprirne l’architettura (sotto reti e host connessi). È possibile effettuare questa operazione ripetutamente in poco tempo per inondare la rete (flood) di messaggi da gestire e rallentarla (DoS).
+
+I messaggi inviati possono essere di vario tipo:
+- Echo request e reply nel caso si voglia effettuare un attacco DoS. Nel caso si effettui anche lo spoofing mirato, è possibile inondare di richieste un dispositivo bersaglio
+- Unreachable per riconoscere e scansionare reti
+- Mask reply nel caso si vogliano mappre gli indirizzi IP di una rete
+- Redirect per reindirizzare il traffico verso l’attaccante ed effettuare un MItM
+- Router discovery per inserire indirizzi IP falsificati all’interno della tabella di routing
+
+
+### IP
+#### IP Spoofing
+Falsificazione di un indirizzo IP in maniera mirata (se si conosce l’indirizzo che si sta falsificando) o alla cieca (in caso contrario).
+
+### DHCP
+Vedi [protocollo DHCP](./tecnologie/protocolli#dhcp)
+#### DHCP Spoofing
+Di solito consiste nel fornire un indirizzo IP falso relativo al Default Gateway o al Server DNS (anche se potenzialmente qualunque indirizzo IP può essere contraffatto), seguendo i seguenti passaggi:
+1. Il Client invia un messaggio DHCP Discovery (che viene ascoltato anche dall'attaccante)
+2. Il Server DHCP e l'attaccante rispondono con un messaggio DHCP Offer (il Client risponderà solo alla prima risposta ricevuta)
+3. Nel caso la prima risposta venga inviata dall'attaccante, invierà un DCHP Request in broadcast, che non verrà accettata dal Server DHCP in quanto la richiesta é già stata accettata da un altro Server DHCP (l'atatccante)
+4. L'attaccante invia un DHCP ACK al Client, completando l'attacco di **spoofing** e sostituendosi al Server DHCP
+
+#### DHCP Starvation attack
+Consiste nel sostituirsi al Server DHCP e impedire agli utenti di utilizzare il protocollo DHCP per richiedere un indirizzo IP privato.
+
+### DNS
+Gli attacchi che sfruttano il protocollo [DNS](./Tecnologie/Protocolli#dns) possono avvenire tramite:
+- Sfruttando gli Open Resolver (indirizzi IP pubblici che vengono utilizzati per cercare informazioni, tipo Google)
+#### DNS cache poisoning
+Consiste nell'invio di risorse falsificate ([spoofing](#spoofing)) ad un DNS Resolver per reindirizzare l'utente verso siti malevoli
+
+#### DNS Amplification and reflection attack
+Utilizzo di attacchi [DoS](#dos) o [DDoS](#ddos) ad un Open Resolver per nascondere la vera fonte dell'attacco tramite l'invio di open resolver  per aumentare il volume dell'attacco.
+
+#### DNS Resource utilization attack
+Consiste in un attacco di tipo [DoS](#dos) per sovraffollare il server di richieste per resettare il server.
+
+#### DNS Stealth Attacks
+Sono metodologie utilizzate per nascondere la propria identità al bersaglio.
+
+##### Fast flux
+Tecnica utilizzata per nascondere i siti di invio di malware e [phishing](#phishing) al bersaglio. Di solito avvengono tramite il cambio rapido di indirizzo DNS tra  una lista di indirizzi compromessi. Questo tipo di attacchi è utilizzato spesso dai Botnet.
+
+##### Double IP flux
+L'attaccante modifica velocemente sia l'hostname (in base ad un pool di indirizzi IP) che il [nome autoritativo del server](https://en.wikipedia.org/wiki/Name_server#:~:text=An%20authoritative%20name%20server%20is,specifically%20configured%20by%20its%20administrator).
+
+##### Domain generation algorithms
+Tecnica utilizzata dai malware per generare automaticamente nomi di dominio che possono essere utilizzati come punti di accesso per i [server di comando e controllo](https://nordvpn.com/cybersecurity/glossary/cc-server/).
+
+
+#### DNS Tunneling
+Consiste nell'incanalare reti all'interno di un unico nome di dominio, in modo tale da utilizzare le varie sottoreti per inviare malware ed aggirare alcuni meccanismi di protezione dei firewall e/o alterare alcuni [campi del pacchetto](./tecnologie/protocolli#dns#pacchetto) (come TXT, MX, SRV, NULL, A, o CNAME). Un esempio di attuazione di tunneling è il seguente:
+1. Il dato (comandi di esecuzione) viene frammentato e cifrato
+2. Ogni frammento è inserito all'interno di un sottodominio della richiesta DNS
+3. Non ricevendo alcuna risposta dalla rete, a seguito della query DNS, la richiesta viene inoltrata al Server ricorsivo DNS dell'ISP
+4. L'ISP inoltra la richiesta ai vari server dell'attaccante
+5. Il processo si ripete fin quando tutte le queries non vengono risolte e tutti i vari frammenti sono stati inviati
+6. I frammenti vengono raccolti dal server autoritativo, che invia le risposte a tutte le richieste DNS ricevute
+7. Il malware ricompone i messaggi, legge ed esegue il comando.
+
+## Collegamento
+Gli attacchi più comuni al [livello 2 - Collegamento](<Tecnologie/protocolli#2 - Collegamento>) (o data-link) della pila ISO/osi sono:
+### Spoofing
+Utilizzo di credenziali falsificate durante la comunicazione con altri dispositivi relativamente a:
+- MAC
+- IP
+
+### MAC Flooding
+Invio massivo di richieste alla rete con lo scopo di rallentarla o bloccarla.
+
+## Fisico
+
+## Social Engineering
+Macro categoria di attacco informatico, che consiste nell’ottenere informazioni e/o accesso ai sistemi informatici attraverso l’inganno di persone che lavorano all’interno dell’azienda oggetto dell’attacco. Gli attacchi sfruttano strategie ne si basano su concetti psicologico come:
+- Autorità
+- Intimidazione
+- Consenzo
+- Sicurezza
+- Urgenza
+- Familiarità 
+- Fiducia
+
+Le tipologie principali di social engineering sono:
+
+### Frode
+Utilizzo di identità falsa per ottenere credibilità durante il processo di richiesta di informazioni.
+
+### Quid-pro-quo
+Scambio di favori in cambio di informazioni.
+
+### Pretexting
+Consiste nell’utilizzo di menzogne o pretesti per ottenere informazioni.
+
+
+## WLAN
+Gli attacchi verso una rete [WLAN](./tecnologie/reti#wlan) hanno lo scopo di:
+- Intercettare dati
+- Ottenere accesso a risorse all'interno della rete
+- effettuare attacchi [DoS](#dos) per compromettere l'accesso alla rete stessa
+- Inserimento di AP falsi (Rogue Access Point)
+
+
+## Altri tipi di attacchi
+- supply chain
+### Adversial artificial intelligence attack
+Consiste nell’inserire dati di input volutamente errati all’interno di un modello di AI per falsificarne i risultati.
+
+###  Cloud-based attack
+Attacchi che sfruttano la struttura cloud di una rete aziendale per 
+
+### Bluesnarfing
+Connessione con un dispositivo bersaglio con conseguente furto di dati personali (come mail e lista dei contatti).
+### Bomba logica
+Programma malevolo che rimane inattiva fino alla realizzazione del trigger desiderato. Una bomba logica può causare danni logici (eliminazione di file o alterazione del database) o fisici (es. mandare in overload ventole o CPU)
+
+### Bufale
+Creazione di contenuti informativi falsi e/o fuorvianti per ottenere informazioni o per minare la credibilità del bersaglio. Questo attacco può anche presentarsi organizzato in vere e proprie campagne.
+
+### Injection
+La Code injection consiste nell’immissione di stringhe di codice all’interno di 
+### DOS
+Il Denial Of Service è un attacco che sfrutta una script o altri metodi per sovraccaricare il #server bersaglio ed impedirne il normale funzionamento per un determinato periodo di tempo
+
+#### DDOS
+Il Distributed Denial of Service è un’evoluzione del #dos, ma utilizza più macchine per portare a termine l'attacco.
+
+### Dumpster diving
+Ottenere informazioni tramite controllo dei rifiuti prodotti dai dipendenti dell’azienda.
+
+### False Fatture
+Uso di false fatture per ricevere denaro o informazioni sensibili.
+
+### Grayware
+Presenza di applicazione non desiderata all’interno del dispositivo (che può come può non contenere malware)
+
+### Hijacking
+Dirottamento, ovvero accesso ad un dispositivo con successiva modifica delle credenziali, al fine di bloccare l’accesso del legittimo proprietario.
+
+### Bluejacking
+Hijacking di un dispositivo tramite connessione Bluetooth. L’accesso alla connessione bluetooth può avvenire grazie al range operativo ristretto della connessione Bluetooth.
+
+### DNS
+Il Dirottamento avviene quando un attaccante ottiene l’accesso all’account admin di un server, con successiva modifica delle credenziali (rendendo impossibile l’accesso all’utente proprietario). In questo modo l’attaccante può modificare l’ip di riferimento del DNS verso un sito malevolo. 
+
+### Impersonamento
+Pretendere di essere un’altra persona per poter chiedere (sfruttando i principi di autorità o fiducia) informazioni.
+
+### Keyboard logging
+Consiste nella lettura di tutti gli input immessi tramite tastiera tramite software.
+
+### Malware
+I malware sono software malevoli che hanno come scopo arrecare danno all'utente bersaglio. 
+Questi possono essere installati nel dispositivo in vari modi:
+- Download di antivirus da pop-up (o comunque da siti che siano diversi dal sito originale). Il software potrebbe essere stato alterato per contenere malware
+- Malware *fileless*, che si attivano all'avvio del Sistema operativo per poi disattivarsi al suo spegnimento
+- Script dannosi (indipendentemente dal linguaggio utilizzato)
+- Installazione non intenzionale di software di terze parti infettati
+#### Trojan
+Malware che effettua operazioni malevole, mascherandole all’interno di un file legittimo modificato. I file su cui viene caricato il malware sono spesso di tipo non eseguibile.
+
+#### Virus
+Software che, una volta eseguito, si replica all’interno del pc e inserisce il proprio codice all’interno di altri file, periferiche o dispositivi connessi alla stessa LAN. Un virus può essere anche innocuo, così come distruttivo per un pc (può ad esempio cancellare file).
+È possibile che un virus cambi la sua struttura per essere più difficile da identificare.
+
+#### Worm
+Software malevolo che si duplica all’interno del pc infettato. A differenza del virus, non deve essere attivato da un altro software e si espande sfruttando vulnerabilità del sistema operativo e/o della rete con l’obiettivo di rallentare il dispositivo o la rete stessa.
+
+### Man-in-the-middle
+Consiste nel frapporsi tra un client ed un server per rubare e/o modificare informazioni durante il loro traporto.
+
+### Piggyback
+Noto anche come Tailgating, consiste nel seguire a breve distanza una persona con permessi di accesso fisico in aree protette al fine di bypassare i controlli.
+
+### Prepending
+Sostituzione del tag “esterno” all’azienda con uno interno all’azienda per far credere che sia stata inviata dall’interno dell’ambiente aziendale.
+
+### Jamming
+Manomissione di strumenti di trasmissione o dati.
+
+### Frequenze radio
+Utilizzo di impulsi elettromagnetici per disturbare le frequenze radio di una connessione, di fatto interrompendola.
+
+### Ransomware
+Malware utilizzato con il particolare scopo di impedire all’utente attaccato di visualizzare/utilizzare i file del proprio pc (tramite cifratura o furto dei file), per chiedere un riscatto come condizione per il riottenimento dei dati.
+
+### Reindirizzamento
+Reindirizzamento automatico dell’url (tramite parametri specifici all’interno dell’url utilizzato) verso un sito malevolo.
+
+### Rogue access point
+Installazione di un punto di accesso wireless non desiderato all’interno di una rete, che ne permetta l’utilizzo senza autenticazione. Questo attacco facilita l’utilizzo di attacchi all’interno della rete (come il [Man-in-the-middle](#man-in-the-middle)).
+
+### Evil-twin
+Creazione di una rete temporanea, avente nome simile ad una rete esistente con l’obiettivo di indurre utenti a connettersi per avere accesso al loro traffico.
+
+### Shoulder surfing
+Consiste nel visualizzare l’inserimento di informazioni confidenziali (pin, password) durante l’immissione.
+
+### Spoofing
+
+### DNS
+Falsificazione dei dati all’interno dei Server DNS per reindirizzare gli utenti finali verso siti con contenuto malevolo.
+
+### Typo squatting
+Utilizzo di URL simili a siti reali per la colmatura dei siti originali con intenti malevoli, sfruttando la possibilità che utenti ci entrino non intenzionalmente.
+
+### Watering Hole Attack
+Inserimenti di malware (almeno) uno dei siti più utilizzati dal bersaglio
+
+### XSS
+Il Cross-site Scripting consiste nell’ inserire codice malevolo all’interno di un sito web, che andrà successivamente ad infettare i dispositivi degli utenti che visitano il sito infettato. Di solito ha l’obiettivo di leggere dati di accesso e/o cookies al fine di poter impersonare l’utente.
+### Zero-day
+Attacco che avviene sfruttando vulnerabilità deep software non ancora note pubblicamente.
+
+# Vulnerability
 # Weakness
-Vulnerabilità
+Le **Debolezze** sono tutti quegli attacchi (conosciuti e non) che possono essere effettuati, sfruttando le **[vulnerabilità](#vulnerability)**
 
-## [Improper Restriction of XML external entity Reference](https://cwe.mitre.org/data/definitions/611.html)
-Tim Ferris - inventore di Wordpress
+## Improper Restriction of XML external entity Reference
+[Improper Restriction of XML external entity Reference](https://cwe.mitre.org/data/definitions/611.html).
 
-Noto anche come #XEE, si verifica quando un entità XML contiene collegamenti ad altre entità XML non previste dal sistema, che permettono di inserire script malevoli per prelevare dati.
+Si verifica quando un entità XML contiene collegamenti ad altre entità XML non previste dal sistema, che permettono di inserire script malevoli per prelevare dati.
 
 # Strumenti di analisi
 ## Software
@@ -1085,6 +1250,12 @@ I malware possono essere inseriti nel dispositivo in vari modi:
 - Malware *fileless*, che si attivano all'avvio del Sistema operativo per poi disattivarsi al suo spegnimento
 - Script dannosi (indipendentemente dal linguaggio utilizzato)
 - Installazione non intenzionale di software di terze parti infettati
+
+Alcuni esempi di software Antimalware commerciali sono:
+- AMP: Cisco Advanced Malware Protection
+- WSA: Cisco Web Security Appliance
+- ESA: Cisco Email Security Appliance
+
 ### Antivirus
 Monitora di continuo il pc e, in caso riconosca un virus, lo mette in quarantena  o lo elimina
 
@@ -1096,6 +1267,49 @@ Blocca gli indirizzi IP di noti siti di Phishing e avvisa l'utente riguardo i si
 
 ### Anti-spyware
 Programma che cerca keyloggers e altri spyware
+
+## NSI
+L’Infrastruttura di Sicurezza della Rete definisce le modalità con le quali i dispositivi devono essere collegati tra loro per assicurare un buon livello di sicurezza end-to-end. 
+### ACL
+La Lista di Controllo degli Accessi è una serie di comandi che controlla quando un pacchetto deve essere inoltrato e quando deve essere bloccato, in base alle informazioni trovate nell’header del pacchetto. Un ACL svolge le seguenti funzioni:
+- Limita il traffico per migliorare le prestazioni della rete
+- Fornisce un controllo del flusso della rete (può anche fornire delle rotte predefinite per gli aggiornamenti, evitando così l’installazione di aggiornamenti da terze parti)
+- Fornisce un livello base di protezione della rete
+- Filtra il traffico in base al tipo di pacchetto (es. Email, video, ecc.)
+- Monitorano le attività degli host ed impediscono determinati accessi alla rete (es. Permettere solo protocolli FTP)
+Gli ACL spesso operano operazioni di controllo tramite indirizzi IPv4 di origine e destinazione, o porte di accesso e protocollo utilizzato.
+Di solito è utile utilizzare più ACL e nominarle con numeri o nomi che definiscano il tipo di filtraggio compiuto.
+
+### NetFlow
+È un software utilizzato per gestire comunicazioni tramite [SNMP](./tecnologie/protocolli#snmp). Originariamente il software catalogava le comunicazioni in base a 7 parametri:
+1. IP del mittente
+2. IP del destinatario
+3. Porta di invio
+4. Porta di destinazione
+5. Protocollo di [livello 3](<#3 - Rete>) utilizzato
+6. Marchio ToS (Tipo di Servizio)
+7. Interfaccia logica di input
+
+Il punto 6, incluso nell'header del pacchetto IPv4, contiene informazioni relative alle regole per la [Qualità del servizio] da applicare al pacchetto nel flusso in cui è stato inviato.
+
+
+### Port Mirroring
+È una feature dello Switch che permette di duplicare il traffico ed inviare una copia ad un dispositivo apposito, utilizzato per monitorare la rete.
+
+### Syslog server
+Server utilizzato appositamente per memorizzare i report inviati da Switch, Router e altri dispositivi di rete, utili per effettuare il troubleshooting.
+Il Syslog possiede due caratteristiche principali:
+- L’abilità di selezionare il tipo di informazione di logging catturata
+- L’abilità di specificare il destinatario del messaggio Syslog catturata.
+
+### NTP
+Il [Protocollo del Tempo della Rete](./tecnologie/protocolli#ntp) è importante per tenere traccia in maniera efficace dei log di più dispositivi connessi alla stessa rete
+
+### Server AAA
+Vedi [Server AAA](<./tecnologie/macchina#aaa server>).
+
+### VPN
+La [VPN](tecnologie/reti#vpn) risulta particolarmente utile nel caso ci sia bisogno di fornire una connessione sicura alla rete da remoto grazie alla cifratura del messaggio durante il passaggio nella WAN.
 
 ## Boot integrity
 Software che permette di stabilire se un sistema possa essere considerato affidabile, o se sia stato modificato durante la fase di avvio o caricamento.
@@ -1109,12 +1323,43 @@ Il firmware controlla l'affidabilità di ogni parte del software di avvio, inclu
 Provvede un protocollo di validazione più forte del Secure boot, in quanto misura tutti i vari componenti e ne salva un log all'interno del chip TMP, che potrà essere utilizzato per effettuare test di controllo da remoto. Permette anche di identificare applicazioni non fidate e di caricare prima gli anti'malware.
 
 ## Firewall
-Sono software che permettono di filtrare i messaggi in ingresso in una rete. Devono essere
-- Resistenti agli attacchi informatici
-- Devono essere l'unico punto di contatto tra una LAN e una WAN
-- Applicano le [Policy di Controllo degli Accessi](#ACP)
+Sono software o dispositivi che permettono di filtrare i messaggi in ingresso in una rete e perciò devono/offrono funzionalità per:
+- essere resistenti agli attacchi informatici
+- essere l’unico punto di contatto tra una LAN e una WAN
+- applicare le [Policy di Controllo degli Accessi](#ACP)
+- sanare il flusso del protocollo, prevenendo lo sfruttamento di determinati protocolli per portare a segno attacchi
+- bloccare l’invio di dati malevoli da server e client
+- ridurre i controlli necessari da parte dei team di gestione in quanto basta controllare le politiche dei firewall per effettuare un’analisi
 
-### Packet filtering
+### Architettura
+Essendo il firewall un punto di contatto tra diverse reti (es. LAN e WAN), la sua configurazione avviene per due interfacce:
+- Traffico in entrata
+- Traffico in uscita
+Ci sono dei modelli molto usati per definire l’architettura di un firewall:
+- Pubblico e privato
+- Zona demilitarizzata
+- Policy del Firwewall basate sulla zona
+
+#### Pubblico e privato
+Si considera la rete interna come sicura e quella esterna come insicura. Partendo da ciò, si crea la rete tenendo in considerazione che:
+- tutto ciò che esce dalla rete privata è ispezionato e poi inviato verso la rete pubblica
+- tutto ciò che proviene dalla rete pubblica viene bloccato
+In questo caso quindi l’uso del firewall è potenzialmente superfluo.
+
+#### DMZ
+Nella zona demilitarizzata i firewall vengono posizionati in parallelo alla rete privata (non agiscono da filtro di blocco tra rete e router, ma si sostituisce alla rete privata per i pacchetti in ingresso e alla rete pubblica per quelli in uscita)
+- Il traffico proveniente dalla rete privata viene analizzato e lasciato passare con poche o nessuna restrizione
+- Il traffico proveniente dalla DMZ viene bloccato di default e lasciato passare selettivamente (di solito DNS, HTTP, HTTPS, IMAP, POP, SMTP), oppure il traffico di risposta da richieste inviate dalla rete privata, che viene permesso in maniera dinamica
+
+#### ZPF
+Le Policy Basate sulla Zona utilizzano il concetto di zona (gruppo di una o più interfacce aventi funzionalità simili) per stabilire le regole in base alle necessità e alla tipologia di zona da proteggere. L’utilizzo di questa architettura permette una maggiore flessibilità.
+Di default il traffico tra interfacce diverse della stessa zona è abilitato senza blocchi, mentre la comunicazione tra blocchi diversi è bloccata.
+
+Nel caso si voglia definire una policy per la self zone (il Router), occorre tenere conto della gestione e controllo dei piani di traffico, in particolare i protocolli di routing, [SSH](./Tecnologie/protocolli#ssh) e [SMNP].
+
+### Tipi di firewall
+
+#### Packet filtering
 Chiamati anche Stateless, sono firewall che sostanzialmente impediscono le comunicazioni basandosi su informazioni di livello 3 (Network) o livello 4 (Trasporto). Di solito fanno parte del Router Firewall.
 
 I benefici sono:
@@ -1130,7 +1375,7 @@ I lati negativi invece sono:
 - utilizzano ACL complesse, che sono difficili da implementare e manutenere
 - Non possono filtrare dinamicamente certi servizi.
 
-### Stateful firewall
+#### Stateful firewall
 Sono i più versatili in quanto offrono meccanismi di protezione basati su informazioni a livello 3, 4 e 5 (Sessione) della pila ISO/OSI e permette di salvare le informazioni sui dati in un'apposita tabella dello stato.
 
 Benefici:
@@ -1146,25 +1391,60 @@ Contro:
 - difficoltà nel tracciare connessioni che usano porte dinamiche
 - non supportano autenticazione dell'utente
 
-### HBF
+#### HBF
 L'Endpoint firewall (o Host-based Firewall) è un [firewall](#Firewall) installato sul dispositivo stesso, utilizzato per consentire o negare il traffico del dispositivo con il resto della rete in base a meccanismi di controllo (bloccando la porta nella quale è in corso la sessione identificata come pericolosa) che funzionano però solo per connessioni aperte dall'host stesso.
 Alcuni HBF includono meccanismi di protezione delle Tabelle IP e dei TCP Wrapper.
 
-### Application Gateway firewall
+#### Application Gateway firewall
 Blocca le connessioni ai livelli 3,4,5 e 7 (Applicazione) tramite utilizzo di un Proxy che funge da tramite per le connessioni tra gli endpoint all'interno della rete e l'esterno.
+La maggior parte dei blocchi e dei controlli avviene tramite software.
 
-### Firewall di ultima generazione
+#### Firewall di ultima generazione
 Permettono di:
 - Integrare sistemi di prevenzione delle intrusioni
 - Aggiungere coscienza e controllo del livello 7 (Applicazione) per vedere e bloccare software rischiosi
 - Aggiornano i percorsi al fine di includere informazioni future
 - Tecniche per identificare le [minacce](#Threat) della sicurezza in evoluzione
 
-### Firewall trasparente
+#### Firewall trasparente
 Filtra il traffico IP tra una coppia di interfacce a ponte.
 
-### Firewall ibrido
+#### Firewall ibrido
 Una combinazione di due o più firewall tra quelli sopra menzionati.
+
+## IPS
+### Introduzione
+I [Sistemi di Prevenzione delle Intrusioni](https://it.wikipedia.org/wiki/Sistema_di_prevenzione_delle_intrusioni) sono dei componenti software che permettono di monitorare, registrare e bloccare le attività dannose all'interno di una rete, tramite il riconoscimento di pattern all’interno dei pacchetti (definibili dal gestore) analizzati.
+Gli IPS (o i simili IDS, Dispositivi di Identificazione delle Intrusioni) possono essere implementati tramite:
+- Software per il router (es. Cisco IOS IPS)
+- Dispositivi appositi 
+- Moduli di rete installati all’interno di ASA (Apparecchi di Sicurezza Adattiva), Switch o Router
+
+I vantaggi di un IDS sono:
+- Assenza di rallentamento del flusso di dati
+- Nessun impatto sulla rete in caso di arresto
+- Nessun impatto sulla rete in caso di sovraccarico
+Gli svantaggi invece sono:
+- I pacchetti dannosi non possono essere bloccati
+- È necessario impostare correttamente le azioni di risposta
+- Più vulnerabili contro le tecniche di evasione della sicurezza di rete
+
+I vantaggi di un IPS sono:
+- Blocco dei pacchetti dannosi
+- Possibilità di utilizzo di tecniche di normalizzazione del flusso per identificare attacchi segmentati su più pacchetti
+Gli svantaggi invece sono:
+- Possibile rallentamento del traffico dovuto a problemi dei sensori
+- Il sovraccarico dei sensori impatta le prestazioni della rete
+- Impatto sulla rete
+
+### Host-based
+Gli IPS basati sull’host (HIPS) sono software da installare su dispositivi per monitorare e proteggere i sistemi operativi. Tra le loro funzionalità includono:
+- La possibilità di bloccare azioni effettuate dall’utente nel caso divergano dai suoi comportamenti abitudinari (come la modifica di file di sistema)
+
+Un particolare di cui tenere conto è che gli HIPS monitorano l’attività dell’endpoint su cui sono installati.
+
+### Network-based
+Gli IPS basati sulla rete (NIPS) possono essere implementati su un dispositivo dedicato o su un dispositivo non dedicato e sono elementi indispensabili per la sicurezza della rete.
 
 ## Host encryption
 L'esempio più noto è l'[EFS](../os/windows#efs) (Windows Encrypting File System, ovvero Sistema di Crittazione dei File), che permette, appunto, di crittare file, cartelle, o l'intero hard drive.
@@ -1179,7 +1459,13 @@ Le patch sono aggiornamenti di software per risolvere [vulnerabilità](#weakness
 A livello aziendale, spesso gli aggiornamenti vengono analizzati dal team di Cybersecurity prima di venire installati nei dispositivi all'interno della rete. Per facilitare questo compito, esistono i Patch Manager, ovvero software che permettono una gestione facilitata degli aggiornamenti delle patch, grazie al controllo tramite un'unica piattaforma la gestione delle patch per tutti i dispositivi della rete.
 
 ## Minacce WLAN
-Le connessioni WLAN hanno il rischio extra di poter essere disturbate e/o intercettare da utenti malevoli (o ricevere altri tipi di disturbi).
+Le connessioni WLAN hanno ulteriori rischi: 
+- poter essere disturbate e/o intercettate da utenti malevoli (o ricevere altri tipi di disturbi)
+- Non avere il pieno controllo degli accessi (chiunque riceva il segnale può potenzialmente connettersi)
+
+Dei meccanismi efficaci di protezione sono:
+- utilizzo di meccanismi e protocolli di autenticazione e crittazione (come [WPA2](./tecnologie/protocolli#WEP2), [WPA3](./tecnologie/protocolli#WEP3), [AES](./tecnologie/protocolli#aes))
+
 ## Endpoint security
 
 ### HBSS
@@ -1214,9 +1500,55 @@ Il Data Loss Prevention (Prevenzione della Perdita di Dati) è un software che s
 I Firewall di nuova generazione (New Generation Fierewall) sono dispositivi che combinano le classiche funzionalità di un firewall con altre funzionalità di filtraggio degli host all'interno della rete tramite inline Deep Packet Inspection(DPI, Ispezione profonda dei pacchetti) o sistemi IPS (Sistema di Protezione dalle Intrusioni).
 
 
+## Mitigazione
+### Attacchi di ricognizione
+Gli attacchi di ricognizione sono effettuati per analizzare la rete e preparare da attacchi più importanti. Di solito hanno l'obiettivo di raccogliere informazioni e preparare un accesso alla rete per l'attaccante. Questi attacchi sono identificabili e notificabili tramite l'analisi del volume di richieste [ICMP](./tecnologie/protocolli/icmp) per secondo.
+
+La mitigazione di questi attacchi avviene:
+- Implementando misure di autenticazione
+- Utilizzando la crittografia delle comunicazioni per evitare attacchi di [sniffing](#sniffing) delle comunicazioni
+- Utilizzando degli **anti-sniffer** per identificare agli attacchi di sniffing
+- Implementare un'[infrastruttura a Switch](https://en.wikipedia.org/wiki/Fully_switched_network)
+- Utilizzare [Firewall](#firewall) e [IPS](#IPS)
+- Crittare le comunicazioni per evitare attacchi di packet sniffing
+- Disattivando gli ICMP echo e eco-reply negli edge-router (da considerare che questa operazione non permetterà di effettuare operazioni di diagnosi della rete)
+
+### Attacchi di accesso
+Le misure consigliate di mitigazione sono:
+- Utilizzare password forti (almeno 8 caratteri, che contengano almeno un carattere minuscolo, uno maiuscolo, un numero e un carattere speciale)
+- Disattivare l'account dopo un numero di tentativi di accesso consecutivi non andati a buon fine
+- Implementare politiche di accesso tramite MFA
+- Educare gli utenti
+
+Per Identificare questo tipo di attacchi, invece, è possibile:
+- Controllare i log degli accessi
+- Controllare l'utilizzo di banda della connessione
+
+
+### DoS
+Per verificare se è in corso un attacco [DoS](#DOS) di solito basta controllare la presenza di picchi (o comunque di strani pattern) nel grafico dell'uso della banda. Un attacco DoS può essere anche un campanello di allarme per futuri attacchi più dannosi alla rete.
+La maggior parte degli attacchi DoS nella storia sono stati effettuati tramite [indirizzi falsificati](#spoofing).
+
+Ci sono in commercio dei Router con meccanismi di protezione da spoofing, come la [port security], [DHCP snooping], [IP Source Guard], [DAI] (Dynamic Access Resolution Protocol Inspection) e [ACL](./os/linux#ACL)
+
+### Worm
+Il processo di mitigazione contro un attacco worm avviene seguendo le fasi:
+#### Contenimento
+Viene compartimentata e segmentata la rete per evitare che il worm continui a diffondersi in tutti i dispositivi della rete. Per effettuare questo processo è richiesto verificare la [Lista di controllo degli accessi](./os/linux#acl) sia per le comunicazioni da che verso i Router e i Firewall della rete.
+
+#### Inoculazione
+Viene installata la patch dell'azienda produttrice su tutti i dispositivi non ancora infettati dal worm, riducendo così la superficie di attacco del worm.
+
+#### Quarantena
+Fase che si attua contemporaneamente alla precedente, che consiste nell'isolare i dispositivi infettati dal worm dal resto della rete (tramite disconnessione, blocco o rimozione). 
+
+#### Trattamento
+I dispositivi infetti vengono disinfettati ed in seguito vengono installate le patch dell'azienda produttrice del sistema operativo che si sta utilizzando. Nei casi più estremi, può essere necessario reinstallare l'intero Sistema Operativo sul dispositivo per evitare con maggiore sicurezza la presenza del worm o dei suoi sottoprodotti.
+
 # Normativa
 ## Italia
 - AGID
+- [Legge 81/2001](https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:legge:2001;81)
 ## EU
 - GDPR
 ## US

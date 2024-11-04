@@ -12,4 +12,7 @@ Il #tag è una stringa utilizzata per indicare una articolare funzione di un com
 ```HTML
 <a href="link">Link</a>
 ```
-- href - utilizzato per inserire link sotto forma di stringa. Nel caso si uti
+- href - utilizzato per inserire link sotto forma di stringa.
+
+## iframe
+L'inline frame è un tag che permette di caricare e visualizzare un'altra pagina web al suo interno. Sono comunemente utilizzati per inserire pubblicità all'interno di un sito web.
