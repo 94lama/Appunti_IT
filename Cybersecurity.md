@@ -499,6 +499,7 @@ Questo tipo di attacco può essere prevenuto tramite:
 - Utilizza un #framework che includa un sistema di autorizzazioni al suo interno
 #### Horizontal Authorization Control
 Vulnerabilità sfruttabile tramite attacchi #idor (Insecure Direct Object References)
+
 ``` 
 http://vulnerableapp.com/user/account?accountId=7800001
 	L'utente accede al sito tramite account personale
