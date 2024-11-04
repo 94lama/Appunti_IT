@@ -27,7 +27,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Tecnologie/Protocolli.md",
+                "file": "Cybersecurity.md",
                 "mode": "source",
                 "source": false
               },
@@ -35,7 +35,8 @@
               "title": "Protocolli"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -192,6 +193,7 @@
     "Immagini/Pasted image 20240108202659.png",
     "Software/Burp.md",
     "Linguaggi/Php.md",
+    "Framework/Laravel.md",
     "Immagini/SQL Join.png",
     "Immagini/Pasted image 20240219204523.png",
     "Immagini/Pasted image 20240502095612.png"

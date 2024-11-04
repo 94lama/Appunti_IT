@@ -689,7 +689,6 @@ Rispetto al WPA2, questo protocollo protegge anche dall'ascolto della comunicazi
 Questa casistica si evita grazie all'uso dell'Autenticazione Simultanea tra Eguali (SAE).
 
 Questo protocollo agevola anche la comunicazione con i dispositivi IoT tramite protocollo [DDP] (Protocollo di Approvvigionamento del Dispositivo), che permette a dispositivi *headless* (senza interfaccia grafica per cambiare le impostazioni) una connessione agevole e sicura alla rete.
-
 Per le reti aperte, la WPA3 permette di crittare il traffico, aggiungendo un livello di sicurezza per attacchi di tipo sniffing.
 
 ### WEP

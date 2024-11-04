@@ -268,6 +268,7 @@ Il Wireless LAN Controller è un dispositivo utilizzato per centralizzare il con
 
 ### LWAP
 L'AP Leggero è un Punto di Accesso (AP) ad una rete wireless che non agisce in maniera autonome, ma è gestito da un [WLC](#WLC).
+
 ### WMN
 La Wireless Mesh Network utilizza multipli Access Point (AP, Punti di accesso).
 
