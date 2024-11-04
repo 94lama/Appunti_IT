@@ -19,7 +19,7 @@ Per dispositivi Windows è presente anche il protocollo Remote Desktop Protocol 
 7. Documentare
 
 ## Metodologie
-- Bottom-up: dal livello 1 Fisico as 7 Applicazione
+- Bottom-up: dal livello 1 Fisico al 7 Applicazione
 - Top-down: dal livello 7 Applicazione all’1 Fisico
 - Divide-and-conquer: Raccogli informazioni dagli utenti e fai delle ipotesi informate (Informed Guess)
 - Follow-the-path: scopri il percorso del traffico ed analizzalo dalla fine alla destinazione

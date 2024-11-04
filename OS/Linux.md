@@ -11,8 +11,8 @@ I permessi vengono mostrati tramite una stringa suddivisa in 3 parti, ciascuna d
 	1 terzetto = utente proprietario
 	2 terzetto = gruppo
 	3 terzetto = altri utenti
-### Access Control List
-Le Access Control List #ACL permettono di dare permessi extra ad utenti specifici per uno specifico file o directory.
+### ACL
+Le Access Control List (Liste di Controlli di Accesso) permettono di dare permessi extra ad utenti specifici per uno specifico file o directory.
 # Comandi
 Concatenare comandi
 ```Linux
@@ -108,8 +108,9 @@ fallocate <directory_file>
 
 Controllare lo spazio disponibile nelle varie partizioni
 ```shell
-find <directory>
+find <directory> <nome file>
 ```
+	ESEMPIO:
 	find / -perm -4000
 	-perm #cerca i file che hanno i permessi specificati
 	permessi: 1=read, 2=write, 3=execute, 4=SUID

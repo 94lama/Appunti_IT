@@ -103,6 +103,7 @@ Gli #status-code sono dei codici che riassumono il risultato della query.
 | 2xx    | Successo                                                                                            |
 | 200    | Ok                                                                                                  |
 | 3xx    | Reindirizzamento                                                                                    |
+| 302    | Found                                                                                               |
 | 4xx    | Client error                                                                                        |
 | 400    |                                                                                                     |
 | 404    | Not Found                                                                                           |
@@ -120,11 +121,29 @@ Questo permette di ottenere:
 #### E2EE
 La End-to-end Encryption permette di crittare i dati non a livello di #server (come avviene nel #https)
 
+#### NTP
+Il Protocollo Temporale della Rete viene utilizzato nel caso ci sia la necessità di sincronizzare il tempo tra più dispositivi (come alternativa al dettaglio manuale dello stesso).
+Il protocollo permette ai Router di connettersi ad un Server NTP e sincronizzare l’orario, per poi inviare il dato temporale a tutti i dispositivi della rete a cascata. Per praticità i dispositivi della rete vengono catalogati in base alla vicinanza che hanno con il Server NTP:
+-  Stratum 0: Sono i dispositivi appositi che forniscono il dato temporale
+- Stratum 1: Dispositivi collegati direttamente ai dispotivi che forniscono il dato
+- Stratum 2+: Dispositivi che ricevono il dato dallo Stratum 1. Possono anche agire come Server NTP per i livelli inferiori.
+Il numero massimo di livelli ammissibile è 16.
+
 #### RADIUS
 Il [Remote Authentication Dial-In User Service](https://it.wikipedia.org/wiki/RADIUS) è un protocollo di autenticazione utilizzato in applicazioni di accesso reti o di mobilità IP 
 
-## Presentazione
+### SNMP
+Il Protocollo di Gestione Semplice della Rete è utilizzato dagli amministratori per gestire dispositivi come Router, Switch, Server, Workstation e dispositivi di sicurezza all’interno di una rete basata su protocollo IP.
+Un sistema SNMP è formato da due elementi:
+- Gestore SNMP: Dispositivo che avvia il software di geetione
+- Agente SMNP: Nodi che sono monitorati dal software. I vari agenti sono registrati all’interno del MIB (Base di Informazioni Gestionali), assieme ai loro dati operativi.
 
+I messaggi sono di 3 tipi:
+- GET: inviati dal gestore per richiedere informazioni
+- SET: inviati dal gestore per modificare impostazioni
+- TRAP: inviati dal nodo per inviare informazioni
+
+## Presentazione
 
 ## Sessione
 
@@ -201,7 +220,6 @@ La comunicazione tra le due macchine avviene tramite #tunneling, ovvero un perco
 Il protocollo è reso sicuro tramite utilizzo di criptazione tramite #chiave-asimmetrica (ovvero utilizzo di chiave pubblica per criptare il messaggio e chiave privata per decriptarlo).
 ### RDP
 Remote Desktop Protocol, è un protocollo di connessione sicura di [[Windows]], che permette l'accesso diretto alla macchina.
-
 
 ## Network
 ### Descrizione
@@ -657,11 +675,13 @@ Secure Socket Layer
 Versione aggiornata di [[#SSL]]
 
 ### WPA
-Wi-fi Protected Access è un'evoluzione del WEP, che utilizza un metodo di crittazione [TKIP] (Protocollo di Integrità Temporale della Chiave) per crittare la chiave in maniera dinamica (cambia ad ogni pacchetto inviato).
+Wi-fi Protected Access è un'evoluzione del WEP, che utilizza un metodo di crittazione [TKIP](#tkip) (Protocollo di Integrità Temporale della Chiave) per crittare la chiave in maniera dinamica (cambia ad ogni pacchetto inviato).
 La versione personal richiede l'immissione di una password per ottenere l'accesso alla rete.
 
 ### WPA2
-Evoluzione del WPA, utilizza il metodo di crittazione [AES] (Standard di Crittazione Avanzato). Come il WPA, richiede l'immissione di una password preimpostata per ottenere l'accesso nella versione Personal.
+Evoluzione del WPA, utilizza il metodo di crittazione [AES] (Standard di Crittazione Avanzato). Come il WPA, richiede l'immissione di una password preimpostata per ottenere l'accesso nella versione Personal. E' possibile sfruttare due diversi meccanismi di autenticazione:
+- Personale: ovvero l'autenticazione avviene tramite l'uso di una chiave condivisa (utilizzato per le reti domestiche e le reti piccole)
+- Aziendale: avviene tramite RADIUS (Remote Authentication Dial-In User Service), attraverso il quale ogni utente possiede una password privata con cui autenticarsi
 
 ### WPA3
 E' attualmente il metodo di protezione delle reti wireless più avanzato. Implementa gli ultimi metodi di sicurezza e impedisce l'uso dei metodi Legacy (datati). Non tutti i dispositivi sono abilitati all'uso di questo protocollo.
@@ -670,19 +690,25 @@ Questa casistica si evita grazie all'uso dell'Autenticazione Simultanea tra Egua
 
 Questo protocollo agevola anche la comunicazione con i dispositivi IoT tramite protocollo [DDP] (Protocollo di Approvvigionamento del Dispositivo), che permette a dispositivi *headless* (senza interfaccia grafica per cambiare le impostazioni) una connessione agevole e sicura alla rete.
 
+Per le reti aperte, la WPA3 permette di crittare il traffico, aggiungendo un livello di sicurezza per attacchi di tipo sniffing.
+
 ### WEP
 Versione datata di comunicazione per connessioni wireless tramite protocollo [RC4]. Ormai sostituita dai protocollo WPA. E' uno dei protocolli ammessi nel frame di controllo dello standard 802.11 ed il primo utilizzato per mettere in sicurezza le comunicazioni tramite chiave statica.
 
 ### TKIP
+Temporal Key Integrity Protocol è il metodo di crittazione utilizzato dal protocollo [WPA](#wpa), che permette di crittare i payload di [livello 2](<#2 - Collegamento>)
 
 ### AES
-Lo Standard Avanzato di Crittazione utilizza il protocollo CCMP (Protocollo per il Codice di Autenticazione Anti-Cifratura con Messaggio di Autenticazione tramite Block Chain)
+Lo Standard Avanzato di Crittazione utilizza il protocollo CCMP (Protocollo per il Codice di Autenticazione Anti-Cifratura con Messaggio di Autenticazione tramite Block Chain), che incorpora un meccanismo di Controllo di Integrità del Messaggio (**MIC**), che permette di verificare se la parte crittata o quella non crittata del messaggio sono state alterate.
 
 ### PSK
 Chiave Pre-Condivisa
 
 ### RADIUS
 Il Servizio di Autenticazione Utente Remota Dial-In è tilizzato nelle reti Enterprise
+
+### SAE
+L'Autenticazione Simultanea tra Uguali è un protocollo utilizzato da [WPA3](#wpa3) e da 802.11-2016 per evitare l'esposizione della Chiave Pre-Condivisa (PSK).
 
 ## Data link
 Gestisce l'instradamento dei **frame** a livello Fisico. Lo [switch](./Macchina#Switch) è un esempio di dispositivo che si occupa della gestione dei protocolli in questo livello. A differenza degli altri protocolli, questo livello aggiunge sia un header che un trailer al PDU. 

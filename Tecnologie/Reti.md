@@ -183,22 +183,91 @@ Nel caso di reti LAN aziendali, spesso esse vengono suddivise in [sottoreti](#Su
 LAN di tipo virtuale, utilizzata per raggruppare diversi dispositivi all’interno di una rete tramite l’uso di uno Switch.
 
 ## WLAN
-LAN collegata tramite tecnologia wireless (tipica rete domestica, dove i dispositivi sono connessi wireless al router). I protocolli di comunicazione più comuni sono [codificati dall'IEEE](https://it.wikipedia.org/wiki/IEEE_802.11):
-- 802.11
-- 802.11a
-- 802.11b
-- 802.11e
-- 802.11f
-- 802.11g
-- 802.11-2007
-- 802.11n (Wi-Fi 4)
-- 802.11s
-- 802.11ac
-- 802.11ax
-- 802.11axe
-- 802.11be
-- 802.11mc
-- 802.11p
+LAN collegata senza l'utilizzo di cavi di collegamento tra dispositivi (tipica rete domestica, dove i dispositivi sono connessi wireless al router). La comunicazione è di tipo [half-duplex]() e utilizza protocolli di comunicazione Ethernet. I più comuni sono [codificati dall'IEEE](https://it.wikipedia.org/wiki/IEEE_802.11):
+	- 802.11
+	- 802.11a
+	- 802.11b
+	- 802.11e
+	- 802.11f
+	- 802.11g
+	- 802.11-2007
+	- 802.11n (Wi-Fi 4)
+	- 802.11s
+	- 802.11ac
+	- 802.11ax
+	- 802.11axe
+	- 802.11be
+	- 802.11mc
+	- 802.11p
+
+### 802.11
+L'Header di un frame 802.11 è composta da:
+	- Frame Control
+	- Duration
+	- Indirizzo 1
+	- Indirizzo 2
+	- Indirizzo 3
+	- Sequence Control
+	- Indirizzo 4
+
+### CSMA/CA
+Carrier Sense Multiple Access Collision Avoidance è un protocollo utilizzato per evitare a priori le collisioni all'interno di una rete WAN tramite l'implementazione di un meccanismo di ascolto dei messaggi in transito. 
+
+1. Ascolto: il dispositivo rimane in ascolto di messaggi nel canale. Se non riceve messaggi, in canale è libero
+2. RTS: Ready to Send (pronto all'invio). Il dispositivo invia un messaggio all'AP (Punto di Accesso) per richiedere di utilizzare il canale
+3. CTS: Clear to Send (Libero per l'invio). L'AP invia un messaggio per notificare che il canale è effettivamente libero.
+4. Trasmissione: Il dispositivo trasmette i dati
+5. ACK (Riconoscimento): L'AP invia un messaggio di conferma della ricezione dei dati. Se il dispositivo non riceve il messaggio, ritrasmetterà i dati.
+
+
+### Autenticazione
+1. Il client invia un messaggio di tipo Discover per scoprire la presenza di Router Wireless o altri Access Point a cui agganciarsi per accedere ad una WLAN
+2. Inizia il processo di autenticazione tra il dispositivo e l'AP, che consiste in uno scambio di messaggi con lo scopo di confermare la presenza di dati condivisi per l'utilizzo della rete, ovvero:
+	- SSID (Identificativo di rete)
+	- Password
+	- Modalità di connessione della rete
+	- Modalità di sicurezza
+	- Impostazioni del canale di connessione
+3. Una volta che i parametri sono stati accettati da entrambe le parti, si procede all'associazione tra i due dispositivi.
+
+#### Discover
+Questo passaggio può avvenire in maniera attiva o passiva:
+- Passiva: l'AP invia dei messaggi ad intervalli di tempo prestabiliti per notificare gli altri dispositivi della sua presenza
+- Attiva: il dispositivo invia un messaggio in broadcast contenente
+	- SSID (opzionale)
+	- Standard supportati
+	per richiedere l'accesso ad una rete WLAN. Gli AP rispondono con la conferma dei dati inviati e l'aggiunta dello SSID (se non presente nel messaggio del dispositivo) delle Importazioni di Sicurezza da utilizzare durante la connessione.
+
+#### Autenticazione
+Il dispositivo e l'AP condividono informazioni relative la metodologia di autenticazione, che può essere:
+- tramite chiave condivisa di autenticazione 
+- tramite [OAuth](https://oauth.net/) (Identifcazione Aperta).
+
+#### Associazione
+I dispositivi si scambiano le informazioni riguardo:
+- Indirizzo MAC del Client
+- Identificativo di associazione (AID) dell'AP
+- Indirizzo MAC dell'AP (BSSID)
+
+### Tipi di rete
+#### Ad hoc mode
+Consiste in due dispositivi collegati tra loro in [Peer-to-peer] tramite connessione wireless, senza nessuna infrastruttura accessoria (come router, switch ecc.).
+
+#### Tethering
+Consiste nell'utilizzo di un dispositivo come Punto di Accesso alla WAN per uno o più altri dispositivi.
+
+#### BSS
+Il Basic Service Set consiste in uno Switch che collega senza fili uno o più dispositivi. L'Acces Point è fornito di un BSSID (Basic SSID).
+
+#### ESS
+L'Extended Service Set consiste in un ampliamento del [BSS](#bss) tramite collegamento dello stesso ad una rete cablata (disolito tramite Switch).
+
+
+### WLC
+Il Wireless LAN Controller è un dispositivo utilizzato per centralizzare il controllo di più reti WLAN.
+
+### LWAP
+L'AP Leggero è un Punto di Accesso (AP) ad una rete wireless che non agisce in maniera autonome, ma è gestito da un [WLC](#WLC).
 ### WMN
 La Wireless Mesh Network utilizza multipli Access Point (AP, Punti di accesso).
 
@@ -221,7 +290,9 @@ SI utilizzano protocolli di connessione wireless crittati ([WEP], [WPA](./Protoc
 La Rete pubblica, nota anche come Wide Area Network ( #WAN). Nel caso due dispositivi vogliano comunicare tramite WAN, la comunicazione passa dal #gateway, ovvero un macchinario fornito da un #provider, che permette l'instradamento dei pacchetti all'interno di una rete, che dirige le comunicazioni con i dispositivi connessi alla rete pubblica.
 
 # VPN
-LA Virtual Private Network (Rete Privata Virtuale) è una rete utilizzata per connettersi ad una rete da parte in remoto in modo sicuro.
+La Virtual Private Network (Rete Privata Virtuale) è una rete utilizzata per connettersi ad una rete da parte in remoto in modo sicuro grazie alla cifratura del messaggio prima dell’immissione dello stesso su reti diverse da quella di invio e quella del destinatario finale.
+La connessione logica tra i dispositivi avviene tramite livello 2 o livello 3. La cifratura avviene tramite uno dei seguenti protocolli:
+- [IPSec]
 
 ## Best practices
 - Vrifica delle perdite DNS e IP (DNS Leak Test)

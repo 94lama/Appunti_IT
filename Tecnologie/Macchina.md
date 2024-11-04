@@ -234,3 +234,13 @@ Esempio di tabella di routing IPv4 memorizzata su un dispositivo:
 | 127.0.0.1       | 255.0.0.0        | On-link      | 127.0.0.1     | 306      | Main gateway  |
 | 127.255.255.255 | 255.255.255.255  | On-link      | 127.0.0.1     | 306      | Broadcast     |
 | 192.168.10.0    | 255.255.255.0    | On-link      | 192.168.10.10 | 306      |               |
+
+## Server
+Dispositivi utilizzati prevalentemente per memorizzare dati a lungo termine.
+
+### AAA Server
+Vengono utilizzati per memorizzare dati relativi a:
+- Autenticazione
+- Autorizzazione
+- Contabilità (accounting)
+I server AAA devono essere impostati per accettare unicamente messaggi tramite protocolli [RADIUS](./protocolli#radius) o [TACACS+] (uno dei due, da decidere in base alle necessità della rete, tenendo conto che il RADIUS non effettua cifratura del nome utente e dei dati contabili).
