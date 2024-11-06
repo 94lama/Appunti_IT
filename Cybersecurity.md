@@ -236,6 +236,17 @@ Riferiti al team IT, due documenti sono particolarmente importanti:
 
 # Secure coding
 ## Hardening
+L’hardening consiste nell’’implementare metodi comprovati per incrementare la sicurezza dei dispositivi. Le best practices includono:
+- Assicurare la sicurezza fisica
+- Ridurre al minimo i pacchetti installati
+- Disabilitare i servizi inutilizzati
+- Utilizzare SSH e disabilitare il login all’account root da SSH
+- Mantenere il sistema aggiornato
+- Disabilitare l’identificazione automatica dei dispositivi USB
+- Utilizzare password forti
+- Obbligare a cambiare la password periodicamente
+- Non permettere il riutilizzo della password
+
 ## Front-end
 ### JavaScript
 #### XSS
@@ -1135,6 +1146,26 @@ Le **Debolezze** sono tutti quegli attacchi (conosciuti e non) che possono esser
 Si verifica quando un entità XML contiene collegamenti ad altre entità XML non previste dal sistema, che permettono di inserire script malevoli per prelevare dati.
 
 # Strumenti di analisi
+## log
+I log sono file che tengono traccia di avvenimenti all’interno della rete. Gli eventi di solito monitorati tramite log possono essere categorizzati in:
+- Log di applicazioni
+- Log di eventi
+- Log di servizi
+- Log di sistema
+
+
+## SOC
+Il Centro Operativo di Sicurezza è
+### Obiettivi
+Il SOC deve assolvere a varie mansioni (con l’aiuto di specifici tools), ovvero:
+- Osservare e comprendere ogni dettaglio delle transazioni che avvengono all’interno della rete
+- Avere un ambiente sicuro per eseguire e osservare i malware
+- Analizzare il traffico in tempo reale per identificare eventuali intrusione all’interno della rete
+- Aggiornare le regole del firewall
+- Impostare un soldi sistema di log, che copra tutte le aree principali di interesse
+- Monitorare costantemente i log della rete
+- Utilizzare un sistema di gestione dei ticket per segnalare e registrare le azioni e/o analisi
+
 ## Software
 ###  Static application security testing
 #SAST

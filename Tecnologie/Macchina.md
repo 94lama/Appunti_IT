@@ -1,38 +1,28 @@
+# Introduzione
+Un computer è una macchina capace di effettuare calcoli tramite il salvataggio di dati all'interno della [RAM](#RAM), in attesa di essere processate dalla [CPU](#CPU).
+
+
+## Indirizzi virtuali
+L'indirizzo virtuale dello spazio è un insieme di indirizzi virtuali che possono essere utilizzati da un processore. Si chiamano virtuali perché non indicano uno spazio fisico del disco, bensì la entry in una tabella che viene utilizzata per tradurre gli indirizzi virtuali in indirizzi fisici.
+
 # Locazione di memoria
-I dati possono essere di diverse tipologie:
-## Primitivi
+## Dati
+### Primitivi
 
-#interi
+- Interi: 1
+- Decimali: 1.45
+- Booleani: true
+- Caratteri: "a"
+- Stringhe: "stringa" o 'stringa' (insieme di caratteri alfanumerici) 
 
-	 1
+string interpolation: "elemento $variabile elemento"
+Linguaggi che usano la string interpolation: [[Php]] 
 
-#decimali
-
-	1.45
-
-#booleani
-
-	true
-
-#stringhe
-	
-	"stringa" o 'stringa' (insieme di caratteri alfanumerici) 
-
-#string_interpolation: "elemento $variabile elemento"
-		Linguaggi che usano la string interpolation: [[Php]] 
-
-## Non primitivi
-#array	 
-	
-	[1, "sdf", true, 2]
-
-- Se un array contiene lo stesso tipo di variabili al suo interno, si definisce #omogenea
-- Se un array è formato da coppie chiave-valore, si definisce #associativo
-
-#oggetti
-	
-	{"chiave":"valore", "chiave2":"valore2"}
-
+### Non primitivi
+- Array: \[1, "sdf", true, 2]
+	- Se un array contiene lo stesso tipo di variabili al suo interno, si definisce omogenea
+	- Se un array è formato da coppie chiave-valore, si definisce associativo
+- Oggetti: {"chiave":"valore", "chiave2":"valore2"}
 
 # Cablaggio
 Insieme di collegamenti e impianti fisici, che permettono l'interconnessione tipicamente nell'ambito di un edificio (o gruppo di edifici) per la realizzazione di una rete.
@@ -133,6 +123,8 @@ Questa rappresentazione delle porte prende il nome di socket.
 La [Internet Assigned Number Authority](https://www.iana.org/) è un organismo che ha la responsabilità di assegnare gli [indirizzi IP](./Protocolli#IP) e mantenere un registro dei protocolli utilizzati su [internet](<./Reti#Rete pubblica>).
 Le porte più utilizzate tramite protocollo [TCP](./Protcolli#TCP) o [UDP](./Protoclli#UDP) (dove segnalato) sono:
 
+#### Well-known ports
+
 | Porta | Destinazione                                 |
 | ----- | -------------------------------------------- |
 | 20    | [TCP](./Protocolli#TCP) - Data               |
@@ -159,6 +151,53 @@ Le porte più utilizzate tramite protocollo [TCP](./Protcolli#TCP) o [UDP](./Pro
 
 # RAM
 Random Access Memory.
+
+
+# CPU
+Central Processing Unit, o Unità Centrale di Processamento.
+# File system
+Esistono diverse metodologie di gestione dei file all'interno di un dispositivo di memoria. Per utilizzare (o cambiare) sistema di gestione del File System è necessario creare una partizione sul dispositivo, nella quale verrà installato il File System desiderato.
+
+## exFAT
+File system semplice, supportato dalla maggior parte dei sistemi operativi. Ha delle limitazioni riguardo al numero di partizioni, alle loro dimensioni e alla dimensione di file che è possibile allocare all'interno delle stesse. Per questo motivo di solito non è utilizzato ne per gli Hard-Drive (HD), ne per gli Hard Disk allo Stato Solido (SSD).
+E' disponibile in due varianti:
+
+### FAT32
+
+### FAT16
+
+
+## HFS+
+Il Fiele System Gerarchico Plus è il file system utilizzato da MAC OS X, e permette di utilizzare:
+- Nomi di file più lunghi
+- File più grandi
+- Partizioni dalle dimensioni maggiori
+Sebbene non sia supportato da [Windows](../os/windows), HFS+ è comunque utilizzabile per leggere le partizioni.
+
+## EXT
+Il File System Esteso è utilizzato dai sistemi operativi [Linux](../os/linux) (Windows non lo supporta, ma può comunque leggere i dati da partizioni che lo usano).
+
+## NTFS
+E' il sistema più utilizzato da sistemi operativi [Windows](../os/windows) ed è supportato anche dai sistemi [Linux](../os.linux). Le principali caratteristiche sono:
+- Capacità di gestire grandi file
+- Capacità di gestire partizioni di grosse dimensioni
+- Supporta funzionalità affidabili di recupero dati
+- Supporta molte funzionalità di sicurezza
+- Utilizza i timestamp MACE (Modifica, Accesso, Creazione e Dato Modificato) per tenere nota delle modifiche effettate ai file. Questi dati sono estremamente utili per attività forensi
+
+Il sistema NTFS utilizza 4 partizioni principali, suddivise in base alla tipologia e all'importanza dei dati contenuti:
+- Partizione del Settore di Avvio: corrisponde ai primi 16 settori della memoria e contiene la localizzazione della Tabella dei File Master (**MFT**). Gli ultimi 8 settori contengono una copia dei primi 8.
+- **MFT:** Tabella che contiene la localizzazione di tutti i file e le cartelle della partizione, incluse le informazioni di sicurezza e i timestamp
+- File di Sistema: Partizione che contiene i file (nascosti) con informaziopni relative altri volumi e gli attributi dei file
+- Area dei file: Partizione principale, dove vengono memorizzati tutti i file e le cartelle.
+
+**N.B.** Quando si effettua una formattazione di un disco, di default viene cancellata e sovrascritta solo la parte necessaria del disco (rendendo almeno una parte dei file precedenti visualizzabile). Per questo, ogni volta che si deve riutilizzare la macchina, è consigliato effettuare una **cancellazione sicura** (secure wipe), per assicurarsi che tutti i file all'interno del dispositivo vengano cancellati prima di effettuare la scrittura dei nuovi file.
+
+### Flussi di dati alternati
+NTFS memorizza i file come una serie di attributi (come nome del file, timestamp, ecc.) e li salva nell'attributo $DATA, noto anche come flusso di dati (Data Stream). E' anche possibile collegare un Flusso di Dati Alternato (**ADS**) per memorizzare ulteriori dati all'interno del file. **Questo meccanismo può essere sfruttato per inserire malware all'interno del file**.
+
+I file con degli ADS collegati vengono visualizzati col suffisso ```
+:<nome ADS>``` dopo il nome del file.
 
 # Particolari tipologie di macchine
 ## HUB
