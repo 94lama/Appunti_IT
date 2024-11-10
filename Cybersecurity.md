@@ -1307,7 +1307,8 @@ L'autenticazione ambivalente consiste in un duplice processo di autenticazione: 
 ## NSI
 L’Infrastruttura di Sicurezza della Rete definisce le modalità con le quali i dispositivi devono essere collegati tra loro per assicurare un buon livello di sicurezza end-to-end. 
 ### ACL
-La Lista di Controllo degli Accessi consiste in una serie di comandi che controlla quando un pacchetto deve essere inoltrato e quando deve essere bloccato, in base alle informazioni trovate nell’header del pacchetto. Un ACL svolge le seguenti funzioni:
+#### Introduzione
+La Lista di Controllo degli Accessi consiste in una serie di comandi di Sistema Operativo, che analizzano i pacchetti in ingresso e decidono se essi deve essere inoltrati o bloccati, in base alle informazioni trovate nell’header dei singoli pacchetti. Un ACL svolge le seguenti funzioni:
 - Limita il traffico per migliorare le prestazioni della rete
 - Fornisce un controllo del flusso della rete (può anche fornire delle rotte predefinite per gli aggiornamenti, evitando così l’installazione di aggiornamenti da terze parti)
 - Fornisce un livello base di protezione della rete
@@ -1315,6 +1316,55 @@ La Lista di Controllo degli Accessi consiste in una serie di comandi che control
 - Monitorano le attività degli host ed impediscono determinati accessi alla rete (es. Permettere solo protocolli FTP)
 Gli ACL spesso operano operazioni di controllo tramite indirizzi IPv4 di origine e destinazione, o porte di accesso e protocollo utilizzato.
 Di solito è utile utilizzare più ACL e nominarle con numeri o nomi che definiscano il tipo di filtraggio compiuto.
+
+Le liste dei comandi di controllo si chiamano Access Control Entries (ACE).
+
+#### ACE
+Lista di verifiche sequenziali che permettono di stabilire se il pacchetto che è in verifica debba essere droppato, o se possa avere accesso alla rete. I pacchetti filtrati dipendono dal tipo di ACL utilizzata:
+- **ACL Standard**: livello 3 (Rete)
+- **ACL Estesa**: Livelli 3 e 4 (Rete e Trasporto)
+
+Alcune tipologie di comandi che possono essere richiesti sono:
+- **Incremento della velocità:** Policy di negazione dello scambio di file video all'interno della rete
+- **Controllo del traffico**: Blocco dell'invio di protocolli di [routing updates] per le richieste che provengano da fonti sconosciute
+- **Aumentare la sicurezza della rete**: Limitare l'accesso alla rete solo a determinati dispositivi fidati
+- **Filtrare il traffico in base al tipo**: Analisi del tipo di traffico e blocco dei pacchetti con tipi non permessi (es. email)
+- **Monitorare l'utente per limitare l'accesso alla rete**: Filtrare le chiamate dell'utente in base ai servizi a cui può avere accesso
+- **Permettere solo certe classi di traffico:** Classificare il traffico e decidere quali classi siano prioritarie, quali normali e quali da bloccare
+
+#### Catalogazione
+Le ACL possono essere catalogate prevalentemente in due modi:
+
+##### Numerico
+
+| Numero      | Descrizione                                                                     |
+| ----------- | ------------------------------------------------------------------------------- |
+| 1-99        | ACL standard per IP                                                             |
+| 100-199     | ACL estesa per  IP                                                              |
+| 1100-1199   | ACL estesa per indirizzi MAC da 48-bit                                          |
+| 1300-1999   | Espansioni per ACL standard per indirizzi IP                                    |
+| 200-299     | ACL basata sul tipo di protocollo                                               |
+| 2000-2699   | Espansione per ACL estese per indirizzi IP                                      |
+| 700-799     | ACL per indirizzi MAC da 48-bit                                                 |
+| rate-limit* | ACL semplice per il controllo della velocità                                    |
+| template    | Abilita le ACL per [template IP](https://scn.wikipedia.org/wiki/Template:IP%3F) |
+*rate-limit: limite di velocità
+
+##### Nominativo
+
+Viene asegnato un nome ad ogni ACL, in modo tale da renderle riconoscibili e raggruppabili per tipo di protocollo utilizzato, tipo di blocco, ecc. Il nome assegnato ad un aACL deve:
+- Descrivere la funzione dell'ACL
+- Essere composto solo da caratteri alfanumerici
+- Non deve contenere spazi o punteggiatura
+- Essere scritto in lettere maiuscole (consigliato)
+- Descrivere se è di tipo permissivo (added) o respingitivo (deleted)
+
+#### Procedura
+Il processo di funzionamento di una ACL è il seguente:
+1. Il Router estrae l'indirizzo IP del mittente
+2. Il Router inizia ad applicare le verifiche delle ACE in ordine sequenziale
+3. Quando l'indirizzo IP rientra nei parametri dell'ACE, esegue i comandi scritti all'interno di essa
+4. Se il pacchetto non rientra nelle richiste di nessuna ACE, viene scartato di default (ultima ACE, inserita in modo implicito nell'ACL).
 
 ### NetFlow
 È un software utilizzato per gestire comunicazioni tramite [SNMP](./tecnologie/protocolli#snmp). Originariamente il software catalogava le comunicazioni in base a 7 parametri:
