@@ -60,15 +60,14 @@ Filtro un comando in base ad una determinata stringa
 <comando> | grep <stringa>
 ```
 
-Installare file (solo OS che usano apt)
-```sh
-apt-get install <app>
-```
-
-Provare ad aggiornare tutte le app (solo se apt è installato)
+Modificare i software installati all’interno della macchina
 ```Sh
-apt-get update
+sudo apt-get
 ```
+	OPZIONI: 
+	install <nome app> # installa il software
+	upgrade # aggiorna tutti i software installati
+	dist-upgrade # aggiorna la distro
 
 Utilizzare il [linguaggio AWK](https://www.geeksforgeeks.org/awk-command-unixlinux-examples/) per generare dei #report
 ```sh
@@ -318,6 +317,11 @@ python
 ```
 	Il file ha permessi -rwsr-xr-x
 
+Riviste il sistema
+```Sh
+sudo reboot
+```
+
 Interagire con un database remoto
 ```shell
 redis-sli -h <nome_server>
@@ -371,6 +375,7 @@ Per generare una #ssh-key
 ssh-keygen
 ```
 	-t # Definire la tipologia di criptazione [dsa, ecdsa, ecdsa-k, ed25519, ed25519-sk, rsa]
+	-C <nome utente>
 
 Accedere come utente root (chiede la password)
 ```shell
@@ -449,29 +454,7 @@ getent
 env
 sh #shell
 ```
-## Opzioni
-Le opzioni sono delle particolari ulteriori configurazioni che è possibile conferire al comando. si utilizzano dopo aver specificato il comando principale e sono precedute da un trattino es ```-a```. Possono variare a seconda del comando utilizzato.
-Per verificare le #opzioni disponibili per uno specifico comando
-```sh
-<comando> --help
-```
 
-```Bash
--A # append
--aG #
--d # detach
--e # edit
--it # interattivo
--l # mostra una versione tabellare del risultato, includendo permessi, proprietario, gruppo del proprietario, ultima modifica e dimensione se utilizzato con ls
--L
--n
--p # protocollo di trasporto
--s # indirizzo ip
--v # version
---dport <numero> # porta di destinazione 
---help # lista dei comandi disponibili
-```
-	Permessi: 
 ## Info utili
 - Premendo Tab, il terminale completa automaticamente il comando (o il file). Nel caso ci siano più risultati possibili, ritorna sotto la linea di comando la lista delle possibilità
 # Distro
@@ -684,6 +667,9 @@ File di configurazione per il protocollo [NTP](../tecnologie/protocolli#ntp) (Ne
 ### snort.conf
 File di configurazione per Snort, un [IDS] (Software di Identificazione delle Intrusioni)
 
+## home/
+Contiene i file e le impostazioni di ogni utente registrato nella macchina (ogni utente avr° una cartella personale).
+
 ## var/
 ### log/
 Contiene i file di [log](../cybersecurity#log) 
@@ -760,6 +746,26 @@ Interfaccia grafica basica per Sistemi operativi Linux. Da accoppiare ad altri s
 
 ## chrootkit
 Software basato su Linux che permette di controllare la presenza di noti [rootkit](../cybersecurity#rootkit) all’interno della macchina. Utilizza comandi shell (prevalentemente strings, grep e ps)
+
+## iptables
+[Firewall](../cybersecurity#firewall) disponibile per Linux, che consente all'amministratore di sistema di configurare le regole di accesso, incorporandole nei moduli Netfilter del kernel di Linux.
+
+## inetsim
+Simulatore di ambienti (virtualizzatore), con opzioni di verifica per i protocolli:
+- 
+
+## nftables
+Diretta evoluzione di [iptables](#iptables), che utilizza una semplice macchine virtuale nel kernel di Linux. Utilizza la macchina virtuale per analizzare i pacchetti di rete ed implementare regole decisionali di accettazione e inoltro dei pacchetti.
+
+## TCP Wrappers
+Tool di [controllo degli accessi](#acl) basato su regole e sistema di logging. Opera attraverso il filtraggio dei pacchetti basato sugli indirizzi IP e i servizi di rete.
+
+## ufw
+Firewall semplificato
+
+## Red team
+### John the ripper
+[John the ripper]( https://www.kali.org/tools/john/) è un tool utilizzato per effettuare un brute force delle password di un computer.
 
 # Annotazioni
 - Le distribuzioni di Linux, di solito, vengono provviste nativamente di [[Python]]

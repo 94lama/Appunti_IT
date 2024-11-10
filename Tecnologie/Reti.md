@@ -182,7 +182,8 @@ Una rete locale consiste in una serie di dispositivi collegati tra loro. I princ
 Nel caso di reti LAN aziendali, spesso esse vengono suddivise in [sottoreti](#Subnetting) tramite router, per facilitare i controlli di sicurezza, evitare il sovraffollamento o raggruppare i nodi secondo categorie (es. localizzazione geografica dei nodi, mansione lavorativa dei dipendenti, ecc.).
 
 ## VLAN
-LAN di tipo virtuale, utilizzata per raggruppare diversi dispositivi all’interno di una rete tramite l’uso di uno Switch.
+LAN di tipo virtuale, utilizzata per raggruppare diversi dispositivi all’interno di una rete tramite l’uso di connessioni logiche ([IP]((./protocolli#ip)) piuttosto che fisiche (es. [Ethernet](./protocolli#ethernet)). Ogni porta di uno switch può quindi essere assegnata ad uno specifica VLAN. In tal caso essa prende il nome di *trunk*. Questo permette di creare velocemente molteplici connessioni private tra gruppi di dispositivi (anche di sottoreti diverse).
+L'utilizzo di VLAN permette di limitare l'uso di messaggi Broadcast nella rete, di fatto riducendone il volume del flusso di dati.
 
 ## WLAN
 LAN collegata senza l'utilizzo di cavi di collegamento tra dispositivi (tipica rete domestica, dove i dispositivi sono connessi wireless al router). La comunicazione è di tipo [half-duplex]() e utilizza protocolli di comunicazione Ethernet. I più comuni sono [codificati dall'IEEE](https://it.wikipedia.org/wiki/IEEE_802.11):

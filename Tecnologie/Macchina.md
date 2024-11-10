@@ -121,37 +121,10 @@ L'utilizzo delle porte di rete è rappresentato aggiungendo alla fine dell'[IPv4
 Questa rappresentazione delle porte prende il nome di socket.
 ### IANA
 La [Internet Assigned Number Authority](https://www.iana.org/) è un organismo che ha la responsabilità di assegnare gli [indirizzi IP](./Protocolli#IP) e mantenere un registro dei protocolli utilizzati su [internet](<./Reti#Rete pubblica>).
-Le porte più utilizzate tramite protocollo [TCP](./Protcolli#TCP) o [UDP](./Protoclli#UDP) (dove segnalato) sono:
-
-#### Well-known ports
-
-| Porta | Destinazione                                 |
-| ----- | -------------------------------------------- |
-| 20    | [TCP](./Protocolli#TCP) - Data               |
-| 21    | TCP - Control                                |
-| 22    | [SSH](./Protocolli#SSH)                      |
-| 23    | [Telnet](./Protocolli#Telnet)                |
-| 25    | [SMTP](./Protocolli#SMTP)                    |
-| 37    | Time (anche UDP)                             |
-| 53    | [DNS](./Protocolli#DNS) (anche UDP)          |
-| 67    | [DCHP](./Protocolli0#DCHP) Server (solo UDP) |
-| 68    | [DCHP](./Protocolli0#DCHP) Client (solo UDP) |
-| 69    | [TFTP](./Protofolli#TFTP)                    |
-| 80    | [HTTP](./Protocolli#HTTP)                    |
-| 109   | [POP](./Protocolli#POP)                      |
-| 110   | [POP](./Protocolli#POP)                      |
-| 139   | Login tramite [NetBIOS]()                    |
-| 143   | [IMAP](./Protocolli#IMAP)                    |
-| 161   | [SNMP](./Protocolli#SNMP) (solo UDP)         |
-| 443   | [SSL](./Protocolli#SSL)                      |
-| 1645  | Contabilità RADIUS                           |
-| 1646  | Contabilità RADIUS                           |
-| 1812  | Autenticazione RADIUS                        |
-| 1813  | Contabilità RADIUS                           |
+Le porte più utilizzate tramite protocollo [TCP](./Protcolli#TCP) o [UDP](./Protoclli#UDP) (dove segnalato) sono segnalate dalle  cosiddette [Well-known ports](<protocolli#well-known ports>)
 
 # RAM
 Random Access Memory.
-
 
 # CPU
 Central Processing Unit, o Unità Centrale di Processamento.

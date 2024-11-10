@@ -10,6 +10,7 @@
           {
             "id": "58b225c5fcea268d",
             "type": "leaf",
+            "pinned": true,
             "state": {
               "type": "markdown",
               "state": {
@@ -17,6 +18,7 @@
                 "mode": "source",
                 "source": false
               },
+              "pinned": true,
               "icon": "lucide-file",
               "title": "Cybersecurity"
             }
@@ -35,8 +37,7 @@
               "title": "Linux"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -63,7 +64,7 @@
         "state": {
           "type": "search",
           "state": {
-            "query": "daemon",
+            "query": "Apple",
             "matchingCase": false,
             "explainSearch": false,
             "collapseAll": false,
@@ -98,7 +99,7 @@
         }
       }
     ],
-    "currentTab": 1
+    "currentTab": 0
   },
   "right": {
     "id": "13acd9c335e97714",
@@ -162,10 +163,11 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "50510b0122f45abe",
+  "active": "58b225c5fcea268d",
   "lastOpenFiles": [
-    "Cybersecurity.md",
     "OS/Linux.md",
+    "OS/MAC OS X.md",
+    "Cybersecurity.md",
     "Tecnologie/Protocolli.md",
     "Helpdesk.md",
     "Tecnologie/Macchina.md",
@@ -192,7 +194,6 @@
     "Linguaggi/TypeScript.md",
     "Immagini/Pasted image 20240108202659.png",
     "Software/Burp.md",
-    "Linguaggi/Php.md",
     "Immagini/SQL Join.png",
     "Immagini/Pasted image 20240219204523.png",
     "Immagini/Pasted image 20240502095612.png"

@@ -1,3 +1,10 @@
+# Installazione
+## Linux
+```sh
+sudo apt install git-all
+```
+# Comandi
+
 # Conventional commits
 I [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/) sono delle regole, ideate dai developers di Angular, per facilitare la code review e la lettura delle history dei commits. I principi cardine dei commits sono:
 - Per l'implementazione dei conventional commits su un progetto già esistente, è consigliabile applicarlo inizialmente solo su alcune branches, con i type più utilizzati e senza le sezioni opzionali.

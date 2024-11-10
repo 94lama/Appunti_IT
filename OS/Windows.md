@@ -209,8 +209,6 @@ La GUI (Interfaccia Grafica dell'Utente) ha mantenuto nel tempo una struttura co
 ## File system
 Per gestire i file, Windows utilizza un file system di tipo [NTFS](../tecnologie/macchina#ntfs).
 
-
-
 ## Registro
 Consiste in un database gerarchico nel quale vengono immagazzinate tutte le informazioni relative:
 - hardware
@@ -248,6 +246,17 @@ Il primo possiede i permessi più alti di creazione, visualizzazione e modifica 
 
 I permessi per ogni utente sono modificabili tramite il tool [lusrmgr.msc](#lusrmng.msc)
 
+### Password policy
+Gli amministratori devono:
+- cambiare password ogni 90 giorni 
+- utilizzare la nuova password almeno una volta
+- La nuova password non può essere uguale alle ultime 24 password utilizzate 
+- la password deve contenere almeno 3 tra:
+	- un carattere minuscolo
+	- un carattere minuscolo
+	- un numero
+	- un carattere speciale
+Le importazioni possono essere modificate.
 
 ## Condivisione
 Le cartelle condivise sono indicate con il simbolo **$**  al termine del loro nome (accessibili solo dall'amministratore) per permetterne l'utilizzo anche da remoto.
@@ -377,6 +386,9 @@ Tool che permette la modifica dei [registri di sistema](#registro) tramite l'uti
 - menu laterale a sinistra in cui selezionare il registro che si vuole analizzare
 - schermata con l'elenco dei dati contenuti nel registro scelto
 
+## gpedit.msc
+Il Group Policy Editor è un tool che permette di creare e modificare le **blacklist** e le **whitelist** del sistema.
+
 ## lusrmng.msc
 Permette di visualizzare e gestire tutti gli utenti e i gruppi di utenti collegati alla macchina in uso. 
 Un altro metodo di assegnazione dei permessi è quello dei **Domini**, ovvero tipi di reti nelle quali tutti gli utenti, gruppi, periferiche e impostazioni di sicurezza, vengono salvati all'interno di un database, memorizzato all'interno di un computer, denominato Controllore del Domino (DC). In tal caso, ogni utente dovrà autenticarsi presso il DC per poter aver accesso alla rete.
@@ -413,7 +425,6 @@ Importazioni per configurare il namespace di default per WMI
 
 ## Reti e centro di condivisione
 Il pannello inziale mostra le reti attive, lo stato di connessione (se c'è rete o meno) e il tipo di rete (pubblica o privata).
-
 
 ## Task manager
 Permette di visualizzare la lista delle applicazioni e processi attivi in background, fornendo varie informazioni dettagliate.
