@@ -110,7 +110,7 @@ Gli #status-code sono dei codici che riassumono il risultato della query.
 | 5xx    | Server Error                                                                                        |
 | 502    | Termporary unavailable                                                                              |
 #### HTTPS
-Protocollo che consiste nell'evoluzione dell' [[#HTTP]], che include un processo di criptazione dei dati (con protocollo [[#SSL]] o [[#TSL]]) durante la trasmissione degli stessi. 
+Protocollo che consiste nell'evoluzione dell' [[#HTTP]], che include un processo di criptazione dei dati (con protocollo [[#SSL]] o [TLS](#TLS) durante la trasmissione degli stessi. 
 
 Questo permette di ottenere:
 - Autenticazione del sito web
@@ -129,9 +129,6 @@ Il protocollo permette ai Router di connettersi ad un Server NTP e sincronizzare
 - Stratum 2+: Dispositivi che ricevono il dato dallo Stratum 1. Possono anche agire come Server NTP per i livelli inferiori.
 Il numero massimo di livelli ammissibile è 16.
 
-#### RADIUS
-Il [Remote Authentication Dial-In User Service](https://it.wikipedia.org/wiki/RADIUS) è un protocollo di autenticazione utilizzato in applicazioni di accesso reti o di mobilità IP 
-
 ### SNMP
 Il Protocollo di Gestione Semplice della Rete è utilizzato dagli amministratori per gestire dispositivi come Router, Switch, Server, Workstation e dispositivi di sicurezza all’interno di una rete basata su protocollo IP.
 Un sistema SNMP è formato da due elementi:
@@ -144,6 +141,12 @@ I messaggi sono di 3 tipi:
 - TRAP: inviati dal nodo per inviare informazioni
 
 ## Presentazione
+
+### SSL
+Secure Socket Layer
+
+### TLS
+Il [Transport Layer Security](https://it.wikipedia.org/wiki/Transport_Layer_Security) (Livello di Sicurezza del Trasporto) è l'evoluzione del [SSL](#ssl), ed è utilizzato per offrire una rete di comunicazione sicura su reti TCP/IP, grazie a servizi di autenticazione, integrità dei dati e confidenzialità
 
 ## Sessione
 
@@ -669,17 +672,16 @@ broadcast =   192.168.  2.255
 Ovvero:
 ![[./../Immagini/Pasted image 20241001184553.png]]
 
-### SSL
-Secure Socket Layer
-### TSL
-Versione aggiornata di [[#SSL]]
-
 ### WPA
-Wi-fi Protected Access è un'evoluzione del WEP, che utilizza un metodo di crittazione [TKIP](#tkip) (Protocollo di Integrità Temporale della Chiave) per crittare la chiave in maniera dinamica (cambia ad ogni pacchetto inviato).
-La versione personal richiede l'immissione di una password per ottenere l'accesso alla rete.
+Wi-fi Protected Access è un'evoluzione del WEP, che utilizza un metodo di crittazione [TKIP](#tkip) (Protocollo di Integrità Temporale della Chiave) per crittare la chiave (256-bit) in maniera dinamica (cambia ad ogni pacchetto inviato).
+La versione personal richiede l'immissione di una password per ottenere l'accesso alla rete. 
+
+Tra le funzionalità offerte ci sono:
+- Controlli dell'integrità dei messaggi
+- implementazione del TKIP
 
 ### WPA2
-Evoluzione del WPA, utilizza il metodo di crittazione [AES] (Standard di Crittazione Avanzato). Come il WPA, richiede l'immissione di una password preimpostata per ottenere l'accesso nella versione Personal. E' possibile sfruttare due diversi meccanismi di autenticazione:
+Evoluzione del WPA, utilizza crittazione obbligatoria tramite [AES] (Standard di Crittazione Avanzato) e la sostituzione del protocollo TKIP con il [CCMP](#ccmp). Come il WPA, richiede l'immissione di una password preimpostata per ottenere l'accesso nella versione Personal. E' possibile sfruttare due diversi meccanismi di autenticazione:
 - Personale: ovvero l'autenticazione avviene tramite l'uso di una chiave condivisa (utilizzato per le reti domestiche e le reti piccole)
 - Aziendale: avviene tramite RADIUS (Remote Authentication Dial-In User Service), attraverso il quale ogni utente possiede una password privata con cui autenticarsi
 
@@ -694,17 +696,8 @@ Per le reti aperte, la WPA3 permette di crittare il traffico, aggiungendo un liv
 ### WEP
 Versione datata di comunicazione per connessioni wireless tramite protocollo [RC4]. Ormai sostituita dai protocollo WPA. E' uno dei protocolli ammessi nel frame di controllo dello standard 802.11 ed il primo utilizzato per mettere in sicurezza le comunicazioni tramite chiave statica.
 
-### TKIP
-Temporal Key Integrity Protocol è il metodo di crittazione utilizzato dal protocollo [WPA](#wpa), che permette di crittare i payload di [livello 2](<#2 - Collegamento>)
-
-### AES
-Lo Standard Avanzato di Crittazione utilizza il protocollo CCMP (Protocollo per il Codice di Autenticazione Anti-Cifratura con Messaggio di Autenticazione tramite Block Chain), che incorpora un meccanismo di Controllo di Integrità del Messaggio (**MIC**), che permette di verificare se la parte crittata o quella non crittata del messaggio sono state alterate.
-
-### PSK
-Chiave Pre-Condivisa
-
-### RADIUS
-Il Servizio di Autenticazione Utente Remota Dial-In è tilizzato nelle reti Enterprise
+### WPS
+Il Wifi Protected Setup viene utilizzato per impostare una rete wireless casalinga sicura. Richiede l'utilizzo di un PIN per connettersi alla rete (meccanismo al giorno d'oggi attaccabile tramite [brute-force](../cybersecurity#Brute-force), motivo per il quale è considerato superato e non più sicuro)
 
 ### SAE
 L'Autenticazione Simultanea tra Uguali è un protocollo utilizzato da [WPA3](#wpa3) e da 802.11-2016 per evitare l'esposizione della Chiave Pre-Condivisa (PSK).
@@ -796,8 +789,74 @@ Sono tutti quei componenti come cavi, NIC ed interfacce, che permettono il trasp
 
 [Vedi qua](./Macchina#Cablaggio)
 # Altri protocolli
-### IPCM
-L' #IPCM è utilizzato per il monitoraggio delle reti 
+## Autenticazione
+### 802.1x
+Un organizzazione gestisce l'autenticazione della tua identità, effettuata in base a delle credenziali o un certificato che viene validato dal Server RADIUS, e autorizza l'accesso alla rete.
+
+### CHAP
+Il Challenge Handshake Authentication Protocol (protocollo di autenticazione tramite sfida della stretta di mano) si basa sull'invio da parte dell'utente di una password hashata, che viene successivamente comparata dal server con una sua versione id password (anch'essa sottoposta ad hashing). Se i valori corrispondono, la trasmissione continua.
+
+### EAP
+L'Extensible Authentication Protocol (protocollo di autenticazione estensibile) è un set di protocolli basato sull'utilizzo di una password, che viene inserita dall'utente, cifrata ed inviata al server, che provvede a confrontarla con un certificato contenuto nella usa memoria.
+
+#### EAP-TLS
+
+#### PEAP
+
+#### EAP-TTLS
+
+#### EAP-FAST
+
+### Kerberos
+Utilizza meccanismi di cifratura forti per richiedere all'utente di dimostrare la sua autenticazione, tramite richiesta di autenticazione da parte del server verso il client.
+Il server Kerberos contiene tutti gli id e le password degli utenti registrati (che hanno accesso ai servizi) e le chiavi segrete  condivise con gli altri server a cui ha fornito un ticket di accesso.
+
+L'elemento di base per l'autenticazione è il ticket, che viene utilizzato per un processo di autenticazione in due fasi:
+1. Il server Kerberos fornisce all'utente che si vuole autenticare un ticket di fornitura ticket
+2. Il client invia il ticket ricevuto, assieme ad un messaggio contenente i servizi che vuole utilizzare al server
+
+Grazie alla cifratura delle comunicazioni, questo protocollo rende superfluo l'utilizzo di password, che potrebbero essere intercettate da utenti terzi.
+
+I ticket hanno una durata temporale prima della scadenza.
+
+### PAP
+Il Password Authentication Protocol si basa sull'invio di una coppia di valori (nome utente e password), inviati al server come testo semplice.
+
+### RADIUS
+Il [Remote Authentication Dial-In User Service](https://it.wikipedia.org/wiki/RADIUS) è un protocollo di autenticazione utilizzato in applicazioni di accesso reti o di mobilità IP. Viene effettuato tramite immissione di nome utente e password.
+La password viene cifrata ed entrambi i dati vengono spediti dal client RADIUS al server RADIUS, che risponde con il nome utente, responsabilità e servizi autorizzati in chiaro. Questo implica la necessità di ulteriori misure di protezione da attacchi di [replay](../cybersecurity#replay) con l'utilizzo di questo protocollo.
+
+### TACACS+
+Sfrutta il protocollo TCP per inviare i dati cifrati (nome utente, password, servizi disponibili e responsabilità) tra client e server. Dato che l'amministratore di rete gestisce le ACL, i filtri ed i privilegi utente, è di solito la scelta migliore in ambito aziendale.
+
+- Permette di separare i processi di autenticazione, autorizzazione e responsabilità
+- Offre un buon livello di confidenzialità grazie alla cifratura del body dei messaggi
+- Utilizza il [CHAP](#chap) per stabilire la comunicazione
+
+## Cifratura
+### AES
+Lo Standard Avanzato di Crittazione utilizza il protocollo CCMP (Protocollo per il Codice di Autenticazione Anti-Cifratura con Messaggio di Autenticazione tramite Block Chain), che incorpora un meccanismo di Controllo di Integrità del Messaggio (**MIC**), che permette di verificare se la parte crittata o quella non crittata del messaggio sono state alterate.
+
+### CCMP
+Il Counter Cipher Mode with Block Chaining Message (Modalità di contro cifratura con blocco della catena dei messaggi) è un protocollo di cifratura dei dati.
+
+### TKIP
+Temporal Key Integrity Protocol è il metodo di crittazione utilizzato dal protocollo [WPA](#wpa), che permette di crittare i payload di [livello 2](<#2 - Collegamento>)
+
+### PSK
+Chiave Pre Condivisa.
+
+
+## Collegamento
+
+### Router redundancy protocol
+Protocollo utilizzato per assicurare una duplica connessione tra LAN e rete esterna. tramite la biforcazione della connessione in due edge-router, che permette una connessione costante tra le due reti anche nel caso di guasto di uno dei due edge-router.
+
+### Spanning tree
+Utilizzato per aumentare la ridondanza di una rete ed evitare i loop quando più switch vengono collegati tra loro. Si occupa di gestire le connessioni, in modo tale che, nel caso ci sia un loop di connessioni tra dispositivi a causa di biforcazioni delle connessioni, solo un percorso venga utilizzato, lasciando il secondo spento ed attivabile in caso di malfunzionamenti.
+![[Pasted image 20241109164039.png]]
+
+## Manipolazione e consegna dei dati
 ### REST
 Il #REST, o Representation State Transfer, è un sistema di trasmissione dei dati su  #http, basato su una struttura degli #URL #stateless, ovvero senza il concetto di #sessione. Utilizza 5 metodi di trattamento delle informazioni:
 #### GET
@@ -813,12 +872,47 @@ Cancella un'informazione
 ### SOAP
 Il Simple Object Access Protocol, o #soap un protocollo per lo scambio di messaggi tra componenti software. Comunemente comunica tramite il protocollo #http tramite il #metalinguaggio [[XML]] ed una struttura head-body, dove la head contiene parametri relativi instradamento, sicurezza, transazioni, mentre il body contiene il messaggio (chiamato anche carico utile o #payload).
 
+
+## Da smistare
+
+### IPCM
+L' #IPCM è utilizzato per il monitoraggio delle reti 
+
 ### DAD
 Il Duplicate Address Detection è un protocollo utilizzato da un dispositivo per verificare che l'indirizzo [IPv6](#IPv6) da lui generato non abbia duplicati all'interno della [LAN](./Reti#LAN).
 Il dispositivo invia un messaggio [Broadcast](./Reti#Broadcast) alla rete, contenente il proprio indirizzo IPv6. Nel caso un altro dispositivo abbia lo stesso indirizzo IPv6, invierà un messaggio di risposta ([NS](#ICMPv6#Network)) al primo host, contenente il proprio indirizzo [MAC](#MAC).
 
 ### SLAAC
 La Stateless Address Autoconfiguration permette ad un dispositivo di autoassegnarsi un indirizzo [IPv6](#IPv6) in base a dei parametri di partenza (come l'indirizzo del Gateway di default e la maschera di sottorete). E' il protocollo utilizzato nelle reti [LAN](./Reti#LAN) per configurare un dispositivo abilitato ad IPv6 e fornirgli un proprio indirizzo IPv6 tramite protocollo [ICMPv6](#ICMPv6).
+
+
+# Well-known ports
+Le [Well-known ports](https://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers) sono un'indicizzazione (elaborata dallo [IANA](macchina#iana)) del numero di porta consigliato per la ricezione di chiamate in base al protocollo utilizzato.
+
+| Porta | Destinazione                                 |
+| ----- | -------------------------------------------- |
+| 20    | [TCP](./Protocolli#TCP) - Data               |
+| 21    | TCP - Control                                |
+| 22    | [SSH](./Protocolli#SSH)                      |
+| 23    | [Telnet](./Protocolli#Telnet)                |
+| 25    | [SMTP](./Protocolli#SMTP)                    |
+| 37    | Time (anche UDP)                             |
+| 49    | [TACACS+](#tacacs+)                          |
+| 53    | [DNS](./Protocolli#DNS) (anche UDP)          |
+| 67    | [DCHP](./Protocolli0#DCHP) Server (solo UDP) |
+| 68    | [DCHP](./Protocolli0#DCHP) Client (solo UDP) |
+| 69    | [TFTP](./Protofolli#TFTP)                    |
+| 80    | [HTTP](./Protocolli#HTTP)                    |
+| 109   | [POP](#POP)                                  |
+| 110   | [POP](#POP)                                  |
+| 139   | Login tramite [NetBIOS]()                    |
+| 143   | [IMAP](./Protocolli#IMAP)                    |
+| 161   | [SNMP](#SNMP) (solo UDP)                     |
+| 443   | [HTTPS](#https)                              |
+| 1645  | Contabilità RADIUS                           |
+| 1646  | Contabilità RADIUS                           |
+| 1812  | Autenticazione RADIUS                        |
+| 1813  | Contabilità RADIUS                           |
 
 # Possibili problematiche
 ## Sovraffollamento

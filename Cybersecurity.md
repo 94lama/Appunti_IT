@@ -13,7 +13,7 @@ Per analizzare il livello di sicurezza di una rete, spesso si fa riferimento a 4
 - **Minaccia**, ovvero il potenziale danno causato al proprietario della rete
 - **Vulnerabilità**, ovvero la singola debolezza del sistema che può essere sfruttata da un attore esterno
 - **Exploit**, ovvero il meccanismo di sfruttamento della vulnerabilità 
-- **Rischio**, la probabilità che il particolare exploit venga utilizzato, pesata in base al danno che essa causerebbe
+- **Rischio**, la verosimiglianza che il particolare exploit venga utilizzato, pesata in base al danno che essa causerebbe
 
 Il totale delle vulnerabilità presenti in un sistema viene anche chiamato **superficie d’attacco**.
 
@@ -75,27 +75,46 @@ Modello informatico, alternativo al #perimeter-security (che si basa sul concett
 1. Verificare sempre l'identità effettiva dell'utente
 2. Identificare cosa e quando proteggere
 3. Design della rete dall'interno
-4. [Loggare]( #log) tutto il traffico, anche per rispettare i principi di #accountability (responsabilità)
+4. [Loggare]( #log) tutto il traffico, anche per rispettare i principi di **accountability** (responsabilità)
 5. Procedere in maniera continuativa per applicare il metodo all'intero sistema
+
+Il modello si basa sul concetto di **zone** come aree ben definite, nelle quali vengono utilizzate specifiche politiche di [Controllo degli accessi](<#controllo degli accessi>). I confini di queste zone sono definiti **Perimetro** della zona e stabiliscono il limite entro il quale viene concessa fiducia nello svolgere azioni.
 #### Pilastri della Zero Trust Model
+Lo zero trust model si applica tramite l'utilizzo di 2 concetti:
 - Identità, suddivisa anche tra utenti che usano il servizio (tramite, ad es., [Multi-Factor Authentication]( #multifactor-authentication), #device che vengono utilizzati (accesso biometrico, uso di [Virtual Private Network]( #vpn)
 - Protezione dei dati (es. tramite crittografia)
+Questi concetti vengono applicati a 3 categorie di entità (che rappresentano i pilastri):
+- Utenti (workforce)
+- Software (work)
 #### Adattamento di un sistema esistente al Zero-Trust Model
 Per agevolare il passaggio, anche da un punto di vista umano, spesso si segue un percorso, che porta dal metodo esistente, a quello desiderato.
-# Principi di sicurezza
+# Triade di sicurezza
 
-Per comprendere le aree di interesse della cybersecurity spesso si fa uso del cosiddetto Cybersecurity Cube, che aggrega i concetti in 3 categorie, note anche come CIA Security Triad:
+Per comprendere le aree di interesse della cybersecurity spesso si fa uso del cosiddetto Cybersecurity Cube (noto anche come Cubo di McCumber), che riassume i punti focali della cybersecurity in 3 gruppi da 3 elementi ciascuno. L'insieme dei gruppi prende il nome di CIA Security Triad:
 
-## Confidenzialità dei dati
+## Principi di sicurezza
+### Confidenzialità dei dati
 Solo le persone autorizzate devono avere accesso ai dati. Richiede l’implementazione di cifratura e decrittazione dei dati come misura cautelativa.
 Un’alternativa alla cifratura è la tokenizzazione, ovvero la creazione di un valore randomico temporaneo da utilizzare come lasciapassare per ottenere accesso ai dati.
 
+I dati possono essere suddivisi in:
+- Personali
+- Aziendali
+- Classificati
+
+Ognuna di queste categorie ha bisogno di livelli di protezione diversi per essere trattato.
+
+#### Gestione dei diritti
+La gestione dei diritti può essere suddivisa in:
 - DRM: La gestione digitale dei diritti (Digital Rights Management) si occupa di proteggere i dati tramite meccanismi di cifratura, in modo che essi non possano essere copiati senza l’apposita chiave di decrittazione privata.
 - IRM: La gestioni diritti di informazione (Information Rights Management) si occupa della protezione dei dati tramite la creazione di un livello di controllo degli accessi al documento protetto che avvisa il proprietario in caso di apertura (es. la PEC)
 
-### Controllo degli accessi
+#### Identificazione
+Consiste nell'assegnare ad ogni utente un valore che serva ad identificarlo indipendentemente (o non indipendentemente, in base alle necessità) dal mezzo con il quale sta cercando di effettuare l'accesso.
+
+#### Controllo degli accessi
 Avviene su più livelli, ognuno dei quali deve essere te tuo in considerazione:
-#### Fisico
+##### Fisico
 Consiste in tutti quegli ostacoli che permettono di prevenire o controllare l’accesso fisico alla rete. Alcune misure di controllo fisico sono:
 - Guardie
 - Recinzioni
@@ -103,7 +122,7 @@ Consiste in tutti quegli ostacoli che permettono di prevenire o controllare l’
 - Videocamere
 - Porte blindate
 
-#### Logico
+##### Logico
 Sono tutte quelle misure di sicurezza che prevengono l’accesso logico alla rete, come:
 - Cifratura dei messaggi di testo
 - Firewall
@@ -111,7 +130,7 @@ Sono tutte quelle misure di sicurezza che prevengono l’accesso logico alla ret
 - Controllo dei dati biometrici
 - Protocolli
 
-#### Amministrativo
+##### Amministrativo
 Racchiude tutte le policy e le procedure che permettono di discernere chi può da chi non deve avere accesso ai dati.
 - Policies
 - Procedure
@@ -120,12 +139,7 @@ Racchiude tutte le policy e le procedure che permettono di discernere chi può d
 - Classificazione dei dati
 - Controlli del background
 
-Alcune misure efficaci per la maggioranza dei criteri sono:
-##### Autenticazione
-Controlla l’effettiva identità dell’utente. Di solito consiste in due parametri:
-- Username (o email)
-- Password
-Il processo di autenticazione permette di definire con precisione l'identità dell'utente con cui è in corso la sessione.
+Un buon metodo di gestione del livello amministrativo è l'[autenticazione](#autenticazione)
 
 ###### FIM
 La Gestione federata dell'identità (Federated Identity Management) avviene quando la gestione dell'autenticazione di un utente avviene a livello di raggruppamento di reti (ad es. quando si utilizza lo stesso utente per accedere ai servizi Google come Youtube, Gmail, ecc.).
@@ -139,38 +153,157 @@ Consiste in un dato che (dovrebbe) essere in possesso unicamente dello specifico
 
 E' anche possibile utilizzare processi di [MFA](#MFA), ovvero la verifica di più fattori durante il processo di autenticazione per aumentare la sicurezza della rete. 
 
-##### Autorizzazione
+###### Autorizzazione
 Verifica se l’utente abbia o meno il permesso di utilizzare determinati file. E' sempre consigliato considerare l'inserimento di procedure di autorizzazione anche per l'accesso alla rete stessa, così come per l'accesso a dati particolarmente sensibili, come password, email, ecc.
 Per praticità gli utenti vengono raggruppati per livello di autorizzazione.
-##### Contabilità
+###### Responsabilità
 Monitoraggio (log) dei processi e delle azioni effettuate dagli utenti e uso degli stessi per effettuare controlli ed analisi dei dati. Questa procedura aiuta a identificare eventuali errori, sbagli e tenere traccia delle azioni durante i processi di audit.
 
-## Integrità
-Solo le persone autorizzate possono modificare i dati. Richiede l’implementazione di cifratura dei dati come misura cautelativa, così come misure di validazione, controllo degli accessi e verifiche della consistenza. La frequenza necessaria dell’effettuazione di questi controlli dipende dall’importanza che ha il dato.
+##### Modelli
 
-## Disponibilità
+###### DAC
+Il Discretionary Access Control (controllo degli accessi discrezionale) rappresenta il modello più permissivo  di controllo ed utilizza Liste di Controllo degli Accessi per gestire chi ha diritto di accesso.
+
+###### MAC
+Il Mandatory Access Control (controllo degli accessi obbligatorio) è il modello più restrittivo e viene utilizzato solo in particolari casi (come quello militare). Assegna ad ogni utente un etichetta, che viene utilizzata per gestire il tipo di dati e la modalità di accesso agli stessi da parte dell'utente.
+
+###### RoleBAC
+Il Role-Based Access Control (RBAC, Controllo degli accessi basato sul ruolo) utilizza gruppi di ruoli ed ogni utente deve appartenere ad almeno un o di essi. Le modalità di accesso e tipologia di dati a cui ha accesso l'utente vengono stabilite per ogni gruppo.
+
+###### ABAC
+L'Attribute-Based Access Control (controllo degli accessi in base all'attributo) si basa sull'assegnazione di attributi ad ogni oggetto, i quali definiscono modalità di accesso, utenti a cui garantire làaccesso, tempistiche id accesso, ecc.
+
+###### RuleBAC
+Il Rule-Based Access Model (RBAC, controllo degli accessi basato sul ruolo) permette di gestire le politiche di accesso tramite regole (ad esempio lista di indirizzi IP a cui è consentito l'accesso)
+
+###### TBAC
+Il Time-Based Access Control (controllo degli accessi basato sul tempo) permette di gestire gli accessi in base all'orario.
+
+### Integrità
+Solo le persone autorizzate possono modificare i dati. Richiede l’implementazione di cifratura dei dati come misura cautelativa, così come misure di validazione, controllo degli accessi e verifiche della consistenza. La frequenza necessaria dell’effettuazione di questi controlli dipende dall’importanza che ha il dato. Questo fattore a sua volta, spesso dipende dal tipo di azienda che possiede il dato (it, viaggi, ospedaliero, ecc.).
+
+La necessità di avere dati integri durante tutto il processo però si scontra con la necessità di manipolare spesso il dato, o della necessità di modificarlo spesso e, dato che ogni controllo effettuato ne rallenta la velocità di messa a disposizione, di solito la soluzione è un compromesso tra la validazione ad ogni uso e l'assenza di validazione (dove la prima variante è a volte scelta, mentre la seconda è da evitare). I livelli di necessità sono differenziati in 4 livelli:
+- Critico: es. i dati di pazienti di un ospedale
+- Alto: es. i dati di analisi raccolti da un e-commerce
+- Medio: es. o dati raccolti da un motore di ricerca
+- Basso: es. i messaggi in blog, forum o social media in generale
+
+### Disponibilità
 L’accesso ai dati deve essere il più possibile costante. Richiede l’implementazione di pratiche di ridondanza di servizi, link e gateway. Alcuni momenti in cui la disponibilità dei dati diventa un parametro critico sono:
-- Manutenzione
+- Manutenzione (a volte)
 - Disastri naturali
 - Attacchi informatici
 - Danneggiamenti dell’hardware
+
 Buone pratiche per evitare un’interruzione di disponibilità nei casi sopracitati sono:
-- Creazione di dati di backup multipli
+- Creazione di dati di backup multipli (almeno 2)
 - Monitoraggio costante
 - Pianificazione delle procedure in caso di disastri
 - Testing dei backup
 - Aggiornamento dei software e del sistema operativo
 - Manutenzione degli equipaggiamenti (hardware)
+- Implementazione di nuove tecnologie
+- 
 
-# Stato dei dati
-- In transito
-- A riposo
-- In processo
+## Stato dei dati
+Lo stato dei dati descrive la posizione del dato, o il suo stato di movimentazione. Questa informazione è particolarmente utile per capire quali meccanismi di attacco potrebbero cercare di entrare in contatto con il dato stesso, relativamente al dispositivo che lo contiene, al mezzo che lo trasporta, al protocollo nel quale è incapsulato, ecc.
 
-# Salvaguardie
-- Persone
-- Tencologia
-- Policy e pratiche
+### A riposo
+Per **dato a riposo** si intende un dato che è memorizzato su un supporto fisico e non è in atto nessun processo di richiesta di visualizzazione, uso o modifica su di esso. I supporti che contengono dati a riposo possono essere:
+
+#### DAS
+I Dispositivi Attaccati Direttamente (Direct-Attached Storage) sono dispositivi che necessitano di una connessione ad un supporto per poter manipolare i dati che contengono (es. una chiavetta USB o un Hard Drive). Di default i sistemi non sono impostati per condividere i DAS con altri computer all'interno della rete (ovvero un DAS è utilizzabile solo dal computer al quale è connesso)
+
+#### RAID
+La Matrice Ridondante di Dischi Indipendenti (Redundant Array of Indipendent Disks) è un dispositivo che connette diversi dischi di memoria e li unisce logicamente, così che un dispositivo connesso visualizzi un solo elemento connesso. Questa tecnologia permette di migliorare le performance e la tolleranza agli errori. I RAID sono categorizzati a livelli, in base al numero di dispositivi che lo compongono:
+
+| Livello del RAID | n. minimo di componenti | Descrizione                                                                                                                                                                          | Vantaggi                                                                                                             | Svantaggi                                                                               |
+| ---------------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| 0                | 2                       | [Striping dei dati](https://www.ibm.com/docs/it/xl-fortran-aix/16.1.0?topic=striping-data) senza ridondanza                                                                          | Alte performance                                                                                                     | - Nessuna protezione dei dati<br>- il guasto di un dispositivo comporta perdita di dati |
+| 1                | 2                       | Mirroring del disco                                                                                                                                                                  | - Alte performance<br>- Alta protezione dei dati                                                                     | Alti costi di implementazione                                                           |
+| 2                | 2                       | Codice di correzione degli errori                                                                                                                                                    | Non più utilizzato                                                                                                   | Un RAID 3 offre le stesse performance a costi ridotti                                   |
+| 3                | 3                       | Data striping a livello di byte con [parity](https://www.pcmag.com/encyclopedia/term/raid-parity#:~:text=Parity%20computations%20are%20used%20in,about%20XOR%2C%20see%20OR) dedicata | Per molte e frequenti richieste di dati                                                                              | Non supporta lettura e modifica multiple dei dati                                       |
+| 4                | 3                       | Data striping a livello di blocco con parity dedicato                                                                                                                                | - Supporta richieste di lettura multiple<br>- Utilizzo di parity nel caso di guasto di un dispositivo per duplicarlo | Le richieste di lettura creano un collo di bottiglia a causa della parity dei dati      |
+| 5                | 3                       | Combinazione di data striping e parity                                                                                                                                               | - Supporta lettura e scrittura multiple<br>- I dati sono scritti su tutti i dispositivi                              | Le performance di scrittura sono più lente dei RAID di livello 0 e 1                    |
+
+- Mirroring: Crea un duplicato del dato su almeno due dispositivi
+- Striping: Il dato viene letto in sequenza da più dispositivi
+- Striping con parity: Dopo lo striping viene effettuato un checksum per verificare l'assenza di errori (che poi verr° salvato su un terzo disco) 
+
+#### NAS
+La Memoria collegata alla rete (Network Attached Storage) consiste in un dispositivo di memorizzazione, collegato all'intera rete. In questo caso i dati sono direttamente accessibili da qualunque dispositivo sia connesso alla medesima rete. 
+I NAS sono flessibili e facilmente scalabili.
+
+#### SAN
+Le Reti ad area di memoria (Storage Area Network) sono architetture di dispositivi di memorizzazione organizzati in una rete e collegati tra loro tramite interfacce ad alta velocità. Questo permette di collegare agevolmente più server con la stessa SAN.
+
+#### Cloud Storage
+Il [Cloud storage](<server/cloud server>) è un metodo di immagazzinamento dati in remoto, che utilizza dei data center per immagazzinare i dati. Alcuni esempi di cloud storage sono Google Drive, Dropbox, iCloud.
+
+
+### In transito
+Il transito descrive il processo di invio dei dati da un dispositivo ad un altro. Due fattori cruciali per l'analisi dei dati in transito sono la [rete](tecnologie/reti) e i [protocolli](tecnologie/protocolli) utilizzati per gestire il transito dei pacchetti all'interno della rete stessa.
+
+#### Rete
+##### Sneaker net
+Consiste nell'utilizzo di [dispositivi DAS](#DAS) per trasportare i dati.
+
+##### Rete cablata
+La [rete cablata](tecnologies/reti#lan) utilizza cavi e dispositivi di trasporto (es. Switch) per collegare i dispositivi tra loro.
+
+##### Rete wireless
+La [rete wireless](tecnologie/reti#wlan) utilizzano onde radio per trasmettere i dati. Hanno meno possibilità di controllo delle reti cablate, in quanto non necessitano di un supporto fisico di collegamento alla rete.
+
+
+
+#### Confidenzialità
+Proteggere la confidenzialità dei dati significa utilizzare protocolli di trasmissione che impediscano ad utenti terzi la lettura dei dati qualora intercettati (di solito tramite cifratura)
+
+#### Integrità
+Proteggere l'intero pacchetto da manomissioni e/o perdite di pacchetti. Di solito avviene tramite ridondanza e cifratura dei dati.
+
+#### Disponibilità
+Bisogna assicurare sia l'accesso al dato dal punto di vista di accesso al servizio, che di continuità di utilizzo (e quindi impedire ad attori terzi di utilizzare punti di accesso alla rete per impedire un processo di comunicazione già in atto). Un meccanismo efficace è la reciproca autenticazione tra server e client. 
+
+### In processo
+Il processo dei dati include 3 fasi: immissione, modifica e output. Ognuna di queste ha le proprie criticità.
+
+#### Input
+Momento nel quale il dato viene inserito  (o creato). In questo momento è particolarmente importante gestire l'integrità del dato da corruzione (che può avvenire, ad esempio, per errore di comunicazione, attacco da parte di terzo o semplice errore umano).
+
+#### Modifica
+La modifica può avvenire sia per mano umana, che per processo (es. cifratura dello stesso prima dell'invio nella rete). Una non corretta gestione del dato in questo stato, ne provocherebbe la corruzione.
+
+#### Output
+Stato nel quale il dato viene preparato per il trasporto (es. inserimento del dato all'interno di un pacchetto con un determinato protocollo o la non corretta configurazione di una stampante)
+
+## Salvaguardie
+### Persone
+### Tecnologia
+#### Ridondanza della localizzazione
+Viene effettuata in maniera:
+- Replicazione (richiede grandi ampiezze di banda e la vicinanza tra le due localizzazioni per ridurre la latenza)
+- Replicazione asincrona (richiede più tempo, ma non viene afflitta da questioni di latenza)
+- Replicazione Point-in-time: Aggiornamenti e backup vengono effettuati periodicamente.
+
+### Policy e pratiche
+
+## Contromisure
+### Tecnologia
+
+### Policy
+Le policy sono uno strumento efficace per stabilire delle linee guida comportamentali o di utilizzo di risorse a livello aziendale. Possono essere suddivise in base al target di cui si occupano.
+
+#### Aziendali
+Stabiliscono le regole di condotta e le responsabilità di dipendenti e dirigenti, cercando al contempo di proteggere i diritti dei lavoratori e gli interessi aziendali. Possono coprire un'ampia varietà di tematiche (dalla condotta, al dresscode, alla privacy).
+
+#### Lavorative
+Definiscono aspetti quali remunerazione, date di pagamento, benefit dei dipendenti, orari lavorativi, ferie e altro. Spesso richiedono una firma di presa visione e accettazione da parte dei dipendenti.
+
+#### Conoscenza
+
+#### [Sicurezza](<#policy di sicurezza>)
+Definiscono degli obiettivi di sicurezza da raggiungere e degli standard (tecnologici e comportamentali) da mantenere. Permettono di definire una linea base di comportamento della rete, sotto condizioni di carico normale. Di solito si tratta di un documento in costante evoluzione per adattarsi alle tecnologie presenti e alle esigenze aziendali.
 
 # Security Standards
 Gli standard di sicurezza hanno l'obiettivo di categorizzare e valutare le #vulnerabilità.
@@ -223,254 +356,6 @@ Il processo di implementazione del #ASVS, si effettua in vari passaggi:
 7. Aggiornamenti e miglioramenti continui
 -----20:40-----
 
-# Policy
-La Security Policy è un documento che raccoglie le varie policies informative per l’utente, lo staff IT e i manager, riguardo i requisiti di protezione delle tecnologie e informazioni all’interno di un’azienda. I principali tipi di Policy sono:
-- Specifiche sull’autenticazione e l’identificazione degli utenti
-- Impostazioni riguardanti la password (lunghezza, tipo di caratteri, altre specifiche)
-- Definizione dei comportamenti ammessi nell’azienda 
-- Requisiti per l’accesso da remoto alla rete aziendale
-
-Riferiti al team IT, due documenti sono particolarmente importanti:
-- SOP (Standard Operating Procedure) o procedure per le operazioni standard
-- Linee guida: coprono le aree non incluse nelle SOP
-
-# Secure coding
-## Hardening
-## Front-end
-### JavaScript
-#### XSS
-#### eval()
-E' un metodo che permette di inserire strighe di codice all'interno dell'operazione
-```Javascript
-const injectedCode = document.location.hash.replace("#", "");
-eval(injectedCode)
-```
-	// inserendo una stringa di codice nell'URI, l'eval(injectedCode) permette di eseguire il codice 
-#### postMessage()
-Permette di collegare due o più pagine
- ```Javascript
-// Si considera il caso in cui il sito oggetto dell'attacco stampi dei dati ricevuti nella schermata
-const listener = window.open("<URL da attaccare>", "");
-send.addEventListener('click', () => {
-listener.postMessage("<messagio>", "<URL da attaccare>")
-});
-```
-#### Referrer-Policy
-Funzionalità deprecata che permetteva di conoscere l'ultimo sito visitato dall'utente
-#### open()
-Metodo che 
-#### element.innerHTML()
-Il metodo permette di inserire una variabile all'interno di **element**
-Con questo comando è possibile iniettare del codice malevolo all'interno del sito come attributo di tag o script.
-Una soluzione valida è l'utliizzo di **element.innerText()**
-#### cdn
-Per evitare di utilizzare librerie o cdn di terze parti (ed esporsi a rischi), conviene sempre verificare la firma della libreria originale
-```Javascript
-// soluzione
-<script src=<cdn desiderato> integrity=<hash della libreria preso dal sito originale> >...</script>
-```
-### #security-misconfiguration
-Nel caso sia necessario ricevere dei file dall'utente, è possibile che il #browser converta automaticamente la tipologia di file in base al contenuto (ad esempio, scrivendo un codice JavaScript e salvandolo con .jpg).
-```HTTP
-<header
-	X-Content-Type-Options: nosniff
-	Content-Type: image/jpeg //tipologie disponibili su: https://www.geeksforgeeks.org/http-headers-content-type/
-	>
-```
-### #ui-redressing
-E' attuabile tramite inserimento di un tag **iframe** con la pagina bersaglio che verrà utilizzato come sfondo. I campi compilabili dall'utente vengono poi sovrapposti a quelli del sito bersaglio, così che l'utente non riconosca la differenza tra i due siti e invii i propri dati all'attaccante.
-```HTML head
- X-Frame-Options: DENY //Metodo più vecchio che nega l'uso negli iframe
- X-Frame_Options: SAME ORIGIN //permette l'utilizzo solo ai siti aventi la stessa origine
- Content-Security-Policy: frame-ancestors 'none' //metodo più recente e non sempre disponibile nei browser. Permette l'utilizzo dei contenuti inviati dai siti indicati (none equivale a nessun sito, self equivale al server stesso)
-```
-
-Un altra tipologia di Redressing è attuabile tramite auto-compiler di HTML, CSS e JavaScript:
-1. L'utente inserisce i dati nell'iframe
-2. Compare un pop-up con pubblicità spam e un pulsante per inviare una richiesta post
-3. Cliccando sul pulsante, il sito fasullo legge i dati dall'iframe e li invia all'attaccante
-```HTML
-# Content Security Policy
-<meta
-	  http-equiv="Content-Security-Policy"
-	  content="default-src 'self'" />
-```
-#### postMessage(message, origin)
-Nel caso il metodo sia compilato in maniera non corretta, l'utente potenzialmente invia il messaggio anche ad utenti terzi:
-```Javascript
-window.opener.postMessage(message, '*');
-```
-	in questo caso l'utente invia il messaggio a tutti i server che stanno ascoltando
-``` JavaScript
-window.opener.postMesasge(message, "indirizzo dell'origine"); 
-```
-	in questo caso l'utente invia il messaggio solo al server origine 
-### Prototype-pollution
-Attacco che permette di modificare il metodo **__proto__** dell'oggetto base di JavaScript per eseguire velocemente comandi tramite metodo **eval()**. Sfruttando questo stratagemma è possibile eseguire attacchi #xss ed è inclusa nella categoria #insecure-design
-### CSS-injection
-Tramite script #JavaScript si modifica lo style della pagina. Questo tipo di attacco si verifica quando si immettono delle variabili collegate tramite #URI:
-```Browser
-127.0.0.1:8000/#blue //colora lo sfondo un componente
-127.0.0.1:800/#}body{display:none} //in questo modo si modifica l'attributo display del div body
-```
-Con questo attacco, per esempio, si può nascondere la #UI all'utente bersaglio, lasciandogli solo un input con un label con una richiesta di inserimento dati per sbloccare il normale funzionamento del sito (i dati inseriti saranno leggibili dall'attaccante)
-## DevSecOps Pipeline
-### Introduzione
-Il #DevOps è una metodologia di lavoro, utilizzata per ridurre i tempi di distribuzione attraverso l'automazione, fornire un #feedback continuo, migliorare la collaborazione del team e le capacità di affrontare il rilevamento degli errori
-### Software Development Life Cycle ( #sdlc)
-#### CI/CD
-Per #CI/CD si intende Continuous Integration and Continuous Devliery. Il CI/CD è una metodologia utilizzata per aumentare la velocità, ridurre gli errori e permettere di standardizzare i processi.
-Il #deployment di norma è effettuata da una singola persona, dopo che il prodotto ha raggiunto un livello di avanzamento apprezzabile (ad esempio ha raggiunto determinati obbettivi) ed è stato oggetto di verifica.
-#### Software utilizzati
-##### Code
-I software sono utilizzati per il #versioning dell'applicazione. Questi software permettono di condividere il lavoro tramite creazione di più #branch, ovvero ramificazioni del progetto. 
-- [[Github]]
-- Git
-- Subversion
-- GitLab
-```Branching
-└ master
-	└ develop
-		├ feature_1
-		└ feature_2
-```
-#### Container
-Permettono di progettare in maniera riproducibile, senza la necessità di controllare la conformità delle varie #dependency, scalabile 
-- [[Docker]]
-- podman
-#### Pipeline
-Servono ad automatizzare le procedure.
-- [[Jenkins]]
-- Travis CI
-- GitHub Actions
-#### Infrastructure
-Può essere di tipo **On premise** o **cloud**, dove i secondi permettono di avere potenza di calcolo, spazi di archiviazione e servizi di business logic adattabili ed un costo variabile in base all'uso effettivo.
-- [[AWS]]
-- Azure
-- Google Cloud Platform
-### Design
-#### Threat Modeling
-![[Pasted image 20240108202659.png]]
-
-### Implementazione
-#### Common Software Vulnerabilities
-##### Injection flaws
-- #sql-injection 
-- #os-command-injection
-- #cross-site-scripting
-- #code-injection o #unsafe-deserialization di dati non fidati
-##### Broken Authorization
-##### Broken Session Management
-- #session-id esposto nell' #URL 
-- session id non rinnovato nel tempo
-##### Broken Cryptography
-##### Sensitive Information Exposure
-- Mancata crittografazione dei dati
-##### Insufficient Logging
-- Mancanza dei #log
-- log non protetti
-- assenza di ridondanza dei log
-- mancata registrazione di eventi importanti
-##### Server side request forgery
-##### Sandboxing
-Una #sandbox (tipo [[Docker]])
-## Threat Modeling
---- recuperare i primi 30 minuti
-- Analizzare l'applicazione e capire quali siano le componenti che potrebbero ricevere un #attacco (brainstorming)
-- Dare un punteggio agli asset ( #dati ) in base alla loro importanza
-- Definire le priorità per le quali allocare risorse
-### Fasi
-Il #threat-modeling deve essere effettuato durante tutto il #sdlc 
-- Planning
-- Analysis
-- Design
-- Implementation
-- Maintenance
-Si effettua seguendo delle fasi specifiche:
-1. --
-## CI-CD OWASP top 10
-### 1 - Insufficient Flow Control Mechanisms
-Nel caso di controlli insufficienti, è possibile che degli automatismi permettano di effettuare un #push direttamente nella branch **main**, incorrendo così in potenziali #merge, oppure è possibile, nel caso il #repository fosse pubblico, che un utente esterno riesca ad effettuare un push non controllato.
-### 2 - Inadequate Identity and Access Management
-Avviene quando alcuni utenti possiedono dei permessi troppo elevati (vale anche nel caso in cui alcuni utenti lascino il progetto e l'account non venga eliminato), o quando non viene gestito in maniera corretta il processo di iscrizione
-### 3 - Dependency Chain Abuse
-Avviene quando si scaricano #dependency non ufficiali. Per risolvere il problema, conviene sempre controllare i #chacksum (firma digitale del pacchetto), evitare di scaricare da internet se non dai siti ufficiali ed utilizzare in #pinning, ovvero specificando la versione specifica da utilizzare.
-### 4 - Poisoned Pipeline Execution #PPE
-Avviene quando un utente malevolo ottiene l'accesso ad una #pipeline presente online e la modifica.
-### 5 - Insufficient #PBAC (Pipeline-Based Access Controls)
-### 6 - Insufficient Credential Hygiene
-Avviene quando sono presenti dei #secret in chiaro nella #pipeline. E' inoltre preferibile ruotare le credenziali in maniera costante (almeno 2 volte l'anno).
-### 7 - Insecure System Configuration
-### 8 - Improper Artifact Integrity Validation
-Avviene quando non esiste un sistema di firma dei #commit. In questo caso è possibile che un attaccante riesca ad accedere all'account di uno sviluppatore ed immettere del codice malevolo all'interno del nostro progetto.
-## Metodologie
-### Modellare i dati
-#### Data flow diagram
-#### Sequence diagram
-Usato per correlare i vari processi ad una variabile temporale di esecuzione
-#### Process flow diagrams
-Usato per visualizzare dei processi
-#### Attack tree
-Diagramma concettuale che mostra come un obbiettivo può essere attaccato
-#### Ishikawa diagram (o Fishbone diagram)
-
-### Goal oriented
-#### DREAD
-#### PASTA
-#### trike
-
-### Motivation oriented
-
-### Library (o list) Oriented
-
-#### STRIDE
-Acronimo delle minacce su cui va ad operare:
-spoofing: 
-tampering: 
-repudiation: Si nega l'aver effettuato una determinata azione
-information-disclosure: Categoria che copre le violazioni di privacy o fughe di dati
-DoS: Mira ad interrompere il normale funzionamento di un sito
-privilege-escalation : L'attaccante accede con un profilo base e ottiene livelli di accesso superiori
-E' il sistema con più ampia superficie di copertura per le potenziali minacce e/o vulnerabilità.
-Alcune criticità di questa metodologia sono:
-- La necessità di avere delle conoscenze approfondite sulle minacce e vulnerabilità, su cui applicare il metodo
-##### Fasi
-1. Si costruisce un data-flow-diagram, dove identifico le linee di fiducia
-2. Si effettua una verifica per le varie categorie di attacco
-3. Si analizzano i risultati e si pianificano le risposte
-4. Si verifica l'efficacia delle risposte
-## Requisiti
-### Funzionali
-### Non funzionali
-Definiscono gli aspetti qualitativi e prestazionali
-### Di sicurezza
-#### Fondamentali
-#### Generali
-#### Operativi
-## Crittografia
-Può essere utilizzata per garantire:
-- Confidenzialità
-- Integrità
-### Simmetrica
-C'è una sola chiave di criptazione
-#### Pro
-- Efficienza
-- Semplicità
-- 
-#### Contro
-- Gestione delle chiavi
-- Scalabilità
-- Scambio delle chiavi
-### Asimmetrica
-Avviene tramite l'utilizzo di una chiave pubblica e di una chiave privata
-#### Pro
-- Maggiore sicurezza
-- Firma digitale
-- Scalabilità
-#### Contro
-- Prestazioni
-- Complessità 
-
 # Attacco
 ## Introduzione
 Un attacco informatico è un’azione che sfrutta determinate falle (fisiche o logiche) di una rete per ottenere accesso e/o eseguire azioni dannose per la rete stessa. Principalmente gli attacchi sono di due tipi:
@@ -478,6 +363,12 @@ Un attacco informatico è un’azione che sfrutta determinate falle (fisiche o l
 - Attacchi Algoritmici, ovvero attacchi che sfruttano falle logiche o usano in maniera non convenzionale determinati componenti, per causare comportamenti non previsti alla macchina (es. la forzatura dell’uso totale della RAM per forzare l’arresto di un computer).
 
 Gli attacchi possono essere differenziati per **domini** di interesse e per **livelli** di comunicazione (di solito viene utilizzato il modello OSI) soggetti all’attacco. Un terzo metodo di categorizzazione degli attacchi è la motivazione alle loro spalle. Per quest’ultimo caso, esiste una classificazione standardizzata: la IOA (Indicatore d’attacco).
+
+## Superficie di attacco
+E' detta Superficie d'attacco l'insieme di punti d'accesso che possiedono delle vulnerabilità. Possono essere suddivisi in:
+- Superficie d'attacco della rete
+- Superficie d'attacco software
+- Superficie d'attacco umana (potenzialmente chiunque abbia accesso alla rete o a informazioni su come accedere alla rete). Campo d'azione di attacchi di [social engineering](<#social engineering>)
 
 ## Dominio
 Descrive l’area di controllo, autorità o protezione che l’attaccante vuole sfruttare per portare a compimento un attacco informatico.
@@ -499,6 +390,7 @@ Questo tipo di attacco può essere prevenuto tramite:
 - Utilizza un #framework che includa un sistema di autorizzazioni al suo interno
 #### Horizontal Authorization Control
 Vulnerabilità sfruttabile tramite attacchi #idor (Insecure Direct Object References)
+
 ``` 
 http://vulnerableapp.com/user/account?accountId=7800001
 	L'utente accede al sito tramite account personale
@@ -1005,7 +897,10 @@ Scambio di favori in cambio di informazioni.
 Consiste nell’utilizzo di menzogne o pretesti per ottenere informazioni.
 
 
-## WLAN
+
+## Reti
+
+### WLAN
 Gli attacchi verso una rete [WLAN](./tecnologie/reti#wlan) hanno lo scopo di:
 - Intercettare dati
 - Ottenere accesso a risorse all'interno della rete
@@ -1124,21 +1019,111 @@ Il Cross-site Scripting consiste nell’ inserire codice malevolo all’interno 
 ### Zero-day
 Attacco che avviene sfruttando vulnerabilità deep software non ancora note pubblicamente.
 
-# Vulnerability
 # Weakness
-Le **Debolezze** sono tutti quegli attacchi (conosciuti e non) che possono essere effettuati, sfruttando le **[vulnerabilità](#vulnerability)**
+Le **debolezze** sono tutti quei problemi specifici che riducono la sicurezza di un sistema (anche nel caso non vengano sfruttate).
 
-## Improper Restriction of XML external entity Reference
+## Applicazione
+### Improper Restriction of XML external entity Reference
 [Improper Restriction of XML external entity Reference](https://cwe.mitre.org/data/definitions/611.html).
 
 Si verifica quando un entità XML contiene collegamenti ad altre entità XML non previste dal sistema, che permettono di inserire script malevoli per prelevare dati.
 
+
+## Fisico
+# Vulnerability
+Le **Vulnerabilità** sono tutti quegli attacchi (conosciuti e non) che possono essere effettuati, sfruttando le **[debolezze](#weakness)**.
+
+# Defense-in-Depth
+
+## Classificazione
+La classificazione delle risorse consiste nel raggruppare le risorse in base a caratteristiche comuni. Le informazioni più critiche hanno bisogno di ricevere il livello più alto di protezione e quindi (potrebbero) richiedere di essere trattate in maniera particolare. Un utile metodo per categorizzare le risorse è il cosiddetto *labeling*, ovvero etichettatura, che può essere effettuato tramite i seguenti passi:
+1. Determinare la categoria più appropriata per una risorsa, in base a:
+	- Informazioni sulla risorsa
+	- Software utilizzati dalla risorsa
+	- Hardware utilizzati dalla risorsa
+	- Servizi
+2. Stabilire il livello di [responsabilità](<#zero-trust model>) della risorsa tramite l'identificazione del proprietario di ogni informazione e ogni parte di software
+3. Stabilire il criterio di classificazione, ad esempio in base a:
+	1. Confidenzialità
+	2. Valore
+	3. Tempo
+	4. Diritti di accesso
+	5. Distruzione
+4. Implementare uno schema di classificazione che permetta di identificare in maniera efficace le informazioni ed assicurare una protezione uniforme e facile da monitorare
+## Standardizzazione
+La standardizzazione di risorse software e hardware permette di facilitarne la manutenzione ed il monitoraggio.
+
+## Ciclo di vita
+Ogni risorsa ha un suo ciclo di vita. E' importante per un tecnico capire a che punto del ciclo di vita è ogni risorsa, così da poter pianificare il da farsi. Di solito il ciclo di vita viene suddiviso in:
+1. Acquisizione della risorsa in base alle sue caratteristiche e sistemazione nell'inventario
+2. Installazione e analisi della stessa (anche tramite marchiatura di identificazione, tipo codice a barre o targhetta RFID)
+3. Uso e continuo monitoraggio e analisi della stessa
+4. Manutenzione (o eventuale aggiornamento) quando necessario
+5. Smaltimento (con previa rimozione di tutti i dati contenuti), che può avvenire per intero, o per parti della risorsa (anche in base alle linee guida del prodotto)
+
+## Identificazione delle vulnerabilità
+Le [vulnerabilità](#vulnerabilità) devono essere analizzate e monitorate frequentemente, in base a tutte le specifiche della rete (intesa come dispositivi, collegamenti, software, ecc.) e della tipologia di azienda (che incide sul tipo di dati trattati, sulle interazioni con i clienti, sul valore dei dati stessi).
+
+L'identificazione delle vulnerabilità deve tener conto del fatto che gli attacchi possano anche presentarsi come:
+- Compromissione del sistema interno
+- Furto di dati dei clienti
+- False transizioni da un server esterno
+- False transizioni effettuate usando credenziali rubate
+- Errori di input dei dati
+- Distruzione del data center
+
+## Identificazione delle minacce
+L'identificazione delle minacce avviene tramite un meccanismo a strati, dove lo strato esterno è rappresentato dall'*edge router* (il router che collega la rete alla WAN), il secondo dal firewall, il terzo i router interni e così via, mentre gli asset sono racchiusi al centro dello schema.
+
+### Security onion
+Comunemente si compara il metodo a livelli con una cipolla, per far comprendere come i vari livelli di protezione lavorano per filtrare le minacce prima che esse riescano ad arrivare agli asset.
+
+### Security artichoke
+Il metodo a cipolla, con il passare del tempo, si è evoluto per tenere conto del fatto che i meccanismi di protezione spesso non coprono l'intera superficie della rete, bensì solo una porzione. Il nuovo schema prende il nome di schema a carciofo, dove ogni petalo rappresenta un meccanismo di protezione, che però non copre la totalità dei livelli inferiori, bensì solo una porzione (es. le password proteggono l'accesso di utenti estranei che provano ad accedere tramite login, ma non blocca gli attacchi man-in-the-middle o gli attacchi provenienti dall'interno).
+
+## Strategie
+Ci sono diverse tipologie di strategie per organizzare una difesa profonda (in-depth) della rete (da utilizzare in combinazione).
+
+### Stratificazione
+La stratificazione (**layering**) consiste nel realizzare diversi livelli di protezione a difesa della rete e degli asset.
+
+### Limitazione
+Limitare l'accesso alle risorse allo stretto necessario. Un'esempio è la politica [zero-trust](<#zero-trust model>)), o la politica di consultazione dei dati in loco (di norma una stanza monitorata), senza dare la possibilità di portare i dati all'esterno.
+
+### Diversificazione
+Non posizionare livelli simili accoppiati ma, appunto, diversificarli, così che un attaccante non sia agevolato nel sorpassare due livelli consecutivi applicando il minimo sforzo (rendendo il secondo livello pressoché inutile).
+
+### Oscuramento
+Ovvero non dare possibilità agli attaccanti di scoprire informazioni relative ai dati tramite messaggi di log o messaggi di sistema.
+
+### Semplicità
+Preferire meccanismi semplici, ma efficaci di protezione, evitando l'utilizzo di meccanismi troppo complessi da impostare, che potrebbero ritorcersi contro il team di sicurezza stesso per problemi di configurazione, o altro. Preferire invece soluzioni che siano facili da utilizzare, ma complesse da attaccare.
+
 # Strumenti di analisi
+## log
+I log sono file che tengono traccia di avvenimenti all’interno della rete. Gli eventi di solito monitorati tramite log possono essere categorizzati in:
+- Log di applicazioni
+- Log di eventi
+- [Log di servizi](<#log di servizi>)
+- Log di sistema
+
+## SOC
+Il Centro Operativo di Sicurezza è
+### Obiettivi
+Il SOC deve assolvere a varie mansioni (con l’aiuto di specifici tools), ovvero:
+- Osservare e comprendere ogni dettaglio delle transazioni che avvengono all’interno della rete
+- Avere un ambiente sicuro per eseguire e osservare i malware
+- Analizzare il traffico in tempo reale per identificare eventuali intrusione all’interno della rete
+- Aggiornare le regole del firewall
+- Impostare un soldi sistema di log, che copra tutte le aree principali di interesse
+- Monitorare costantemente i log della rete
+- Utilizzare un sistema di gestione dei ticket per segnalare e registrare le azioni e/o analisi
+
 ## Software
 ###  Static application security testing
 #SAST
-[[SonarQube]]
-Software che effettuano un'analisi statica del codice, effettuano #code-smell (verifica l'utilizzo anomalo di alcuni elementi)
+- [[SonarQube]]: Software che effettuano un'analisi statica del codice, effettuano #code-smell (verifica l'utilizzo anomalo di alcuni elementi)
+- Lynis: Software open source di auditing
 ### Dynamic application security testing
 #DAST
 [[Zap]]
@@ -1245,6 +1230,7 @@ Il #regression-test può essere fatto con [[Postman]], [[Python 1]] e consiste n
 # Protezione
 Esistono strumenti pensati per proteggere in maniera passiva i sistemi.
 ## Antimalware
+### Introduzione
 Sono software utilizzati per identificare e impedire l'accesso ai [malware](#malware) all'interno del dispositivo. 
 I malware possono essere inseriti nel dispositivo in vari modi:
 - Download di antivirus da pop-up (o comunque da siti che siano diversi dal sito originale). Il software potrebbe essere stato alterato per contenere malware
@@ -1256,6 +1242,25 @@ Alcuni esempi di software Antimalware commerciali sono:
 - AMP: Cisco Advanced Malware Protection
 - WSA: Cisco Web Security Appliance
 - ESA: Cisco Email Security Appliance
+
+#### Tipologie
+Ci sono 3 tipi di anti-malware, catalogati in base al meccanismo utilizzato per identificare i malware
+
+##### Signature-based
+Si basano sul riconoscimento di una **firma**, ovvero delle caratteristiche di file di malware conosciuti.
+
+##### Heuristics-based
+Identificano il malware in base alla presenza di caratteristiche generali, condivise tra i malware.
+
+##### Behavior-based
+Si basano sull'analisi comportamentale per verificare e identificare i malware.
+
+#### Network-based
+Questi anti-malware permettono di monitorare e proteggere l'intera rete su cui sono installati. Sono composti da più elementi, ognuno dei quali ricopre uno specifico ruolo:
+- [AMP](#amp): Protezione Avanzata dai Malware, ha lo scopo di proteggere gli end-point della rete
+- [ESA](#esa): Apparecchio di Sicurezza delle Email, si occupa di proteggere da spam e email potenzialmente infette prima che raggiungano l'endpoint
+- [WSA](#wsa): Apparecchio di Sicurezza Web, permette di filtrare i siti web, prevenire l'accesso a siti specifici agli utenti ed effettuare una scansione per i malware
+- [NAC](#nac): Controllo di Ammissione alla Rete, permette l'accesso alla rete solo alle persone autorizzate
 
 ### Antivirus
 Monitora di continuo il pc e, in caso riconosca un virus, lo mette in quarantena  o lo elimina
@@ -1269,10 +1274,41 @@ Blocca gli indirizzi IP di noti siti di Phishing e avvisa l'utente riguardo i si
 ### Anti-spyware
 Programma che cerca keyloggers e altri spyware
 
+
+## Autenticazione
+Meccanismo che permette di identificare un utente in base a parametri condivisi (di solito nome utente e password). I [protocolli di autenticazione](./tecnologie/protocolli#autenticazione) più utilizzati sono:
+
+| Protocollo | Certificati client | Certificati server | Deploy    | Sicurezza |
+| ---------- | ------------------ | ------------------ | --------- | --------- |
+| EAP-TLS    | Si                 | Si                 | Difficile | Alto      |
+| PEAP       | No                 | Si                 | Media     | Media     |
+| EAP-TTLS   | No                 | Si                 | Media     | Media     |
+| EAP-FAST   | No                 | No                 | Facile    | Media     |
+### Gestore delle autenticazioni
+#### SSO
+Il Single Sign On (accesso singolo) permette di accedere a più servizi tramite singolo set di credenziali (es. gmail e youtube)
+
+#### OAuth
+Appoggio a gestori terzi per la gestione delle credenziali di accesso (es. login tramite google)
+
+#### Gestore delle password
+Software che permette di salvare le coppie di credenziali di accesso e collegarle all'applicazione per la quale vengono utilizzate
+
+#### KBA
+La Knowledge-Based Authentication (autenticazione bassata sulle conoscenze) consiste nell'utilizzo di informazioni personali per garantire l'accesso. Di norma viene utilizzato per le procedure di cambio password.
+
+#### HMAC
+l'Hash Based Message Authentication Code (messaggio con codice di autenticazione basato sull'hash) è un processo che utilizza la cifratura dei dati per produrre un achiave di accesso temporanea all'utente (di solito valida per una singola sessione o per un periodo di tempo limitato). Viene spesso utilizzata per mantenere una sessione aperta durante la navigazione nel web e fornire allo stesso tempo un controllo dell'integrità dei dati.
+
+### Mutual authentication
+L'autenticazione ambivalente consiste in un duplice processo di autenticazione: sia client-server che server-client. Questo ulteriore passaggio fornisce un meccanismo di protezione aggiuntivo contro attacchi di tipo [man-in-the-middle](#man-in-the-middle) tramite [rogue access point](<#rogue access point>).
+
+
 ## NSI
 L’Infrastruttura di Sicurezza della Rete definisce le modalità con le quali i dispositivi devono essere collegati tra loro per assicurare un buon livello di sicurezza end-to-end. 
 ### ACL
-La Lista di Controllo degli Accessi è una serie di comandi che controlla quando un pacchetto deve essere inoltrato e quando deve essere bloccato, in base alle informazioni trovate nell’header del pacchetto. Un ACL svolge le seguenti funzioni:
+#### Introduzione
+La Lista di Controllo degli Accessi consiste in una serie di comandi di Sistema Operativo, che analizzano i pacchetti in ingresso e decidono se essi deve essere inoltrati o bloccati, in base alle informazioni trovate nell’header dei singoli pacchetti. Un ACL svolge le seguenti funzioni:
 - Limita il traffico per migliorare le prestazioni della rete
 - Fornisce un controllo del flusso della rete (può anche fornire delle rotte predefinite per gli aggiornamenti, evitando così l’installazione di aggiornamenti da terze parti)
 - Fornisce un livello base di protezione della rete
@@ -1280,6 +1316,55 @@ La Lista di Controllo degli Accessi è una serie di comandi che controlla quando
 - Monitorano le attività degli host ed impediscono determinati accessi alla rete (es. Permettere solo protocolli FTP)
 Gli ACL spesso operano operazioni di controllo tramite indirizzi IPv4 di origine e destinazione, o porte di accesso e protocollo utilizzato.
 Di solito è utile utilizzare più ACL e nominarle con numeri o nomi che definiscano il tipo di filtraggio compiuto.
+
+Le liste dei comandi di controllo si chiamano Access Control Entries (ACE).
+
+#### ACE
+Lista di verifiche sequenziali che permettono di stabilire se il pacchetto che è in verifica debba essere droppato, o se possa avere accesso alla rete. I pacchetti filtrati dipendono dal tipo di ACL utilizzata:
+- **ACL Standard**: livello 3 (Rete)
+- **ACL Estesa**: Livelli 3 e 4 (Rete e Trasporto)
+
+Alcune tipologie di comandi che possono essere richiesti sono:
+- **Incremento della velocità:** Policy di negazione dello scambio di file video all'interno della rete
+- **Controllo del traffico**: Blocco dell'invio di protocolli di [routing updates] per le richieste che provengano da fonti sconosciute
+- **Aumentare la sicurezza della rete**: Limitare l'accesso alla rete solo a determinati dispositivi fidati
+- **Filtrare il traffico in base al tipo**: Analisi del tipo di traffico e blocco dei pacchetti con tipi non permessi (es. email)
+- **Monitorare l'utente per limitare l'accesso alla rete**: Filtrare le chiamate dell'utente in base ai servizi a cui può avere accesso
+- **Permettere solo certe classi di traffico:** Classificare il traffico e decidere quali classi siano prioritarie, quali normali e quali da bloccare
+
+#### Catalogazione
+Le ACL possono essere catalogate prevalentemente in due modi:
+
+##### Numerico
+
+| Numero      | Descrizione                                                                     |
+| ----------- | ------------------------------------------------------------------------------- |
+| 1-99        | ACL standard per IP                                                             |
+| 100-199     | ACL estesa per  IP                                                              |
+| 1100-1199   | ACL estesa per indirizzi MAC da 48-bit                                          |
+| 1300-1999   | Espansioni per ACL standard per indirizzi IP                                    |
+| 200-299     | ACL basata sul tipo di protocollo                                               |
+| 2000-2699   | Espansione per ACL estese per indirizzi IP                                      |
+| 700-799     | ACL per indirizzi MAC da 48-bit                                                 |
+| rate-limit* | ACL semplice per il controllo della velocità                                    |
+| template    | Abilita le ACL per [template IP](https://scn.wikipedia.org/wiki/Template:IP%3F) |
+*rate-limit: limite di velocità
+
+##### Nominativo
+
+Viene asegnato un nome ad ogni ACL, in modo tale da renderle riconoscibili e raggruppabili per tipo di protocollo utilizzato, tipo di blocco, ecc. Il nome assegnato ad un aACL deve:
+- Descrivere la funzione dell'ACL
+- Essere composto solo da caratteri alfanumerici
+- Non deve contenere spazi o punteggiatura
+- Essere scritto in lettere maiuscole (consigliato)
+- Descrivere se è di tipo permissivo (added) o respingitivo (deleted)
+
+#### Procedura
+Il processo di funzionamento di una ACL è il seguente:
+1. Il Router estrae l'indirizzo IP del mittente
+2. Il Router inizia ad applicare le verifiche delle ACE in ordine sequenziale
+3. Quando l'indirizzo IP rientra nei parametri dell'ACE, esegue i comandi scritti all'interno di essa
+4. Se il pacchetto non rientra nelle richiste di nessuna ACE, viene scartato di default (ultima ACE, inserita in modo implicito nell'ACL).
 
 ### NetFlow
 È un software utilizzato per gestire comunicazioni tramite [SNMP](./tecnologie/protocolli#snmp). Originariamente il software catalogava le comunicazioni in base a 7 parametri:
@@ -1313,7 +1398,7 @@ Vedi [Server AAA](<./tecnologie/macchina#aaa server>).
 La [VPN](tecnologie/reti#vpn) risulta particolarmente utile nel caso ci sia bisogno di fornire una connessione sicura alla rete da remoto grazie alla cifratura del messaggio durante il passaggio nella WAN.
 
 ## Boot integrity
-Software che permette di stabilire se un sistema possa essere considerato affidabile, o se sia stato modificato durante la fase di avvio o caricamento.
+Firmware che permette di stabilire se un sistema possa essere considerato affidabile, o se sia stato modificato durante la fase di avvio o caricamento.
 viene salvato un firmware (un software che esegue semplici funzioni di base del computer) all'interno della scheda madre e viene eseguito come primo passaggio dal computer.
 ### Secure Boot
 E' stata creata una nuova Interfaccia di Firmware Unificata ed Estensibile (UEFI) come nuova versione di BIOS, che definisce la nuova interfaccia standard per operazioni tra firmware, sistema operativo e device esterni (funziona solo in modalità 64-bit). 
@@ -1322,6 +1407,53 @@ Il firmware controlla l'affidabilità di ogni parte del software di avvio, inclu
 
 ### Measured Boot
 Provvede un protocollo di validazione più forte del Secure boot, in quanto misura tutti i vari componenti e ne salva un log all'interno del chip TMP, che potrà essere utilizzato per effettuare test di controllo da remoto. Permette anche di identificare applicazioni non fidate e di caricare prima gli anti'malware.
+
+## Endpoint security
+
+### HBSS
+I Sistemi di Sicurezza Basati sull'Host raccolgono tutti i principali sistemi di protezione (malware, firewall, prevenzione di intrusione) i un unico ambiente. AV-TEST offre analisi indipendenti di alta qualità dei sistemi di protezione host-based.
+
+### Protezione dai malware Host-based
+La Protezione dai Malware Basata sull'Host è utilizzata per protegger ei  dispostivi end-point da malware.
+
+#### Antivirus/antimalware
+Utilizzato per identificare e mitigare virus/malware. Il processo di identificazione dei virus avviene seguendo una di queste tre metodologie:
+- Basato sulla firma
+- Basato sull'euristica (ovvero riconosce caratteristiche generalmente presenti all'interno dei virus)
+- Basato sul comportamento
+Di solito controllano l'end-point in tempo reale, verificando il traffico in corso. Nel caso l'antivirus sia installato in ogni host si chiama anche agent-based altrimenti, nel caso venga installato in un sistema centralizzato, si chiama agentless (utilizzati specialmente in ambito di virtualizzazione). L'agentless consuma anche meno risorse rispetto ad un sistema che utilizza antimalware agent'based su ogni endpoint. 
+
+### HIDS
+I Sistemi di identificazione dell'intrusione di Host sono software installati sul dispositivo (o nel server) per identificare l'eventuale presenza di attività sospetta e monitora eventuali richieste malevole e le registra nel Registro di Sistema.
+Sono software che consumano molte risorse e che potrebbero rallentare le prestazioni del dispositivo su cui sono installate.
+
+### HIPS
+I Sistemi di Prevenzione dell'Intrusione di Host sono software che monitorano l'attività del dispositivo e ricerca la presenza di attacchi conosciuti, anomalie o segnali di allarme tramite all'interno dei pacchetti in transito. Nel caso identifichi un'attività sospetta, il software allerta l'utente, logga l'attività sospetta, resetta la connessione e, in caso, effettua il drop del pacchetto.
+
+Gli HIPS sono categorizzati anche in base alla metodologia utilizzata per l'identificazione dei malware
+
+#### Anomaly-based
+Questi HIPS monitorano il comportamento dell'utente, comparandolo ad una linea di comportamento base (creata analizzando il comportamento dell'utente e il comportamento della rete), creando dei log in cui inserire dei dettagli relativi. Il rischio più comune con l'utilizzo di questi sistemi è l'eccessivo numero di falsi positivi, che comportano un abbassamento della credibilità della rete e uno spreco di tempo da parte del team di sicurezza.
+
+#### Policy-based
+Il comportamento normale è descritto tramite regole e la violazione di queste fa scattare l'allarme, che registra la violazione in un log e avvisa il personale della violazione.
+Molti HIDS di questo tipo sono già forniti di un set di regole, implementabili dall'amministratore di sistema.
+
+#### Software
+- OSSEC: Open Source HIDS SECurity
+- AlienVault
+- Cisco AMP
+- Tripwire
+
+### EDR
+L'Endpoint Detection and Response è una soluzione che monitora costantemente il dispositivo endpoint e ne raccoglie dati. Analizza i dati raccolti e risponde a tutte le minacce identificate.
+Mentre un [antivirus](#antivirus) permette solo di bloccare l'accesso di un virus, un EDR può anche identificare le minacce presenti già all'interno del dispositivo.
+
+### DLP
+Il Data Loss Prevention (Prevenzione della Perdita di Dati) è un software che serve ad assicurare che i dati sensibili non vengano persi, utilizzati in modo errato o visualizzati da utenti non autorizzati.
+
+### NGF
+I Firewall di nuova generazione (New Generation Fierewall) sono dispositivi che combinano le classiche funzionalità di un firewall con altre funzionalità di filtraggio degli host all'interno della rete tramite inline Deep Packet Inspection(DPI, Ispezione profonda dei pacchetti) o sistemi IPS (Sistema di Protezione dalle Intrusioni).
 
 ## Firewall
 Sono software o dispositivi che permettono di filtrare i messaggi in ingresso in una rete e perciò devono/offrono funzionalità per:
@@ -1396,6 +1528,12 @@ Contro:
 L'Endpoint firewall (o Host-based Firewall) è un [firewall](#Firewall) installato sul dispositivo stesso, utilizzato per consentire o negare il traffico del dispositivo con il resto della rete in base a meccanismi di controllo (bloccando la porta nella quale è in corso la sessione identificata come pericolosa) che funzionano però solo per connessioni aperte dall'host stesso.
 Alcuni HBF includono meccanismi di protezione delle Tabelle IP e dei TCP Wrapper.
 
+Alcuni esempi di HBF sono:
+- [Windows Defender Firewall](os/windows#firewall)
+- [iptables](os/linux#iptables)
+- [nftables](os/linux#nftables)
+- [TCP Wrappers](<os/linux#tcp wrappers>)
+
 #### Application Gateway firewall
 Blocca le connessioni ai livelli 3,4,5 e 7 (Applicazione) tramite utilizzo di un Proxy che funge da tramite per le connessioni tra gli endpoint all'interno della rete e l'esterno.
 La maggior parte dei blocchi e dei controlli avviene tramite software.
@@ -1438,14 +1576,14 @@ Gli svantaggi invece sono:
 - Il sovraccarico dei sensori impatta le prestazioni della rete
 - Impatto sulla rete
 
-### Host-based
-Gli IPS basati sull’host (HIPS) sono software da installare su dispositivi per monitorare e proteggere i sistemi operativi. Tra le loro funzionalità includono:
+### HIPS
+Gli IPS basati sull’host (Host-based IPS) sono software da installare su dispositivi per monitorare e proteggere i sistemi operativi. Tra le loro funzionalità includono:
 - La possibilità di bloccare azioni effettuate dall’utente nel caso divergano dai suoi comportamenti abitudinari (come la modifica di file di sistema)
 
 Un particolare di cui tenere conto è che gli HIPS monitorano l’attività dell’endpoint su cui sono installati.
 
-### Network-based
-Gli IPS basati sulla rete (NIPS) possono essere implementati su un dispositivo dedicato o su un dispositivo non dedicato e sono elementi indispensabili per la sicurezza della rete.
+### NIPS
+Gli IPS basati sulla rete (Network-based IPS) possono essere implementati su un dispositivo dedicato o su un dispositivo non dedicato e sono elementi indispensabili per la sicurezza della rete.
 
 ## Host encryption
 L'esempio più noto è l'[EFS](../os/windows#efs) (Windows Encrypting File System, ovvero Sistema di Crittazione dei File), che permette, appunto, di crittare file, cartelle, o l'intero hard drive.
@@ -1455,11 +1593,155 @@ Il TPM è un chip specializzato, presente nella scheda madre, che salva le infor
 - Certificati digitali
 - Misure di integrità del sistema
 BitLocker To Go permette di cifrare dispositivi rimuovibili senza l'uso del TPM.
+## NAC
+I Network Access Control (Controllo degli Accessi nella Rete) sono dispositivi addetti alla gestione del [controllo degli accessi](<#controllo degli accessi>) dell'intera rete e permettono di controllare tramite un'unica interfaccia le politiche di accesso di utenti, dispositivi ed accesso manuale. Con l'avvento degli IoT, l'utilizzo dei NAC è diventato sempre più utile.
+Tramite un NAC è possibile:
+- Implementare nuove politiche di accesso alla rete velocemente
+- Riconoscere e profilare gli utenti e i dispositivi connessi per prevenire a malware di danneggiare il sistema
+- Fornire accesso sicuro alla rete a guest (spesso previo passaggio da portali di registrazione)
+- Valutare il rispetto delle policy per tipo di utente, di dispositivo e di sistema operativo
+- Mitigare gli incidenti tramite blocco dell'accesso o isolamento per dispositivi che non rispettano le politiche
+
 ## Patch Management
 Le patch sono aggiornamenti di software per risolvere [vulnerabilità](#weakness) presenti nel software stesso. Di solito il sistema operativo controlla e installa automaticamente le patch.
 A livello aziendale, spesso gli aggiornamenti vengono analizzati dal team di Cybersecurity prima di venire installati nei dispositivi all'interno della rete. Per facilitare questo compito, esistono i Patch Manager, ovvero software che permettono una gestione facilitata degli aggiornamenti delle patch, grazie al controllo tramite un'unica piattaforma la gestione delle patch per tutti i dispositivi della rete.
 
-## Minacce WLAN
+## Policy di sicurezza
+La Security Policy è un documento che raccoglie le varie politiche informative per l’utente, lo staff IT e i manager, riguardo i requisiti di protezione delle tecnologie e informazioni all’interno di un’azienda. I principali tipi di Policy sono:
+- Specifiche sull’autenticazione e l’identificazione degli utenti
+- Impostazioni riguardanti la password (lunghezza, tipo di caratteri, altre specifiche)
+- Definizione dei comportamenti ammessi nell’azienda 
+- Requisiti per l’accesso da remoto alla rete aziendale
+
+Riferiti al team IT, due documenti sono particolarmente importanti:
+- SOP (Standard Operating Procedure) o procedure per le operazioni standard
+- Linee guida: coprono le aree non incluse nelle SOP
+
+### Identificative
+Specificano in dettaglio:
+- L'elenco delle persone (o dei gruppi di persone) autorizzate ad avere accesso alla rete e alle risorse (che sia accesso totale o parziale)
+- I metodi di autenticazioni richiesti per avere accesso alla rete
+
+### Password
+Specificano i criteri minimi di composizione di una password. Un criterio solitamente utilizzato è:
+- Lunghezza: minimo 8 (o in alcuni casi 12) caratteri
+- Almeno una lettera in minuscolo
+- Almeno una lettera in maiuscolo
+- Almeno un carattere numerico
+- Almeno un carattere speciale
+- Non includere parole facilmente riconducibili a te
+- Non includere date
+
+### AUP
+Le Acceptable Use Policy (Politiche di utilizzo accettabile) definiscono le applicazioni di rete ritenute accettabili dall'azienda. Può contenere ramificazioni per descrivere conseguenze, o azioni da intraprendere, nel caso le politiche vengano disattese.
+
+### Accesso da remoto
+Le politiche di accesso da remoto definiscono le modalità di accesso e la tipologia di asset disponibili durante l'accesso da remoto.
+
+### Manutenzione della rete
+Specifica i dispositivi connessi alla rete, i rispettivi sistemi operativi utilizzati e le procedure di aggiornamento dei software e dei dispositivi stessi.
+
+### Gestione degli incidenti
+Descrive le procedure di azione nel caso di incidenti e il modo con il quel gli stessi vanno gestiti.
+
+### BYOD
+Le Bring Your Own Device Policies (porta il tuo dispositivo) descrivono le modalità di accesso alla rete da parte dei dipendenti tramite dispositivo personale. Le BYOD trattano un tema particolarmente importante perché, mentre da un lato agevolano il dipendente, permettendogli di accedere in maniera più agevole alla rete, anche da remoto, potenzialmente aumentano la superficie di attacco della rete stessa.
+
+I temi da specificare nelle BYOD sono:
+- Obiettivi
+- Quali utenti possono utilizzare i dispositivi personali
+- Quali dispositivi sono supportati
+- Il livello di accesso dei dati dagli utenti tramite dispositivi personali
+- I diritti di accesso e le attività permesso tramite dispositivi personali
+- Regole da rispettare durante la navigazione con dispositivo personale
+- Linee di salvaguardia da usare nel caso di compromissione del dispositivo
+
+Delle buone pratiche da includere nelle BYOD sono:
+- Usare password uniche per ogni dispositivo
+- Spegnere connessione WiFi e Bluetooth quando non in uso
+- Tenere sempre aggiornati i software installati e il sistema operativo
+- Abilitare il backup in caso di furto o danneggiamento del dispositivo
+- Abilitare il servizio "Trova il mio dispositivo"
+- Utilizzare un antivirus
+- Usare un software MDM (Gestione dei Dispositivi Mobile) per permette al team di sicurezza di monitorare il dispositivo quando connesso alla rete
+
+### INFOSEC
+Policy di condotta strettamente legate agli impiegati nel settore di Sicurezza dei Sistemi Informativi
+
+## Hardening
+L’hardening consiste nell’’implementare metodi comprovati per incrementare la sicurezza dei dispositivi. Le best practices includono:
+- Assicurare la sicurezza fisica
+- Ridurre al minimo i pacchetti installati
+- Disabilitare i servizi inutilizzati
+- Utilizzare SSH e disabilitare il login all’account root da SSH
+- Mantenere il sistema aggiornato
+- Disabilitare l’identificazione automatica dei dispositivi USB
+- Utilizzare password forti
+- Obbligare a cambiare la password periodicamente
+- Non permettere il riutilizzo della password
+
+E' sempre consigliabile:
+- Considerare una soglia minima delle prestazioni del sistema in condizioni normali per utilizzarlo come parametro di notifica per potenziali attacchi
+- Tenere un approccio sistematico per catalogare gli aggiornamenti di sistema
+- Amministrare la rete utilizzando le best practices
+- Fare particolarmente attenzione ad attacchi fileless, in quanto non lasciano traccia nel sistema (ma operano direttamente a livello di memoria e terminano quando il sistema si riavvia)
+
+## Protezione fisica
+Le misure di sicurezza fisiche hanno lo scopo di impedire fisicamente al personale non autorizzato ad accedere a specifiche aree (come la server room, o l'edificio stesso nel caso di persone che non siano dipendenti o ospiti)
+
+### Barriere fisiche
+Sono  elementi come recinzioni, mura o tornelli. Lo scopo è impedire il passaggio del personale non autorizzato (di solito è richiesta la presenza di almeno un'elemento di [sorveglianza](#sorveglianza) gestire gli accessi nelle aree il cui passaggio è consentito, come le porte). La tipologia di barriera può differire in base alla legislazione dell'area o dalle disponibilità economiche aziendali.
+
+### Biometria
+I dati biometrici sono dati relativi caratteristiche comportamentali o fisiologiche degli individui. Ci sono misure di sicurezza che analizzano i dati biometrici delle persone per verificarne l'identità. Alcuni esempi possono essere:
+- telecamere
+- scanner di retina
+- scanner di impronte digitali
+- scanner facciali
+
+Durante la scelta del dato biometrico da monitorare, c'è da considerare:
+- Accuratezza
+- velocità di analisi
+- unicità dell'elemento analizzato
+- resistenza alle contraffazioni
+- affidabilità
+- requisiti di memorizzazione dei dati
+- tempistiche di scansione
+- intrusività dell'analisi
+
+I scansori di dati biometrici possono dare 2 tipi di errori diversi:
+1. Una persona autorizzata viene erroneamente respinta. E' il tipo meno grave di errore (con alcune eccezioni)
+2. Accesso consentito a persone che non ne avrebbero diritto. Dato rappresentato come valore percentuale
+### Badge
+Permette la verifica automatica dell'utente (senza bisogno di personale umano per la verifica del dato, come nel caso della biometria).
+
+### Sorveglianza
+#### Videocamere
+L'utilizzo di videocamere per monitorare le persone ed il flusso degli accessi è un metodo efficace di protezione fisica. Hanno l'ulteriore beneficio di poter memorizzare i dati per un successivo monitoraggio. Le videocamere dovrebbero essere posizionate puntando a tutti gli ingressi/uscite, le porte, i vani /ascensore e aree destinate alla raccolta dei rifiuti.
+
+#### Guardie
+Personale addestrato che gestisce gli accessi ad un determinato luogo. Alcuni svantaggi possono essere l'elevato costo e la difficoltà nel gestire grandi flussi di persone.
+
+#### RFID
+Operano con un meccanismo fisicamente simile al badge (l'elemento deve essere esposto vicino uno scanner dall'utente), ma avente tecnologia diversa (Radio Frequency IDentification, identificazione tramite radiofrequenze) con l'ulteriore beneficio offerto dalla possibilità di tracciare il dispositivo su cui il trasmettitore è installato anche all'esterno dell'area geografica aziendale.
+
+
+## Reti
+Le reti possono essere catalogate in base al livello di fiducia e rischio delle stesse, in base alla tipologia di comunicazioni (e al destinatario delle stesse) in:
+- Alto livello di fiducia e rischio basso: LAN
+- Medio-alto livello di fiducia e medio-basso livello di rischio: Extranet
+- Medio-basso livello di fiducia e medio-alto livello di rischio: DMZ
+- Alto livello di rischio e basso livello di fiducia: WAN
+
+### DMZ
+L'utilizzo di [DMZ](./reti#dmz) permette di facilitare il controllo della sicurezza della rete, grazie al livello cuscinetto che offre tra la WAN e la LAN. Dato che le connessioni in ingresso con la rete esterna vengono effettuate tutte in questa zona, all'interno della DMZ di solito vengono posizionati:
+- Web server
+- Mail server
+
+### VLAN
+Le [VLAN](./tecnologie/reti#vlan) possono essere soggette ad attacchi che ne possono ridurre le performance e la disponibilità. Per questo è sempre consigliabile l'utilizzo di configurazioni avanzate e l'installazione regolare di patch e aggiornamenti.
+
+### WLAN
 Le connessioni WLAN hanno ulteriori rischi: 
 - poter essere disturbate e/o intercettate da utenti malevoli (o ricevere altri tipi di disturbi)
 - Non avere il pieno controllo degli accessi (chiunque riceva il segnale può potenzialmente connettersi)
@@ -1467,42 +1749,129 @@ Le connessioni WLAN hanno ulteriori rischi:
 Dei meccanismi efficaci di protezione sono:
 - utilizzo di meccanismi e protocolli di autenticazione e crittazione (come [WPA2](./tecnologie/protocolli#WEP2), [WPA3](./tecnologie/protocolli#WEP3), [AES](./tecnologie/protocolli#aes))
 
-## Endpoint security
+## Honeypot
+Sono sistemi ad esca, configurati per imitare componenti importanti della rete. Hanno il duplice scopo di rallentare l'attaccante e loggare tutte le sue azioni.
+Nel caso l'honeypot venga utilizzata per simulare un'intera rete, si parla di **honeynet**.
 
-### HBSS
-I Sistemi di Sicurezza Basati sull'Host raccolgono tutti i principali sistemi di protezione (malware, firewall, prevenzione di intrusione) i un unico ambiente. AV-TEST offre analisi indipendenti di alta qualità dei sistemi di protezione host-based.
+## DNS Sinkhole
+Previene la risoluzione degli hostname per specifici URL. Vengono utilizzati per respingere l'utente da siti malevoli.
 
-### Protezione dai malware Host-based
-La Protezione dai Malware Basata sull'Host è utilizzata per protegger ei  dispostivi end-point da malware.
+## Dispositivi
 
-#### Antivirus/antimalware
-Utilizzato per identificare e mitigare virus/malware. Il processo di identificazione dei virus avviene seguendo una di queste tre metodologie:
-- Basato sulla firma
-- Basato sull'euristica (ovvero riconosce caratteristiche generalmente presenti all'interno dei virus)
-- Basato sul comportamento
-Di solito controllano l'end-point in tempo reale, verificando il traffico in corso. Nel caso l'antivirus sia installato in ogni host si chiama anche agent-based altrimenti, nel caso venga installato in un sistema centralizzato, si chiama agentless (utilizzati specialmente in ambito di virtualizzazione). L'agentless consuma anche meno risorse rispetto ad un sistema che utilizza antimalware agent'based su ogni endpoint. 
+### Mobile
 
-### HIDS
-I Sistemi di identificazione dell'intrusione di Host sono software installati sul dispositivo (o nel server) per identificare l'eventuale presenza di attività sospetta e monitora eventuali richieste malevole e le registra nel Registro di Sistema.
-Sono software che consumano molte risorse e che potrebbero rallentare le prestazioni del dispositivo su cui sono installate.
+#### Gestione
+Alcune misure di protezione per dispositivi mobile (siano essi personali e abilitati all'utilizzo della rete che aziendali) consiste in:
+- Separare lo spazio utilizzato dall'utente in modo personale da quello aziendale (anche tramite container) e proteggere almeno il secondo tramite cifratura
+- Utilizzo di un gestore delle identità per monitorare il tipo di dati a cui ha accesso l'utente dal dispositivo
+- Utilizzo di una [whitelist](#whitelist) per segnalare le applicazioni che è possibile installare sul dispositivo
 
-### HIPS
-I Sistemi di Prevenzione dell'Intrusione di Host sono software che monitorano l'attività del dispositivo e ricerca la presenza di attacchi conosciuti, anomalie o segnali di allarme tramite all'interno dei pacchetti in transito.
-Nel caso identifichi un'attività sospetta, il software allerta l'utente, logga l'attività sospetta, resetta la connessione e, in caso, effettua il drop del pacchetto.
+#### Protezione
+- Utilizzo di codici di sblocco
+- Accesso tramite dati biometrici
+- Autenticazione consapevole del contesto (tramtie ML per analizzare l'accesso in base al comportamento normale dell'utente)
+- Possibilità di ripristino del device da remoto
+- Cifratura della memoria dell'intero dispositivo
 
-### EDR
-L'Endpoint Detection and Reponse è una soluzione che monitora costantemente il dispositivo endpoint e ne raccoglie dati. Analizza i dati raccolti e risponde a tutte le minacce identificate.
-Mentre un [antivirus](#antivirus) permette solo di bloccare l'accesso di un virus, un EDR può anche identificare le minacce presenti già all'interno del dispositivo.
+### IoT
+#### Scanner
+Sono utilizzati per monitorare lo stato dei dispositivi IoT all'interno di una rete
+- Shodan
+- 
 
-### DLP
-Il Data Loss Prevention (Prevenzione della Perdita di Dati) è un software che serve ad assicurare che i dati sensibili non vengano persi, utilizzati in modo errato o visualizzati da utenti non autorizzati.
+## Buone pratiche
 
-### NGF
-I Firewall di nuova generazione (New Generation Fierewall) sono dispositivi che combinano le classiche funzionalità di un firewall con altre funzionalità di filtraggio degli host all'interno della rete tramite inline Deep Packet Inspection(DPI, Ispezione profonda dei pacchetti) o sistemi IPS (Sistema di Protezione dalle Intrusioni).
+### Disponibilità
+L'obiettivo di fornire alti livelli di disponibilità può essere raggiunto tramite 3 principi:
+- Rimozione dei single points of failure
+- Backup delle fonti energetiche
+- Identificazione dei guasti nel breve periodo.
+Lo scopo ideale è il raggiungimento dei cosiddetti Cinque 9, ovvero una situazione in cui la disponibilità della rete è assicurata per il 99.999% del tempo (periodo di downtime pari a 5.26 minuti l'anno). Degli elementi che aiutano in tal senso sono:
+- Standardizzazione dei sistemi
+- Clustering (ovvero utilizzo di più dispositivi raggruppati per fornitura di ogni singolo servizio)
+- Sistema a componenti condivisi
+#### Single Point of Failure
+Rappresentano i nodi della rete il quale malfunzionamento comporta un blocco dell'intera rete. Uno degli obiettivi principali durante la gestione di una rete è quello di evitarne la presenza (per fornire alti livelli di [disponibilità](#disponibilità)), o duplicare i punti, in modo tale da attenuare le possibilità di failover.
 
+#### Fonti energetiche
+E' sempre consigliabile fornire più fonti di energia elettrica e sistemi di backup in caso di arresto di corrente.
 
-## Mitigazione
-### Attacchi di ricognizione
+#### Identificare i guasti appena si presentano
+Tramite attività costante di monitoraggio e pianificazione delle azioni da eseguire nellàeventualità.
+
+### Liste d'accesso
+Tenere traccia di indirizzi di particolare interesse per la rete. Ci sono due criteri di creazione della lista. 
+#### Blacklist
+Registro in cui sono presenti le voci (sotto forma di URL, IP, o altro) a cui negare l'accesso alla rete. E' il criterio più permissivo tra i due, in quanto chiunque non appartenga alla lista ha libero accesso.
+
+#### Whitelist
+Registro in cui sono presenti le voci (sotto forma di URL, IP, o altro) a cui consentire l'accesso alla rete. E' il criterio più restrittivo in quanto la regola di partenza è il blocco dell'accesso. Può causare disservizi se non impostata correttamente.
+
+### Protocolli
+#### [DHCP](tecnologie/protocolli#DHCP)
+- Tenere fisicamente al sicuro il server DHCP
+- Installare tutte le patch
+- Posizionare il server DHCP dietro un Firewall
+- Monitorare le attività del DHCP tramite log DHCP
+- Utilizzare un buon antivirus
+- Disinstallare tutti i servizi non utilizzati
+- Chiudere le porte non utilizzate
+
+#### [DNS](tecnologie/protocolli#dns)
+- Tenere il software DNS aggiornato
+- Prevenire la rivelazione di informazioni utili dall'URL
+- separare server DNS interno ed esterno
+- Restringere l'accesso solo agli indirizzi IP conosciuti
+- Utilizzare autorizzazioni tramite firma
+- Disabilitare (o quantomeno restringere) il trasferimento di zone e aggiornamenti dinamici
+- Abilitare i log ed analizzarli
+- Utilizzare DNSSEC (Domain Name System Security Extensions)
+- Fornire le varie zone di firma
+
+#### [ICMP](./tecnologie/protocolli#icmp)
+- Chiudere le chiamate con protocollo ICMP da parte di utenti terzi (che potrebbero utilizzarle per esplorare la rete)
+
+#### [RIP](./tecnologie/protocolli#rip)
+- Utilizzare misure sicure di protezione dei router per impedire la manomissione dei settaggi del protocollo RIP
+
+#### [NTP](tecnologie/protocolli#ntp)
+- Utilizzare l'autenticazione NTP per verificare che il server NTP sia affidabile.
+
+#### [Telnet](./tecnologie/protocolli#telnet)
+- Evitare di utilizzare il protocollo. Preferire [SSH](./tecnologie/protocolli#ssh)
+
+#### [SCP](./tecnologie/protocolli#scp)
+Il protocollo Secure Copy permette l'invio di file tramite canale protetto da crittografia (SSH).
+
+#### [SNMP](./tecnologie/protocolli#snmp)
+- Utilizzare SMNPv3, in quanto versione più aggiornata, che permette di cifrare i dati
+
+#### [HTTP](./tecnologie/prtotocolli#http)
+- Utilizzare [la versione sicura](./tecnologie/protocolli#https), che opera all'interno di una comunicazione [SSL](./tecnologie/protocolli#ssl) o [TLS](./tecnologie/protocolli#tls)
+
+#### [FTP](./tecnologie/protocolli#ftp)
+- Utilizzare [la versione sicura](./tecnologie/protocolli#ftps), che opera all'interno di una comunicazione [SSL](./tecnologie/protocolli#ssl) o [TLS](./tecnologie/protocolli#tls)
+
+#### [POP](./tecnologie/protocolli#pop)
+- Da utilizzare all'interno di una comunicazione [SSL](./tecnologie/protocolli#ssl) o [TLS](./tecnologie/protocolli#tls)
+
+#### [IMAP](./tecnologie/protocolli#imap)
+- Da utilizzare all'interno di una comunicazione [SSL](./tecnologie/protocolli#ssl) o [TLS](./tecnologie/protocolli#tls)
+
+#### [MIME](./tecnologie/protocolli#mime)
+- La versione sicura ([S/MIME](./tecnologie/protocolli#s/mime)) fornisce servizi ulteriori di firma digitale, cifratura del pacchetto e servizi di autenticazione, verifica dell'integrità del messaggio e non ripudio.
+
+### Sandboxing
+Utilizzare degli ambienti sicuri (es. macchine virtuali non connesse alla rete) per aprire e ispezionare file sospetti. Sono presenti delle opzioni di software disponibili online per tale pratica:
+- ANY.RUN
+- VirusTotal
+- Cisco Threat Grid Glovebox
+- Cisco AMP (non permette la creazione di una sandbox, ma permette il rollout del sistema)
+- Joe Sandbox
+- CrowdStrike Falcon Sandbox
+
+# Mitigazione
+## Attacchi di ricognizione
 Gli attacchi di ricognizione sono effettuati per analizzare la rete e preparare da attacchi più importanti. Di solito hanno l'obiettivo di raccogliere informazioni e preparare un accesso alla rete per l'attaccante. Questi attacchi sono identificabili e notificabili tramite l'analisi del volume di richieste [ICMP](./tecnologie/protocolli/icmp) per secondo.
 
 La mitigazione di questi attacchi avviene:
@@ -1514,7 +1883,7 @@ La mitigazione di questi attacchi avviene:
 - Crittare le comunicazioni per evitare attacchi di packet sniffing
 - Disattivando gli ICMP echo e eco-reply negli edge-router (da considerare che questa operazione non permetterà di effettuare operazioni di diagnosi della rete)
 
-### Attacchi di accesso
+## Attacchi di accesso
 Le misure consigliate di mitigazione sono:
 - Utilizzare password forti (almeno 8 caratteri, che contengano almeno un carattere minuscolo, uno maiuscolo, un numero e un carattere speciale)
 - Disattivare l'account dopo un numero di tentativi di accesso consecutivi non andati a buon fine
@@ -1525,26 +1894,390 @@ Per Identificare questo tipo di attacchi, invece, è possibile:
 - Controllare i log degli accessi
 - Controllare l'utilizzo di banda della connessione
 
-
-### DoS
+## DoS
 Per verificare se è in corso un attacco [DoS](#DOS) di solito basta controllare la presenza di picchi (o comunque di strani pattern) nel grafico dell'uso della banda. Un attacco DoS può essere anche un campanello di allarme per futuri attacchi più dannosi alla rete.
 La maggior parte degli attacchi DoS nella storia sono stati effettuati tramite [indirizzi falsificati](#spoofing).
 
 Ci sono in commercio dei Router con meccanismi di protezione da spoofing, come la [port security], [DHCP snooping], [IP Source Guard], [DAI] (Dynamic Access Resolution Protocol Inspection) e [ACL](./os/linux#ACL)
 
-### Worm
+## Worm
 Il processo di mitigazione contro un attacco worm avviene seguendo le fasi:
-#### Contenimento
+### Contenimento
 Viene compartimentata e segmentata la rete per evitare che il worm continui a diffondersi in tutti i dispositivi della rete. Per effettuare questo processo è richiesto verificare la [Lista di controllo degli accessi](./os/linux#acl) sia per le comunicazioni da che verso i Router e i Firewall della rete.
 
-#### Inoculazione
+### Inoculazione
 Viene installata la patch dell'azienda produttrice su tutti i dispositivi non ancora infettati dal worm, riducendo così la superficie di attacco del worm.
 
-#### Quarantena
+### Quarantena
 Fase che si attua contemporaneamente alla precedente, che consiste nell'isolare i dispositivi infettati dal worm dal resto della rete (tramite disconnessione, blocco o rimozione). 
 
-#### Trattamento
+### Trattamento
 I dispositivi infetti vengono disinfettati ed in seguito vengono installate le patch dell'azienda produttrice del sistema operativo che si sta utilizzando. Nei casi più estremi, può essere necessario reinstallare l'intero Sistema Operativo sul dispositivo per evitare con maggiore sicurezza la presenza del worm o dei suoi sottoprodotti.
+
+# Development
+## Introduzione
+Il Secure Coding consiste nella scrittura di software ponendo particolare attenzione a pratiche o tecniche che permettano di minimizzare o evitare potenziali attacchi.
+
+Le fasi del processo di sviluppo possono essere suddivise in:
+- Developing (sviluppo): fase nella quale il codice che compone il software viene scritto e testato
+- Staging e produzione: fase nella quale il software viene testato in un ambiente che simula quello reale (es. Windows 11). Passata questa fase il software va in Deploy, ovvero viene caricato sul supporto dal quale verrà reso utilizzabile al cliente
+- Provisioning o deprovisioning: consiste nella fase di creazione o aggiornamento del software (il deprovisioning consiste invece nella sua rimozione)
+
+## Normalizzazione
+Decomposizione degli input in codice binario, per agevolare l'identificazione di eventuali input malevoli
+
+## Procedura memorizzata
+Consiste nell'utilizzare query SQL per memorizzare i dati all'interno di database che eseguono la richiesta. Permette di ridurre il traffico della rete e ottenere i dati richiesti più velocemente.
+
+## Offuscamento
+Consiste nel camuffare i nomi dei dati con caratteri casuali in modo da confondere un potenziale attaccante che abbia accesso al codice
+
+## Riutilizzo
+Utilizzo di righe di codice già prodotte per ridurre i tempi di realizzazione. Questa pratica é una lama a doppio taglio poichè se utilizza codice sicuro, aumenta la sicurezza del software e riduce gli errori umani mentre, nel caso il codice abbia delle debolezze, esse vengono diffuse anche su altre componenti del software.
+
+## SDK
+I Software Development Kit (Kit di Sviluppo Software) forniscono una fonte di codice da riutilizzare per velocizzare lo sviluppo e ridurre i costi di produzione. I pro e i contro sono simili a quelli del [riutilizzo](#riutilizzo)
+
+
+## Validazione degli input
+Pratica che consiste nel sottoporre l'input a varie verifiche prima di processarlo. Una corretta validazione degli input può evitare la presenza di svariate debolezze all'interno del software.
+
+## Regole di validazione
+Prima di essere processati dal database, è buona regola che i dati vengano sottoposti a verifiche di rispetto delle regole di validazione come:
+- Controllo del numero di caratteri di un dato
+- Formato del dato (di solito tramite comparazione con un formato desiderato)
+- Consistenza del codice con altri dati correlati
+- Rispetto del range di valori richiesto
+- Controllo dei valori per evitare errori (es presenza della chiocciola in un indirizzo email)
+
+## Controllo dell'integrità
+Avviene tramite verifica di corrispondenza tra un valore ricevuto ed un altro posseduto (o calcolato).
+
+### Checksum
+Processo che consiste nella suddivisione di un dato e conversione delle varie porzioni in valori numerici. I valor numerici vengono sommati tra loro ed il valore viene incluso nel pacchetto. Una volta ricevuto il pacchetto, il valore viene ricalcolato dal destinatario e comparato al valore della somma ricevuto. Nel caso i valori corrispondano, il checksum darà riscontro positivo.
+
+### Hash
+Utilizzo di algoritmi complessi che permettono di trasformare il dato in maniera univoca (non possono esistere due dati che diano lo stesso risultato una volta processati dall'algoritmo). La verifica avviene tramite comparazione del dato hashato con un valore ottenuto da un qualunque software di calcolo dell'hash.
+
+#### Algoritmi
+Evitare algoritmi datati come:
+- SHA-1
+- MD5
+
+Preferire invece quelli come:
+- SHA-256 (o maggiori)
+
+### Version control
+Processo che permette di evitare errori prodotti dalla modifica simultanea di un file tramite creazione di un codice univoco per ogni salvataggio. Se un file viene modificato da due utenti diversi, al secondo utente che salverà il file, verrà impedito il salvataggio e verrà richiesto di aggiornare il file con il salvataggio precedente prima di poter inviare i cambiamenti.
+
+## Backup
+Meccanismo di salvataggio su più localizzaizioni dello stesso dato. Di solito viene effettuato ad archi temporali costanti e permette di avere una copia del dato da utilizzare nel caso di corruzione dello stesso nella memoria principale.
+
+## Autorizzazione
+Meccanismo che permette di verificare se l'utente specifico ha il permesso di vedere/creare/modificare file situati nella specifica area.
+
+## Firma
+Stringa di codice ottenuta tramite hashing del software e resa pubblica. Utilizzabile per verificare che il software utilizzato sia originale e non sia stato manomesso prima dell'installazione.
+
+## Secure cookies
+Utilizzo dei cookies tramite protocollo HTTPS.
+
+## Hardening
+L’[hardening](#protezione#hardening) in ambito coding, consiste nel rimuovere potenziali falle dalle app sviluppate.
+
+## Front-end
+### JavaScript
+#### XSS
+#### eval()
+E' un metodo che permette di inserire stringhe di codice all'interno dell'operazione
+```Javascript
+const injectedCode = document.location.hash.replace("#", "");
+eval(injectedCode)
+```
+	// inserendo una stringa di codice nell'URI, l'eval(injectedCode) permette di eseguire il codice 
+#### postMessage()
+Permette di collegare due o più pagine
+ ```Javascript
+// Si considera il caso in cui il sito oggetto dell'attacco stampi dei dati ricevuti nella schermata
+const listener = window.open("<URL da attaccare>", "");
+send.addEventListener('click', () => {
+listener.postMessage("<messagio>", "<URL da attaccare>")
+});
+```
+#### Referrer-Policy
+Funzionalità deprecata che permetteva di conoscere l'ultimo sito visitato dall'utente
+#### open()
+Metodo che 
+#### element.innerHTML()
+Il metodo permette di inserire una variabile all'interno di **element**
+Con questo comando è possibile iniettare del codice malevolo all'interno del sito come attributo di tag o script.
+Una soluzione valida è l'utliizzo di **element.innerText()**
+#### cdn
+Per evitare di utilizzare librerie o cdn di terze parti (ed esporsi a rischi), conviene sempre verificare la firma della libreria originale
+```Javascript
+// soluzione
+<script src=<cdn desiderato> integrity=<hash della libreria preso dal sito originale> >...</script>
+```
+### #security-misconfiguration
+Nel caso sia necessario ricevere dei file dall'utente, è possibile che il #browser converta automaticamente la tipologia di file in base al contenuto (ad esempio, scrivendo un codice JavaScript e salvandolo con .jpg).
+```HTTP
+<header
+	X-Content-Type-Options: nosniff
+	Content-Type: image/jpeg //tipologie disponibili su: https://www.geeksforgeeks.org/http-headers-content-type/
+	>
+```
+### #ui-redressing
+E' attuabile tramite inserimento di un tag **iframe** con la pagina bersaglio che verrà utilizzato come sfondo. I campi compilabili dall'utente vengono poi sovrapposti a quelli del sito bersaglio, così che l'utente non riconosca la differenza tra i due siti e invii i propri dati all'attaccante.
+```HTML head
+ X-Frame-Options: DENY //Metodo più vecchio che nega l'uso negli iframe
+ X-Frame_Options: SAME ORIGIN //permette l'utilizzo solo ai siti aventi la stessa origine
+ Content-Security-Policy: frame-ancestors 'none' //metodo più recente e non sempre disponibile nei browser. Permette l'utilizzo dei contenuti inviati dai siti indicati (none equivale a nessun sito, self equivale al server stesso)
+```
+
+Un altra tipologia di Redressing è attuabile tramite auto-compiler di HTML, CSS e JavaScript:
+1. L'utente inserisce i dati nell'iframe
+2. Compare un pop-up con pubblicità spam e un pulsante per inviare una richiesta post
+3. Cliccando sul pulsante, il sito fasullo legge i dati dall'iframe e li invia all'attaccante
+```HTML
+# Content Security Policy
+<meta
+	  http-equiv="Content-Security-Policy"
+	  content="default-src 'self'" />
+```
+#### postMessage(message, origin)
+Nel caso il metodo sia compilato in maniera non corretta, l'utente potenzialmente invia il messaggio anche ad utenti terzi:
+```Javascript
+window.opener.postMessage(message, '*');
+```
+	in questo caso l'utente invia il messaggio a tutti i server che stanno ascoltando
+``` JavaScript
+window.opener.postMesasge(message, "indirizzo dell'origine"); 
+```
+	in questo caso l'utente invia il messaggio solo al server origine 
+### Prototype-pollution
+Attacco che permette di modificare il metodo **__proto__** dell'oggetto base di JavaScript per eseguire velocemente comandi tramite metodo **eval()**. Sfruttando questo stratagemma è possibile eseguire attacchi #xss ed è inclusa nella categoria #insecure-design
+### CSS-injection
+Tramite script #JavaScript si modifica lo style della pagina. Questo tipo di attacco si verifica quando si immettono delle variabili collegate tramite #URI:
+```Browser
+127.0.0.1:8000/#blue //colora lo sfondo un componente
+127.0.0.1:800/#}body{display:none} //in questo modo si modifica l'attributo display del div body
+```
+Con questo attacco, per esempio, si può nascondere la #UI all'utente bersaglio, lasciandogli solo un input con un label con una richiesta di inserimento dati per sbloccare il normale funzionamento del sito (i dati inseriti saranno leggibili dall'attaccante)
+## DevSecOps Pipeline
+### Introduzione
+Il #DevOps è una metodologia di lavoro, utilizzata per ridurre i tempi di distribuzione attraverso l'automazione, fornire un #feedback continuo, migliorare la collaborazione del team e le capacità di affrontare il rilevamento degli errori
+### Software Development Life Cycle ( #sdlc)
+#### CI/CD
+Per #CI/CD si intende Continuous Integration and Continuous Devliery. Il CI/CD è una metodologia utilizzata per aumentare la velocità, ridurre gli errori e permettere di standardizzare i processi.
+Il #deployment di norma è effettuata da una singola persona, dopo che il prodotto ha raggiunto un livello di avanzamento apprezzabile (ad esempio ha raggiunto determinati obbettivi) ed è stato oggetto di verifica.
+#### Software utilizzati
+##### Code
+I software sono utilizzati per il #versioning dell'applicazione. Questi software permettono di condividere il lavoro tramite creazione di più #branch, ovvero ramificazioni del progetto. 
+- [[Github]]
+- Git
+- Subversion
+- GitLab
+```Branching
+└ master
+	└ develop
+		├ feature_1
+		└ feature_2
+```
+#### Container
+Permettono di progettare in maniera riproducibile, senza la necessità di controllare la conformità delle varie #dependency, scalabile 
+- [[Docker]]
+- podman
+#### Pipeline
+Servono ad automatizzare le procedure.
+- [[Jenkins]]
+- Travis CI
+- GitHub Actions
+#### Infrastructure
+Può essere di tipo **On premise** o **cloud**, dove i secondi permettono di avere potenza di calcolo, spazi di archiviazione e servizi di business logic adattabili ed un costo variabile in base all'uso effettivo.
+- [[AWS]]
+- Azure
+- Google Cloud Platform
+### Design
+#### Threat Modeling
+![[Pasted image 20240108202659.png]]
+
+### Implementazione
+#### Common Software Vulnerabilities
+##### Injection flaws
+- #sql-injection 
+- #os-command-injection
+- #cross-site-scripting
+- #code-injection o #unsafe-deserialization di dati non fidati
+##### Broken Authorization
+##### Broken Session Management
+- #session-id esposto nell' #URL 
+- session id non rinnovato nel tempo
+##### Broken Cryptography
+##### Sensitive Information Exposure
+- Mancata crittografazione dei dati
+##### Insufficient Logging
+- Mancanza dei #log
+- log non protetti
+- assenza di ridondanza dei log
+- mancata registrazione di eventi importanti
+##### Server side request forgery
+##### Sandboxing
+Una #sandbox (tipo [[Docker]])
+## Threat Modeling
+--- recuperare i primi 30 minuti
+- Analizzare l'applicazione e capire quali siano le componenti che potrebbero ricevere un #attacco (brainstorming)
+- Dare un punteggio agli asset ( #dati ) in base alla loro importanza
+- Definire le priorità per le quali allocare risorse
+### Fasi
+Il #threat-modeling deve essere effettuato durante tutto il #sdlc 
+- Planning
+- Analysis
+- Design
+- Implementation
+- Maintenance
+Si effettua seguendo delle fasi specifiche:
+1. --
+## CI-CD OWASP top 10
+### 1 - Insufficient Flow Control Mechanisms
+Nel caso di controlli insufficienti, è possibile che degli automatismi permettano di effettuare un #push direttamente nella branch **main**, incorrendo così in potenziali #merge, oppure è possibile, nel caso il #repository fosse pubblico, che un utente esterno riesca ad effettuare un push non controllato.
+### 2 - Inadequate Identity and Access Management
+Avviene quando alcuni utenti possiedono dei permessi troppo elevati (vale anche nel caso in cui alcuni utenti lascino il progetto e l'account non venga eliminato), o quando non viene gestito in maniera corretta il processo di iscrizione
+### 3 - Dependency Chain Abuse
+Avviene quando si scaricano #dependency non ufficiali. Per risolvere il problema, conviene sempre controllare i #chacksum (firma digitale del pacchetto), evitare di scaricare da internet se non dai siti ufficiali ed utilizzare in #pinning, ovvero specificando la versione specifica da utilizzare.
+### 4 - Poisoned Pipeline Execution #PPE
+Avviene quando un utente malevolo ottiene l'accesso ad una #pipeline presente online e la modifica.
+### 5 - Insufficient #PBAC (Pipeline-Based Access Controls)
+### 6 - Insufficient Credential Hygiene
+Avviene quando sono presenti dei #secret in chiaro nella #pipeline. E' inoltre preferibile ruotare le credenziali in maniera costante (almeno 2 volte l'anno).
+### 7 - Insecure System Configuration
+### 8 - Improper Artifact Integrity Validation
+Avviene quando non esiste un sistema di firma dei #commit. In questo caso è possibile che un attaccante riesca ad accedere all'account di uno sviluppatore ed immettere del codice malevolo all'interno del nostro progetto.
+## Metodologie
+### Modellare i dati
+#### Data flow diagram
+#### Sequence diagram
+Usato per correlare i vari processi ad una variabile temporale di esecuzione
+#### Process flow diagrams
+Usato per visualizzare dei processi
+#### Attack tree
+Diagramma concettuale che mostra come un obbiettivo può essere attaccato
+#### Ishikawa diagram (o Fishbone diagram)
+
+### Goal oriented
+#### DREAD
+#### PASTA
+#### trike
+
+### Motivation oriented
+
+### Library (o list) Oriented
+
+#### STRIDE
+Acronimo delle minacce su cui va ad operare:
+spoofing: 
+tampering: 
+repudiation: Si nega l'aver effettuato una determinata azione
+information-disclosure: Categoria che copre le violazioni di privacy o fughe di dati
+DoS: Mira ad interrompere il normale funzionamento di un sito
+privilege-escalation : L'attaccante accede con un profilo base e ottiene livelli di accesso superiori
+E' il sistema con più ampia superficie di copertura per le potenziali minacce e/o vulnerabilità.
+Alcune criticità di questa metodologia sono:
+- La necessità di avere delle conoscenze approfondite sulle minacce e vulnerabilità, su cui applicare il metodo
+##### Fasi
+1. Si costruisce un data-flow-diagram, dove identifico le linee di fiducia
+2. Si effettua una verifica per le varie categorie di attacco
+3. Si analizzano i risultati e si pianificano le risposte
+4. Si verifica l'efficacia delle risposte
+## Requisiti
+### Funzionali
+### Non funzionali
+Definiscono gli aspetti qualitativi e prestazionali
+### Di sicurezza
+#### Fondamentali
+#### Generali
+#### Operativi
+## Crittografia
+Può essere utilizzata per garantire:
+- Confidenzialità
+- Integrità
+### Simmetrica
+C'è una sola chiave di criptazione
+#### Pro
+- Efficienza
+- Semplicità
+- 
+#### Contro
+- Gestione delle chiavi
+- Scalabilità
+- Scambio delle chiavi
+### Asimmetrica
+Avviene tramite l'utilizzo di una chiave pubblica e di una chiave privata
+#### Pro
+- Maggiore sicurezza
+- Firma digitale
+- Scalabilità
+#### Contro
+- Prestazioni
+- Complessità 
+
+# Operations
+Per operations si intende tutta la parte di gestire la parte di gestione dei servizi.
+
+## Configurazioni
+La gestione delle configurazioni consiste nell'identificare, controllare e revisionare ogni implementazione o modifica apportata ad una baseline (linea di riferimento) di un sistema.
+
+La *baseline* delle configurazioni include tutte quelle impostazioni che pongono i pilastri su cui si fonda il prototipo di rete (template tipologico), ad esempio assegnare le stesse impostazioni di partenza a tutti i computer utilizzati da un particolare tipo di utenti, seguendo la documentazione standard aziendale.
+
+### Documentazione
+La documentazione della configurazione delle risorse copre aspetti relativi a:
+- Schema della rete
+- cablaggio
+- diagramma del cablaggio
+- nomenclatura standard dei dispositivi
+- schema degli indirizzi IP
+
+### Log
+I [log](#log) vengono utilizzati per tenere traccia delle azioni che avvengono all'interno della rete. E' importante gestirle nel loro ciclo vitale:
+- generazione
+- trasmissione
+- memorizzazione
+- analisi
+- eliminazione
+Due importanti tipologie di log da monitorare sono:
+- OS
+- Applicazioni di sicurezza
+#### OS
+I log del Sistema operativo descrivono gli eventi collegati ad azioni come:
+- Request del client e response del server per autenticazioni dellàutente avvenute con sucecsso
+- Informazioni sulle transizioni (quantità e dimensioni) in un determinato arco di tempo
+
+#### Applicazioni di sicurezza
+Questi log sono fornite dalle applicazioni come Firewall, Antimalware, HIPS, ecc.. Questo tipo di log è particolarmente utile per effettuare analisi di auditing, per l'identificazione di trend a breve e lungo termine e per la compilazione della documentazione che dimostri il rispetto delle normative e dei requisiti di legge.
+
+### AAA
+I log sei servizi AAA (autenticazione, autorizzazione e responsablilità) includono spesso dati come:
+- orario di connessione
+- orario di disconnessione
+- esecuzione di un comando (con tipo di comando)
+- numero di pacchetti
+- numero di byte
+
+#### Responsabilità
+I log relativi la responsabilità sono spesso divisi per tematica:
+- Rete: tutti i protocolli utilizzati nella sessione, inclusi pacchetti e dimensioni
+- Connessione: connessioni in uscita create dai clienti (es. SSH)
+- EXEC: utilizzo della shell, inclusi nome utente, data, inizio, fine, server utilizzati e indirizzi IP
+- Sistema: eventi a tutti i livelli di sistema (es. riavvio, logout, spegnimento)
+- Comando: utilizzo di comandi della shell limitati a utenti con privilegi particolari
+- Risorse: periodo inizio e fine delle connessioni di utenti che hanno effettuato l'accesso
+
+### Analizzatori di pacchetti
+I Packet Analyzers (o Packet Sniffers) sono software utili per monitorare il traffico ed registrare le attività tramite log. Il monitoraggio avviene tramite analisi dei contenuti dei vari pacchetti (sia nel caso di connessioni tramite cavo che wireless) ed effettuare le seguenti funzioni:
+- Log del traffico
+- Analisi delle problematiche della rete
+- Rilevamento di utilizzi errati della rete
+- Rilevamento di tentativi di intrusione nella rete
+- Isolamento dei sistemi compromessi
 
 # Normativa
 ## Italia
@@ -1552,6 +2285,7 @@ I dispositivi infetti vengono disinfettati ed in seguito vengono installate le p
 - [Legge 81/2001](https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:legge:2001;81)
 ## EU
 - GDPR
+- DPCM 81/21
 ## US
 ## Generali
 - Copyright

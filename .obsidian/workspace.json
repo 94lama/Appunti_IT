@@ -1,0 +1,240 @@
+{
+  "main": {
+    "id": "1771128c547c694c",
+    "type": "split",
+    "children": [
+      {
+        "id": "e3787fa1443523d0",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "5d0160ad7b28403a",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Cybersecurity.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Cybersecurity"
+            }
+          },
+          {
+            "id": "adcac123ca164c4c",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Tecnologie/Reti.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Reti"
+            }
+          },
+          {
+            "id": "7dae14c02e61ccbe",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Tecnologie/Protocolli.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Protocolli"
+            }
+          },
+          {
+            "id": "0b7bc72b8350d440",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Tecnologie/Macchina.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Macchina"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "4b7bcb2296eb368d",
+    "type": "split",
+    "children": [
+      {
+        "id": "ef63ff59b62e83d3",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "e22b0857eebb1372",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Esplora risorse"
+            }
+          },
+          {
+            "id": "538dbea1c60cb630",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "58f0889c7a641213",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "476e22130de7a4bf",
+    "type": "split",
+    "children": [
+      {
+        "id": "7ee55e3117871049",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "d97301ae0c75deec",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Cybersecurity.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for Cybersecurity"
+            }
+          },
+          {
+            "id": "aa9c8bde55057ac0",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Cybersecurity.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from Cybersecurity"
+            }
+          },
+          {
+            "id": "02166a6516c1c560",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "6b8038711ce7ec3c",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Cybersecurity.md"
+              },
+              "icon": "lucide-list",
+              "title": "Outline of Cybersecurity"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Apri selezione rapida": false,
+      "graph:Apri vista grafo": false,
+      "canvas:Crea nuova lavagna": false,
+      "daily-notes:Apri nota del giorno": false,
+      "templates:Inserisci modello": false,
+      "command-palette:Apri riquadro comandi": false
+    }
+  },
+  "active": "5d0160ad7b28403a",
+  "lastOpenFiles": [
+    "Tecnologie/Protocolli.md",
+    "Cybersecurity.md",
+    "Software/DevProxy.md",
+    "OS/MAC OS X.md",
+    "Immagini/Pasted image 20241109164039.png",
+    "Immagini/Pasted image 20241104150718.png",
+    "Immagini/Pasted image 20241104131652.png",
+    "Tecnologie/Git.md",
+    "OS/Windows.md",
+    "OS/Virtualizzazione.md",
+    "OS/Linux.md",
+    "OS/Cisco.md",
+    "OS/CISCO IOS CLI.md",
+    "OS",
+    "Immagini/Pasted image 20241011131951.png",
+    "Immagini/Pasted image 20241009100537.png",
+    "Immagini/Pasted image 20241009100107.png",
+    "Immagini/Pasted image 20241002001123.png",
+    "Immagini/Pasted image 20241001184553.png",
+    "Immagini/Pasted image 20240930193612.png",
+    "Immagini/Pasted image 20240930193334.png",
+    "Helpdesk.md",
+    "AI.md",
+    "Sistemi operativi/Windows.md",
+    "Sistemi operativi/Virtualizzazione.md",
+    "Sistemi operativi/Linux.md",
+    "Sistemi operativi",
+    "Networking.md",
+    "Tecnologie/Macchina.md",
+    "Tecnologie/Reti.md"
+  ]
+}

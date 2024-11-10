@@ -1,5 +1,6 @@
+Linux è un Os Open Source, disponibile in varie versioni (chiamate Distro).
 Le varie versioni di Linux sono disponibili [qua]([https://distrowatch.com/](https://distrowatch.com/ "https://distrowatch.com/")).
-## Permessi
+# Permessi
 - r = read (1)
 - w = write (2)
 - x = execute (4)
@@ -8,9 +9,20 @@ I permessi vengono mostrati tramite una stringa suddivisa in 3 parti, ciascuna d
 ```permessi
 - rwx-w-rw-
 ```
+	- o d = specifica se si tratta di un file o di una directory
 	1 terzetto = utente proprietario
 	2 terzetto = gruppo
 	3 terzetto = altri utenti
+
+È possibile utilizzare i numeri per definire i permessi anche come combinazioni:
+0. Nessun accesso
+1. Esecuzione
+2. Scrittura
+3. Esecuzione e scrittura
+4. Lettura
+5. Lettura ed esecuzione
+6. Lettura e scrittura
+7. Lettura, scrittura ed esecuzione
 
 ### ACL
 Le Access Control List (Liste di Controlli di Accesso) permettono di dare permessi extra ad utenti specifici per uno specifico file o directory.
@@ -26,6 +38,13 @@ Eseguire un comando nel caso quello precedente non venga eseguito correttamente
 <comando_1> || <comando_2> 
 ```
 
+Piping di due comandi
+```sh
+<comando 1> | <comando 2>
+```
+	Il piping serve a filtrare i risultati del primo comando attraverso il secondo
+	ES. ls -l | grep file
+
 Inserire un commento  
 ```Linux
 # commento 
@@ -40,6 +59,15 @@ Filtro un comando in base ad una determinata stringa
 ```shell
 <comando> | grep <stringa>
 ```
+
+Modificare i software installati all’interno della macchina
+```Sh
+sudo apt-get
+```
+	OPZIONI: 
+	install <nome app> # installa il software
+	upgrade # aggiorna tutti i software installati
+	dist-upgrade # aggiorna la distro
 
 Utilizzare il [linguaggio AWK](https://www.geeksforgeeks.org/awk-command-unixlinux-examples/) per generare dei #report
 ```sh
@@ -85,6 +113,12 @@ Modifica il proprietario di un file
 ```sh
 chown <nome_utente>:<nome_gruppo> <nome_file>
 ```
+
+Copia un dato da un input ad un output 
+```Shell
+dd
+````
+
 
 Controllare lo spazio disponibile nelle varie partizioni del volume
 ```shell
@@ -149,9 +183,14 @@ groups <utente>
 	Se non si inserisce l'utente, ritornerà tutti i gruppi del sistema
 	OPZIONI:
 
-Verificare i parametri delle interfacce di connessione (tipo IPv4, Ethernet)
+Mostrare i parametri delle interfacce di connessione (tipo IPv4, Ethernet)
 ```sh
 ifconfig
+```
+
+Mostrare i parametri delle interfacce di connessione wireless
+```sh
+iwconfig 
 ```
 
 Verificare le informazioni di un utente
@@ -164,6 +203,18 @@ Visualizzare le regole di accesso alla macchina ( #firewall)
 iptables -L -v -n
 ```
 	iptables -P INPUT DROP # cancella tutte le configurazioni  
+
+Modificare il comportamento di un processo
+```Sh
+kill
+```
+
+Creare un link
+```Sh
+ln <nome file>
+```
+	OPZIONI:
+	-s # crea un link simbolico
 
 Visualizzare tutti i file e cartelle all'interno della directory corrente
 ```shell
@@ -191,6 +242,10 @@ Modificare il contenuto di un file
 ```sh
 nano <nome_file>
 ```
+	COMANDI:
+	- Ctrl + O: salva il file
+	- Ctrl + W: Apre il menu di ricerca
+	- Ctrl + G: schermata di aiuto
 
 Verifica la connessione ad un servizio tramite specifica porta
 ```Sh
@@ -244,10 +299,12 @@ ping <indirizzo_ip>
 	N.B. I seguenti indirizzi IPv6 sono utilizzati spesso durante i processi di troubleshooting:
 		  ::1 - Indirizzo di Loopback, che permette di verificare se l'interfaccia TCP/IP del dispositivo è configurata correttamente
 
-Vedere l'albero dei processi
+Mostrare la lista dei processi in corso
 ```shell
 ps aux
 ```
+	ESEMPI:
+	ps aux # mostra l’albero dei processi
 
 Stampo il percorso della cartella in cui mi trovo
 ```shell
@@ -259,6 +316,11 @@ Apro un terminale [[Python 1]]
 python
 ```
 	Il file ha permessi -rwsr-xr-x
+
+Riviste il sistema
+```Sh
+sudo reboot
+```
 
 Interagire con un database remoto
 ```shell
@@ -313,6 +375,7 @@ Per generare una #ssh-key
 ssh-keygen
 ```
 	-t # Definire la tipologia di criptazione [dsa, ecdsa, ecdsa-k, ed25519, ed25519-sk, rsa]
+	-C <nome utente>
 
 Accedere come utente root (chiede la password)
 ```shell
@@ -331,6 +394,13 @@ Esegue le funzionalità #sysctl
 sysctl
 ```
 	-p # riavvia il SO
+
+Mostrare la lista dei processi attivi in maniera dinamica 
+```sh
+top
+```
+	AZIONI:
+	Q # interrompe il comando
 
 Creare un nuovo utente (richiede permessi root)
 ```sh
@@ -384,31 +454,19 @@ getent
 env
 sh #shell
 ```
-## Opzioni
-Le opzioni sono delle particolari ulteriori configurazioni che è possibile conferire al comando. si utilizzano dopo aver specificato il comando principale e sono precedute da un trattino es ```-a```. Possono variare a seconda del comando utilizzato.
-Per verificare le #opzioni disponibili per uno specifico comando
-```sh
-<comando> --help
-```
 
-```Bash
--A # append
--aG #
--d # detach
--e # edit
--it # interattivo
--l # mostra una versione tabellare del risultato, includendo permessi, proprietario, gruppo del proprietario, ultima modifica e dimensione se utilizzato con ls
--L
--n
--p # protocollo di trasporto
--s # indirizzo ip
--v # version
---dport <numero> # porta di destinazione 
---help # lista dei comandi disponibili
-```
-	Permessi: 
 ## Info utili
 - Premendo Tab, il terminale completa automaticamente il comando (o il file). Nel caso ci siano più risultati possibili, ritorna sotto la linea di comando la lista delle possibilità
+# Distro
+
+## Kali
+
+## Security Onion
+Distro specializzata nell’analisi della sicurezza delle reti, molto utilizzata negli ambienti [SOC](../cybersecurity#soc) (Security Operation Center, o C’è tri Operativi di Sicurezza).
+
+### Tools
+
+
 # UNIX
 
 ```unix
@@ -416,7 +474,7 @@ top # mostra i processi attivi nella macchina
 htop # come top, ma con una barra orizzontale per l'utilizzo della CPU
 ```
 ## [kali-linux](https://www.kali.org/get-kali/#kali-installer-images)
-E' una versione di #linux molto utilizzata per #penetration-test e #forensic. La distribuzione contiene oltre 600 tool (soprattutto da riga di comando), alcune delle quali utili per effettuare attacchi informatici. L'utente di base si chiama **kali** e i comandi sono in base #unix (utilizzato, ad esempio, anche in #git-bash) .
+E' una versione di linux molto utilizzata per i [penetration test] e per l’attività forense. La distribuzione contiene oltre 600 tool (soprattutto da riga di comando), alcune delle quali utili per effettuare attacchi informatici. L'utente di base si chiama **kali** e i comandi sono in base #unix (utilizzato, ad esempio, anche in #git-bash) .
 ```sh
 DEFAULT SETTINGS
 user: kali
@@ -588,6 +646,126 @@ chmod u-s /usr/bin/python3.11
 	La versione di python installata può essere vista tramite python --version
 In questo modo l'utente potrà accedere al terminale Python, ma con i permessi prestabiliti dall'amministratore.
 ### [Code scanning](Cybersecurity.md#SCA)
+
+# File
+## Link
+Un link è un collegamento tra un file ed un altro. Può essere di due tipi:
+- Hard link: i file sono collegati e le modifiche ad uno verranno effettuate anche sul secondo (cancellazione del file inclusa)
+- Soft link: le modifiche non vengono propagate
+
+Il percorso dei soft link viene segnalato dal comando `ls -l`, mentre gli hard link sono più difficili da localizzare.
+Gli hard link inoltre possono essere creati solo per file localizzato sullo stesso File System (e non possono essere collegati direttamente ad una directory, perché il sistema stesso usa gli hard link per gestire le cartelle).
+
+## etc/
+### nginx/
+#### nginx.conf
+Configura Nginx, un web server leggero per Linux.
+
+### ntp.conf
+File di configurazione per il protocollo [NTP](../tecnologie/protocolli#ntp) (Network time protocol)
+
+### snort.conf
+File di configurazione per Snort, un [IDS] (Software di Identificazione delle Intrusioni)
+
+## home/
+Contiene i file e le impostazioni di ogni utente registrato nella macchina (ogni utente avr° una cartella personale).
+
+## var/
+### log/
+Contiene i file di [log](../cybersecurity#log) 
+
+#### messages
+Contiene log di attività generiche, utilizzate prevalentemente per il salvataggio di messaggi informativi non critici di sistema (nelle distro Debian è chiamato **syslog**)
+
+#### auth.log
+Contiene i log degli accessi al dispositivo per distro Debian e Ubuntu, con tutte le informazioni relative all’accesso.
+
+#### secure
+Variante di [auth.log](#auth.log) utilizzata da RedHat e CentOS. Tiene traccia anche di eventi che coinvolgono l’uso di sudo, login tramite SSH, e altri errori provenienti da SSSD.
+
+#### boot.log
+Contiene informazioni relative al boot e messaggi di log creati durante la fase di startup del dispositivo.
+
+#### dmesg
+Contiene messaggi del ring buffer del kernel, contenenti informazioni riguardanti i dispositivi hardware e i relativi drivers. È un file molto importante data la natura di basso livello delle informazioni (gli eventi avvengono prima che altri file di log entrino in azione)
+
+#### kern.log
+Contiene log relativi al kernel
+
+#### cron
+File utilizzato per salvare i dati relativi le automazioni su Linux, come le loro pianificazioni, stati di esecuzione e messaggi di errore.
+
+#### mysql.log
+Memorizzato come mysqld.log nelle distro RedHat, CentOS e Fedora, contiene i log del database MySQL, con informazioni relative I debug, funzionalità, messaggi di successo, il processo mysqld, e il daemon (un processo che viene eseguito senza bisogno di interazione da parte dell’utente) mysqld_safe.
+
+## sys/
+Contiene i file di sistema
+
+### Tipi di file di sistema
+#### ext2
+Era il sistema di default delle maggiori distro di Linux. Utile per dispositivi con memoria flash a causa dell’assenza di **journaling** (in quanto effettuare operazioni di scrittura riduce la vita della memoria), anche se lo supporta.
+
+#### ext3
+Evoluzione dell’ext2, aggiunge funzionalità di **journaling** per minimizzare il rischio di corruzione dei file in caso di arresto improvviso della macchina. La dimensione massima dei file ext3 è 32TB.
+
+#### ext4
+Evoluzione della ext3, implementa una serie di estensioni che ne migliorano le performance e aumentano la dimensione supportata dei file.
+
+#### NFS
+Il File di Sistema della Rete permette l’accesso ai file attraverso la rete. Dal punto di vista dell’utente non c’è differenza tra accedere ad informazioni ali terno di file memorizzato all’interno della macchina o all’esterno (purché siano dentro la stessa rete).
+
+#### CDFS
+Il File di Sistema per Dischi Compatti è stato creato appositamente per supportare l’utilizzo di dischi ottici
+
+#### Swap File System
+Lo Swap file system è utilizzato da Linux nel caso termini la RAM a disposizione. Permette di utilizzare una partizione momentanea per allocare i dati inutilizzati della RAM (essendo molto più lento della RAM, non sono da considerare come una soluzione definitiva)
+
+#### HFS+
+Linux include un module lo per la lettura e la scrittura su questo tipo di File System
+
+#### APFS
+File System sviluppato da Apple come diretta evoluzione dell’HFS+. Supporta funzionalità di cifratura ed è ottimizzato per memorie flash e dischi allo stato solido (SSD)
+
+#### MBR
+Il Registro Master di Avvio (Master Boot Record) è localizzato nella prima partizione del computer e contiene tutte le informazioni sull’organizzazione del File System. Una volta utilizzato, richiama una funzione di caricamento, che carica il sistema operativo.
+
+
+# Software
+L’estensione dei file di applicazioni su Linux dipende dalla distro:
+- Arch Linux: pacman
+- Debian: dpkg, apt
+- Ubuntu: apt
+
+Dove presente apt, il comando `apt-get` permette di scaricare app.
+
+## X Window System
+Interfaccia grafica basica per Sistemi operativi Linux. Da accoppiare ad altri software per la gestione dele finestre, come:
+- KDE Windows manager
+- Gnome Windows Manager (usata da Ubuntu)
+
+
+## chrootkit
+Software basato su Linux che permette di controllare la presenza di noti [rootkit](../cybersecurity#rootkit) all’interno della macchina. Utilizza comandi shell (prevalentemente strings, grep e ps)
+
+## iptables
+[Firewall](../cybersecurity#firewall) disponibile per Linux, che consente all'amministratore di sistema di configurare le regole di accesso, incorporandole nei moduli Netfilter del kernel di Linux.
+
+## inetsim
+Simulatore di ambienti (virtualizzatore), con opzioni di verifica per i protocolli:
+- 
+
+## nftables
+Diretta evoluzione di [iptables](#iptables), che utilizza una semplice macchine virtuale nel kernel di Linux. Utilizza la macchina virtuale per analizzare i pacchetti di rete ed implementare regole decisionali di accettazione e inoltro dei pacchetti.
+
+## TCP Wrappers
+Tool di [controllo degli accessi](#acl) basato su regole e sistema di logging. Opera attraverso il filtraggio dei pacchetti basato sugli indirizzi IP e i servizi di rete.
+
+## ufw
+Firewall semplificato
+
+## Red team
+### John the ripper
+[John the ripper]( https://www.kali.org/tools/john/) è un tool utilizzato per effettuare un brute force delle password di un computer.
 
 # Annotazioni
 - Le distribuzioni di Linux, di solito, vengono provviste nativamente di [[Python]]
