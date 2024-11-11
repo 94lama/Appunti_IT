@@ -22,7 +22,21 @@
             }
           },
           {
-            "id": "adcac123ca164c4c",
+            "id": "183e967bc1146962",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "OS/CISCO IOS CLI.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "CISCO IOS CLI"
+            }
+          },
+          {
+            "id": "8a40a23ddb250031",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -36,7 +50,7 @@
             }
           },
           {
-            "id": "7dae14c02e61ccbe",
+            "id": "1f844b5e730864b5",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -50,20 +64,21 @@
             }
           },
           {
-            "id": "0b7bc72b8350d440",
+            "id": "1e204c8b5b3fdd81",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Tecnologie/Macchina.md",
+                "file": "OS/Linux.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Macchina"
+              "title": "Linux"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -94,7 +109,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "'# nic",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -102,7 +117,7 @@
                 "sortOrder": "alphabetical"
               },
               "icon": "lucide-search",
-              "title": "Search"
+              "title": "Ricerca"
             }
           },
           {
@@ -204,10 +219,18 @@
       "command-palette:Apri riquadro comandi": false
     }
   },
-  "active": "5d0160ad7b28403a",
+  "active": "183e967bc1146962",
   "lastOpenFiles": [
-    "Tecnologie/Protocolli.md",
     "Cybersecurity.md",
+    "OS/CISCO IOS CLI.md",
+    "Tecnologie/Protocolli.md",
+    "Tecnologie/Reti.md",
+    "OS/Linux.md",
+    "Tecnologie/Operatori.md",
+    "Tecnologie/Relazioni.md",
+    "Algoritmi.md",
+    "Tecnologie/Funzioni.md",
+    "Tecnologie/Macchina.md",
     "Software/DevProxy.md",
     "OS/MAC OS X.md",
     "Immagini/Pasted image 20241109164039.png",
@@ -216,9 +239,7 @@
     "Tecnologie/Git.md",
     "OS/Windows.md",
     "OS/Virtualizzazione.md",
-    "OS/Linux.md",
     "OS/Cisco.md",
-    "OS/CISCO IOS CLI.md",
     "OS",
     "Immagini/Pasted image 20241011131951.png",
     "Immagini/Pasted image 20241009100537.png",
@@ -233,8 +254,6 @@
     "Sistemi operativi/Virtualizzazione.md",
     "Sistemi operativi/Linux.md",
     "Sistemi operativi",
-    "Networking.md",
-    "Tecnologie/Macchina.md",
-    "Tecnologie/Reti.md"
+    "Networking.md"
   ]
 }

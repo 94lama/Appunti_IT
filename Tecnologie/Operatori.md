@@ -15,10 +15,10 @@ Restituiscono valori #booleani
 - Tripla uguaglianza
 - Diverso
 
-## #logici
-- #and: restituisce true solo se entrambi gli operandi sono true
-- #or: restituisce true se almeno uno dei due operandi è true
-- #not: restituisce true se il valore è false
+## Logici
+- AND: restituisce true solo se entrambi gli operandi sono true
+- OR: restituisce true se almeno uno dei due operandi è true
+- NOT: restituisce true se il valore è false
 
 Teorema di #Bohm-Jacopini: Qualsiasi problema può essere risolto tramite tre costrutti: 
 	- #sequenza

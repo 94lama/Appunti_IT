@@ -289,7 +289,6 @@ Se si invia il comando ```arp -a``` su [Windows](<Windows.md>), sarà possibile 
 - Nelle reti di grandi dimensioni, accendere molti dispositivi contemporaneamente potrebbe portare a rallentamenti alla rete stessa, dovuti alla moltitudine di richieste ARP da gestire.
 - Possibile [spoofing](./../Cybersecurity#Spoofing) degli indirizzi IPv4 (portando ad attacchi di tipo [ARP poisoning](<./../Cybersecurity#ARP Poisoning>))
 
-
 ### DHCP
 Il DHCP, o Dynamic Host Control Protocol (Protocollo di controllo dinamico degli host), è un protocollo di assegnazione automatica degli indirizzi IP agli host, che può essere utilizzato in alternativa all'assegnazione statica degli indirizzi, dove l'operatore assegna manualmente gli indirizzi IP ai vari dispositivi connessi, che vengono mantenuti per un periodo di tempo definito dall'operatore.
 
@@ -308,8 +307,6 @@ Nel caso di IPv6, il protocollo cambia i nomi delle richieste (mantenendone la r
 3. **INFORMATION** (DHCPINFORM o DHCPREQUEST)
 4. **REQUEST** (DHCPREQUEST)
 5. **REPLY** (DHCPACK o DHCPNACK)
-
-
 
 ### DNS
 Domain Name System, serve ad attribuire un Fully Qualified Domain Name ( #dominio) a degli indirizzi #IP, in modo tale da rendere più agevole la navigazione degli utenti (es. facebook.com, amazon.it).
@@ -365,7 +362,6 @@ Identifica eventuali parametri utilizzati durante la chiamata all'interno dell'U
 ```
 #Relazione_fra_URI,_URL_e_URN
 ```
-
 
 ### EUI-64
 Protocollo definito dalla IEEE per generare indirizzo IPv6 [GUA](#ipv6#gua), che utilizza l'indirizzo [MAC](#MAC) di un client (48-bit), gli aggiunge altri 16-bit tra i due blocchi (codice produttore (OUI) e numero dispositivo). Questi 16 bit sono a loro volta scomponibili in:
@@ -639,7 +635,7 @@ Gli Unique Local Addresses, o indirizzi locali unici (leggi predefiniti) sono:
 | ff02::1       | Multicast a tutti i nodi della LAN   |
 | ff02::2       | Multicast a tutti i router della LAN |
 #### CIDR
-Aggiunge all'indirizzo IPv4 (o IPv6) una indicazione relativa alla [maschera di sottorete](<./Reti#Subnet mask>). La notazione #cidr consiste nell'accoppiare l'indirizzo IPv4 ad un secondo numero (di solito una potenza di 2), fino ad un massimo di 31 e permette di identificare il numero massimo di macchine  collegabili alla sottorete di riferimento.
+Aggiunge all'indirizzo IPv4 (o IPv6) una indicazione relativa alla [maschera di sottorete](<./Reti#Subnet mask>). La notazione #cidr consiste nell'accoppiare l'indirizzo IPv4 ad un secondo numero (di solito una potenza di 2), fino ad un massimo di 31 ed indica il numero di bit identificativi alla rete principale (permettendo di identificare il numero massimo di macchine  collegabili alla sottorete di riferimento).
 Il numero (anticipato sempre dal simbolo **/**), identifica il numero di bit riservati alla [maschera di sottorete](<./Reti#Subnet mask>). Per identificare l'IP della sottorete di riferimento basta effettuare un [AND logico](<./Operatori#Moltiplicazione booleana>) tra indirizzo IP e maschera di sottorete:
 
 ```

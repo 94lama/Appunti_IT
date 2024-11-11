@@ -16,6 +16,54 @@ La CLI ha due modalità di utilizzo (differenziate in base alla quantità di com
 
 ## Router
 
+### ACL
+
+#### Configurazione
+
+Creazione: effettuabile nella modalità configurazione del router:
+ACL numerata
+```cisco
+access-list <access-list-number> {deny | permit | remark <text>} <source> [<source wildcard>] [log]
+```
+	[] = opzionale
+	{a | b | c} = inserire un parametro tra a, b o c
+
+ACL nominale
+```cisco
+<protocollo> access-list standard <access-list-name>
+```
+	In questo caso si procede configurandele ACE
+
+ESEMPIO:
+```Cisco
+config <nome terminale> # entro nella modalità di configurazione
+
+ip access-list standard NO_ACCESS # crea la ACL NO_ACCESS per i lprotocollo di livello 3 ip
+deny host 192.168.0.10 # blocco le comunicazioni con l'host 192.168.0.10
+permit any
+exit
+
+interface g0/0 # seleziono l'interfaccia g0/0
+ip access-group <nome lista> out # assegno la ACL alle chiamate in uscita
+```
+
+Eliminare una ACL
+```cisco
+
+```
+
+Applicare un IPv6 ACL ad un'interfaccia router
+```cisco
+ipv6 traffic-filter
+```
+
+#### Blocco protocollo
+
+Bloccare comunicazioni con protocollo SNMP
+```cisco
+no snmp-server
+```
+
 # Comandi
 
 Avere la lista dei comandi disponibili
@@ -23,6 +71,68 @@ Avere la lista dei comandi disponibili
 ?
 ```
 	N.B. il comando può essere utilizzato anche a seguito di un altro comand, per avere la lista degli argomenti utilizzabili con il comando stesso o dopo i primi caratteri di un comando (o una serie di comandi) per ottenere la lsita di comandi che iniziano con quella stringa di caratteri
+
+Crea una [ACL](../cybersecurity#acl)
+```cisco
+<protocollo da verificare> access-list <tipo (opzionale, extended di default)> <nome> <parametri>
+```
+	PROTOCOLLI ACCETTATI:
+	ahp # Authentication Header Protocol
+	dvmrp
+	eigrp # protocollo nativo di routing della Cisco
+	esp # Encapsulation Security Protocol
+	gre # tunneling della Cisco
+	icmp # Internet Control Message Protocol
+	igmp # Internet Gateway Message Protocol
+	ip
+	ipinip # IP in IP tunneling
+	nos
+	object-group # Service object group
+	ospf
+	pcp # Payload Compression Protocol
+	pim # Prorocol Independent Multicast
+	tcp # Transmission Control Protocol
+	udp # User Datagram Protocol
+	
+	CONTROLLO DELLE PORTE:
+	0-65535 # numero della porta
+	bgp # Border Gateway Protocol (179)
+	chargen # generatore di caratteri (19)
+	cmd # comandi da remoto (514)
+	daytime # daytime (13)
+	discard # scarta (0)
+	domain # DNS (53)
+	echo # Echo (7)
+	exec # Exec (512)
+	finger # Finger (70)
+	ftp # FTP (21)
+	ftp-data # FTP data (20)
+	gopher # Gopher (70)
+	hostname # server dei NIC degli hostname (101)
+	ident # protocollo Ident (113)
+	irc
+	klogin
+	kshell
+	login
+	lpd
+	msrcp
+	nntp
+	onep-plain
+	onep-tls
+	pim-auto-rp
+	pop2
+	pop3
+	smtp
+	sunrpc
+	syslog
+	tacacs
+	talk
+	telnet
+	time
+	uucp
+	whois
+	www
+Se in modalità configurazione del dispositivo. Una volta inviato il comando si entrerà in modalità di configurazione della ACL, quindi sarà possibile inserire o modificare delle ACE
 
 Attivare la modalità EXEC Privilegiata
 ```cisco
@@ -36,6 +146,7 @@ show
 ```
 	PAROLE CHIAVE:
 		aaa
+		access-lists # mostra le ACL impostate
 		arp
 		clock
 		dhcp

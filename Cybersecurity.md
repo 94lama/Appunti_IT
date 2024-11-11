@@ -1314,17 +1314,18 @@ La Lista di Controllo degli Accessi consiste in una serie di comandi di Sistema 
 - Fornisce un livello base di protezione della rete
 - Filtra il traffico in base al tipo di pacchetto (es. Email, video, ecc.)
 - Monitorano le attività degli host ed impediscono determinati accessi alla rete (es. Permettere solo protocolli FTP)
+
 Gli ACL spesso operano operazioni di controllo tramite indirizzi IPv4 di origine e destinazione, o porte di accesso e protocollo utilizzato.
 Di solito è utile utilizzare più ACL e nominarle con numeri o nomi che definiscano il tipo di filtraggio compiuto.
+
+I pacchetti filtrati dipendono dal tipo di ACL utilizzata:
+- **ACL Standard**: livello 3 (Rete), da posizionare il più vicino possibile alla destinazione
+- **ACL Estesa**: Livelli 3 e 4 (Rete e Trasporto), da posizionare il più vicino possibile al mittente
 
 Le liste dei comandi di controllo si chiamano Access Control Entries (ACE).
 
 #### ACE
-Lista di verifiche sequenziali che permettono di stabilire se il pacchetto che è in verifica debba essere droppato, o se possa avere accesso alla rete. I pacchetti filtrati dipendono dal tipo di ACL utilizzata:
-- **ACL Standard**: livello 3 (Rete)
-- **ACL Estesa**: Livelli 3 e 4 (Rete e Trasporto)
-
-Alcune tipologie di comandi che possono essere richiesti sono:
+Lista di verifiche sequenziali che permettono di stabilire se il pacchetto che è in verifica debba essere droppato, o se possa avere accesso alla rete. Alcune tipologie di comandi che possono essere richiesti sono:
 - **Incremento della velocità:** Policy di negazione dello scambio di file video all'interno della rete
 - **Controllo del traffico**: Blocco dell'invio di protocolli di [routing updates] per le richieste che provengano da fonti sconosciute
 - **Aumentare la sicurezza della rete**: Limitare l'accesso alla rete solo a determinati dispositivi fidati
@@ -1332,9 +1333,8 @@ Alcune tipologie di comandi che possono essere richiesti sono:
 - **Monitorare l'utente per limitare l'accesso alla rete**: Filtrare le chiamate dell'utente in base ai servizi a cui può avere accesso
 - **Permettere solo certe classi di traffico:** Classificare il traffico e decidere quali classi siano prioritarie, quali normali e quali da bloccare
 
-#### Catalogazione
+#### Indicizzazione
 Le ACL possono essere catalogate prevalentemente in due modi:
-
 ##### Numerico
 
 | Numero      | Descrizione                                                                     |
@@ -1350,6 +1350,19 @@ Le ACL possono essere catalogate prevalentemente in due modi:
 | template    | Abilita le ACL per [template IP](https://scn.wikipedia.org/wiki/Template:IP%3F) |
 *rate-limit: limite di velocità
 
+###### Sintassi
+
+| Parametro           | Descrizione                                                                                                     |
+| ------------------- | --------------------------------------------------------------------------------------------------------------- |
+| access-limit-number | Numero intero identificativo della ACL (ACE?)                                                                   |
+| deny                | Nega l'accesso se le condizioni sono rispettate                                                                 |
+| permit              | Consente l'accesso se le condizioni sono rispettate                                                             |
+| remark text         | (Opzionale) Documentazione (massimo 100 caratteri)                                                              |
+| source              | Identifica la sorgente da filtrare (indicare **any** per  tutte le reti e **host** per il singolo indirizzo IP) |
+| source-wildcard     | (Opzionale) [Wildcard Mask](<#wildcard mask>)                                                                   |
+| log                 | (Opzionale) genera informazioni nel caso l'ACE venga rispettata                                                 |
+
+
 ##### Nominativo
 
 Viene asegnato un nome ad ogni ACL, in modo tale da renderle riconoscibili e raggruppabili per tipo di protocollo utilizzato, tipo di blocco, ecc. Il nome assegnato ad un aACL deve:
@@ -1359,12 +1372,71 @@ Viene asegnato un nome ad ogni ACL, in modo tale da renderle riconoscibili e rag
 - Essere scritto in lettere maiuscole (consigliato)
 - Descrivere se è di tipo permissivo (added) o respingitivo (deleted)
 
+#### Wildcard Mask
+Le maschere "jolly" rappresentano uno schema simile ad una [sottomaschera di rete](<./tecnologie/reti#subnet mask>), utilizzate per segnalare quali bit dell'indirizzo sottoporre a verifica e quali ingorare tramite processo di [ANDing](./tecnologie/operatori#logici) e dal protocollo di routing [OPSF], utilizzato per aprire per primo il percorso più breve.
+La wildcard ha il funzionamento inverso della maschera di sottorete dal punto di vista degli operatori logici, ovveroç
+- **0**: Simboleggia la richiesta di verifica del dato
+- **1**: Indica che il dato può essere ignorato
+
+**ESEMPIO**
+
+| Wildcard mask | Ultimo ottetto | Descrizione                                                                                 |
+| ------------- | -------------- | ------------------------------------------------------------------------------------------- |
+| 0.0.0.0       | 00000000       | Controlla tutti i bit di tutti gli ottetti                                                  |
+| 0.0.255.255   | 00000000       | Controlla gli ultimi due ottetti                                                            |
+| 0.0.0.63      | 00111111       | controlla i primi 3 ottetti e i primi 2 bit dell'ultimo ottetto.<br>Ignora gli ultimi 6 bit |
+| 1.1.1.1       | 11111111       | Non verificare nessun bit dell'indirizzo IP                                                 |
+
+Tramite l'utilizzo ponderato delle Wildcard mask, è possibile verificare uno specifico IP, l'appartenenza ad se l'indirizzo appartiene ad uno speciico gruppo, ad una determinata sottorete (utilizzando l'inverso della sua maschera di sottorete) o ad una rete intera.
+
 #### Procedura
 Il processo di funzionamento di una ACL è il seguente:
 1. Il Router estrae l'indirizzo IP del mittente
 2. Il Router inizia ad applicare le verifiche delle ACE in ordine sequenziale
 3. Quando l'indirizzo IP rientra nei parametri dell'ACE, esegue i comandi scritti all'interno di essa
 4. Se il pacchetto non rientra nelle richiste di nessuna ACE, viene scartato di default (ultima ACE, inserita in modo implicito nell'ACL).
+
+Nel caso di connessioni in [TCP](./tecnologie/protocolli#tcp), è possibile utilizzare una connessione *stateful* (ovvero i messaggi contengono dati utili per stabilire lo stato della connessione) utilizzando delle parole chiave prestabilite, da considerare anche nei controlli dell'ACL.
+#### Struttura
+Vedi [qua](<./os/cisco ios cli#router#configurazione>).
+#### Creazione
+Per creare una ACL bisogna:
+- Scrivere le specifiche delle policy tramite editor di testo
+- Aggiungere i comandi di configurazione IOS per eseguire i compiti descritti
+- Includere eventuali osservazioni come documentazione
+- Copiare e incollare i comandi all'interno del dispositivo
+- Testare le regole implementate (senza impattare il traffico di rete)
+
+#### IPv6
+La coesistenza di IPv4 e IPv6 può portare a problemi dal punto di vista della sicurezza (per gli ambienti dual-stack, ovvero che utilizzano contemporaneamente entrambi i protocolli), come:
+- Utilizzo del protocollo [NDP](./tecnologie/protocolli#ndp) (Neighbor Discovery Protocol) sfruttando il [Teredo tunneling] per ottenere un indirzzo IPv6 ufficiale tramite canale IPv4 UDP
+
+E' possibile evitare questo tipo di attacchi aggiungendo delle ACL per gli indirizzi IPv6:
+
+```cisco
+Router(config)# ipv6 access-list _access-list-name_
+
+Router(config-ipv6-acl)# deny | permit _protocol_ {_source-ipv6-prefix_ / _prefix-length_ | any | host _source-ipv6-address_} [ _operator_ [ _port-number_ ]] { _destination-ipv6-prefix_ / _prefix-length_ | any | host _destination-ipv6-address_ } [ _operator_ [ _port-number_ ]] [ dscp _value_ ] [ fragments ] [ log ] [ log-input ] [ sequence _value_ ] [ **time-range** _name_ ]
+```
+
+#### Indirizzi comuni da bloccare
+Per evitare attacchi di Sppoofing, di solito è consigliato negare l'accesso a indirizzi di uso comune come:
+- 0.0.0.0
+- Indirizzi broadcast
+- Indirizzi di reti private (es. 127.0.0.0/8)
+- Indirizzi APIPA (es. 169.254.0.0/16)
+- Indirizzi privati riservati (RFC 1918)
+- IP Multicast (242.0.0.0/4)
+
+#### Mitigazione ICMP
+COnsiderando che molti messaggi ICMP possono sia essere sfruttati per portare a segno attacchi informatici, che essere utilizzati dalla rete per il suo corretto funzionamento (es. ciamate echo, o messaggi di errore vari), è sempre buona norma impedire le chiamate ICMP in uscita che non siano:
+- echo
+- Parameter problem
+- Pacchetto troppo grande
+- spegnimento della sorgente
+
+#### Mitigazione [SNMP](./tecnologie/protocolli#snmp)
+Considerando che il protocollo viene utilizzato per gestire le impostazioni della rete, è consigliato [disabilitare il protocollo](<./os/cisco ios cli#acl#blocco protocollo>) per le comunicazioni con dispositivi all'esterno della rete
 
 ### NetFlow
 È un software utilizzato per gestire comunicazioni tramite [SNMP](./tecnologie/protocolli#snmp). Originariamente il software catalogava le comunicazioni in base a 7 parametri:
@@ -1377,6 +1449,7 @@ Il processo di funzionamento di una ACL è il seguente:
 7. Interfaccia logica di input
 
 Il punto 6, incluso nell'header del pacchetto IPv4, contiene informazioni relative alle regole per la [Qualità del servizio] da applicare al pacchetto nel flusso in cui è stato inviato.
+
 
 
 ### Port Mirroring
