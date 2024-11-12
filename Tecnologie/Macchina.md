@@ -257,3 +257,15 @@ Vengono utilizzati per memorizzare dati relativi a:
 - Contabilità (accounting)
 
 I server AAA devono essere impostati per accettare unicamente messaggi tramite protocolli [RADIUS](./protocolli#radius) o [TACACS+] (uno dei due, da decidere in base alle necessità della rete, tenendo conto che il RADIUS non effettua cifratura del nome utente e dei dati contabili).
+
+## IoT
+L'Internet delle cose indica un'insieme di dispositivi di uso comune, forniti di un supporto tecnologico che li rende capaci di collegarsi ad una [rete](./reti) per inviare e ricevere informazioni.
+
+I dispositivi IoT possono processare i dati in due modi diversi: Fog computing o Edge computing.
+
+### Computing
+#### Fog
+Avviene quando i dispositivi raccolgono le informazioni e le inviano ad un [cloud data center](../server/cloud).
+
+#### Edge
+Consiste nell'utilizzo delle risorse del dispositivo IoS stesso per elaborare i dati.

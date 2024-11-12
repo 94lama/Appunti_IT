@@ -1,6 +1,6 @@
 [Documentazione](https://docs.aws.amazon.com/)
 # Introduzione
-Servizio di [[Cloud Server]] gestito da Amazon, prodotto leader nel campo #IaaS.
+Servizio di [[Cloud]] gestito da Amazon, prodotto leader nel campo #IaaS.
 # Server
 Di norma si utilizzano più server per progetto. Su AWS è consigliabile utilizzare i server  localizzati nella stessa regione di utilizzo. I prezzi variano in base alla localizzazione scelta. Di solito per prove, conviene utilizzare il data server ue-east-1 (per motivi legati ai costi e alla documentazione).
 - Pipeline (collega il server aperto al pubblico alla piattaforma di versionamento)
@@ -172,7 +172,7 @@ Verifica che l'installazione ha avuto successo
 ```sh
 sudo docker run hello-world
 ```
-### Installazione di [[Jenkins]]
+### Installazione di [Jenkins](../software/jenkins) su AWS
 Installo Jenkins (vedi file di Jenkins)
 ### Installazione di un database
 ### Deploy

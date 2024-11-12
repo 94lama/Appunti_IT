@@ -60,8 +60,40 @@ Indispensabile al fine di poter applicare il modello #pay-per-use.
 - **Riduzione dei costi**
 - **Sicurezza e affidabilità**
 ## Modelli di servizio
+### Introduzione
 Ci sono 3 tipi di modelli di business per gli applicativi: Saas, PaaS e IaaS
 ![[Pasted image 20240415140801.png]]
+#### Responsabilità
+L'utilizzo di servizi di cloud computing piuttosto che optare per una rete **on-premise (in sede)**, crea il problema della gestione delle responsabilità tra azienda che fruisce del servizio cloud e quella che fornisce il servizio cloud (CSP, o Cloud Service Provider).
+
+| Responsabilità        | On-premise | IaaS   | PaaS      | SaaS      |
+| --------------------- | ---------- | ------ | --------- | --------- |
+| Data                  | Client     | Client | Client    | Client    |
+| Endpoint              | Client     | Client | Client    | Condivisa |
+| [IAM](#iam)           | Client     | Client | Condivisa | Condivisa |
+| Applicazione          | Client     | Client | Condivisa | CSP       |
+| Controllo della rete  | Client     | Client | Condivisa | CSP       |
+| SIstema oerativo      | Client     | Client | CSP       | CSP       |
+| Infrastruttura fisica | Client     | CSP    | CSP       | CSP       |
+##### Policy aziendali sulla sicurezza
+Possono descrivere le pratiche accettate riguardanti il download di file da terzi o da autori sconosciuti (un-sanctioned apps), tenendo conto del potenziale aumento di produttività, paragonato all'aumento del rischio sostenuto dall'immissione di software sconosciuti all'interno della rete.
+
+##### Sicurezza a livelli
+E' possibile considerare la rete come un'interconnessione di 4 livelli distinti:
+- Hardware
+- Infrastruttura
+- Piattaforma
+  Applicazioni
+
+Ognuno di questi livelli può essere gestito da specifiche policy di difesa, ad esempio:
+- Utilizzo di meccanismi di protezione dei dati forniti dal CSP
+- Utilizzo di [VPC](#vpc) per gestire sottoreti private
+- Configurazione e utilizzo dei firewall forniti dal CSP
+- Utilizzo dei log per monitorare il flusso delle connessioni
+- Utilizzo delle [VPN](../tecnologie/reti#vpn) per accedere ai servizi cloud
+- Utilizzo dei servizi [IAM](#iam) forniti dal CPS
+- Utilizzo di site-to-site VPN nel caso di infrastrutture miste o in sede
+
 ### SaaS
 Il modello #SaaS (Software as a Service), consiste nel fornire al cliente un prodotto pronto all'uso (es. Adobe package, **Office 365**, G-suite, SalesForce, Amazon Web Services, iCloud) comprensivo di programmi manutentivi e aggiornamenti. La tipologia è nata a seguito della migrazione lato cloud dei vari servizi. E' composto da:
 - software (disponibile in remoto o in locale)
@@ -105,7 +137,15 @@ Lo #STaaS, ovvero Storage as a Service,
 Il #caas, o Container as a Service, possiedono come fulcro del servizio il #container. Un esempio di Caas è [[Docker]].
 ### Servizi
 #### IaC
-#IaC: Infrastructure as a Code. Alcuni esempi sono: [[Terraform]]
+#IaC: Infrastructure as a Code. Alcuni esempi sono: 
+- [Terraform](../software/terraform)
+- [Ansible](https://www.ansible.com/): Serve per configurare il sistema
+- [NixOs]: Sfrutta un approccio funzionale
+- [Chef]
+
+La IaC può essere:
+- **Mutevole**: Permette di applicare in tempo reale le modifiche apportate al codice.
+- **Immutevole**: Crea un nuovo sistema, andando ad eliminare il modello precedente ogni volta che il codice viene modificato.
 ## Modelli di distribuzione
 Nel caso si debba decidere quale modello utilizzare, è necessario effettuare un'analisi preliminare che tenga conto delle attrezzature esistenti già in possesso dell'azienda, del budget a disposizione, del tipo di dati che verranno trattati, da eventuali vendor con cui iniziare un rapporto, ecc.
 ### Private cloud
@@ -151,6 +191,7 @@ Sotto termini pratici, la definizione di Community Cloud dipende dal significato
 - Testing di prodotti di alto profilo.
 - Condivisione di ambiente sicure per Organizzazioni governative diffuse nel territorio
 
+
 # Clienti
 A parte il cliente singolo, nel caso di cliente rappresentato da un'azienda, è possibile categorizzarle in base alla dimensione. In base alla categoria di cliente, a volte è preferibile utilizzare determinate tecnologie piuttosto che altre.
 ![[Pasted image 20240415163500.png]]
@@ -173,6 +214,9 @@ Ognuna di queste metodologie ha i suoi punti positivi e negativi. In generale, g
 I costi di manutenzione sono sempre a carico del #provider.
 ## IAM
 L' #IAM (Identity Access Management), è una particolare tipologia di utenti, a cui viene assegnata in maniera predefinita una particolare tipologia di permessi. 
+## Microsegmentazione
+E' una tecnica utilizzata in ambiti IaaS, che consiste nell'utilizzo di un grande numero di reti piccole e leggere, che permettono di abbassare il costo del servizio. Permettono anche di avere un maggiore controllo del traffico e del flusso di lavoro.
+
 # Cloud Storage
 In un ambiente aziendale totalmente orientato verso servizi cloud, è possibile rimuovere l'hard disk nelle varie macchine, utilizzando il #server cloud come memoria centralizzata, sia per i file da salvare, che per i software installati (che possono essere richiesti tramite accesso ad un catalogo) e gestendo una politica di #backup dei dati (di solito più volte al giorno) tramite crittografia con chiave digitale.
 Si parla di Cloud Storage nel caso in cui lo "spazio disco" utilizzato è separato dallo #storage primario.
@@ -273,7 +317,6 @@ Quindi, è necessario che sussistano determinate caratteristiche, ovvero:
 - Meccanismi di #backup e #mirroring robusti ed implementabili tramite soluzioni [#RAID](https://it.wikipedia.org/wiki/RAID) (Redundant Array of Indipendent Disks)
 - Utilizzo di meccanismi (implementabili tramite utilizzo di software commerciali o open source, tipo DFS o Robocopy), che permetta di recuperare i file anche in caso di rottura del server, manomissione o [failover](https://it.wikipedia.org/wiki/Failover) del servizio per attività di manutenzione o prevenzione/gestione di attacchi.
 
-
 ## Firewall
 Un #firewall è un meccanismo di difesa basato sul diniego di accesso a determinate connessioni. Può essere definito sia tramite #whitelist, che #blacklist e può colpire sia protocolli, che indirizzi #IP.
 Le #policy sono relative prevalentemente alla protezione dell'infrastruttura e alle pratiche di #disaster-recovery.
@@ -281,4 +324,63 @@ Le #policy sono relative prevalentemente alla protezione dell'infrastruttura e a
 Denial System, o #IDS è un meccanismo di difesa, che si attua prima del #firewall. Il suo scopo è analizzare i pacchetti in arrivo e, in caso di pacchetti sospetti o proibiti, menda una notifica #ping al moderatore (che può essere sia umano, che automatizzato). La risposta può essere un blocco automatico del pacchetto, oppure una sospensione dello stesso 
 ### IPS
 Prevent System, o #IPS è un meccanismo di difesa, che si attua prima del #firewall, dopo l'attuazione dell'[[#IDS]].
-## Valutazione dei rischi
+
+# Sicurezza
+I problemi di sicurezza relativi l'utilizzo di macchine virtuali possono essere:
+- VM sprawl: quando l'utilizzo di molte macchine virtuali comporta un'uso eccessivo di spazio rispetto al necessario
+
+La sicurezza del cloud è un tema molto studiato. Organizzazioni come la [Cloud Security Alliance](https://cloudsecurityalliance.org/) hanno stilato un elenco di 14 domini in cui è suddivisibile il tema.
+
+## Concetti e architetture del Cloud computing
+Analizza la terminologia da utilizzare in ambito cloud computing e dettaglia l'intero apparato logico e architetturale utilizzato nella [Security Guidance]
+
+## Controllo e gestione dei rischi aziendali
+Descrive 4 aree impattate dal cloud computing:
+1. Governance (controllo)
+2. Gestione dei rischi aziendali
+3. Gestione delle informazioni sui rischi
+4. Sicurezza delle informazioni
+
+## Questioni legali, contratti e [eDiscovery](https://www.bit4law.com/ediscovery/)
+Si occupa delle problematiche legali, incluse quelle relative la movimentazione dei dati, la contrattualistica e i contenziosi collegati a nuove scoperte tecnologiche.
+
+## Gestione delle conformità e degli audit
+Si occupa della gestione delle conformità dettate dall'azienda in ambito di migrazione dai tradizionali [data center] al Cloud
+
+## Controllo dell'informazione
+Si occupa di verificare che le informazioni e i dati utilizzati rispettino le policy e gli standard aziendali.
+
+## Piano di gestione e continuità di business
+Descrive la necessità di mettere in sicurezza il piano di gestione del [Cloud computing](<#cloud computing>), la continuità del business e le procedure di disaster recovery (recupero a seguito di un disastro) da utilizzare dal cloud provider e dal client.
+
+## Security-as-a-Service
+Contiene tutti i servizi di sicurezza (in continua evoluzione) offerti dal cloud
+
+## Sicurezza dell'infrastruttura
+Descrive degli elementi alla base del cloud dal punto di vista infrastrutturale (inclusi i sistemi operativi). Si basa sul concetto che un servizio cloud si fondi su due livelli complementari:
+- Infrastruttura fisica (include anche la logica), reti e memorizzazione
+- Infrastruttura virtuale, che rappresenta la componente computazionale e di accesso alle risorse da un bacino di disponibilità (concetto che sfrutta la virtualizzazione).
+
+Essendo il primo livello non interamente accessibile dall'utente che utilizza un servizio in cloud, la gestione della rete (considerando specialmente che la virtualizzazione può creare dei colli di bottiglia se non configurata e tenuta sotto controllo adeguatamente) viene effettuata tramite astrazione della rete con i Software-Defined Networks**SDN** (Reti Definite da un Software), che permettono di:
+- Facilitare l'isolamento della rete senza l'utilizzo di connessioni fisiche
+- Utilizzare Firewall SDN, che vengono applicati alle risorse, basandosi su criteri più flessibili degli hardware.
+
+Altro parametro importante è la gestione delle [responsabilità sulla sicurezza in ambito cloud](#Responsabilità)
+
+## Virtualizzazione e containers
+Descrive la necessità di mettere in sicurezza i meccanismi di virtualizzazione e gli asset virtuali, che costituiscono la base del cloud computing
+
+## Incident Response
+Descrive gli aspetti critici dell'[Incident Response], inclusi dettagli relativi il suo ciclo di vita e alcune note riguardanti il lavoro degli addetti 
+
+## Sicurezza delle applicazioni
+Descrive come costruire in sicurezza applicazioni in ambienti in cloud computing, in particolare [PaaS](#paas) e [IaaS](#iaas).
+
+## Sicurezza dei dati e cifratura
+Descrive i controlli da effettuare per mettere in sicurezza i dati, in base alla loro tipologia (con particolare attenzione alla cifratura).
+
+## IAM
+IAM è l'acronimo di Identity, Entitlement and Access Management, ovvero Identità, diritto e Gestione delle Risorse. Si occupa di descrivere le differenze tra la modalità di gestione dell'dentità in ambito classico e in ambito cloud.
+
+## Tecnologie correlate
+Fornisce dettagli e raccomandazioni per l'utilizzo di tecnologie che si basano unicamente sul cloud computing, accoppiate a tecnologie che non si basano necessariamente su cloud computing, ma sono spesso deployate nell'ambito.

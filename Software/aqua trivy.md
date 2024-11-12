@@ -1,11 +1,11 @@
 [link](https://www.aquasec.com/products/trivy/), [GitHub](https://github.com/aquasecurity/trivy)
 # Introduzione
-Aqua trivy è u software utilizzato per effettuare il controllo delle #immagine  utilizzate nel progetto. E' possibile utilizzarlo tramite #immagine di [[Docker]], per collegarlo alla #pipeline di messa online del progetto (es. tramite [[Jenkins]]).
+Aqua trivy è u software utilizzato per effettuare il controllo delle #immagine  utilizzate nel progetto. E' possibile utilizzarlo tramite #immagine di [[Docker]], per collegarlo alla #pipeline di messa online del progetto (es. tramite [Jenkins](./Jenkins)).
 # Avviare una scansione
 ```shell
 trivy <target> [--scanners <scanner1,scanner2>] <subject> 
 ```
-Eseguire un'analisi su un immagine [[Docker]] all'interno di una #pipeline in [[Jenkins]]
+Eseguire un'analisi su un immagine [[Docker]] all'interno di una #pipeline in [Jenkins](./Jenkins)
 ```shell
 trivy image {DOCKER_HUB_USER}/devops-api 
 ```

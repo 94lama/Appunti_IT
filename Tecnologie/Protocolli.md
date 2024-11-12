@@ -372,7 +372,7 @@ Protocollo definito dalla IEEE per generare indirizzo IPv6 [GUA](#ipv6#gua), che
 
 ### ICMP
 #### Descrizione
-L'Internet Control Message Protocol è utilizzato per inviare messaggi informativi relativi allo stato delle sessioni IP (disponibile sia per IPv4 che per IPv6). I messaggi si possono dividere in categorie, in base alla loro funzione:
+L'Internet Control Message Protocol è un protocollo *stateless* utilizzato per inviare messaggi informativi relativi allo stato delle sessioni IP (disponibile sia per IPv4 che per IPv6). I messaggi si possono dividere in categorie, in base alla loro funzione:
 
 #### Raggiungibilità
 Sono utilizzati per testare la connessione tra due dispositivi (un classico esempio di utilizzo è il **ping**). Forniscono dettagli sulla connessione tramite 2 principali tipologie di messaggi:

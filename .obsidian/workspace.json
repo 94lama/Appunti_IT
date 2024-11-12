@@ -13,40 +13,26 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Cybersecurity.md",
+                "file": "Server/Cloud.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Cybersecurity"
+              "title": "Cloud"
             }
           },
           {
-            "id": "183e967bc1146962",
+            "id": "065234754971e0db",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "OS/CISCO IOS CLI.md",
+                "file": "Server/Cloud.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "CISCO IOS CLI"
-            }
-          },
-          {
-            "id": "8a40a23ddb250031",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Tecnologie/Reti.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Reti"
+              "title": "Cloud"
             }
           },
           {
@@ -77,8 +63,7 @@
               "title": "Linux"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -109,7 +94,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "'# nic",
+                "query": "tag:#server",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -219,26 +204,38 @@
       "command-palette:Apri riquadro comandi": false
     }
   },
-  "active": "183e967bc1146962",
+  "active": "5d0160ad7b28403a",
   "lastOpenFiles": [
+    "OS/Virtualizzazione.md",
+    "Server/Cloud.md",
     "Cybersecurity.md",
     "OS/CISCO IOS CLI.md",
-    "Tecnologie/Protocolli.md",
+    "Tecnologie/Macchina.md",
+    "README.md",
+    "Linguaggi/Python.md",
+    "linguaggy/python.md",
+    "linguaggy",
+    "Linguaggi/JavaScript.md",
+    "Tecnologie/Networking.md",
+    "OS/Windows.md",
+    "Server/AWS.md",
+    "Software/aqua trivy.md",
+    "Software/Jenkins.md",
+    "Modelli di servizio.md",
     "Tecnologie/Reti.md",
+    "Tecnologie/Protocolli.md",
+    "Immagini/Pasted image 20241111223123.png",
     "OS/Linux.md",
     "Tecnologie/Operatori.md",
     "Tecnologie/Relazioni.md",
     "Algoritmi.md",
     "Tecnologie/Funzioni.md",
-    "Tecnologie/Macchina.md",
     "Software/DevProxy.md",
     "OS/MAC OS X.md",
     "Immagini/Pasted image 20241109164039.png",
     "Immagini/Pasted image 20241104150718.png",
     "Immagini/Pasted image 20241104131652.png",
     "Tecnologie/Git.md",
-    "OS/Windows.md",
-    "OS/Virtualizzazione.md",
     "OS/Cisco.md",
     "OS",
     "Immagini/Pasted image 20241011131951.png",
@@ -247,13 +244,6 @@
     "Immagini/Pasted image 20241002001123.png",
     "Immagini/Pasted image 20241001184553.png",
     "Immagini/Pasted image 20240930193612.png",
-    "Immagini/Pasted image 20240930193334.png",
-    "Helpdesk.md",
-    "AI.md",
-    "Sistemi operativi/Windows.md",
-    "Sistemi operativi/Virtualizzazione.md",
-    "Sistemi operativi/Linux.md",
-    "Sistemi operativi",
-    "Networking.md"
+    "Sistemi operativi"
   ]
 }

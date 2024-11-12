@@ -1,5 +1,5 @@
 [Sito internet](https://www.terraform.io/)
-Terraform è un servizio [IaC](<Cloud Server#IaC>) utilizzabile su tutti i provider cloud, creato da HashiCorp, che funziona sfruttando la struttura JSON per la creazione dei file e il CLI per l'immissione di input.
+Terraform è un servizio [IaC](<Cloud.md#IaC>) utilizzabile su tutti i provider cloud, creato da HashiCorp, che funziona sfruttando la struttura JSON per la creazione dei file e il CLI per l'immissione di input.
 # Installazione
 [link](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)
 

@@ -344,8 +344,6 @@ Nel caso un processo abbia bisogno di avere accesso alle risorse del kernel, ha 
 ## Defender
 E' l'[anti-malware](../cybersecurity#antimalware) di default dei sistemi operativi Windows, che fornisce una serie di tool per proteggere il computer da minacce esterne.
 
-
-
 ## Firewall
 ## RDC
 Connessione Desktop da Remoto è un software di Windows che permette la comunicazione tra due dispositivi tramite protocollo RDP (Protocollo per il Desktop da Remoto). Per prendere il controllo di un computer è necessario inserire il nome del computer sul quale si vuole effettuare l'accesso e le credenziali di accesso.

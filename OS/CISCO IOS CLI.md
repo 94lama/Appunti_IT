@@ -16,7 +16,7 @@ La CLI ha due modalità di utilizzo (differenziate in base alla quantità di com
 
 ## Router
 
-### ACL
+### [ACL](../cybersecurity#acl)
 
 #### Configurazione
 
@@ -47,11 +47,6 @@ interface g0/0 # seleziono l'interfaccia g0/0
 ip access-group <nome lista> out # assegno la ACL alle chiamate in uscita
 ```
 
-Eliminare una ACL
-```cisco
-
-```
-
 Applicare un IPv6 ACL ad un'interfaccia router
 ```cisco
 ipv6 traffic-filter
@@ -63,6 +58,68 @@ Bloccare comunicazioni con protocollo SNMP
 ```cisco
 no snmp-server
 ```
+
+### [ZPF](../cybersecurity#zpf)
+Creare una zona
+```cisco
+zone security <nome della zona>
+```
+
+Identificazione del traffico
+```cisco
+class-map type inspect [match-any | match-all] <nome della classe>
+```
+
+Configurare la classe (richiesto dopo l'identificazione del traffico). La classe identifica quale traffico deve essere soggetto alla policy
+```cisco
+match <oggetto da verificare> <nome bersaglio>
+```
+	ESEMPI:
+	match access-group acl-10 # utilizza le configurazioni dell'ACL 10
+	match protocol http # Si attiva quando identifica l'uso di un pacchetto con messaggio http
+	match class-map HTTP-TRAFFIC # utilizza le stesse configurazioni della mappa HTTP-TRAFFIC
+
+Configurare le azioni nel caso di pacchetto bersaglio di una policy
+```cisco
+policy-map type inspect <nome della policy-map>
+```
+
+Definire le azioni nel caso di pacchetto che rientra in una policy e rispetta una delle classi preconfigurate
+```cisco
+class type inspect <nome della class-map>
+```
+	CONTINUA: il sistema chiederà di scegliere l'azione da effettuare nel caso di match. Le opzioni saranno:
+	- inspect
+	- drop
+	- pass
+
+Assegnare le policy alle zone
+```cisco
+zone-pair security <nome della coppia di zone> source <zona di provenienza | self> destination <zona di destinazione | self>
+```
+	CONTINUA: Si aprirà la modalità di configurazione
+
+Configurare la policy tra le zone
+```cisco
+service-policy type inspect <nome della policy>
+```
+
+Assegnare una zona ad un'interfaccia (da effettuare all'interno della modalità configurazione dell'interfaccia)
+```cisco
+zone-member security <nome della zona>
+```
+
+Verificare la configurazione di una ZPF
+```cisco
+show
+```
+	OPZIONI:
+	run  | begin class-map # mostra le policy per classe, seguite dai nomi delle zone per policy, segute dai nomi delle zone per interfaccia fisica
+	policy-map type inspect zone-pair sessions # effettua un test tra coppie di zone
+	class-map type inspect # mostra le classi create
+	zone security # mostra le zone con all'interno le interfacce fisiche
+	zone-pair security # mostra le coppie di rete registrate, segnalando quali siano prinate e quali policy siano applicate
+	policy-map type inspect # mostra le policy attive
 
 # Comandi
 

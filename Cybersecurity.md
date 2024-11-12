@@ -238,7 +238,7 @@ I NAS sono flessibili e facilmente scalabili.
 Le Reti ad area di memoria (Storage Area Network) sono architetture di dispositivi di memorizzazione organizzati in una rete e collegati tra loro tramite interfacce ad alta velocità. Questo permette di collegare agevolmente più server con la stessa SAN.
 
 #### Cloud Storage
-Il [Cloud storage](<server/cloud server>) è un metodo di immagazzinamento dati in remoto, che utilizza dei data center per immagazzinare i dati. Alcuni esempi di cloud storage sono Google Drive, Dropbox, iCloud.
+Il [Cloud storage](<Cloud.md>) è un metodo di immagazzinamento dati in remoto, che utilizza dei data center per immagazzinare i dati. Alcuni esempi di cloud storage sono Google Drive, Dropbox, iCloud.
 
 
 ### In transito
@@ -875,6 +875,7 @@ Invio massivo di richieste alla rete con lo scopo di rallentarla o bloccarla.
 
 ## Fisico
 
+
 ## Social Engineering
 Macro categoria di attacco informatico, che consiste nell’ottenere informazioni e/o accesso ai sistemi informatici attraverso l’inganno di persone che lavorano all’interno dell’azienda oggetto dell’attacco. Gli attacchi sfruttano strategie ne si basano su concetti psicologico come:
 - Autorità
@@ -899,6 +900,15 @@ Consiste nell’utilizzo di menzogne o pretesti per ottenere informazioni.
 
 
 ## Reti
+## Cloud
+Le tipologie di attacco più comuni per i dati salvati in cloud sono:
+- Data breach (furto di dati)
+- Cloud misconfiguration
+- Poor cloud security architecture strategy (ovvero la configurazione errata dell'architettura del cloud)
+- Compromised account credentials (furto di credenziali)
+- Insider threat (minaccia dall'interno)
+- Insecure UI or API (configurazione dell'interfaccia utente o delle API errata o non sicura)
+- Limited cloud usage visibility (limitata visibilità dell'utilizzo del cloud, può portare a non identificare in tempo attacchi)
 
 ### WLAN
 Gli attacchi verso una rete [WLAN](./tecnologie/reti#wlan) hanno lo scopo di:
@@ -1557,11 +1567,57 @@ Nella zona demilitarizzata i firewall vengono posizionati in parallelo alla rete
 - Il traffico proveniente dalla rete privata viene analizzato e lasciato passare con poche o nessuna restrizione
 - Il traffico proveniente dalla DMZ viene bloccato di default e lasciato passare selettivamente (di solito DNS, HTTP, HTTPS, IMAP, POP, SMTP), oppure il traffico di risposta da richieste inviate dalla rete privata, che viene permesso in maniera dinamica
 
-#### ZPF
-Le Policy Basate sulla Zona utilizzano il concetto di zona (gruppo di una o più interfacce aventi funzionalità simili) per stabilire le regole in base alle necessità e alla tipologia di zona da proteggere. L’utilizzo di questa architettura permette una maggiore flessibilità.
-Di default il traffico tra interfacce diverse della stessa zona è abilitato senza blocchi, mentre la comunicazione tra blocchi diversi è bloccata.
+Qualora nel caso all'interno della DMZ ci sia un host fortezza (ovvero un dispositivo adibito a filtrare il traffico) o un [firewall schermato], che viene utilizzato per filtrare il traffico proveniente da reti non fidate che è stato accettato dall'edge router, per poi inviare i pacchetti filtrati al router interno, la DMZ prende anche il nome di Subnet configuration.
 
-Nel caso si voglia definire una policy per la self zone (il Router), occorre tenere conto della gestione e controllo dei piani di traffico, in particolare i protocolli di routing, [SSH](./Tecnologie/protocolli#ssh) e [SMNP].
+#### ZPF
+I [Firewall](#firewall) con Policy Basate sulla Zona utilizzano il concetto di zona (gruppo di una o più interfacce aventi funzionalità simili) per stabilire le regole in base alle necessità e alla tipologia di zona da proteggere. L’utilizzo di questa architettura permette una maggiore flessibilità e semplicità di gestione, in quanto consente di ottenere benefici quali:
+- Indipendenza dalle ACL
+- Blocco del traffico come opzione di default 
+- Traffico permesso di default solo tra interfacce diverse della stessa zona
+- Facilità di lettura e scrittura delle policy e dei troubleshooting (tramite software come [Cisco C3PL])
+- Raggruppamento delle interfacce fisiche in zone
+- Policy applicabili per traffico unidirezionale tra zone
+
+Nel caso si voglia definire una policy per la self zone (il Router), occorre tenere conto della gestione e controllo dei piani di traffico, in particolare i protocolli di routing, [SSH](./Tecnologie/protocolli#ssh) e [SMNP] e in generale tutti i protocolli che permettano di manipolare la gestione e il controllo di dispositivi.
+
+##### Configurazione
+Per configurare una ZPF basta seguire i seguenti passaggi:
+1. Definire le zone
+	- Cosa edve essere incluso nella zona?
+	- Quale sarà il nome di ogni zona?
+	- Che tipo di traffico passerà in entrambe le direzioni?
+2. Definire le policy tra le varie zone (per il traffico in entrambe le direzioni)
+	-  
+3. Progettare l'infrastruttura fisica
+4. Identificare gruppi di zone simili e unire i requisiti di traffico
+
+##### Azioni
+Le azioni effettuabili da una ZPF sono 3:
+- Inspect: ispeziona il pacchetto
+- Drop: nega l'accesso al pacchetto
+- Passaggio: consente il passaggio al pacchetto
+
+**REGOLE PER IL TRAFFICO IN TRANSITO**
+
+| Interfaccia di origine menbra della zona | Destinazione menbro della zona | Zone parificate | Esiste una policy | Risultato |
+| ---------------------------------------- | ------------------------------ | --------------- | ----------------- | --------- |
+| No                                       | No                             | Non si sa       | Non si sa         | PASS      |
+| Si                                       | No                             | Non si sa       | Non si sa         | DROP      |
+| No                                       | Si                             | Non si sa       | Non si sa         | DROP      |
+| Si (privata)                             | Si (privata)                   | Non si sa       | Non si sa         | PASS      |
+| Si (privata)                             | Si (publica)                   | No              | Non si sa         | DROP      |
+| Si (privata)                             | Si (publica)                   | Si              | No                | PASS      |
+| Si (privata)                             | Si (pubblica)                  | Si              | Si                | INSPECT   |
+**REGOLE PER IL TRAFFICO ALL'INTERNO DELLA ZONA ROUTER (SELF ZONE)**
+
+| Interfaccia di origine menbra della zona | Destinazione menbro della zona | Zone parificate | Esiste una policy | Risultato |
+| ---------------------------------------- | ------------------------------ | --------------- | ----------------- | --------- |
+| Si (self-zone)                           | Si                             | No              | Non si sa         | PASS      |
+| Si (self-zone)                           | Si                             | Si              | No                | PASS      |
+| Si (self-zone)                           | Si                             | Si              | Si                | INSPECT   |
+| Si                                       | Si (self-zone)                 | No              | Non si sa         | PASS      |
+| Si                                       | Si (self-zone)                 | Si              | No                | PASS      |
+| Si                                       | Si (self-zone)                 | Si              | Si                | INSPECT   |
 
 ### Tipi di firewall
 
@@ -1613,16 +1669,38 @@ La maggior parte dei blocchi e dei controlli avviene tramite software.
 
 #### Firewall di ultima generazione
 Permettono di:
-- Integrare sistemi di prevenzione delle intrusioni
+- Integrare sistemi di prevenzione delle intrusioni ([IPS](#IPS))
 - Aggiungere coscienza e controllo del livello 7 (Applicazione) per vedere e bloccare software rischiosi
 - Aggiornano i percorsi al fine di includere informazioni future
 - Tecniche per identificare le [minacce](#Threat) della sicurezza in evoluzione
+- Possibilità di includere variabili come user, dispositivo, ruolo, applicazionee profilo della minaccia alle policy di sicurezza
+- Performance migliorate grazie allàutilizzo di [NAT](#NAT), [VPN](./tecnologie/reti#vpn) e ispezioni stateful
 
 #### Firewall trasparente
 Filtra il traffico IP tra una coppia di interfacce a ponte.
 
 #### Firewall ibrido
 Una combinazione di due o più firewall tra quelli sopra menzionati.
+
+### Difesa a strati
+Consiste nell'utilizzo di più livelli di difesa all'interno di una rete strutturata. Si suddivide in 4 livelli in base al livello di protezione offerto:
+1. Sicurezza del cuore della rete
+2. Sicurezza del perimetro: 
+3. Sicurezza delle comunicazioni
+4. Sicurezza dell'endpoint
+
+Ogni livello è protetto da almeno un Firewall
+#### Cuore della rete
+Livello che si occupa di proteggere da malweare e anomalie di traffico, anche tramite policy di rete
+
+#### Perimetro
+Strato di comunicazione tra due livelli.
+
+#### Comunicazioni
+SI occupa di verificare le informazioni
+
+#### Endpoint
+Gestisce làidentità del dispositivo e l'aderenza alle policy di sicurezza
 
 ## IPS
 ### Introduzione
@@ -1807,6 +1885,7 @@ Le reti possono essere catalogate in base al livello di fiducia e rischio delle 
 - Alto livello di rischio e basso livello di fiducia: WAN
 
 ### DMZ
+![[Pasted image 20241111223123.png]]
 L'utilizzo di [DMZ](./reti#dmz) permette di facilitare il controllo della sicurezza della rete, grazie al livello cuscinetto che offre tra la WAN e la LAN. Dato che le connessioni in ingresso con la rete esterna vengono effettuate tutte in questa zona, all'interno della DMZ di solito vengono posizionati:
 - Web server
 - Mail server
@@ -2158,16 +2237,16 @@ I software sono utilizzati per il #versioning dell'applicazione. Questi software
 ```
 #### Container
 Permettono di progettare in maniera riproducibile, senza la necessità di controllare la conformità delle varie #dependency, scalabile 
-- [[Docker]]
+- [Docker](./software/docker)
 - podman
 #### Pipeline
 Servono ad automatizzare le procedure.
-- [[Jenkins]]
+- [Jenkins](./software/jenkins)
 - Travis CI
 - GitHub Actions
 #### Infrastructure
 Può essere di tipo **On premise** o **cloud**, dove i secondi permettono di avere potenza di calcolo, spazi di archiviazione e servizi di business logic adattabili ed un costo variabile in base all'uso effettivo.
-- [[AWS]]
+- [AWS](./server/aws)
 - Azure
 - Google Cloud Platform
 ### Design
