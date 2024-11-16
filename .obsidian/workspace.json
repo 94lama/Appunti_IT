@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Tecnologie/Protocolli.md",
+                "file": "Cybersecurity.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Protocolli"
+              "title": "Cybersecurity"
             }
           },
           {
@@ -55,15 +55,16 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "OS/Linux.md",
+                "file": "README.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Linux"
+              "title": "README"
             }
           }
-        ]
+        ],
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -115,8 +116,7 @@
               "title": "Bookmarks"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -205,13 +205,13 @@
       "command-palette:Apri riquadro comandi": false
     }
   },
-  "active": "0c660de536875b4f",
+  "active": "1e204c8b5b3fdd81",
   "lastOpenFiles": [
+    "OS/Linux.md",
+    "Senza nome.md",
     "Cybersecurity.md",
     "Tecnologie/Protocolli.md",
     "Tecnologie/Reti.md",
-    "Senza nome.md",
-    "OS/Linux.md",
     "Algoritmi.md",
     "Immagini/Pasted image 20241114235651.png",
     "OS/CISCO IOS.md",
