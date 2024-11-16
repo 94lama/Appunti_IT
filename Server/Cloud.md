@@ -217,6 +217,25 @@ L' #IAM (Identity Access Management), è una particolare tipologia di utenti, a 
 ## Microsegmentazione
 E' una tecnica utilizzata in ambiti IaaS, che consiste nell'utilizzo di un grande numero di reti piccole e leggere, che permettono di abbassare il costo del servizio. Permettono anche di avere un maggiore controllo del traffico e del flusso di lavoro.
 
+## Applicazioni
+Per sviluppare applicazioni in sicurezza, è necessario seguire alcuni processi:
+
+### Sviluppo
+Il processo di sviluppo di un software avviene in un apposito ambiente di sviluppo, dove i controlli sono meno stringenti (può essere considerato un ambiente debole spesso) rispetto all'ambiente finale. Il processo di Version Control permette di tenere traccia di tutte le modifiche del software avvenute nel tempo, e permettono di agevolare le azioni di test, debugging, fix degli errori e aggiornamento del software in generale.
+C'è anche la possibilità per gli sviluppatori di lavorare in Sandbox per evitare che il codice venga effettivamente modificato durante la fase di sviluppo.
+
+Prima del deploy del software, un Controllo Qualità (Quality assurance, o QA) per trovare eventuali difetti del software.
+
+Durante questa fase è utile seguire le procedure per il [secure coding](<../cybersecurity#secure coding>)
+
+### Staging
+Ambiente simile a quello di Produzione (ovvero l'ambiente su cui il software è caricato per consentirne l'utilizzo) anche dal punto di vista di configurazioni di sicurezza, per permettere di effettuare ulteriori controlli più stringenti sul software e trovare ulteriori imperfezioni.
+Dopo aver superato i test di Staging, il software può essere inviato nell'ambiente di Produzione.
+
+### Provisioning e deprovisioning
+- Per Provisioning si intende il caricamento o l'aggionramento dell'applicazione nell'ambiente di Produzione
+- Il Deprovisioning consiste nella rimozione dell'applicazione dall'ambiente di Produzione
+
 # Cloud Storage
 In un ambiente aziendale totalmente orientato verso servizi cloud, è possibile rimuovere l'hard disk nelle varie macchine, utilizzando il #server cloud come memoria centralizzata, sia per i file da salvare, che per i software installati (che possono essere richiesti tramite accesso ad un catalogo) e gestendo una politica di #backup dei dati (di solito più volte al giorno) tramite crittografia con chiave digitale.
 Si parla di Cloud Storage nel caso in cui lo "spazio disco" utilizzato è separato dallo #storage primario.

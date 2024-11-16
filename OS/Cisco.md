@@ -30,10 +30,12 @@ Dotato di:
 - **Interfacce LAN** - Possono essere GigabitLan o EthernetLan e permettono di collegare altri dispositivi al router
 - **Network Interface Modules (NIMs)** - Slot di espansione delle interfacce del router.
 
+I router della CISCO sono anche dotati di meccanismo di controllo bassato su [HMAC](../cybersecurity#hmac) per i messaggi LSU (Link Separate Update)
+
 ### Configurazione
 L’accesso all’area di configurazione può essere effettuata tramite connessione fisica diretta (porte di console) o remota tramite interfaccia WAN, utilizzando il protocollo SSH o la porta aux (nel caso di uso della rete telefonica e modem).
 
-Durante l’avvio lo switch avvierà la POST per trovare il file bootstrap. Il bootstrap 
+Durante l’avvio lo switch avvierà la POST per trovare il file bootstrap.
 
 # Comandi
 

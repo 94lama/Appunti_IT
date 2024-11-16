@@ -1,9 +1,9 @@
 Linux è un Os Open Source, disponibile in varie versioni (chiamate Distro).
 Le varie versioni di Linux sono disponibili [qua]([https://distrowatch.com/](https://distrowatch.com/ "https://distrowatch.com/")).
 # Permessi
-- r = read (1)
-- w = write (2)
-- x = execute (4)
+- r = read (1): è possibile aprire il file
+- w = write (2): è possibile modificare il file
+- x = execute (4): è possibile eseguire il file
 
 I permessi vengono mostrati tramite una stringa suddivisa in 3 parti, ciascuna di 3 caratteri
 ```permessi
@@ -752,10 +752,12 @@ Software basato su Linux che permette di controllare la presenza di noti [rootki
 
 ## inetsim
 Simulatore di ambienti (virtualizzatore), con opzioni di verifica per i protocolli:
-- 
 
 ## nftables
 Diretta evoluzione di [iptables](#iptables), che utilizza una semplice macchine virtuale nel kernel di Linux. Utilizza la macchina virtuale per analizzare i pacchetti di rete ed implementare regole decisionali di accettazione e inoltro dei pacchetti.
+
+## steghide
+Tool utilizzabile per effettuare la steganografia di dati, ovvero l'inserimento dei dati all'interno di un altro file, per renderli difficilmente raggiungibili.
 
 ## TCP Wrappers
 Tool di [controllo degli accessi](#acl) basato su regole e sistema di logging. Opera attraverso il filtraggio dei pacchetti basato sugli indirizzi IP e i servizi di rete.

@@ -59,6 +59,12 @@ Bloccare comunicazioni con protocollo SNMP
 no snmp-server
 ```
 
+
+### Firewall
+I software Cisco IOS Firewall:
+- Possono essere utilizzati contemporaneamente con le ZPF
+- Non possono essere utilizzati in una stessa interfaccia con le ZPF
+
 ### [ZPF](../cybersecurity#zpf)
 Creare una zona
 ```cisco

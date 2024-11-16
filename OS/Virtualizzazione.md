@@ -5,6 +5,9 @@ Hypervisor di tipo 2, che si appoggia su un sistema operativo (es. [Hyper-V](Win
 
 ## Virtual machine
 Utilizzo di un Hypervisor per connettere il sistema operativo virtualizzato all'infrastruttura hardware.
+
+### Termini utili
+- VM Sprawl: utilizzo incontrollato di molte VM, che porta ad un eccessivo uso di spazio rispetto al necessario
 ## Container
 Utilizzo di un apposito Container Engine, ovvero un software che permette di collegare uno o più container (ognuno dei quali rappresenta una macchina a se stante) al Sistema Operativo in uso. [Docker](./software/Docker) è l'esempio più famoso di software per containerizzazione.
 

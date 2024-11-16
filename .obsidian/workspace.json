@@ -8,35 +8,7 @@
         "type": "tabs",
         "children": [
           {
-            "id": "5d0160ad7b28403a",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Server/Cloud.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Cloud"
-            }
-          },
-          {
-            "id": "065234754971e0db",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Server/Cloud.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Cloud"
-            }
-          },
-          {
-            "id": "1f844b5e730864b5",
+            "id": "0c660de536875b4f",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -47,6 +19,34 @@
               },
               "icon": "lucide-file",
               "title": "Protocolli"
+            }
+          },
+          {
+            "id": "61f7d2436b6ac4d0",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Tecnologie/Protocolli.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Protocolli"
+            }
+          },
+          {
+            "id": "1a273ccf2f3d6404",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Algoritmi.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Algoritmi"
             }
           },
           {
@@ -94,7 +94,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "tag:#server",
+                "query": "\"# Netflow",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -115,7 +115,8 @@
               "title": "Bookmarks"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -204,12 +205,21 @@
       "command-palette:Apri riquadro comandi": false
     }
   },
-  "active": "5d0160ad7b28403a",
+  "active": "0c660de536875b4f",
   "lastOpenFiles": [
-    "OS/Virtualizzazione.md",
-    "Server/Cloud.md",
     "Cybersecurity.md",
-    "OS/CISCO IOS CLI.md",
+    "Tecnologie/Protocolli.md",
+    "Tecnologie/Reti.md",
+    "Senza nome.md",
+    "OS/Linux.md",
+    "Algoritmi.md",
+    "Immagini/Pasted image 20241114235651.png",
+    "OS/CISCO IOS.md",
+    "Immagini/Pasted image 20241114233822.png",
+    "Server/Cloud.md",
+    "OS/Virtualizzazione.md",
+    "OS/Cisco.md",
+    "Server/Azure.md",
     "Tecnologie/Macchina.md",
     "README.md",
     "Linguaggi/Python.md",
@@ -222,28 +232,19 @@
     "Software/aqua trivy.md",
     "Software/Jenkins.md",
     "Modelli di servizio.md",
-    "Tecnologie/Reti.md",
-    "Tecnologie/Protocolli.md",
     "Immagini/Pasted image 20241111223123.png",
-    "OS/Linux.md",
     "Tecnologie/Operatori.md",
     "Tecnologie/Relazioni.md",
-    "Algoritmi.md",
     "Tecnologie/Funzioni.md",
     "Software/DevProxy.md",
-    "OS/MAC OS X.md",
     "Immagini/Pasted image 20241109164039.png",
     "Immagini/Pasted image 20241104150718.png",
     "Immagini/Pasted image 20241104131652.png",
-    "Tecnologie/Git.md",
-    "OS/Cisco.md",
     "OS",
     "Immagini/Pasted image 20241011131951.png",
     "Immagini/Pasted image 20241009100537.png",
     "Immagini/Pasted image 20241009100107.png",
     "Immagini/Pasted image 20241002001123.png",
-    "Immagini/Pasted image 20241001184553.png",
-    "Immagini/Pasted image 20240930193612.png",
     "Sistemi operativi"
   ]
 }

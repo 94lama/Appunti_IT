@@ -59,20 +59,23 @@ Protocollo definito dalla IBM, è utilizzato prevalentemente in ambito bancario.
 ![](https://lh7-us.googleusercontent.com/wB9im8FVSfk_-eER1aUR7kMBpIB9iKWS7As8LPD4cPvPGd5bE2FjsCHTGGbV_ro_YO59dbyNBeZLgHn2E4x6yQYYo2ZnYDTv9P3Ww2gs-knQ0KniH-5v5FCWnKWUXelUlh2Z6vAaEKTPsALq737qwQ=s2048)
 ### Email
 #### SMTP
-Simple Mail Transfer Protocol, è un protocollo utilizzato per la gestione delle #email (modificato nel 2008 con l'Extended SMTP) per mandare e ricevere messaggi al #server mail.
+Simple Mail Transfer Protocol, è un protocollo utilizzato per la trasmissione delle #email (modificato nel 2008 con l'Extended SMTP) per mandare e ricevere messaggi al #server mail.
 #### SMTPS
 #### POP3
-Simple Mail Transfer Protocol, è un protocollo utilizzato per la gestione delle #email. Copia tutte le informazioni dal server alla macchina locale e le sincronizza lato esterno.
+Post Office Protocol, è un protocollo utilizzato per la gestione delle #email. Copia tutte le informazioni dal server alla macchina locale e le sincronizza lato esterno.
 
 | Pro                        | Contro                       |
 | -------------------------- | ---------------------------- |
 | Risparmio spazio su server | Non sincronizza le modifiche |
 #### IMAP
-Simple Mail Transfer Protocol, è un protocollo utilizzato per la gestione delle #email. Sincronizza le mail tramite sincronizzazione online si alato interno che esterno.
+Internet Message Access Protocol, è un protocollo utilizzato per la ricezione di #email da parte di un client. Sincronizza le mail tramite sincronizzazione online si alato interno che esterno.
 
 | Pro                        | Contro                                        |
 | -------------------------- | --------------------------------------------- |
 | Risparmio spazio su client | Sincornizza tutto in base ai dati sul #server |
+
+#### PGP
+Il protocollo Prey Good Privacy è stato sviluppato dall'ominma azienda e reso pubblico come standard per la cifratura delle email.
 
 ### File
 #### VoIP
@@ -143,7 +146,7 @@ I messaggi sono di 3 tipi:
 ## Presentazione
 
 ### SSL
-Secure Socket Layer
+Il Secure Socket Layer è il protocollo standard utilizzato per rendere sicure le comunicazioni tramite [TLS](#tls) 
 
 ### TLS
 Il [Transport Layer Security](https://it.wikipedia.org/wiki/Transport_Layer_Security) (Livello di Sicurezza del Trasporto) è l'evoluzione del [SSL](#ssl), ed è utilizzato per offrire una rete di comunicazione sicura su reti TCP/IP, grazie a servizi di autenticazione, integrità dei dati e confidenzialità
@@ -224,7 +227,7 @@ Il protocollo è reso sicuro tramite utilizzo di criptazione tramite #chiave-asi
 ### RDP
 Remote Desktop Protocol, è un protocollo di connessione sicura di [[Windows]], che permette l'accesso diretto alla macchina.
 
-## Network
+## Rete
 ### Descrizione
 Gestisce l'indirizzamento a livello logico e l'instradamento dei **pacchetti** e deve assicurare il corretto espletamento delle seguenti funzioni:
 - Tolleranza dei fallimenti (ovvero il processo di networking non deve interrompersi nel caso incontri un errore). Di solito avviene tramite cancellazione del messaggio errato e nella prosecuzione della coda di messaggi successivi e la ridondanza di connessioni tra i vari dispositivi;
@@ -668,6 +671,19 @@ broadcast =   192.168.  2.255
 Ovvero:
 ![[./../Immagini/Pasted image 20241001184553.png]]
 
+### SAE
+L'Autenticazione Simultanea tra Uguali è un protocollo utilizzato da [WPA3](#wpa3) e da 802.11-2016 per evitare l'esposizione della Chiave Pre-Condivisa (PSK).
+
+### Syslog
+E' un protocollo client/server, che permette di inviare un breve messaggio (massimo 1KB) ad un server Syslog (chiamato anche **syslog daemon** o **syslogd**) tramite TCP o UDP. Un messaggio syslog  formato da 3 parti:
+- PRI (priorità) = facility * 8 + severity. il numero è messo all'interno di parentesi angolate <> 
+	- Severity: numero da 0 a 7
+	- Facility: codice numerico che indica la causa scatenante del messaggio 
+- HEADER
+	- Timestamp
+	- Hostname
+- MES (messaggio)
+
 ### WPA
 Wi-fi Protected Access è un'evoluzione del WEP, che utilizza un metodo di crittazione [TKIP](#tkip) (Protocollo di Integrità Temporale della Chiave) per crittare la chiave (256-bit) in maniera dinamica (cambia ad ogni pacchetto inviato).
 La versione personal richiede l'immissione di una password per ottenere l'accesso alla rete. 
@@ -694,9 +710,6 @@ Versione datata di comunicazione per connessioni wireless tramite protocollo [RC
 
 ### WPS
 Il Wifi Protected Setup viene utilizzato per impostare una rete wireless casalinga sicura. Richiede l'utilizzo di un PIN per connettersi alla rete (meccanismo al giorno d'oggi attaccabile tramite [brute-force](../cybersecurity#Brute-force), motivo per il quale è considerato superato e non più sicuro)
-
-### SAE
-L'Autenticazione Simultanea tra Uguali è un protocollo utilizzato da [WPA3](#wpa3) e da 802.11-2016 per evitare l'esposizione della Chiave Pre-Condivisa (PSK).
 
 ## Data link
 Gestisce l'instradamento dei **frame** a livello Fisico. Lo [switch](./Macchina#Switch) è un esempio di dispositivo che si occupa della gestione dei protocolli in questo livello. A differenza degli altri protocolli, questo livello aggiunge sia un header che un trailer al PDU. 
@@ -901,6 +914,7 @@ Le [Well-known ports](https://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_num
 | 80    | [HTTP](./Protocolli#HTTP)                    |
 | 109   | [POP](#POP)                                  |
 | 110   | [POP](#POP)                                  |
+| 123   | [NTP](#ntp)                                  |
 | 139   | Login tramite [NetBIOS]()                    |
 | 143   | [IMAP](./Protocolli#IMAP)                    |
 | 161   | [SNMP](#SNMP) (solo UDP)                     |

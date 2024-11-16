@@ -374,8 +374,20 @@ E' detta Superficie d'attacco l'insieme di punti d'accesso che possiedono delle 
 Descrive l’area di controllo, autorità o protezione che l’attaccante vuole sfruttare per portare a compimento un attacco informatico.
 
 ## Tutti i livelli
+
+### Brute-force
+Consiste nell' individuare un valore di accesso tramite il tentativo ripetuto di uguaglianza con valori generati automaticamente
+
+#### Dictionary
+Avviene quando i valori utilizzati sono letti da una lista di valori considerati più probabili (es. lista delle password più usate).
+
+Nel caso di breach di un database, è possibile per un attaccante ottenere la **lookup table** del sistema tramite un processo noto come **reverse lookup table**, che consiste nell'identificare i vari valori di salt utilizzati per utente tramite brute-force.
+
+##### Rainbow table
+Tabella precompilata, utilizzata per . Questo permette di salvare spazio computazionale all'attaccante. Questo attacco è inutilizzabile nel caso di uso di [[#salting]]
+
 ### Spoofing
-E' un attacco che può avvenire ad ogni livello della ISO-OSI e che consiste nella falsicifazione dell'identità e/o di altro tipo di informazioni applicative ([fonte](https://it.wikipedia.org/wiki/Spoofing)).
+E' un attacco che può avvenire ad ogni livello della ISO-OSI e che consiste nella falsificazione dell'identità e/o di altro tipo di informazioni applicative ([fonte](https://it.wikipedia.org/wiki/Spoofing)).
 
 ## Applicazione
 
@@ -446,9 +458,10 @@ Di norma si attuano partendo da un attacco di #phishing per estrapolare i dati n
 Anche noto come Path traversal, consiste nella manipolazione del percorso di un sito web per leggere dati sensibili o eseguire file altrimenti protetti.
 
 ### Email
+I protocolli [POP3](./tecnologie/protocolli#pop3), [IMAP](./tecnologie/protocolli#imap) e [SMTP](./tecnologie/protocolli#smtp) possono esser e utilizzati per trasportare malware ed infettare host o server.
 
 #### Attacco tramite allegati
-Il malware viene inserito tra gli allegati della mail e, una volta scaricato, infetta il dispositivo versaglio.
+Il malware viene inserito tra gli allegati della mail e, una volta scaricato, infetta il dispositivo bersaglio.
 
 #### Spoofing
 L'attaccante invia una mail avente come mittente un indirizzo legittimo per invogliare l'utente a inviare denaro o compiere azioni che altrimenti non avrebbe compiuto.
@@ -467,9 +480,9 @@ L'[attacco omografico](https://it.wikipedia.org/wiki/Attacco_omografico) consist
 | www.google.com   | www.g0ogle.com                                                                                        |
 | www.facebook.com | www.fаcebook.com (in questo caso il carattere "a" è stato sostituito con "а" dell'alfabeto cirillico) |
 
+
 ### Error handling
 Utilizzo dei messaggi di errore per estrarre dati sensibili.
-
 
 ### HTTP
 #### Introduzione
@@ -486,6 +499,9 @@ Tramite la lettura del log dello storico delle chiamate HTTP, è possibile compr
 - Utilizzare software come Cisco Umbrella per prevenire la navigazione verso siti malevoli conosciuti
 - Tenersi aggiornati riguardo le *best practices* dell'[OWASP](#owasp) durante lo sviluppo delle applicazioni web
 - Educare gli utenti mostrandogli come evitare gli attacchi web-based.
+- Utilizzare la versione sicura: [HTTPS](./tecnologie/protocolli#https) (facendo attenzione alle complicazioni che questo porta a livello di monitoraggio della rete)
+
+![[Pasted image 20241114233822.png]]
 
 #### iFrame malevoli
 Gli [iFrame](./linguaggi/html#iframe) sono comunemente utilizzati per inserire pubblicità all'interno di un sito web. E' tuttavia possibile utilizzare gli iframe per infettare un sito e collegarlo ad un sito malevolo, che potrà eseguire del codice in background, far visualizzare pubblicità spam, eseguire degli [exploit kit],  sul dispositivo dell'utente. Di solito in questi casi, si minimizzano le dimensioni dell'iframe, in modo tale che l'utente non possa identificarlo con facilità.
@@ -556,6 +572,7 @@ Il #session-id è un token, implementabile tramite #cookie o nell' #URL del sito
 - #credential-stuffing
 - #brute-force attacks, ovvero provare ad accedere ad un account tentando forzatamente con un numero massivo di password
 - #password-spraying (ovvero tentare di accedere a molti account con delle password standard).
+- Dictio
 ##### Evitare attacchi Broken credential management
 - Usa #framework di autenticazione open-source famosi
 - Testa la correttezza dei meccanismi progettati
@@ -786,61 +803,90 @@ Blocchi di codice #JavaScript (quindi non controllabili tramite #csrf-token)
 ### Session Hijacking
 
 ## Trasporto
-### TCP SYN Flood
+### NAT
+Il [NAT](./tecnologie/reti#nat) ed il [PAT] possono complicare le operazioni di monitoraggio della rete e può semplificare l'anonimato degli attaccanti, che possono nascondersi dietro indirizzi IP pubblici.
+
+![[Pasted image 20241114235651.png]]
+
+### TCP
+
+#### SYN Flood
 L’attaccante effettua ripetutamente chiamate di richiesta di sincronizzazione al server bersaglio che, rispondendo a tutte le chiamate con un messaggio ACK, non riesce a rispondere in tempo alle chiamate legittime di SYN.
 
-### TCP Reset attack
+#### Reset attack
 Viene inviato un segnale RST (reset) al server utilizzando l'indirizzo IP dell'obbiettivo ([spoofing](#spoofing)) per resettare la comuniucazione in corso. Questo attacco può condurre a successivi attacchi di tipo [session hijacking](<#session hijacking>).
 
-### UDP flood attack
+### UDP
+#### flood attack
 Ha come obiettivo il blocco della rete a causa delle troppe richieste da elaborare. Di solito l'attaccante utilizza tool come [UDP Unicorn] o [Low Orbit Ion Cannon] per preparare i pacchetti e automatizzarne l'invio. Il risultato è un attacco di tipo [DoS](#dos).
 
 ## Rete
 
-### ARP
-#### ARP Cache poisoning
+### P2P
+Il Peer-to-Peer consiste in una connessione logica tra due dispositivi a pari livello, ovvero senza distinzione tra client e server. Questo metodo è particolarmente vulnerabile nel caso di trasferimento di file da un computer aziendale ad un dispositivo esterno alla rete aziendale.
+
+E' buona norma **disattivare la condivisione di file tramite P2P o l'installazione di programmi che permettano questa pratica**, in quanto può sorvolare i controlli del [FIrewall](#firewall). Le applicazioni di  messaggistica istantanea rientrano in questa categoria.
+
+### TOR
+TOR è una piattaforma di software che anonimizza l'utente tramite utilizzo di una rete di dispositivi Tor, che randomizza il dispositivo che invierà effettivamente il messaggio al server, facendo da intermediario.
+
+### Load balancing
+Il load balancing e la sua gestione possono costituire un problema dal punto di vista della sicurezza, in quanto:
+- Comportano una segmentazione della rete in sottoreti
+- Il load balancer manager (LBM) può inviare messaggi sonda per verificare il numero di server connessi, che potrebbero (i messaggi) disturbare il normale flusso di analisi da analizzare.
+
+### [ARP](./tecnologie/protocolli#arp)
+#### Cache poisoning
 Attacco che può essere utilizzato per gettare le basi per un [Man in the middle](#man-in-the-middle) e consiste nel sostituirsi ad un altro dispositivo ad una [ARP request](./Tecnologie/Protocolli#ARP)
 
-### ICMP
-Consiste nel pingare pacchetti echo agli host di una rete per scoprirne l’architettura (sotto reti e host connessi). È possibile effettuare questa operazione ripetutamente in poco tempo per inondare la rete (flood) di messaggi da gestire e rallentarla (DoS).
+### [ICMP](./tecnologie/protocolli#icmp)
+Un tipico attacco effettuato tramite ICMP consiste nel pingare pacchetti echo agli host di una rete per scoprirne l’architettura (sotto reti e host connessi). È possibile effettuare questa operazione ripetutamente in poco tempo per inondare la rete (flood) di messaggi da gestire e rallentarla (DoS).
 
 I messaggi inviati possono essere di vario tipo:
 - Echo request e reply nel caso si voglia effettuare un attacco DoS. Nel caso si effettui anche lo spoofing mirato, è possibile inondare di richieste un dispositivo bersaglio
 - Unreachable per riconoscere e scansionare reti
-- Mask reply nel caso si vogliano mappre gli indirizzi IP di una rete
-- Redirect per reindirizzare il traffico verso l’attaccante ed effettuare un MItM
+- Mask reply nel caso si vogliano mappare gli indirizzi IP di una rete
+- Redirect per reindirizzare il traffico verso l’attaccante ed effettuare un [MItM]
 - Router discovery per inserire indirizzi IP falsificati all’interno della tabella di routing
 
+Un esempio di attacco tramite ICMP è [Loki](https://phrack.org/issues/49/6.html).
 
 ### IP
-#### IP Spoofing
+#### Spoofing
 Falsificazione di un indirizzo IP in maniera mirata (se si conosce l’indirizzo che si sta falsificando) o alla cieca (in caso contrario).
 
 ### DHCP
 Vedi [protocollo DHCP](./tecnologie/protocolli#dhcp)
-#### DHCP Spoofing
+#### Spoofing
 Di solito consiste nel fornire un indirizzo IP falso relativo al Default Gateway o al Server DNS (anche se potenzialmente qualunque indirizzo IP può essere contraffatto), seguendo i seguenti passaggi:
 1. Il Client invia un messaggio DHCP Discovery (che viene ascoltato anche dall'attaccante)
 2. Il Server DHCP e l'attaccante rispondono con un messaggio DHCP Offer (il Client risponderà solo alla prima risposta ricevuta)
 3. Nel caso la prima risposta venga inviata dall'attaccante, invierà un DCHP Request in broadcast, che non verrà accettata dal Server DHCP in quanto la richiesta é già stata accettata da un altro Server DHCP (l'atatccante)
 4. L'attaccante invia un DHCP ACK al Client, completando l'attacco di **spoofing** e sostituendosi al Server DHCP
 
-#### DHCP Starvation attack
+#### Starvation attack
 Consiste nel sostituirsi al Server DHCP e impedire agli utenti di utilizzare il protocollo DHCP per richiedere un indirizzo IP privato.
 
 ### DNS
 Gli attacchi che sfruttano il protocollo [DNS](./Tecnologie/Protocolli#dns) possono avvenire tramite:
-- Sfruttando gli Open Resolver (indirizzi IP pubblici che vengono utilizzati per cercare informazioni, tipo Google)
-#### DNS cache poisoning
+- Open Resolver (indirizzi IP pubblici che vengono utilizzati per cercare informazioni, tipo Google)
+- Protocolli di criptazione come Base64, 8-bit binary e Hex possono essere utilizzati per evadere i meccanismi di Prevenzione della perdita di dati (Data Loss Prevention, DLP)
+- Inserimento dei dati all'interno degli URL per passare inosservati
+- Malware che utilizzano il protocollo per comunicare con server attaccanti Command-and-Control (CnC) per esfiltrare dati.
+
+#### Cache poisoning
 Consiste nell'invio di risorse falsificate ([spoofing](#spoofing)) ad un DNS Resolver per reindirizzare l'utente verso siti malevoli
 
-#### DNS Amplification and reflection attack
+#### Amplification and reflection attack
 Utilizzo di attacchi [DoS](#dos) o [DDoS](#ddos) ad un Open Resolver per nascondere la vera fonte dell'attacco tramite l'invio di open resolver  per aumentare il volume dell'attacco.
 
-#### DNS Resource utilization attack
+#### Exfiltration
+
+
+#### Resource utilization attack
 Consiste in un attacco di tipo [DoS](#dos) per sovraffollare il server di richieste per resettare il server.
 
-#### DNS Stealth Attacks
+#### Stealth Attacks
 Sono metodologie utilizzate per nascondere la propria identità al bersaglio.
 
 ##### Fast flux
@@ -853,7 +899,7 @@ L'attaccante modifica velocemente sia l'hostname (in base ad un pool di indirizz
 Tecnica utilizzata dai malware per generare automaticamente nomi di dominio che possono essere utilizzati come punti di accesso per i [server di comando e controllo](https://nordvpn.com/cybersecurity/glossary/cc-server/).
 
 
-#### DNS Tunneling
+#### Tunneling
 Consiste nell'incanalare reti all'interno di un unico nome di dominio, in modo tale da utilizzare le varie sottoreti per inviare malware ed aggirare alcuni meccanismi di protezione dei firewall e/o alterare alcuni [campi del pacchetto](./tecnologie/protocolli#dns#pacchetto) (come TXT, MX, SRV, NULL, A, o CNAME). Un esempio di attuazione di tunneling è il seguente:
 1. Il dato (comandi di esecuzione) viene frammentato e cifrato
 2. Ogni frammento è inserito all'interno di un sottodominio della richiesta DNS
@@ -897,10 +943,8 @@ Scambio di favori in cambio di informazioni.
 ### Pretexting
 Consiste nell’utilizzo di menzogne o pretesti per ottenere informazioni.
 
-
-
 ## Reti
-## Cloud
+### Cloud
 Le tipologie di attacco più comuni per i dati salvati in cloud sono:
 - Data breach (furto di dati)
 - Cloud misconfiguration
@@ -1014,6 +1058,7 @@ Creazione di una rete temporanea, avente nome simile ad una rete esistente con l
 Consiste nel visualizzare l’inserimento di informazioni confidenziali (pin, password) durante l’immissione.
 
 ### Spoofing
+Utilizzo di credenziali fasulle ai fini di aggirare i protocolli di autenticazione.
 
 ### DNS
 Falsificazione dei dati all’interno dei Server DNS per reindirizzare gli utenti finali verso siti con contenuto malevolo.
@@ -1104,18 +1149,62 @@ Limitare l'accesso alle risorse allo stretto necessario. Un'esempio è la politi
 Non posizionare livelli simili accoppiati ma, appunto, diversificarli, così che un attaccante non sia agevolato nel sorpassare due livelli consecutivi applicando il minimo sforzo (rendendo il secondo livello pressoché inutile).
 
 ### Oscuramento
-Ovvero non dare possibilità agli attaccanti di scoprire informazioni relative ai dati tramite messaggi di log o messaggi di sistema.
+Ovvero non dare possibilità agli attaccanti di scoprire informazioni relative ai dati. Di solito queste operazioni di scoperta dei dati avvengono tramite messaggi di log o messaggi di sistema.
+
+#### Dati
+Questa strategia può essere applicata anche su dati specifici, per impedirne (o rendere più difficile) la lettura. Le metodologie utilizzate sono 3:
+- **Sostituzione** (masking), ovvero utilizzo di un dato fasullo, ma avente struttura verosimile
+- **Mescolamento**, ovvero utilizzo di un valore sostitutivo, preso da un pool di valori
+- **Annullamento**, ovvero sostituzione del valore con uno nullo (vuoto)
+
+Un altro modo per nascondere dati durante è tramite l'uso di **Steganografia**, ovvero l'inserimento di questi dati all'interno di luoghi inusuali (ad esempio all'interno dei dati di un file immagine, o tramite l'utilizzo di valori sostitutivi, la cui connessione con il dato reale è conosciuta solo agli utenti autorizzati). Un tool per utilizzare la steganografia è [steghide](./os/linux#steghide)
 
 ### Semplicità
 Preferire meccanismi semplici, ma efficaci di protezione, evitando l'utilizzo di meccanismi troppo complessi da impostare, che potrebbero ritorcersi contro il team di sicurezza stesso per problemi di configurazione, o altro. Preferire invece soluzioni che siano facili da utilizzare, ma complesse da attaccare.
 
 # Strumenti di analisi
+## Applicazione
+### AVC
+Gli Application Visibility Control sono tool che permettono l'analisi delle applicazioni in uso da un dispositivo. Un esempio è il Cisco Application Visibility Control.
+Questi software offrono servizi di:
+- Riconoscimento dell'applicazione tramite NBAR2
+- Collezione delle metriche
+- Gestione e report
+- Controllo
+
+## Rete
+### NetFlow
+Strumento utilizzato per effettuare analisi a livello di rete, sviluppato da Cisco. Permette di effettuare analisi, troubleshooting di rete e accounting basato sulla sessione. NetFlow analizza i pacchetti inviati e ricevuti durante una sessione e li analizza, fornendo informazioni utili riguardo la sessione e lo stato della rete, come:
+- IP del mittente
+- IP del destinatario
+- Porta di partenza
+- Porta di destinazione
+- Protocollo di livello 3
+- Classe di servizio
+- Interfaccia del Router o dello Switch
+A queste informazioni ne vengono aggiunte altre, come:
+- timestamp di inizio sessione
+- timestamp di fine sessione
+
 ## log
 I log sono file che tengono traccia di avvenimenti all’interno della rete. Gli eventi di solito monitorati tramite log possono essere categorizzati in:
 - Log di applicazioni
 - Log di eventi
 - [Log di servizi](<#log di servizi>)
 - Log di sistema
+
+### Server Proxy
+Elementi come i Server Proxy possono rivelarsi molto utili per l'analisi, la creazione e la memorizzazione di log relativi le connessioni con dispositivi esterni alla rete.
+
+Esempi di software per gestire i log su server proxy sono:
+- CCProxy
+- Apache Traffic Server
+- WinGAte
+- Squid
+- Cisco Umbrella (per l'analisi dei protocolli DNS)
+
+### Content filter logs
+Sono software che permettono di filtrare e raggruppare i log per agevolarne l'analisi. Un esempio è il Cisco Email Security Appliance.
 
 ## SOC
 Il Centro Operativo di Sicurezza è
@@ -1234,6 +1323,12 @@ Permettono di evitare i #push contenenti #secret (dati sensibili, come password 
 - [[git-secrets]]
 - [[Burp#Sensitive discover]]
 - [[gitleaks]]
+## Packet analyzer
+Sono strumenti che permettono l'analisi in tempo reale e il salvataggio dei pacchetti inviati e ricevuti dal dispositivo che lo sta utilizzando. Un esempio di packet analyzer è Tcpdump (utilizzato da software come Wireshark)
+
+### Tcpdump
+Strumento per effettuare analisi dei pacchetti ed effettuare [[#log]] a livello di rete.
+
 ## Regression test
 Il #regression-test può essere fatto con [[Postman]], [[Python 1]] e consiste nell'analizzare il contenuto della #response ad una chiamata #http 
 
@@ -1408,7 +1503,7 @@ Il processo di funzionamento di una ACL è il seguente:
 
 Nel caso di connessioni in [TCP](./tecnologie/protocolli#tcp), è possibile utilizzare una connessione *stateful* (ovvero i messaggi contengono dati utili per stabilire lo stato della connessione) utilizzando delle parole chiave prestabilite, da considerare anche nei controlli dell'ACL.
 #### Struttura
-Vedi [qua](<./os/cisco ios cli#router#configurazione>).
+Vedi [qua](<CISCO IOS.md#router#configurazione>).
 #### Creazione
 Per creare una ACL bisogna:
 - Scrivere le specifiche delle policy tramite editor di testo
@@ -1439,14 +1534,13 @@ Per evitare attacchi di Sppoofing, di solito è consigliato negare l'accesso a i
 - IP Multicast (242.0.0.0/4)
 
 #### Mitigazione ICMP
-COnsiderando che molti messaggi ICMP possono sia essere sfruttati per portare a segno attacchi informatici, che essere utilizzati dalla rete per il suo corretto funzionamento (es. ciamate echo, o messaggi di errore vari), è sempre buona norma impedire le chiamate ICMP in uscita che non siano:
-- echo
-- Parameter problem
-- Pacchetto troppo grande
-- spegnimento della sorgente
+Considerando che molti messaggi ICMP possono sia essere sfruttati per portare a segno attacchi informatici, che essere utilizzati dalla rete per il suo corretto funzionamento (es. chiamate echo, o messaggi di errore vari), è sempre buona norma impedire le chiamate ICMP in uscita che non siano:
+- destination unreachable
+- source quench
+- reply
 
 #### Mitigazione [SNMP](./tecnologie/protocolli#snmp)
-Considerando che il protocollo viene utilizzato per gestire le impostazioni della rete, è consigliato [disabilitare il protocollo](<./os/cisco ios cli#acl#blocco protocollo>) per le comunicazioni con dispositivi all'esterno della rete
+Considerando che il protocollo viene utilizzato per gestire le impostazioni della rete, è consigliato [disabilitare il protocollo](<CISCO IOS.md#acl#blocco protocollo>) per le comunicazioni con dispositivi all'esterno della rete
 
 ### NetFlow
 È un software utilizzato per gestire comunicazioni tramite [SNMP](./tecnologie/protocolli#snmp). Originariamente il software catalogava le comunicazioni in base a 7 parametri:
@@ -1471,8 +1565,13 @@ Il Syslog possiede due caratteristiche principali:
 - L’abilità di selezionare il tipo di informazione di logging catturata
 - L’abilità di specificare il destinatario del messaggio Syslog catturata.
 
+Essendo un ambiente che utilizza molto spesso dati temporali, è particolarmente importante proteggere il server da attacchi che sfruttano il protocollo [NTP](./tecnologie/protocolli#ntp), o la porta 123 (tipicamente utilizzata per gestire questo tipo di protocolli).
+
+#### syslog-ng
+Sono sistemi di log di ultima generazione, che offrono una resistenza maggiore ad attacchi di esfiltrazione.
+
 ### NTP
-Il [Protocollo del Tempo della Rete](./tecnologie/protocolli#ntp) è importante per tenere traccia in maniera efficace dei log di più dispositivi connessi alla stessa rete
+Il [Protocollo del Tempo della Rete](./tecnologie/protocolli#ntp) è importante per tenere traccia in maniera efficace dei log di più dispositivi connessi alla stessa rete. Per questo è spesso soggetto ad attacchi, volti a modificare la variabile temporale per i log di sistema.
 
 ### Server AAA
 Vedi [Server AAA](<./tecnologie/macchina#aaa server>).
@@ -1536,7 +1635,12 @@ Mentre un [antivirus](#antivirus) permette solo di bloccare l'accesso di un viru
 Il Data Loss Prevention (Prevenzione della Perdita di Dati) è un software che serve ad assicurare che i dati sensibili non vengano persi, utilizzati in modo errato o visualizzati da utenti non autorizzati.
 
 ### NGF
-I Firewall di nuova generazione (New Generation Fierewall) sono dispositivi che combinano le classiche funzionalità di un firewall con altre funzionalità di filtraggio degli host all'interno della rete tramite inline Deep Packet Inspection(DPI, Ispezione profonda dei pacchetti) o sistemi IPS (Sistema di Protezione dalle Intrusioni).
+I Firewall di nuova generazione (New Generation Firewall) sono dispositivi che combinano le classiche funzionalità di un firewall con altre funzionalità di filtraggio degli host all'interno della rete tramite inline Deep Packet Inspection(DPI, Ispezione profonda dei pacchetti) o sistemi IPS (Sistema di Protezione dalle Intrusioni). Un bonus nell'utilizzo dei NGF è anche l'implementazione di servizi offerti da altri strumenti, come i [[#SIEM]]. Nel complessivo, i NGF offrono una varietà di messaggi di controllo di eventi come:
+- Connessione
+- Intrusione
+- Host (endpoint)
+- [Network Discovery](./tecnologie/protocolli#nd)
+- [[#NetFlow]]
 
 ## Firewall
 Sono software o dispositivi che permettono di filtrare i messaggi in ingresso in una rete e perciò devono/offrono funzionalità per:
@@ -1546,6 +1650,8 @@ Sono software o dispositivi che permettono di filtrare i messaggi in ingresso in
 - sanare il flusso del protocollo, prevenendo lo sfruttamento di determinati protocolli per portare a segno attacchi
 - bloccare l’invio di dati malevoli da server e client
 - ridurre i controlli necessari da parte dei team di gestione in quanto basta controllare le politiche dei firewall per effettuare un’analisi
+
+### [NGF](#NGF)
 
 ### Architettura
 Essendo il firewall un punto di contatto tra diverse reti (es. LAN e WAN), la sua configurazione avviene per due interfacce:
@@ -1702,7 +1808,38 @@ SI occupa di verificare le informazioni
 #### Endpoint
 Gestisce làidentità del dispositivo e l'aderenza alle policy di sicurezza
 
-## IPS
+
+## [[#IDS]]
+### [[#HIDS]]
+Gli HIDS forniscono dati di log riguardanti le operazioni analizzate. Nel caso di log registrati nel sistema [Windows](./os/windows), vengono registrate 5 categorie di log:
+- Applicazione
+- Sistema
+- Setup
+- Sicurezza (che contengono solo il risultato degli audit, intesi come successi o fallimenti)
+- Linea di comando
+
+Ognuno di queste categorie accetta messaggi log di 5 tipi:
+
+| Tipo di evento         | Descrizione                                                                                                                                        |
+| ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Errore                 | Un errore indica un evento che indica un problema significativo, come la perdita di dati o di funzionalità, o quando un processo viene interrotto. |
+| Avviso                 | Indica un avvenimento che non pregiudica il funzionamento corretto delle funzionalità, ma che potrebbe comunque peggiorare in futuro               |
+| Informazione           | Descrive l'avvenuto successo di un'operazione (es. caricamento di un driver di rete)                                                               |
+| Verifica di successo   | Registra tutti gli eventi inerenti i tentativi di accesso di sicurezza avvenuti con successo (es. login)                                           |
+| Verifica di fallimento | Registra tutti gli eventi inerenti i tentativi di accesso di sicurezza falliti (es. password errata)                                               |
+[fonte](https://msdn.microsoft.com/en-us/library/windows/desktop/aa363662(v=vs.85).aspx)
+
+### NIDS
+I Network Intrusion Detection Systems sono dispositivi di identificazione delle intrusioni a livello dell'intera rete. Un esempio di NIDS è Snort, un applicativo della suite di tool NSM, che produce alert ricercabili e leggibili tramite software Sguil e Squert.
+
+- Un sito utile per effettuare test tramite Snort è [testmyids](http://testmyids.com.domreaper.com/), ovvero una pagina web, che mostra il seguente testo:
+	```testmyids
+	uid=0(root) gid=0(root) groups=0(root)
+	```
+	Se il NIDS è impostato correttamente, la navigazione attiverà un alert di notifica.
+
+
+## [[#IPS]]
 ### Introduzione
 I [Sistemi di Prevenzione delle Intrusioni](https://it.wikipedia.org/wiki/Sistema_di_prevenzione_delle_intrusioni) sono dei componenti software che permettono di monitorare, registrare e bloccare le attività dannose all'interno di una rete, tramite il riconoscimento di pattern all’interno dei pacchetti (definibili dal gestore) analizzati.
 Gli IPS (o i simili IDS, Dispositivi di Identificazione delle Intrusioni) possono essere implementati tramite:
@@ -1727,6 +1864,48 @@ Gli svantaggi invece sono:
 - Il sovraccarico dei sensori impatta le prestazioni della rete
 - Impatto sulla rete
 
+### Alert
+Gli alert sono delle notifiche inviate dall'IPS (funzionalità disponibile anche degli [[#IDS]] a seguito di una violazione delle regole impostate, o di identificazione di pattern di malware conosciuti all'interno del messaggio.
+
+### Dati
+E' spesso utile ricordare i nomi comunemente assegnati alla tipologia di dato presente in un pacchetto:
+1. **ts**: inizio sessione e timestamp
+2. **uid**: ID unico della sessione
+3. **id.orig_h**: IP del mittente
+4. **id.orig_p**: Porta utilizzata mittente
+5. **id.resp_h**: IP del destinatario
+6. **id.resp_p**: Porta utilizzata dal destinatario
+7. **proto**: Protocollo utilizzato per la sessione
+8. **service**: Protocollo a livello di applicazione utilizzato
+9. **duration**: Durata della sessione
+10. **orig_bytes**: byte dal mittente
+11. **resp_bytes**: byte dal destinatario
+12. **orig_packets**: Pacchetti inviati dal mittente
+13. **resp_packets**: Pacchetti inviati dal destinatario
+
+#### Estratti
+Sono i dati estrapolati da un pacchetto (ad esempio il contenuto di una mail, o i suoi allegati)
+
+#### Intero pacchetto
+Sono i dati più consistenti, in quanto comprendono l'interi pacchetto da analizzare.
+
+#### Sessione
+Comprende una touple (lista) dei primi 5 punti sopra elencati.
+
+Un tool ([[#NIDS]]) utile per effettuare analisi a livello di sessione è [Zeek](https://zeek.org/). Zeek provvede anche ad effettuare un log di tutte le transazioni della sessione analizzata.
+
+
+#### Statistici
+I dati statistici sono dati di tipo riassuntivo, creato in base a specifici elementi (decisi in partenza) da analizzare. Alcuni approcci che utilizzano questo tipo di dati sono:
+- [Analisi basata sul comportamento della rete (NBA)] 
+- [Identificazione di comportamenti anomali nella rete (NBAD)],
+- [Esportatore di informazioni NetFlow o IP (IPFIX)] (IETF standard per la versione 9 di Cisco NetFlow)
+
+Sono disponibili in commercio prodotti che sfruttano tecniche di Machine Learning per offrire servizi in cloud di NSM. Un esempio è [Cisco Cognitive Threat Analytics](https://blogs.cisco.com/security/introducing-cisco-cognitive-threat-analytics).
+
+#### Transazione
+Tutti i messaggi inviati durante la sessione prendono il nome di **transazione**
+
 ### HIPS
 Gli IPS basati sull’host (Host-based IPS) sono software da installare su dispositivi per monitorare e proteggere i sistemi operativi. Tra le loro funzionalità includono:
 - La possibilità di bloccare azioni effettuate dall’utente nel caso divergano dai suoi comportamenti abitudinari (come la modifica di file di sistema)
@@ -1735,6 +1914,13 @@ Un particolare di cui tenere conto è che gli HIPS monitorano l’attività dell
 
 ### NIPS
 Gli IPS basati sulla rete (Network-based IPS) possono essere implementati su un dispositivo dedicato o su un dispositivo non dedicato e sono elementi indispensabili per la sicurezza della rete.
+
+### Misure di sicurezza
+Gli IPS devono essere configurati con particolare attenzione per:
+- Fare distinzione tra protocolli SSL e non SSL (in quanto i primi saranno cifrati, e quindi non analizzabili) (anche nei casi il protocollo venga utilizzato per messaggi in HTTPS)
+- Migliorare la sicurezza tramite validazione con [CRL e OCSP](<#revoca di un certificato>)
+- Implementare soluzioni antimalware e filtraggio degli URL per filtrare i contenuti in HTTPS
+- Utilizzare un'apparecchio Cisco SSL per decriptare i messaggi in SSL ed analizzarli 
 
 ## Host encryption
 L'esempio più noto è l'[EFS](../os/windows#efs) (Windows Encrypting File System, ovvero Sistema di Crittazione dei File), che permette, appunto, di crittare file, cartelle, o l'intero hard drive.
@@ -1837,6 +2023,16 @@ E' sempre consigliabile:
 - Amministrare la rete utilizzando le best practices
 - Fare particolarmente attenzione ad attacchi fileless, in quanto non lasciano traccia nel sistema (ma operano direttamente a livello di memoria e terminano quando il sistema si riavvia)
 
+## SIEM
+Il Security Information Event Management (Gestore delle informazioni di sicurezza sugli eventi) è una tecnologia molto utilizzata dalle aziende per fornire report in tempo reale e analisi a lungo termine di eventi di sicurezza. Forniscono la somma dei servizi offerti dal SEM e dal SIM:
+- Collezione dei log
+- Normalizzazione dei dati
+- Correlazione
+- Aggregamento
+- Reporting
+- Conformità
+Un esempio di software SIEM è [Splunk](https://www.splunk.com/)
+
 ## Protezione fisica
 Le misure di sicurezza fisiche hanno lo scopo di impedire fisicamente al personale non autorizzato ad accedere a specifiche aree (come la server room, o l'edificio stesso nel caso di persone che non siano dipendenti o ospiti)
 
@@ -1878,11 +2074,20 @@ Operano con un meccanismo fisicamente simile al badge (l'elemento deve essere es
 
 
 ## Reti
+### Introduzione
 Le reti possono essere catalogate in base al livello di fiducia e rischio delle stesse, in base alla tipologia di comunicazioni (e al destinatario delle stesse) in:
 - Alto livello di fiducia e rischio basso: LAN
 - Medio-alto livello di fiducia e medio-basso livello di rischio: Extranet
 - Medio-basso livello di fiducia e medio-alto livello di rischio: DMZ
 - Alto livello di rischio e basso livello di fiducia: WAN
+
+Il livello di fiducia può anche essere valutato in base alla sicurezza che la rete stessa offre riguardo:
+- [Integrità dei dati](<#integrità>), ovvero la capacità di mantenere il messaggio inalterato (ed eventualmente segnalare in caso contrario)
+- [Autenticazione](#autenticazione) della fonte per assicurare che il messaggio non provenga da fonti inaspettate
+- [Confidenzialità dei dati](<#confidenzialità dei dati>) per assicurare che i dati non siano accessibili da utenti non autorizzati
+- Non ripudio dei dati, ovvero assicurare che l'utente che ha creato/modificato il dato sia identificabile con precisione 
+
+Per gestire contemporaneamente l'autenticazione e l'integrità dei dati nelle comunicazioni, spesso si fa uso del cosiddetto [[#HMAC]]
 
 ### DMZ
 ![[Pasted image 20241111223123.png]]
@@ -1900,6 +2105,13 @@ Le connessioni WLAN hanno ulteriori rischi:
 
 Dei meccanismi efficaci di protezione sono:
 - utilizzo di meccanismi e protocolli di autenticazione e crittazione (come [WPA2](./tecnologie/protocolli#WEP2), [WPA3](./tecnologie/protocolli#WEP3), [AES](./tecnologie/protocolli#aes))
+
+### Cloud
+Nell'ambito di comunicazioni tra cloud diversi (es. cloud privato e cloud pubblico), le misure cautelative da prendere sono:
+- Utilizzo di un a VPN per collegare i due servizi
+
+## Sessione
+
 
 ## Honeypot
 Sono sistemi ad esca, configurati per imitare componenti importanti della rete. Hanno il duplice scopo di rallentare l'attaccante e loggare tutte le sue azioni.
@@ -1930,6 +2142,14 @@ Alcune misure di protezione per dispositivi mobile (siano essi personali e abili
 Sono utilizzati per monitorare lo stato dei dispositivi IoT all'interno di una rete
 - Shodan
 - 
+
+## [Macchine virtuali](./os/virtualizzazione)
+Le macchine virtuali possono essere soggette a particolari attacchi rispetto alle macchine reali. Per aumentare la sicurezza dell'infrastruttura, è buona pratica:
+- Pianificare la sottorete nel quale utilizzare la macchine virtuale
+- Disabilita porte e servizi non utilizzati per ridurre la superficie esposta
+- Disabilita l'account di default e crea un set di utenti ad hoc, tenendo conto della [zero-trust policy](<#zero-trust model>)
+- Installa [antimalware](#antimalware) (e mantienilo aggiornato)
+- Installa un [host-based firewall](#HBF) e un [IDP](#IDP) o un [IDS](#IDS)
 
 ## Buone pratiche
 
@@ -2022,6 +2242,79 @@ Utilizzare degli ambienti sicuri (es. macchine virtuali non connesse alla rete) 
 - Joe Sandbox
 - CrowdStrike Falcon Sandbox
 
+### HMAC
+E' un processo basato sull'utilizzo di criptazione per creare un valore di controllo univoco tramite l'utilizzo di un algoritmo di [hash](../algoritmi#hash) su un messaggio e una chiave segreta. Questo rende il messaggio verificabile solo nel caso il destinatario sia in possesso della chiave.
+
+### Firma digitale
+Consiste in multipli processi di cifratura di un documento per permettere l'autenticazione e al contempo la modifica di alcuni elementi, tramite invio della chiave pubblica di ogni utente che ha provveduto a firmare il documento (ogni nuova firma impacchetta il documento firmato in precedenza in un ulteriore pacchetto cifrato).
+
+#### PKI
+Le Public Key Infrastructure possono essere utilizzate per:
+- Fornire autenticazione per comunicazioni SSL/TLS
+- Mettere in sicurezza il traffico di rete tramite IPsec VPN
+- Utilizzare il protocollo HTTPS
+- Fornire meccanismi di autenticazione per protocolli 802.11x
+- Proteggere mail tramite S/MIME
+- Proteggere messaggi istantanei
+- Approvare e autorizzare applicazioni tramite Codi Signing (firma del codice)
+- Proteggere i dati dell'utente tramite Encryption File System (EFS)
+- Implementare l'autenticazione a due fattori nelle smart card
+- Proteggere i dati all'interno di dispositivi USB
+
+#### CA
+Il processo di cifratura della firma digitale è gestito da aziende, note come Certificate Authorities (**CA**):
+- DigiCert
+- IdentiTrust
+- Sectigo
+- GoDaddy
+- Let's Encrypt
+
+##### Authority
+Le CA gestiscono vari aspetti del processo di firma digitale e verifica della stessa, ovvero:
+- Gestiscono l'algoritmo di generazione delle chiavi
+- Stabiliscono il periodo di durata delle chiavi e dei certificati PKI (Public Key Infrastructure)
+- Registrano le chiavi (privata e pubblica) all'interno di un database
+
+I certificati sono divisi in 5 livelli, in base al livello di fiducia che gli viene assegnato dalle CA:
+
+| Classe | Descrizione                                                                                                  |
+| ------ | ------------------------------------------------------------------------------------------------------------ |
+| 0      | Utilizzati per i test. Non viene effettuato nessun controllo                                                 |
+| 1      | Utilizzato per la verifica delle email                                                                       |
+| 2      | Utilizzato come prova dell'identià dalle aziende                                                             |
+| 3      | Utilizzato per la firma di server e software. La CA effettua controlli indipendenti di identità e authority. |
+| 4      | Utilizzato per le transazioni economiche tra aziende                                                         |
+| 5      | Utilizzato da organizzazione private o organi per la pubblica sicurezza                                      |
+
+##### Fiducia
+Le CA possono utilizzare due modi differenti per gestire il rispetto dei criteri di fiducia (verifica dei certificati):
+- Single-Root: la verifica viene effettuata da un unico server. Utile per piccole aziende in quanto difficile da scalare.
+- Cross-Certified CA: Le varie CA stabiliscono rapporti di fiducia vicendevoli e permettono la validazione reciproca, aumentando il numero di server per la verifica vicendevolmente
+- CA Gerarchica: Viene utilizzato un server principale (Root-CA), che crea certificati e gestisce diversi sotto-server, che a loro volta istituiscono certificati e/o sotto-server (struttura ad albero). Utile nel caso serva scalabilità, ma può risultare complicato determinare la catena del processo di firma
+
+##### Interoperabilità
+L'interoperabilità delle PKI era garantita dall'utilizzo di protocolli in comune come il Lightweight Directory Access Protocol ([LDAP]) e [X.500]. A seguito della volontà delle CA di istituire protocolli proprietari, invece che attendere l'evolversi di quelli condivisi, l'IETF ha pubblicato il framework [RFC 2527](https://datatracker.ietf.org/doc/html/rfc2527)  e lo standard X.509 per definire il formato dei certificati digitali (utilizzato ad esempio nei protocolli [SSL](./tecnologie/protocolli#ssl), [IPsec](./tecnologie/protocolli#ipec), [S/MIME], [EAP-TSL]).
+Lo standard X.509v3 obbliga ad indicare delle date **not-before** e **not-after** per gestire la validità del certificato
+
+##### Richiesta di un certificato
+1. Copiare la chiave pubblica della CA (conferibile solo dalla Root-CA)
+2. L'host, in possesso di una PKI, contatta la CA per ottenere un certificato di identità digitale per se e un certificato auto-firmato dalla CA stessa
+3. L'host verifica l'autenticità dell'auto-certificato ricevuto tramite POTS (Plain Old Telephone System) per controllare la firma
+
+##### Revoca di un certificato
+I certificati possono essere revocati (ad esempio per compromissione della chiave) in due modi:
+- Inserimento del certificato all'interno della **Certificate Revocation List** (o CRL), che contiene tutti i certificati revocati
+- Viene effettuata la richiesta di revoca tramite OSCP (Online Certificate Status Protocol) indicando come status "revoca". Il messaggio viene immediatamente inviato al database
+
+#### Cipher suite
+Sono delle combinazioni di algoritmi che sfruttano protocolli [SSL/TLS] per fornire modularità e configurabilità alle comunicazioni cifrate. Si compongono di:
+- Codice dell'Algoritmo di Autenticazione del Messaggio (MAC)
+- Algoritmo di criptazione
+- Algoritmo della chiave di scambio
+- Algoritmo di autenticazione
+
+Le Cipher suite sono particolarmente utili in quanto permettono di aggiornare costantemente i protocolli utilizzati da un'azienda senza doverne modificare l'architettura dei protocolli di comunicazione.
+
 # Mitigazione
 ## Attacchi di ricognizione
 Gli attacchi di ricognizione sono effettuati per analizzare la rete e preparare da attacchi più importanti. Di solito hanno l'obiettivo di raccogliere informazioni e preparare un accesso alla rete per l'attaccante. Questi attacchi sono identificabili e notificabili tramite l'analisi del volume di richieste [ICMP](./tecnologie/protocolli/icmp) per secondo.
@@ -2066,7 +2359,7 @@ Fase che si attua contemporaneamente alla precedente, che consiste nell'isolare 
 ### Trattamento
 I dispositivi infetti vengono disinfettati ed in seguito vengono installate le patch dell'azienda produttrice del sistema operativo che si sta utilizzando. Nei casi più estremi, può essere necessario reinstallare l'intero Sistema Operativo sul dispositivo per evitare con maggiore sicurezza la presenza del worm o dei suoi sottoprodotti.
 
-# Development
+# Secure coding
 ## Introduzione
 Il Secure Coding consiste nella scrittura di software ponendo particolare attenzione a pratiche o tecniche che permettano di minimizzare o evitare potenziali attacchi.
 
@@ -2076,7 +2369,7 @@ Le fasi del processo di sviluppo possono essere suddivise in:
 - Provisioning o deprovisioning: consiste nella fase di creazione o aggiornamento del software (il deprovisioning consiste invece nella sua rimozione)
 
 ## Normalizzazione
-Decomposizione degli input in codice binario, per agevolare l'identificazione di eventuali input malevoli
+Decomposizione degli input in codice binario, per agevolare l'identificazione di eventuali input malevoli. questo processo aiuta a mantenere l'[integrità dei dati](<#integrità>).
 
 ## Procedura memorizzata
 Consiste nell'utilizzare query SQL per memorizzare i dati all'interno di database che eseguono la richiesta. Permette di ridurre il traffico della rete e ottenere i dati richiesti più velocemente.
@@ -2096,11 +2389,13 @@ Pratica che consiste nel sottoporre l'input a varie verifiche prima di processar
 
 ## Regole di validazione
 Prima di essere processati dal database, è buona regola che i dati vengano sottoposti a verifiche di rispetto delle regole di validazione come:
+
 - Controllo del numero di caratteri di un dato
 - Formato del dato (di solito tramite comparazione con un formato desiderato)
 - Consistenza del codice con altri dati correlati
 - Rispetto del range di valori richiesto
 - Controllo dei valori per evitare errori (es presenza della chiocciola in un indirizzo email)
+- Utilizzo del cosiddetto **check digit**
 
 ## Controllo dell'integrità
 Avviene tramite verifica di corrispondenza tra un valore ricevuto ed un altro posseduto (o calcolato).
@@ -2108,30 +2403,39 @@ Avviene tramite verifica di corrispondenza tra un valore ricevuto ed un altro po
 ### Checksum
 Processo che consiste nella suddivisione di un dato e conversione delle varie porzioni in valori numerici. I valor numerici vengono sommati tra loro ed il valore viene incluso nel pacchetto. Una volta ricevuto il pacchetto, il valore viene ricalcolato dal destinatario e comparato al valore della somma ricevuto. Nel caso i valori corrispondano, il checksum darà riscontro positivo.
 
-### Hash
+ Check digit: valore di controllo, ottenuto tramite algoritmo di processo di tutti o alcuni caratteri dell'input. Ad esempio:
+ 
+```checkdigit
+Input: 123789
+Algoritmo:
+1. moltiplico la prima cifra per 9
+2. moltiplico la seconda cifra per 8
+3. ...
+4. sommo tutti i valori ottenuti
+5. calcolo il numero che, sommato al risultato dell'operazione, ritorni il più vicino multiplo di 11
+6. aggiungo la cifra in fondo all'input
+7. Ogni volta che devo effettuare un controllo dell'integrità, basta rieffettuare làintera operazione e confrontare il risultato con il checkdigit
+```
+
+### [Hash](./algoritmi#hash)
 Utilizzo di algoritmi complessi che permettono di trasformare il dato in maniera univoca (non possono esistere due dati che diano lo stesso risultato una volta processati dall'algoritmo). La verifica avviene tramite comparazione del dato hashato con un valore ottenuto da un qualunque software di calcolo dell'hash.
 
-#### Algoritmi
-Evitare algoritmi datati come:
-- SHA-1
-- MD5
-
-Preferire invece quelli come:
-- SHA-256 (o maggiori)
+#### Salting
+Consiste nell'aggiungere dei caratteri alla fine del valore prima di eseguire l'hasing. Permette di proteggere un dato prima di memorizzarlo, rendendo più difficile la contraffazione (ad esempio tramite [dictionary](#dictionary)), e allo stesso tempo rende possibile l'utilizzo di dati duplicati grazie all'utilizzo di salt diversi in base all'utente.
 
 ### Version control
 Processo che permette di evitare errori prodotti dalla modifica simultanea di un file tramite creazione di un codice univoco per ogni salvataggio. Se un file viene modificato da due utenti diversi, al secondo utente che salverà il file, verrà impedito il salvataggio e verrà richiesto di aggiornare il file con il salvataggio precedente prima di poter inviare i cambiamenti.
 
-## Backup
+### Backup
 Meccanismo di salvataggio su più localizzaizioni dello stesso dato. Di solito viene effettuato ad archi temporali costanti e permette di avere una copia del dato da utilizzare nel caso di corruzione dello stesso nella memoria principale.
 
-## Autorizzazione
+### Autorizzazione
 Meccanismo che permette di verificare se l'utente specifico ha il permesso di vedere/creare/modificare file situati nella specifica area.
 
-## Firma
+### Firma
 Stringa di codice ottenuta tramite hashing del software e resa pubblica. Utilizzabile per verificare che il software utilizzato sia originale e non sia stato manomesso prima dell'installazione.
 
-## Secure cookies
+### Secure cookies
 Utilizzo dei cookies tramite protocollo HTTPS.
 
 ## Hardening
@@ -2348,7 +2652,7 @@ Definiscono gli aspetti qualitativi e prestazionali
 #### Fondamentali
 #### Generali
 #### Operativi
-## Crittografia
+## [Crittografia](./algoritmi#criptazione)
 Può essere utilizzata per garantire:
 - Confidenzialità
 - Integrità
@@ -2406,6 +2710,18 @@ I log del Sistema operativo descrivono gli eventi collegati ad azioni come:
 #### Applicazioni di sicurezza
 Questi log sono fornite dalle applicazioni come Firewall, Antimalware, HIPS, ecc.. Questo tipo di log è particolarmente utile per effettuare analisi di auditing, per l'identificazione di trend a breve e lungo termine e per la compilazione della documentazione che dimostri il rispetto delle normative e dei requisiti di legge.
 
+##### Syslog
+Il [syslog](./tecnologie/protocolli#syslog) è un protocollo che permette di gestire specifiche come il formato dei messaggi, la struttura dell'applicazione client-server e il protocollo di rete.
+
+##### Server Log
+Sono messaggi di server log registrati all'interno del srever. I Server Log proprietari più comuni sono Apache Access Log e IIS Access Log:
+```Apache_Access_log
+203.0.113.127 – dsmith [10/Oct/2016:10:26:57 - 0500] "GET /logo_sm.gif HTTP/1.0" 200 2254 "http://www.example.com/links.html" "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0"
+```
+
+```IIS_Access_Log
+6/14/2016, 16:22:43, 203.0.113.24, -, W3SVC2, WEB3, 198.51.100.10, 80, GET, /home.htm, -, 200, 0, 15321, 159, 15, HTTP/1.1, Mozilla/5.0 (compatible; MSIE 9.0; Windows Phone OS 7.5; Trident/5.0; IEMobile/9.0), -, http://www.example.com
+```
 ### AAA
 I log sei servizi AAA (autenticazione, autorizzazione e responsablilità) includono spesso dati come:
 - orario di connessione
@@ -2430,6 +2746,12 @@ I Packet Analyzers (o Packet Sniffers) sono software utili per monitorare il tra
 - Rilevamento di utilizzi errati della rete
 - Rilevamento di tentativi di intrusione nella rete
 - Isolamento dei sistemi compromessi
+
+# Incident handling
+Consiste nel rispondere ad un **incidente di sicurezza** (evento con un reale effetto pregiudizievole per al sicurezza della rete e dei sistemi informativi), avendo l'obiettivo di:
+- Impedire ad eventuali intrusi di operare all'interno della rete
+- Minimizzare i danni apportati dall'incidente
+- Riportare la situazione in regime di sicurezza
 
 # Normativa
 ## Italia
