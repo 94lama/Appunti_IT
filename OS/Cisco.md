@@ -37,6 +37,9 @@ L’accesso all’area di configurazione può essere effettuata tramite connessi
 
 Durante l’avvio lo switch avvierà la POST per trovare il file bootstrap.
 
+## CISCO Cognitive Intelligence
+Software [antimalware](../Cybersecurity#Antimalware) cloud-based che utilizza dati di tipo statistico per cercare attività sospetta all'interno di una rete.
+
 # Comandi
 
 Avere la lista dei comandi disponibili

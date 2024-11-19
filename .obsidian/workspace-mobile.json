@@ -8,22 +8,6 @@
         "type": "tabs",
         "children": [
           {
-            "id": "58b225c5fcea268d",
-            "type": "leaf",
-            "pinned": true,
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Cybersecurity.md",
-                "mode": "source",
-                "source": false
-              },
-              "pinned": true,
-              "icon": "lucide-file",
-              "title": "Cybersecurity"
-            }
-          },
-          {
             "id": "50510b0122f45abe",
             "type": "leaf",
             "state": {
@@ -163,7 +147,7 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "58b225c5fcea268d",
+  "active": "50510b0122f45abe",
   "lastOpenFiles": [
     "OS/Linux.md",
     "OS/MAC OS X.md",

@@ -34,4 +34,3 @@ Consiglio di utilizzare Obsidian per la lettura (se si decide di scaricare la re
 	- [Reti](./Tecnologie/Reti)
 - [Glossario](./Glossario.md)
 - [Informazioni](./Informazioni.md)
-

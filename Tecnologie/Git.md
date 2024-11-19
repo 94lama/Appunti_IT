@@ -79,4 +79,5 @@ Indicate con il simbolo **!** tra lo scope (o il type in assenza di scope) e  **
 
 ## Plugins
 Esistono dei plugin di supporto dei git commits per i vari IDE.
-# rules
+# [Git-flow]()
+git-flow è una metodologia di categorizzazione delle branch di una repository.

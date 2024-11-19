@@ -90,7 +90,7 @@ Questi concetti vengono applicati a 3 categorie di entità (che rappresentano i 
 Per agevolare il passaggio, anche da un punto di vista umano, spesso si segue un percorso, che porta dal metodo esistente, a quello desiderato.
 # Triade di sicurezza
 
-Per comprendere le aree di interesse della cybersecurity spesso si fa uso del cosiddetto Cybersecurity Cube (noto anche come Cubo di McCumber), che riassume i punti focali della cybersecurity in 3 gruppi da 3 elementi ciascuno. L'insieme dei gruppi prende il nome di CIA Security Triad:
+Per comprendere le aree di interesse della cybersecurity spesso si fa uso del cosiddetto Cybersecurity Cube (noto anche come Cubo di McCumber), che riassume i punti focali della cybersecurity in 3 gruppi da 3 elementi ciascuno. L'insieme dei gruppi prende il nome di CIA Security Triad ed è descritta all'interno dell'[[#ISO 27000]]
 
 ## Principi di sicurezza
 ### Confidenzialità dei dati
@@ -305,6 +305,45 @@ Definiscono aspetti quali remunerazione, date di pagamento, benefit dei dipenden
 #### [Sicurezza](<#policy di sicurezza>)
 Definiscono degli obiettivi di sicurezza da raggiungere e degli standard (tecnologici e comportamentali) da mantenere. Permettono di definire una linea base di comportamento della rete, sotto condizioni di carico normale. Di solito si tratta di un documento in costante evoluzione per adattarsi alle tecnologie presenti e alle esigenze aziendali.
 
+# Domini
+La [[#ISO 27001]] e la [[#ISO 27002]] hanno definito 12 domini della cybersecurity, gestendo rispettivamente gli obiettivi dei controlli e i controlli.
+## Risk assessment
+Si occupa di determinare i valori qualitativi e quantitativi dei rischi relativi situazioni specifiche o minacce.
+## Security policy
+Documento che tratta i vincoli e i comportamenti all'interno di un'organizzazione e spesso i metodo ammessi di trattamento dei dati e chi ne ha accesso.
+
+## Organizzazione delle informazioni di sicurezza
+Modello di governance, impostato dall'organizzazione per trattare informazioni di sicurezza. Gli scopi principali sono l'introduzione di robuste misure di accountability, l'implementazione di misure necessarie a mitigare i rischi.
+
+## Asset management
+Inventario e schema di classificazione degli asset informativi all'interno dell'organizzazione.
+
+## Sicurezza delle risorse umane
+Si occupa di gestire le procedure di sicurezza relative l'ingresso, trasferimento e uscita degli impiegati.
+
+## Sicurezza fisica e ambientale
+Si occupa della protezione fisica delle sedi di un'organizzazione e/o dei suoi dati.
+
+## Gestione delle comunicazioni e delle operazioni
+SI occupa della gestione dei controlli di sicurezza tecnici della rete di un'organizzazione.
+
+## Informazioni dei sistemi di acquisizione, sviluppo e manutenzione
+Tratta il tema della sicurezza come parte integrante del sistema di informazioni di un'organizzazione.
+
+## Access Control
+Descrive le metodologie delle restrizioni di accesso alla rete, ai sistemi, alle applicazioni e/o ai dati di un'organizzazione.
+
+## Gestione degli incidenti dei sistemi informativi
+Descrive l'approccio alle previsioni e alle risposte ad attacchi informatici.
+
+## Gestione della continuità del business
+Descrive l'abilità di un'organizzazione di proteggere, mantenere e recuperare attività a seguito di un'interruzione dei sistemi informatici.
+
+## Compliance
+La conformità (compliance) descrive il processo che porta a confermare la conformità dei sistemi informatici alle [[#policy]] di sicurezza, standard e regolamentazioni. La verifica di conformità di un'organizzazione agli standard di sicurezza può essere gestito tramite certificazioni rilasciate da SSAE o CMMC.
+- **SSAE + SOC** (Statement on Standards fort Attestation Engagements): audit indipendente eseguito da azienda terza, che ha lo scopo di confermare la presenza dei [controlli di sicurezza](<#CIS Security Controls>) necessari nel momento dell'analisi (Tipo 1), o in un arco di tempo di almeno sei mesi (Tipo 2)
+- **CMMC** Cybersecurity Maturity Model Certification: Certificazione rilasciata per valutare il livello di sicurezza di un'organizzazione (su 5 livelli) in base ai criteri stabiliti dal Dipartimento della Difesa.
+
 # Security Standards
 Gli standard di sicurezza hanno l'obiettivo di categorizzare e valutare le #vulnerabilità.
 
@@ -355,6 +394,29 @@ Il processo di implementazione del #ASVS, si effettua in vari passaggi:
 6. Monitoraggio e manutenzione
 7. Aggiornamenti e miglioramenti continui
 -----20:40-----
+
+# Etica
+Ci sono 3 correnti filosofiche riguardo l'etica:
+- Utilitaristica: Il fine giustifica i mezzi
+- Approccio giuridico: ogni persona ha dei diritti inalienabili
+- Bene comune: E' bene ciò che porta beneficio all'intera comunità
+
+In ambito della sicurezza informatica, ci sono 10 regole generali:
+1. Non usare un computer per danneggiare il prossimo
+2. Non interferire con la rete altrui
+3. Non frugare nei file degli altri
+4. Non rubare (tramite un computer)
+5. Non (usare un computer per) dire falsa testimonianza
+6. Non crackare software 
+7. Non usare un computer altrui senza espresso consenso
+8. Non ti appropriare dell'opera intellettuale altrui
+9. Pensa alle conseguenze sociali delle tue azioni e delle cose che progetti
+10. Usa sempre un computer per assicurare la considerazione ed il rispetto degli altri
+
+Questi comportamenti, tra l'altro, sono punibili a livello legale. La tipologia di crimine dipende da come il computer viene utilizzato per portare in atto un comportamento scorretto:
+- Diretto diretto al computer: es. malware, DoS
+- Diretto alla persona: frode, surto identità
+- Indiretto: utilizzo del pc per ottenere informazioni utili a commetter un crimine.
 
 # Attacco
 ## Introduzione
@@ -792,7 +854,7 @@ Blocchi di codice #JavaScript (quindi non controllabili tramite #csrf-token)
 #### Prevenzione
 - Preferire l'utilizzi di #whitelist alle #blacklist anche per le #input-validation
 - Output encoding
-- Content Security Policy
+- Content [[#Security Policy]]
 - utilizzare un framework moderno
 - in #PhP usare funzioni htmlentities() e htmlspecialchars() per effettuare l' #escaping delle variabili
 - Utilizzare un implementazione IPS per identificare e prevenire scipt malevoli
@@ -1173,25 +1235,14 @@ Questi software offrono servizi di:
 - Controllo
 
 ## Rete
-### NetFlow
-Strumento utilizzato per effettuare analisi a livello di rete, sviluppato da Cisco. Permette di effettuare analisi, troubleshooting di rete e accounting basato sulla sessione. NetFlow analizza i pacchetti inviati e ricevuti durante una sessione e li analizza, fornendo informazioni utili riguardo la sessione e lo stato della rete, come:
-- IP del mittente
-- IP del destinatario
-- Porta di partenza
-- Porta di destinazione
-- Protocollo di livello 3
-- Classe di servizio
-- Interfaccia del Router o dello Switch
-A queste informazioni ne vengono aggiunte altre, come:
-- timestamp di inizio sessione
-- timestamp di fine sessione
+### [[#NetFlow]]
 
 ## log
 I log sono file che tengono traccia di avvenimenti all’interno della rete. Gli eventi di solito monitorati tramite log possono essere categorizzati in:
-- Log di applicazioni
-- Log di eventi
+- Log di applicazioni: contengono informazioni relative le applicazioni in esecuzione
+- Log di eventi: 
 - [Log di servizi](<#log di servizi>)
-- Log di sistema
+- Log di sistema: Riguardano operazioni di driver, processi e hardware
 
 ### Server Proxy
 Elementi come i Server Proxy possono rivelarsi molto utili per l'analisi, la creazione e la memorizzazione di log relativi le connessioni con dispositivi esterni alla rete.
@@ -1543,18 +1594,18 @@ Considerando che molti messaggi ICMP possono sia essere sfruttati per portare a 
 Considerando che il protocollo viene utilizzato per gestire le impostazioni della rete, è consigliato [disabilitare il protocollo](<CISCO IOS.md#acl#blocco protocollo>) per le comunicazioni con dispositivi all'esterno della rete
 
 ### NetFlow
-È un software utilizzato per gestire comunicazioni tramite [SNMP](./tecnologie/protocolli#snmp). Originariamente il software catalogava le comunicazioni in base a 7 parametri:
-1. IP del mittente
-2. IP del destinatario
-3. Porta di invio
-4. Porta di destinazione
-5. Protocollo di [livello 3](<#3 - Rete>) utilizzato
-6. Marchio ToS (Tipo di Servizio)
-7. Interfaccia logica di input
+Strumento utilizzato per effettuare analisi a livello di rete, sviluppato da Cisco. Permette di effettuare analisi, troubleshooting di rete, accounting basato sulla sessione e previsione dei costi in base all'utlizzo dell'utente. E' utilizzato per utilizzato per gestire comunicazioni tramite [SNMP](./tecnologie/protocolli#snmp). NetFlow analizza i pacchetti inviati e ricevuti durante una sessione e li analizza, fornendo informazioni utili riguardo la sessione e lo stato della rete, come:
+- IP del mittente
+- IP del destinatario
+- Porta di partenza
+- Porta di destinazione
+- Protocollo di [livello 3](<#3 - Rete>) utilizzato
+- Marchio ToS (Classe di servizio)
+- Interfaccia logica di input (Router o dello Switch)
 
-Il punto 6, incluso nell'header del pacchetto IPv4, contiene informazioni relative alle regole per la [Qualità del servizio] da applicare al pacchetto nel flusso in cui è stato inviato.
-
-
+A queste informazioni ne vengono aggiunte altre, come:
+- timestamp di inizio sessione
+- timestamp di fine sessione
 
 ### Port Mirroring
 È una feature dello Switch che permette di duplicare il traffico ed inviare una copia ad un dispositivo apposito, utilizzato per monitorare la rete.
@@ -1838,7 +1889,6 @@ I Network Intrusion Detection Systems sono dispositivi di identificazione delle 
 	```
 	Se il NIDS è impostato correttamente, la navigazione attiverà un alert di notifica.
 
-
 ## [[#IPS]]
 ### Introduzione
 I [Sistemi di Prevenzione delle Intrusioni](https://it.wikipedia.org/wiki/Sistema_di_prevenzione_delle_intrusioni) sono dei componenti software che permettono di monitorare, registrare e bloccare le attività dannose all'interno di una rete, tramite il riconoscimento di pattern all’interno dei pacchetti (definibili dal gestore) analizzati.
@@ -1866,6 +1916,37 @@ Gli svantaggi invece sono:
 
 ### Alert
 Gli alert sono delle notifiche inviate dall'IPS (funzionalità disponibile anche degli [[#IDS]] a seguito di una violazione delle regole impostate, o di identificazione di pattern di malware conosciuti all'interno del messaggio.
+
+Di solito includono un set di informazioni di base, che possono essere implementate in base alla configurazione scelta. I dati di base sono:
+- **SrcIP**: Indirizzo IP del mittente
+- **SPort**: Porta di invio
+- **DstIP**: IP del destinatario
+- **DPort**: Porta di arrivo
+- **Pr**: Protocollo utilizzato
+
+Ogni Alert è anche dotato di un ulteriore set di dati informativi, che ne facilitano l'analisi, ovvero:
+- **ST**: Status dell'evento (RT epr Real Time) con sfondo colorato in base alla severità dell'alert
+- **CNT**: Numero di volte in cui è stato attivato l'alert
+- **Sensor**: Agent che ha inviato làalert
+- **Alert ID**: Composto da due parti: ID dell'agente e l'ID dell'evento nell'agent
+- **Date/Time**: Timestamp della data di attivazione dell'alert
+- **Event Message**: Configurato dall'operatore per includere dati importanti riguardanti l'evento
+
+#### Valutazione
+E' importante effettuare un'attenza valutazione degli alert per evitare di analizzare dati che possano aver fatto scattare gli alarm, anche se non avrebbero dovuto (o il caso contratio). In generale gli eventi rientrano in una di queste 4 categorie:
+
+|                               | Vero                   | Falso                                 |
+| ----------------------------- | ---------------------- | ------------------------------------- |
+| Positivo (alert eseguito)     | Incidente avvenuto     | Incidente non avvenuto                |
+| Negativo (alert non eseguito) | Incidente non avvenuto | Incidente avvenuto, ma non registrato |
+L'obiettivo di un sistema di alert efficiente è evitare il più possibile il **falso negativo**, ovvero il caso nel quale l'incidente sia avvenuto, ma non sia stato registrato dal sistema. Il **falso positivo** rimane un evento da evitare, ma la sua esecuzione ha un effetto indesiderato di gravità nettamente minore rispetto al falso negativo.
+
+#### Analisi
+##### Probabilistica
+L'analisi probabilistica degli alert consiste nell'analizzare la probabilità che un determinato evento avvenga, in base alle azioni compiute. Sono utili per definire l'attenzione da porre ai vari elementi in ambito di sicurezza.  Da preferirsi quando ci sono delle variabili che non permettono di avere una certezza delle conseguenze di determinate azioni.
+
+##### Deterministica
+L'analisi deterministica degli alert si basa sulla capacità di stabilire il livello di rischio in base alle informazioni presenti sulla specifica vulnerabilità (es. un attacco sarà critico se tutti i passaggi per eseguirlo sono effettuabili sulla rete di riferimento).
 
 ### Dati
 E' spesso utile ricordare i nomi comunemente assegnati alla tipologia di dato presente in un pacchetto:
@@ -1901,7 +1982,7 @@ I dati statistici sono dati di tipo riassuntivo, creato in base a specifici elem
 - [Identificazione di comportamenti anomali nella rete (NBAD)],
 - [Esportatore di informazioni NetFlow o IP (IPFIX)] (IETF standard per la versione 9 di Cisco NetFlow)
 
-Sono disponibili in commercio prodotti che sfruttano tecniche di Machine Learning per offrire servizi in cloud di NSM. Un esempio è [Cisco Cognitive Threat Analytics](https://blogs.cisco.com/security/introducing-cisco-cognitive-threat-analytics).
+Sono disponibili in commercio prodotti che sfruttano tecniche di Machine Learning per offrire servizi in cloud di [NSM] (Network Security Monitoring). Un esempio è [Cisco Cognitive Threat Analytics](https://blogs.cisco.com/security/introducing-cisco-cognitive-threat-analytics).
 
 #### Transazione
 Tutti i messaggi inviati durante la sessione prendono il nome di **transazione**
@@ -2151,6 +2232,9 @@ Le macchine virtuali possono essere soggette a particolari attacchi rispetto all
 - Installa [antimalware](#antimalware) (e mantienilo aggiornato)
 - Installa un [host-based firewall](#HBF) e un [IDP](#IDP) o un [IDS](#IDS)
 
+## Web Proxy
+Dispositivo di protezione che si interpone durante ula navigazione web tra l'utente e la rete esterna. Permette di scansionare il traffico in uscita per verificare la presenza ed in caso la tipologia di dati in uscita (quindi evitare fuga di dati sensibili, confidenziali, ...)
+
 ## Buone pratiche
 
 ### Disponibilità
@@ -2243,7 +2327,7 @@ Utilizzare degli ambienti sicuri (es. macchine virtuali non connesse alla rete) 
 - CrowdStrike Falcon Sandbox
 
 ### HMAC
-E' un processo basato sull'utilizzo di criptazione per creare un valore di controllo univoco tramite l'utilizzo di un algoritmo di [hash](../algoritmi#hash) su un messaggio e una chiave segreta. Questo rende il messaggio verificabile solo nel caso il destinatario sia in possesso della chiave.
+E' un processo basato sull'utilizzo di criptazione per creare un valore di controllo univoco tramite l'utilizzo di un algoritmo di [hash](Algoritmi.md#hash) su un messaggio e una chiave segreta. Questo rende il messaggio verificabile solo nel caso il destinatario sia in possesso della chiave.
 
 ### Firma digitale
 Consiste in multipli processi di cifratura di un documento per permettere l'autenticazione e al contempo la modifica di alcuni elementi, tramite invio della chiave pubblica di ogni utente che ha provveduto a firmare il documento (ogni nuova firma impacchetta il documento firmato in precedenza in un ulteriore pacchetto cifrato).
@@ -2359,6 +2443,72 @@ Fase che si attua contemporaneamente alla precedente, che consiste nell'isolare 
 ### Trattamento
 I dispositivi infetti vengono disinfettati ed in seguito vengono installate le patch dell'azienda produttrice del sistema operativo che si sta utilizzando. Nei casi più estremi, può essere necessario reinstallare l'intero Sistema Operativo sul dispositivo per evitare con maggiore sicurezza la presenza del worm o dei suoi sottoprodotti.
 
+# Governance
+La governance in ambito della Cybersecurity si occupa delle aree relative [[#autorizzazione]], [[#accountability]] e verifica che siano state applicate le necessarie misure di [[#mitigazione]] dei rischi e che le strategie di sicurezza attivate siano allineate con gli obiettivi di business aziendali.
+
+Il tema principale della governance sono i dati, che sono trattati in base a determinate caratteristiche intrinseche:
+## Dati
+### Proprietario
+E' la persona che assicura il rispetto delle policy e delle procedure, assegna un'adeguata classificazione del dato in base alle informazioni contenute e determina i criteri di accesso allo stesso.
+
+### Controllore
+La persona che determina lo scopo e le modalità con le quali il dato viene utilizzato
+
+### Processore
+Colui che processa il dato per conto del Controllore
+
+### Custode
+Colui che implementa le classi e i controlli di sicurezza in base alle regole definite dal Proprietario
+
+### Assistente
+Si assicura che il dato supporti le necessità di business dell'azienda e ne rispetti i requisiti
+
+### Ufficiale di protezione
+Persona che supervisiona la strategia di protezione dei dati
+
+## [[#Policy]]
+### Scopo
+#### Master cybersecurity
+Modello per un programma di policy sulla cybersecurity. Serve come strumento strategico per implementare i controlli di sicurezza.
+
+#### System-specific
+Policies utilizzate per gestire i dispositivi e i sistemi operativi con l'obiettivo di standardizzare applicazioni approvate, software, configurazioni di sistemi operativi, hardware e contromisure di hardening.
+
+#### Issue-specific
+Policies sviluppate per specifiche problematiche, circostanze e/o condizioni che possono richiedere direttive e requisiti specifici.
+
+## Tipologia
+Le policies di cybersecurity possono essere suddivise in 9 categorie, in base all'oggetto trattato. 
+
+### Identificazione e autenticazione
+Specifica chi dovrebbe avere accesso alla rete e alle risorse e quali procedure di autenticazione debbano essere utilizzate.
+
+### Password
+Definisce i requisiti minimi (lunghezza, numero e tipologia di caratteri utilizzabili) delle password.
+
+### Uso accettabile
+Definisce le regole di utilizzo della rete e dei dati, assieme alle conseguenza del mancato rispetto delle stesse.
+
+### Accesso remoto
+Definisce le modalità di accesso alla rete da remoto e quali informazioni siano disponibili nel caso.
+
+### Manutenzione della rete
+Definisce le procedure di manutenzione e aggiornamento dei sistemi operativi utilizzati dall'azienda a dei dispositivi.
+
+### Incident handling
+Fornisce guida su come rispondere ad un incidente di sicurezza all'interno dell'organizzazione.
+
+### Dati
+Definisce delle regole misurabili per il processamento dei dati in possesso dell'organizzazione (come la definizione del luogo di salvataggio, i livelli e tipologie di classificazione) e le metodologie di uso e rimozione dei dati.
+
+### Credenziali
+Attua delle regole per la creazione delle credenziali (come lunghezza delle password)
+
+### Organizzative
+Definisce come il lavoro dovrebbe essere svolto all'interno dell'azienda. Alcuni esempi sono:
+- Cambio di management
+- Policies di gestione degli asset
+
 # Secure coding
 ## Introduzione
 Il Secure Coding consiste nella scrittura di software ponendo particolare attenzione a pratiche o tecniche che permettano di minimizzare o evitare potenziali attacchi.
@@ -2417,7 +2567,7 @@ Algoritmo:
 7. Ogni volta che devo effettuare un controllo dell'integrità, basta rieffettuare làintera operazione e confrontare il risultato con il checkdigit
 ```
 
-### [Hash](./algoritmi#hash)
+### [Hash](Algoritmi.md#hash)
 Utilizzo di algoritmi complessi che permettono di trasformare il dato in maniera univoca (non possono esistere due dati che diano lo stesso risultato una volta processati dall'algoritmo). La verifica avviene tramite comparazione del dato hashato con un valore ottenuto da un qualunque software di calcolo dell'hash.
 
 #### Salting
@@ -2652,7 +2802,7 @@ Definiscono gli aspetti qualitativi e prestazionali
 #### Fondamentali
 #### Generali
 #### Operativi
-## [Crittografia](./algoritmi#criptazione)
+## [Crittografia](Algoritmi.md#criptazione)
 Può essere utilizzata per garantire:
 - Confidenzialità
 - Integrità
@@ -2702,7 +2852,7 @@ I [log](#log) vengono utilizzati per tenere traccia delle azioni che avvengono a
 Due importanti tipologie di log da monitorare sono:
 - OS
 - Applicazioni di sicurezza
-#### OS
+#### Sistema
 I log del Sistema operativo descrivono gli eventi collegati ad azioni come:
 - Request del client e response del server per autenticazioni dellàutente avvenute con sucecsso
 - Informazioni sulle transizioni (quantità e dimensioni) in un determinato arco di tempo
@@ -2722,6 +2872,12 @@ Sono messaggi di server log registrati all'interno del srever. I Server Log prop
 ```IIS_Access_Log
 6/14/2016, 16:22:43, 203.0.113.24, -, W3SVC2, WEB3, 198.51.100.10, 80, GET, /home.htm, -, 200, 0, 15321, 159, 15, HTTP/1.1, Mozilla/5.0 (compatible; MSIE 9.0; Windows Phone OS 7.5; Trident/5.0; IEMobile/9.0), -, http://www.example.com
 ```
+#### Setup
+Log che contengono informazioni relative l'installazione di software (inclusi gli aggiornamenti di Windows)
+
+#### Security
+Contengono informazioni relative i tentativi di accesso e le operazioni su file o gestione degli oggetti o degli accessi.
+
 ### AAA
 I log sei servizi AAA (autenticazione, autorizzazione e responsablilità) includono spesso dati come:
 - orario di connessione
@@ -2760,15 +2916,129 @@ Consiste nel rispondere ad un **incidente di sicurezza** (evento con un reale ef
 ## EU
 - GDPR
 - DPCM 81/21
+## Internazionale
+- Electronic Privacy Information Center (EPIC): Centro di ricerca non-profit per la promozione della privacy e l'apertura delle leggi e delle policy
+- Convention on Cybercrime: Primo trattato internazionale a tema cybersecurity
+
+### ISO 27000
+Predispone un framework universalmente valido per predisporre le priorità di un'organizzazione, seguendo i [principi di sicurezza](<#Principi di sicurezza>)
+
+### ISO 27001
+Stabilisce i requisiti di alto livello (obiettivi) dei sistemi di sicurezza informatica di un'organizzazione e da fornire nel caso di ISMS audit (il cui superamento fornisce la prova di credibilità della sicurezza dei sistemi dell'organizzazione stessa).
+
+### ISO 27002
+Definisce come raggiungere gli obiettivi trattati nella [[#ISO 27001]] sotto i punti di vista di:
+- Implementazione
+- Manutenzione
+- Miglioramento
+
 ## US
+- Statutory law: definizione di un codice morale condiviso
+- Administrative law: le FCC e FTC si interrogano sui diritti d'autore digitali
+- Common law: I casi giuridici forniscono dei precedenti e le basi costituzionali per la legislazione
+- FISMA (Federal Information Security Management Act): I sistemi federali sono prede molto ambite per i cybercriminali, quindi la FISMA nel 2002 ha stabilito che le agenzie federali debbano ottemperare:
+	- Risk assessment
+	- Inventario annuale dei sistemi informatici
+	- Policies e procedure per attenuare il rischio
+	- Addestramento alla consapevolezza della sicurezza
+	- Testare e valutare tutti i sistemi di controllo informatici
+	- Procedure di Incident Response
+	- Un piani di continuità delle operazioni
+- **Privacy Act:** Governa il codice di condotta per il trattamento, la conservazione e la diffusione dei dati
+- **Freedom of Information Act** (FOIA): Obbliga le pubbliche autorità a fornire buone motivazioni per negare il rilascio di informazioni confidenziali. Ci sono 9 eccezioni:
+	- Sicurezza nazionale
+	- Regolamenti aziendali
+	- Informazioni specificatamente esenti
+	- Informazioni commerciali confidenziali
+	- Comunicazioni inter o intra-aziendali soggette a processo deliberativo
+	- Imposizioni legali che, se rilasciate, possono implicare una serie di preoccupazioni
+	- Informazioni aziendali da istituzioni finanziarie
+	- Informazioni geografiche e geologiche riguardanti pozzi
+- **Family Education Records and Privacy** Act (FERPA): Governa l'accesso governativo a dati degli studenti in ambito scolastico
+- **Children's Online Privacy Protection Act** (COPPA): Protegge la privacy dei minorenni, e in particolare i minori con eta inferiore a 13 anni, imponendo requisiti agli operatori online
+- **Children's Internet Protection Act** (CIPA): Protegge i minorenni (sotto i 17 anni) dall'esposizione ad atti offensivi online
+- **Video Privacy Protection Act** (VPPA): A protezione di contenuti video. Emendato nel 2003
+- **Health Insurance Portability and Accountability Act** (HIPAA): Creazione di legislazione a livello nazionale per conservazione, manutenzione, trasmissione e accesso a dati relativi la salute dei cittadini. Per assicurare l'integrità viene utilizzata la firma digitale con determinati standard
+- **California Senate Bill **(SB 1386): Legifera riguardo il rilascio di informazioni a seguito di security breach. Obbliga l'azienda ad informare i clienti oggetto della perdita di dati
+- **Privacy policies**: Permettono di applicare le norme
+- **Privacy Impact Assessment** (PIA): Assicura che le **informazioni informatiche personali** (PII) siano gestite propriamente tramite il seguente processo:
+	1. Definire l'ambito della PIA
+	2. Identificare i principali interessati
+	3. Documentare come l'organizzazione maneggerà le PII
+	4. Rivedere i requisiti legali e regolamentatori
+	5. Documentare ogni possibile problematica durante la comparazione tra i requisiti e la pratiche attuale al momento
+	6. Rivedere gli aggiornamenti con i principali interessati
+### Finanza
+- Gramm-Leach-Bliley Act (GLBA): permette all'utente di controllare come le proprie informazioni vengano utilizzate dalle aziende
+
+### Contabilità aziendale
+- Sarbanes-Oxley Act (SOX): Legifera riguardo la contabilità delle aziende con capitale d'azioni (SPA)
+
+### Carte di credito
+- Payment Card Industry Data Security Standard (PCI DSS): Set di regole contrattuali aventi l'obiettino di proteggere i pagamenti digitali durante le transazioni e dalle frodi, ponendo sanzioni elevate agli operatori che non rispettino le direttive
+
+### Crittografia
+- Regole varie: ci sono dei limiti al commercio di prodotti inerenti la crittografia in quanto potrebbero agevolare organizzazioni terroristiche. Particolare attenzione  posta alla possibilità di:
+	- Tecnologie con backdoor o altre vulnerabilità alla sicurezza
+	- Cittadini che utilizzino tecnologie per comunicare tramite anonimato e passare inosservati alle forze dell'ordine
+	- Il livello della privacy si innalzi oltre un livello di sicurezza
+
+### Notifica delle falle di sicurezza
+- Electronic Communications Privacy Act (ECPA): Si occupa di proteggere le comunicazioni private (email, messaggi, chiamate) da intercettazioni non autorizzate, accessi e pubblicazione di dati
+- Computer Fraud and Abuse Act (CFAA): Proibisce l'accesso non autorizzato a sistemi informatici e il commercio di password rubate o altre informazioni sensibili
+
+
 ## Generali
-- Copyright
-- Privacy
-- Privacy Policy
+Raccolta di documenti non vincolanti
 ### ISO/IEC 27001
 Si occupa della sicurezza sotto un punto di vista olistico.
 ### ISO/IEC 27034
 Si concentra sul lato #software
+### NCWF
+Framework di sicurezza informatica redatto dalla NIST (National Institute of Standard and Technologies), che riassume le principali funzioni della cybersecurity, ovvero:
+- Operare e manutenere
+- Proteggere e difendere
+- Investigare
+- Raccogliere e operare
+- Analizzare
+- Sorvegliare e gestire
+- Fornire funzionalità in sicurezza
+
+### CIS Security Controls
+Il CIS (Centro per la Sicurezza di Internet) ha sviluppato un set di controlli di sicurezza ritenuti critici per supportare le organizzazioni ai diversi livelli di risorse e expertise. Questo tipo di controlli può essere accoppiato alla [benchmarks list](https://www.cisecurity.org/cis-benchmarks) redatta sempre dalla CIS.
+
+#### Base
+Controlli da includere indipendentemente dalla dimensione e dalle risorse di un'organizzazione:
+- Inventario e controllo degli asset hardware
+- Inventario e controllo degli asset software
+- Gestione continua delle vulnerabilità
+- Uso controllato dei privilegi di amministratore
+- Configurazione sicura di hardware e software
+- Manutenzione, monitoraggio e analisi dei log di audit
+
+#### Fondamentali
+Controlli da implementare nel caso ci siano abbastanza risorse. Le implementazioni aggiuntive sono:
+- Protezioni delle mail e della navigazione web
+- Antimalware
+- Limitazione delle porte di rete e dei protocolli e servizi utilizzati allo stretto indispensabile
+- Capacità di recupero dei dati
+- Configurazioni sicure dei dispositivi di rete
+- Limiti di difesa
+- Protezione dei dati
+- Controllo degli accessi basato sul principio "need-to-know" (necessità di sapere)
+- Controllo degli accessi wireless
+- Monitoraggio e controllo degli account
+
+#### Organizzativi
+I controlli organizzativi sono consigliabili per le organizzazioni che abbiano buone risorse economiche da utilizzare in ambito Cybersecurity. Gli ulteriori controlli aggiunti sono:
+- Addestramento del personale alla consapevolezza sulla sicurezza
+- Sicurezza dei livello Applicazione dei software
+- Gestione e risposta agli incidenti
+- Penetration test e esercizi di [red team]
+
+### CCM
+La matrice dei controlli (Cloud Control Matrix) in ambito cloud è un utile strumento sviluppato dalla Cloud Security Alliance (CSA) dispone 197 controlli base da applicare su infrastrutture cloud, suddivisi in 17 domini, che coprono tutti gli aspetti della sicurezza in ambiente cloud.
+
 # Tips
 - Tutte le rotte che hanno azione distruttiva devono essere trattati tramite form
 - siti come https:// ---continua

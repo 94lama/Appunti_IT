@@ -744,6 +744,87 @@ Interfaccia grafica basica per Sistemi operativi Linux. Da accoppiare ad altri s
 - Gnome Windows Manager (usata da Ubuntu)
 
 
+## [Security Onion](https://securityonionsolutions.com/)
+È una suite open source pure il monitoraggio della sicurezza della rete (NSM), formata da 3 funzioni alla base:
+- Cattura dell’intero pacchetto e della tipologia di dati
+- [[#IDS]] (sia network che host-based)
+- Analizzatore degli [alert](../Cybersecurity#Alert)
+
+![[security_onion.png]]
+
+### Data
+#### PCAPS
+#### Contenuti
+#### Transazioni
+#### Sessione
+#### Log degli host
+#### Alert
+#### Syslog
+#### Metadata
+
+### Identificazione
+#### CapME
+Web app che permette di visualizzare facilmente tutte le comunicazioni che avvengono nella rete al [livello 4](../tecnologie/protocolli#trasporto). I dati sono ottenuti tramite [[#Zeek]] o [tcpflow].
+Il tool può essere utilizzato come plugin di [[#ELSA]] (Enterprise Log Search and Archive). In questo caso, i file possono essere visualizzati tramite [[#Wireshark]]
+
+#### Snort
+E' un [NIDS](../Cybersecurity#NIDS) (sistema di identificazione delle intrusioni di rete) utilizzato per creare dati di tipo [alert](../cybersecurity#alert) tramite l'implementazione di regole e firme. E' anche possibile scaricare automaticamente nuove regole tramite [[#PulledPork]] (entrambi sponsorizzati da Cisco).
+
+Le regole sono strutturate in due componenti: header e opzioni.
+
+| Componente     | Esempio                                                                                                        | Spiegazione                                                                                                            |
+| -------------- | -------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| Header         | alert ip any any -> any any<br><azione> <protocollo> <IP_mitt> <porta_mitt> <direzione> <IP_dest> <porta_dest> | Azione da eseguire, indirizzi e porte di mittente e destinatario e direzione del traffico                              |
+| Opzioni        | (msg:"GPL ATTACK_RESPONSE ID CHECK RETURNED ROOT";...)                                                         | Messaggio da mostrare con dettagli relativi il contenuto del pacchetto, tipo di alert, ID della fonte e altri dettagli |
+| Localizzazione | /nsm/server_data/securityonion/rules/...                                                                       | Localizzazione del file della regola                                                                                   |
+
+##### Header
+Ogni dato è configurabile anche tramite l'utilizzo di variabili, configurabili sul file **snort.conf**:
+
+| Variabile     | Utilizzo        |
+| ------------- | --------------- |
+| $HOME_NET     | Rete analizzata |
+| $EXTERNAL_NET | Rete esterna    |
+
+##### Opzioni
+I messaggi inviati da Snort possono essere creati in base a regole. Le regole più comunemente utilizzate sono:
+- **GPL**: Regola datata, creata da SourceFire
+- **ET**: Emerging Threats (collezione di regole categorizzate, raccolte da risorse multiple Open Source sotto licenza BSD)
+- **VRT**: Set di regole mantenute da Cisco Talos
+
+| Componente | Spiegazione                                                |
+| ---------- | ---------------------------------------------------------- |
+| msg:       | Descrizione dell'alert                                     |
+| content:   | Contenuto del pacchetto.                                   |
+| reference: | URL che porta a maggior informazioni riguardanti la regola |
+| classtype: | Categoria dell'attacco (Snort fornice un pool di default)  |
+| sid:       | ID della regola                                            |
+| rev:       | Revisione della regola rappresentata dal SID               |
+
+#### Suricata
+E' un [NIDS](../Cybersecurity#NIDS) signature-based (basato sulla firma) utilizzato anche per prevenzione di intrusioni inline. Sebbene sia simile a [[#Zeek]], Suricata utilizza il [Multithread] nativo, che permette l'utilizzo contemporaneo di più core del processore e include funzioni di blocco in base alla reputazione e supporto al multithread tramite GPU per aumentarne le performance.
+
+#### Zeek
+Precedentemente chiamato Bro, Zeek è un [NIDS](../Cybersecurity#NIDS) che utilizza un [approccio comportamentale](../Cybersecurity#Behavior-based) basato sulle policy (sotto forma di script che determinano quali dati avviano i log, quali gli alert, ecc.). Zeek permette anche di memorizzare file per una successiva analisi di malware, bloccare l'accesso a siti malevoli e spegnere in computer nel caso stia violando delle policy.
+
+#### OSSEC
+E' un [HIDS](../Cybersecurity#HIDS) che permette di monitorare le attività dell'host e effettuare analisi di integrità, monitoraggio (di log e processi del sistema) e identificazione di [rotkit](../Cybersecurity#Rootkit)
+
+#### Wazuh
+E' un [HIDS](../Cybersecurity#HIDS) che aggiorna il precedentemente tool ([[#OSSEC]]), grazie all'integrazione di meccanismi di protezione dell'endpoint, incluso un sistema di analisi dei logfile dell'host, identificazione delle vulnerabilità, analisi delle configurazioni e incident response.
+Richiede l'esecuzione di [agent] nella rete dell'host.
+
+### Analisi
+
+#### Wireshark
+Tool che permette di monitorare i pacchetti inviati e ricevuti da un host.
+
+#### Sguil
+Fornisce una console di alto livello per monitorare gli alert provenienti da varie fonti. Viene utilizzato come punto di partenza per l'analisi degli alert di sicurezza tramite l'appoggio di Sguil (che fornisce i dati) ad altri tool.
+
+#### Kibana
+Dashboard interattiva di [Elasticsearch](https://www.elastic.co/) data. Permette l'interrogazione dei dai [NSM] (Monitoraggio della Sicurezza della Rete) e la visualizzazione dei dati flessibile. E' possibile ottenere i dati da interrogare tramite [[#Sguil]] e visualizzarli, ad esempio, filtrandoli per IP associato ad un alert.
+
 ## chrootkit
 Software basato su Linux che permette di controllare la presenza di noti [rootkit](../cybersecurity#rootkit) all’interno della macchina. Utilizza comandi shell (prevalentemente strings, grep e ps)
 

@@ -30,7 +30,7 @@ Questo meccanismo sfrutta anche un elemento esterno, chiamato **chiave**, che co
 - Asimmetrici, quando la chiave di criptazione è diversa da quella di decriptazione
 
 ## Simmetrica
-La criptazione simmetrica utilizza chiavi corte (40-256 bit, ma per considerare una connessione sicura si consiglia di utilizzare una chiave di minio 128-bit) per fornire un meccanismo veloce di criptazione dei dati (viene spesso usata per cifrare i messaggi dei protocolli, come nelle [VPN](./tecnologie/reti#vpn)). Si basa sull'utilizzo di una chiave pre-condivisa per gestire la protezione dei dati.
+La criptazione simmetrica utilizza chiavi corte (40-256 bit, ma per considerare una connessione sicura si consiglia di utilizzare una chiave di minio 128-bit) per fornire un meccanismo veloce di criptazione dei dati (viene spesso usata per cifrare i messaggi dei protocolli, come nelle [VPN](Reti.md#vpn)). Si basa sull'utilizzo di una chiave pre-condivisa per gestire la protezione dei dati.
 
 ### Block ciphers
 I **cifrari a blocchi**  sono elementi utilizzati per scomporre il dato da cifrare (può essere un **plaintext** o un intero file)  e lo ricomporlo in un blocco di **ciphertext** (testo cifrato) da 128-bit. Il file risultante avrà un formato specifico (es. .7z)
@@ -96,7 +96,7 @@ Nel caso la chiave privata risulti compromessa, è necessario creare una nuova c
 #### DH
 Il Diffie-Helman è un algoritmo di cifratura che consente a due dispositivi tra loro sconosciuti di creare una chiave di criptazione concordata ed utilizzarla per stabilire una connessione sicura all'interno di una rete non protetta. 
 
-La creazione della chiave avviene previo scambio di dati ottenuti tramite operazioni con numeri di grandi dimensioni (che costituiranno le rispettive chiavi private), che avviene in una connessione sicura (di solito [IPsec](./tecnologie/protocolli#ipsec) o [VPN](./tecnologie/reti#vpn)).
+La creazione della chiave avviene previo scambio di dati ottenuti tramite operazioni con numeri di grandi dimensioni (che costituiranno le rispettive chiavi private), che avviene in una connessione sicura (di solito [IPsec](Protocolli.md#ipsec) o [VPN](Reti.md#vpn)).
 Una volta ricevuti i dati, questi vengono combinati con quelli inviati, in modo tale da ottenere una chiave condivisa uguale, senza averla di fatto comunicata.
 
 L'assenza della necessità di dover condividere la chiave fornisce un ulteriore livello di sicurezza alla comunicazione.

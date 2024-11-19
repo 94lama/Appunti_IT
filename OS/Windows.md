@@ -387,6 +387,9 @@ Tool che permette la modifica dei [registri di sistema](#registro) tramite l'uti
 ## gpedit.msc
 Il Group Policy Editor è un tool che permette di creare e modificare le **blacklist** e le **whitelist** del sistema.
 
+## lsass.exe
+Local Security Authority Subsystem Service è un tool presente su Windows\system32. Il file non è pensato per esser in esecuzione sui computer di solito quindi, nel caso se ne trovasse uno con lo stesso nom e)o simile=, probabilmente sarà un malware.
+
 ## lusrmng.msc
 Permette di visualizzare e gestire tutti gli utenti e i gruppi di utenti collegati alla macchina in uso. 
 Un altro metodo di assegnazione dei permessi è quello dei **Domini**, ovvero tipi di reti nelle quali tutti gli utenti, gruppi, periferiche e impostazioni di sicurezza, vengono salvati all'interno di un database, memorizzato all'interno di un computer, denominato Controllore del Domino (DC). In tal caso, ogni utente dovrà autenticarsi presso il DC per poter aver accesso alla rete.
