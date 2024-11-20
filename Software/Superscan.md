@@ -1,0 +1,14 @@
+Software per effettuare il port scanning su sistemi Windows (richiede privilegi di amministratore). Offre le seguenti funzionalità:
+- Velocità di scansione modificabile
+- Supporto illimitato per i range degli IP
+- Identificazione degli host migliorata tramite l'uso di metodi [ICMP](../Tecnologie/Protocolli#ICMP) multipli
+- Scansione TCP SYN
+- Due metodi di scansione UDP
+- Generazione di report in semplice HTML
+- Scansione delle porte di invio
+- Risoluzione dell'hostname rapida
+- Capacità estese di banner grabbing
+- Database built-in massivo per la lista delle descrizioni delle porte 
+- Randomizzatore dell'ordine di scansione delle porte IP
+- Servizi aggiuntivi come ping, traceroute, whois
+- Capacità estese di numerazione degli host

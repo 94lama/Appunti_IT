@@ -17,6 +17,11 @@ Il terminale non può eseguire comandi in concerto con la GUI o con il nucleo di
 
 ## Lista comandi
 
+Visualizza la tabella ARP
+```Terminal
+arp
+```
+
 Cambiare cartella
 ```Terminal
 cd <percorso>
@@ -55,6 +60,11 @@ help
 	OPZIONI:
 	- E' possibile inserire un comando per cui richiedere le modalità di utilizzo
 
+Assembla e analizza i pacchetti utilizzati per port scanning, path discovery, OS fingerprinting e testing del firewall
+```Terminal
+hping
+```
+
 Trovare l'indirizzo [IP](./../Tecnologie/protocolli#ip) (o crearne/richiederne uno nuovo nel caso non sia impostato) e le configurazioni della [scheda di rete](./../Tecnologie/Macchina#NIC) della macchina su cui si opera
 ```Terminal
 ipconfig
@@ -75,6 +85,11 @@ Crea una nuova cartella
 mkdir <percorso/nome cartella>
 ```
 
+Fornisce aiuto di troubleshooting per il NetBIOS
+```Terminal
+nbtstat
+```
+
 Per effettuare la manutenzione della rete
 ```Terminal
 net
@@ -88,6 +103,11 @@ net
 	use # si connette, disconnette e visualizza informazioni relative alle risorse di rete
 	view # visualizza la lista dei computer e dei dispositivi di rete connessi alla rete
 
+Raccoglie informazioni dalle connessioni [TCP](./Tecnologie/Protocolli#TCP) e [UDP](./Tecnologie/Protocolli#UDP)
+```Terminal
+netcat
+```
+
 Controlla e mostra i [socket](./../Tecnologie/Macchina#Socket) aperti per le comunicazioni in [TCP](./../Tecnologie/Protocolli#TCP)
 ```Terminal
 netstat
@@ -95,6 +115,11 @@ netstat
 	OPZIONI
 	-n # Mostra gli indirizzi IP e il numero della porta in forma numerica
 	-abno # solo per admin, mostra le connessioni aperte e i relativi processi che le stanno utilizzando
+
+Localizza gli host della rete e ne identifica il sistema operativo utilizzato e i servizi offerti
+```Terminal
+nmap
+```
 
 Aprire un [socket](./../TEcnologia/Macchina#Socket) per l'invio di richieste [DNS](./../Tecnologia/Protocolli#DNS) nel server locale. Una volta lanciato il comando si riceveranno informazioni riguardo il server locale, poi sarà possibile effettuare altre ricerche.
 ```Terminal

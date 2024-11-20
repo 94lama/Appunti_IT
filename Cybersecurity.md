@@ -347,7 +347,18 @@ La conformità (compliance) descrive il processo che porta a confermare la confo
 # Security Standards
 Gli standard di sicurezza hanno l'obiettivo di categorizzare e valutare le #vulnerabilità.
 
-Gli standard sulla sicurezza sono gestiti da apposite agenzie e costantemente aggiornati tramite analisi dei contenuti presenti al dark web, AIS (Indicatore di Condivisione Automatizzato), ovvero un’infrastruttura che permette lo scambio in tempo reale di indicatori sulle vulnerabilità utilizzando determinati linguaggi standardizzati e strutturati come lo STIX (Espressione Strutturata delle Informazioni della Minaccia) o il TAXII (Scambio Automatizzato e Fidato di Informazioni di Intelligence)
+Gli standard sulla sicurezza sono gestiti da apposite agenzie e costantemente aggiornati tramite analisi dei contenuti presenti al dark web, [[#AIS]] (Indicatore di Condivisione Automatizzato), ovvero un’infrastruttura che permette lo scambio in tempo reale di indicatori sulle vulnerabilità utilizzando determinati linguaggi standardizzati e strutturati come lo [[#STIX]] (Espressione Strutturata delle Informazioni della Minaccia) o il [[#TAXII]] (Scambio Automatizzato e Fidato di Informazioni di Intelligence)
+
+Le aziende più famose che operano in questo ambito sono:
+
+| Organizzazione        | Descrizione                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [[#SANS]]             | SysAdmin, Audit, Network, Security (SANS), offre servizi a titolo gratuito (su richiesta) su:<br>- Internet Storm Center (sistema di prima allarme di internet)<br>- NewsBites: newsletter settimanale con articoli a tema sicurezza del computer<br>- @RISK: newsletter settimanale sugli aggiornamenti delle CVE e CWE<br>- Alert di sicurezza flash<br>Reading Room: Collezione di oltre 1200 articoli vincitori di premi<br>- Codici di sicurezza |
+| [[#MITRE]]            | Organizzazione che gestisce le [[#CVE]]                                                                                                                                                                                                                                                                                                                                                                                                               |
+| [[#FIRST]]            | Forum of Incident Response and Security Teams, è un'organizzazione di sicurezza che riunisce vari esperti di Security Incident Response per permettere la collaborazione tra aziende sul tema cybersecurity                                                                                                                                                                                                                                           |
+| [[#SecurityNewsWire]] | Portale di news che raccoglie notizie sulle ultime novità in ambito sicurezza (alert, breach, exploits, ecc.)                                                                                                                                                                                                                                                                                                                                         |
+| [[#(ISC)2]]           | International Information System Security Certification Consortium fornisce prodotti educativi neutrali a più di 75000 professionisti in più di 135 paesi                                                                                                                                                                                                                                                                                             |
+| [[#CIS]]              | Il Center for Internet Security è un punto di riferimento riguardo la prevenzione, protezione, risposta e recovery delle minacce. Ha lo scopo di offrire degli avvisi 24/7 su minacce e consigli su minacce, mitigazione di incidenti e incident response a livello statale, locale, tribale e territoriale (SLTT) tramite la Condivisione di Informazioni Multi-Stato e Centro di Analisi (MS-ISAC)                                                  |
 
 ## MITRE
 Organizzazione non-profit, fondata nel 1975, che si occupa di #cybersecurity.
@@ -394,6 +405,38 @@ Il processo di implementazione del #ASVS, si effettua in vari passaggi:
 6. Monitoraggio e manutenzione
 7. Aggiornamenti e miglioramenti continui
 -----20:40-----
+
+## DHS
+Il dipartimento per la sicurezza interna degli USA offre un servizio gratuito chiamato Automated Indicator Sharing (AIS).
+
+### AIS
+Permette lo scambio in tempo reale degli indicatori di minacce alla sicurezza informatica tra il governo e i privati.
+
+## CISCO Talos
+Software che permette di scambiare informazioni riguardo vulnerabilità, indicatori di compromissione ([IOC]) e tecniche di mitigazione a livello globale. Inoltre fornisce e gestisce un set di regole per la protezione da intrusioni per software come [[#Snort]], [[#ClamAV]] e [[#SpamCop]] 
+
+## FireEye
+Azienda di sicurezza che offre servizi per la messa in sicurezza della rete di aziende. Utilizza un approccio basato su 3 punti:
+- Security intelligence
+- Security Expertise
+- Tecnologia
+
+FireEye offre soluzioni [[#SIEM]] e [[#SOAR]] che utilizzano l'analisi comportamentale e tecniche avanzate di identificazione (supportate dalla rete mondiale di Threat intelligence FireEye Mandiant) all'interno dell'[Helix Security Platform].
+
+## STIX
+Lo Structured Threat Information Expression è un set di specifiche per la condivisione di minacce informatiche tra organizzazioni. Incorpora lo standard [[#CybOX]].
+
+## TAXII
+Il Trusted Automated Exchange of Indicator Information è la specifica per i protocolli di [livello 7](./Tecnologie/Protocolli#Applicazione) per le comunicazioni in [CTI] su [HTTPS](./Tecnologie/Protocolli#HTTPS), progettata per supportare [[#STIX]].
+
+## CybOX
+Set di schemi standardizzati per specificare, catturare, caratterizzare e comunicare eventi e proprietà delle operazioni di rete che supporta molte funzioni proprie della cybersecurity.
+
+## TIP
+Le Threat Intelligence Platforms sono piattaforme utili per l'aggiornamento costante sulle minacce informatiche a livello globale. La condivisione di dati uniformi avviene grazie all'utilizzo di Indicatori di Compromissione [[#IOC]], tecniche, strumento e procedure ([[#TTP]]) ed un sistema di informazioni riguardanti la reputazione dei vari domini.
+
+### MISP
+La Malware Information Sharing Platform è una piattaforma open source per condividere i nuovi indicatori di compromissione delle minacce. Il MISP è supportato dalla UE e utilizzato da oltre 6000 organizzazioni nel mondo.
 
 # Etica
 Ci sono 3 correnti filosofiche riguardo l'etica:
@@ -1375,12 +1418,97 @@ Permettono di evitare i #push contenenti #secret (dati sensibili, come password 
 - [[Burp#Sensitive discover]]
 - [[gitleaks]]
 ## Packet analyzer
-Sono strumenti che permettono l'analisi in tempo reale e il salvataggio dei pacchetti inviati e ricevuti dal dispositivo che lo sta utilizzando. Un esempio di packet analyzer è Tcpdump (utilizzato da software come Wireshark)
+Sono strumenti che permettono l'analisi (o il semplice sniffing) in tempo reale e il salvataggio dei pacchetti in transito sul dispositivo che lo sta utilizzando. Un esempio di packet analyzer è Tcpdump (utilizzato da software come Wireshark). Le funzionalità principali sono:
+- Analisi dei problemi della rete
+- Identificazione di tentativi di intrusione nella rete
+- Isolamento dei sistemi compromessi
+- Log del traffico
+- Identificazione di utilizzo improprio della rete
 
+### EtherApe
+### Ettercap
+### Kismet
+### ngrep
+### ntop
+### PCPdump
 ### Tcpdump
 Strumento per effettuare analisi dei pacchetti ed effettuare [[#log]] a livello di rete.
 
-## Regression test
+### Wireshark
+## Vulnerability scanner
+### Introduzione
+Gli scanner di vulnerabilità sono software che effettuano scansioni di un dispositivo, di più dispositivi, o di un'intera rete, per identificarne le debolezze e fornire un audit del risultato dell'analisi. Alcuni parametri che il software ricerca soon:
+- Utilizzo di password di default
+- Patch non installate o aggiornate
+- Porte aperte
+- Configurazione errata di software e/o sistemi operativi
+- indirizzi IP attivi (inclusi quelli indesiderati)
+
+Mentre i servizi comunemente offerti comprendono:
+- Effettuare l'audit della conformità
+- Installare patch e aggiornamenti
+- Identificare configurazioni errate
+- Supportare dispositivi mobile e connessioni wireless
+- Tracciare i malware
+- Identificare dati sensibili
+
+Alcuni esempi commerciali di Vulnerability scanner sono:
+- Nessus
+- Retina
+- Core Impact
+- GFI Life Guard
+
+### Target
+Gli scanner delle vulnerabilità sono divisi in base all'obbiettivo della loro scansioni in:
+- Scanner di rete
+- Scanner delle applicazioni
+- Scanner delle applicazioni web
+
+### Scansioni
+E' possibile effettuare due tipologie di scansioni diverse: intrusive o in base a credenziali (credentialed)
+
+#### Intrusive
+Sono scansioni che cercano di sfruttare delle vulnerabilità e possono portare al blocco del target.
+
+#### Credentialed
+Le credenziali di accesso al sistema vengono fornite al software prima di iniziare l'analisi, permettendogli di raccogliere più informazioni. Questo tipo di scansioni spesso produce meno falsi positivi e falsi negativi nei risultati.
+
+
+## Test
+I test vengono effettuati spesso su un dispositivo o su un'intera rete per verificarne la corretta impostazione e funzionamento. Lo scopo dei test è verificarne la presenza ed identificare le vulnerabilità presenti sull'obbiettivo.
+Questa fase di solito è preceduta da una fase di ricognizione (reconnaiscance), che può essere:
+- Attiva: nel caso venga effettuata direttamente sulla rete
+- Passiva: nel caso venga fatta all'esterno (es. social network, motore di ricerca o altro)
+
+### Pentest
+Il Penetration test è un test (effettuato spesso dal [Red-team]) attraverso il quale un tecnico prova ad accedere ed utilizzare una rete tramite meccanismi di forzatura ed attacchi noti (es. brute-force delle password di accesso), per poi raccogliere i risultati in un documento di **audit**.
+
+L'obbiettivo è determinare la presenza di vulnerabilità della rete e le attività permesse nel caso esse vengano sfruttate, per determinare i possibili danni. Per fare ciò spesso si utilizzano dei [[#Packet analyzer]]
+
+#### Tipologie
+##### Back-box
+E' il test più rapido ed economico. Presuppone una conoscenza nulla della rete.
+
+##### Gray-box
+Test intermedio, presuppone la conoscenza di alcune componenti della rete e dell'ambiente che la costituisce
+
+##### White-box
+E' il test che necessita di più tempo per essere effettuato (e fornisce i risultati più completi). Presuppone la conoscenza dell'intera rete e dell'ambiente.
+
+#### Fasi
+1. Pianificazione: Stabilisce le regole di approccio del test
+2. Scoperta: Utilizzo di tecniche attive e passive per ottenere informazioni riguardo la rete
+3. Attacco: Si eseguono vari attacchi contro la rete per verificare/sfruttare le vulnerabilità
+4. Reporting: SI produce una documentazione esaustiva del test (identificando azioni prese e risultati conseguiti)
+
+#### Team
+I team che operano i nun pentest test sono:
+- Red team: coloro che attuano l'attacco
+- Blue team: coloro che tentano di difendere la rete dall'attacco
+- White team (opzionale): Squadra neutrale che predispone le regole del test
+- Purple team: Commistione di membri del red e del blue team, che lavorano per identificare le vulnerabilità di una rete e come risolverle
+
+### Regression test
 Il #regression-test può essere fatto con [[Postman]], [[Python 1]] e consiste nell'analizzare il contenuto della #response ad una chiamata #http 
 
 # Protezione
@@ -2106,13 +2234,26 @@ E' sempre consigliabile:
 
 ## SIEM
 Il Security Information Event Management (Gestore delle informazioni di sicurezza sugli eventi) è una tecnologia molto utilizzata dalle aziende per fornire report in tempo reale e analisi a lungo termine di eventi di sicurezza. Forniscono la somma dei servizi offerti dal SEM e dal SIM:
-- Collezione dei log
+- Identificazioni di minacce esterne ed interne
+- Monitoraggio delle attività  ed uso delle risorse
+- Collezione dei log (con possibilità di fornire log aggiuntivi a quelli raccolti)
 - Normalizzazione dei dati
 - Correlazione
 - Aggregamento
 - Reporting
-- Conformità
-Un esempio di software SIEM è [Splunk](https://www.splunk.com/)
+- Audit della conformità
+- Support alle attività di [[#incident response]]
+
+Considerando il costo di acquisto e di manutenzione, l'utilizzo dei SIEM è consigliato solo nel caso di organizzazioni che devono gestire la generazioni di milioni di eventi al giorno. 
+Un esempio di software commerciale SIEM è [Splunk](https://www.splunk.com/)
+
+## SOAR
+Il Security Orchestration Automation and Response sono software che permettono di raccogliere informazioni relative la rete ed automatizzare la risposte ad eventi di basso livello. I sistemi SOAR offrono 3 servizi principali:
+- Gestione delle minacce e delle vulnerabilità
+- Risposta agli incidenti di sicurezza
+- Automatizzazione delle operazioni di sicurezza
+
+I software SOAR possono essere integrati con software SIEM.
 
 ## Protezione fisica
 Le misure di sicurezza fisiche hanno lo scopo di impedire fisicamente al personale non autorizzato ad accedere a specifiche aree (come la server room, o l'edificio stesso nel caso di persone che non siano dipendenti o ospiti)
@@ -2827,7 +2968,52 @@ Avviene tramite l'utilizzo di una chiave pubblica e di una chiave privata
 - Complessità 
 
 # Operations
-Per operations si intende tutta la parte di gestire la parte di gestione dei servizi.
+Per operations si intende tutta la parte di gestione dei servizi, utile per effettuare il deploy e la manutenzione dei sistemi e dei servizi.
+
+La messa in sicurezza della fase di operations inizia durante la pianificazione dell'artchitettura della rete e la sua implementazione, per poi proseguire durante la sua creazione e manutenzione. Per effettuare queste operazioni di messa in sicurezza, è necessario avere conoscenze riguardo:
+- Sistemi operativi
+- Programmazione di base
+- [Protocolli](./Tecnologie/Protocolli)
+- Vulnerabilità delle reti e mitigazione dei rischi
+- [[#Hardening]] dei dispositivi
+- [[#Firewall]]
+- [[#IPS]]
+
+## Security testing
+E' necessario effettuare numerosi test (da ripetere ad intervalli regolari di tempo) durante i processo di Operations nelle sua varie fasi e fornire i risultati dei test al team di sicurezza.
+
+Durante la fase di **implementazione** si testano specifiche parti della rete tramite ST&E (Security Testing and Evaluation, ovvero test di sicurezza e relativa valutazione), ovvero un test che persegue i seguenti obbiettivi:
+- Scoprire le falle di design, implementazione e funzionali che potrebbero portare alla violazione delle policy di sicurezza
+- Determinare l'adeguatezza dei meccanismi di sicurezza, assicurazioni e proprietà per applicare le policy di sicurezza
+- Assegnare un grado di consistenza tra la documentazione e la sua implementazione
+
+Dopo che la rete è stat installata in maniera stabile, i test da effettuare invece sono:
+- [[#Pentest]]: simulazione di attacchi dall'esterno
+- [Network scanning]: 
+- [Vulnerability scanning]
+- [Password cracking]
+- [Log review]
+- [Integrity checkers]
+- [Virus detection]
+
+Gli obiettivi da raggiungere a seguito dei test sono:
+- Definire le attività di mitigazione
+- Fornire un benchmark per tracciare il progresso nel rispetto dei requisiti di sicurezza di un'organizzazione
+- Valutare lo stato dell'implementazione dei requisiti di sicurezza
+- Condurre un analisi costi-benefici per i miglioramenti dello stato della rete
+- Migliorare le attività correlate
+- Fornire un punto stabile di partenza per le azioni correttive
+
+### Software
+Alcuni software utili per effettuare test della rete (alcuni potrebbero essere datati) sono:
+- [Nmap/Zenmap](./Software/Zenmap): Scansione dei dispositivi e dei servizi della rete e mappatura
+- [SuperScan](./Software/Superscan): Port scanner per protocolli TCP e UDP per determinare quali servizi siano disponibili nelle porte utilizzate (es. ping, traceroute, hostname, ecc.)
+- [[#SIEM]]: Fornisce report e analisi i sicurezza della rete a lungo termine
+- [GFI LANguard]: Scanner di sicurezza della rete
+- [Tripwire]: Analizza e convalida configurazioni IT che vadano contro le policy aziendali e le best practices di sicurezza
+- [Nessus]: Software di scansione delle vulnerabilità incentrato sull'accesso da remoto, configurazioni errate e attacchi DoS contro lo stack TCP/IP
+- [L0phtCrack]: Password auditing a recovery
+- [Metasploit]: Fornisce informazioni riguardo le vulnerabilità e aiuta nei [[#Pentest]] e per lo sviluppo di firme per gli [[#IDS]]
 
 ## Configurazioni
 La gestione delle configurazioni consiste nell'identificare, controllare e revisionare ogni implementazione o modifica apportata ad una baseline (linea di riferimento) di un sistema.

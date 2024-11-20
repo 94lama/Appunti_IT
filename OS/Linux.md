@@ -69,6 +69,11 @@ sudo apt-get
 	upgrade # aggiorna tutti i software installati
 	dist-upgrade # aggiorna la distro
 
+Visualizzare la [tabella ARP](./Tecnologie/Protocolli#ARP) del dispositivo
+```sh
+arp
+```
+
 Utilizzare il [linguaggio AWK](https://www.geeksforgeeks.org/awk-command-unixlinux-examples/) per generare dei #report
 ```sh
 awk
@@ -119,6 +124,11 @@ Copia un dato da un input ad un output
 dd
 ````
 
+Cercare un Fully Qualified Domain Name nel server DNS di default (può essere anche la [cache](./Macchina#Cache) del dispositivo stesso) tramite [DNS](./Protocolli#DNS)
+```sh
+dig <sito web (opzionale)>
+```
+	N.B. Se non viene inserito nessun indirizzo, la shell entrerà in modelità lookup, dove potrai effettuare le ricerche inserendo il nome del sito desiderato (inserisci il comando exit per terminare il processo).
 
 Controllare lo spazio disponibile nelle varie partizioni del volume
 ```shell
@@ -176,6 +186,7 @@ groupdel <nome_gruppo>
 	OPZIONI:
 	-f # forza la rimozione
 	-r # 
+
 Visualizzare i gruppi a cui appartiene un utente
 ```shell
 groups <utente>
@@ -183,14 +194,9 @@ groups <utente>
 	Se non si inserisce l'utente, ritornerà tutti i gruppi del sistema
 	OPZIONI:
 
-Mostrare i parametri delle interfacce di connessione (tipo IPv4, Ethernet)
-```sh
-ifconfig
-```
-
-Mostrare i parametri delle interfacce di connessione wireless
-```sh
-iwconfig 
+Assembla e analizza i pacchetti utilizzati per port scanning, path discovery, OS fingerprinting e testing del firewall
+```Terminal
+hping
 ```
 
 Verificare le informazioni di un utente
@@ -198,11 +204,21 @@ Verificare le informazioni di un utente
 id <user>
 ```
 
+Mostrare i parametri delle interfacce di connessione (tipo IPv4, Ethernet)
+```sh
+ifconfig
+```
+
 Visualizzare le regole di accesso alla macchina ( #firewall)
 ```shell
 iptables -L -v -n
 ```
 	iptables -P INPUT DROP # cancella tutte le configurazioni  
+
+Mostrare i parametri delle interfacce di connessione wireless
+```sh
+iwconfig 
+```
 
 Modificare il comportamento di un processo
 ```Sh
@@ -256,6 +272,11 @@ ncat <indirizzo> <porta>
 	-z | 
 	-V |
 
+Mostra le porte aperte al momento
+```sh
+netstat
+```
+
 Verificare se ci sono porte aperte verso l'esterno in una macchina #port-scanning
 ```bash
 nmap <nome_macchina>
@@ -265,12 +286,6 @@ Installare i pacchetti contenuti nel file package.json tramite npm
 ```Bash
 npm install
 ```
-
-Cercare un Fully Qualified Domain Name nel server DNS di default (può essere anche la [cache](./Macchina#Cache) del dispositivo stesso) tramite [DNS](./Protocolli#DNS)
-```sh
-nslookup <sito web (opzionale)>
-```
-	N.B. Se non viene inserito nessun indirizzo, la shell entrerà in modelità lookup, dove potrai effettuare le ricerche inserendo il nome del sito desiderato (inserisci il comando exit per terminare il processo).
 
 Eseguire un file con [[Node.js]]
 ```Bash
@@ -401,6 +416,11 @@ top
 ```
 	AZIONI:
 	Q # interrompe il comando
+
+Tracciare il percorso dei pacchetti fino alla destinazione
+```sh
+traceroute
+```
 
 Creare un nuovo utente (richiede permessi root)
 ```sh
