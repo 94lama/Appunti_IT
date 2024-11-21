@@ -308,7 +308,62 @@ Definiscono degli obiettivi di sicurezza da raggiungere e degli standard (tecnol
 # Domini
 La [[#ISO 27001]] e la [[#ISO 27002]] hanno definito 12 domini della cybersecurity, gestendo rispettivamente gli obiettivi dei controlli e i controlli.
 ## Risk assessment
-Si occupa di determinare i valori qualitativi e quantitativi dei rischi relativi situazioni specifiche o minacce.
+Si occupa di determinare i valori qualitativi e quantitativi dei rischi relativi situazioni specifiche o minacce. Il [NIST](#NIST) definisce la valutazione del rischio come
+```
+Un processo sistematico per decidere il livello di rischio associato a un particolare software o modulo.
+```
+Un passaggio fondamentale della valutazione del rischio è l'identificazione di tutte le minacce, le vulnerabilità, e il loro collegamento (chiamato *threat-vulnerability pairing*, o accoppiamento minaccia-vulnerabilità). Questo passaggio serve a identificare il profilo di rischio inerente di un'organizzazione.
+
+Una volta identificati i rischi, essi possono essere pesati per identificare le priorità di intervento. Le priorità generalmente utilizzate sono:
+- **Risk avoidance**: interrompere i servizi che creano il rischio
+- **Risk reduction**: Prendere contromisure per ridurre il peso del rischio
+- **Risk sharing**: Condividere il rischio con enti terzi (ad esempio subappaltando il servizio ad essi, o assicurandosi contro il rischio stesso)
+- **Risk retention**: Accattare il rischio consapevolmente
+
+### [CVE](#CVE)
+
+### CVSS
+Il [Common Vulnerability Scoring System](https://www.first.org/cvss/) è uno strumento (webapp) di Risk assessment, progettato per fornire attributi comuni e un indice di severità alle vulnerabilità ai componenti hardware e software di un sistema. La terza versione è un framework open source e vendor-neutral, gestito dal [FIRST](#FIRST), utile per pesare il rischio delle vulnerabilità utilizzando diverse metriche. La combinazione di questi valori di rischio, permette di stabilire il fattore di rischio complessivo e l'urgenza della vulnerabilità stessa (con conseguente indice di priorità).
+
+#### Metriche
+![[metriche_CVSS.png]]
+
+##### Base
+Il gruppo delle metriche base è composto da 2 classi:
+- Exploitability (exp): comprende caratteristiche dell'attacco, come il vettore, la complessità e le interazioni richieste dall'utente
+- Impatto (imp): calcolato in base alla [triade CIA](<#Triade di sicurezza>)
+
+| Tipo | Criterio                            | Descrizione                                                                                                                           | Valori                                                    |
+| ---- | ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------- |
+| Exp  | Vettore                             | Vicinanza dell'attaccante al componente vulnerabile. Più è lontano l'attaccante, maggiore è la gravità dell'attacco                   | - N: rete<br>- A: adiacente<br>- L: locale<br>- P: fisico |
+| Exp  | Complessità                         | Numero di elementi, software, hardware o reti necessarie (non sotto il controllo dell'attaccante) per eseguire con successo l'attacco | L: basso<br>H: alto                                       |
+| Exp  | Privilegi richiesti                 | Livello necessario di privilegi richiesti per eseguire con successo l'attacco                                                         | N: nessuno<br>L: bassi<br>H: alti                         |
+| Exp  | Interazioni dall'utente             | Presenza o assenza di azioni che un utente interno dele eseguire affinchè l'attacco possa venire eseguito                             | U: Nessuna<br>R: richieste                                |
+| Exp  | Ambito                              | Necessità (dell'attaccante) di cambiare authority durante l'esecuzione dell'attacco                                                   | U: non cambia<br>C: cambia                                |
+| Imp  | [Confidenzialità](#Confidenzialità) | Impatto che l'esecuzione dell'atatcco avrebbe a livello di Confidenzialità                                                            | H: alto<br>L: basso<br>N: nessuno                         |
+| Imp  | [Integrità](#integrità)             | Impatto che l'esecuzione dell'atatcco avrebbe a livello di Integrità                                                                  | H: alto<br>L: basso<br>N: nessuno                         |
+| Imp  | [Disponibilità](#availability)      | Impatto che l'esecuzione dell'atatcco avrebbe a livello di Disponibilità                                                              | H: alto<br>L: basso<br>N: nessuno                         |
+
+##### Temporali
+Misurano le variazioni delle caratteristiche dell'attacco attraverso il tempo (ma non al variare dell'ambiente oggetto dell'attacco stesso). Ad esempio la presenza di nuove patch potrebbe far abbassare la gravità di un attacco.
+
+##### Ambientali
+Fornisce valori riguardo l'ambiente dell'organizzazione. Questo tipo di valori è utile a definire le conseguenze dell'attacco all'interno dell'organizzazione e correggere i valori in base all'ambiente specifico dell'organizazzione stessa.
+
+
+
+#### Risultati
+Il risultato dell'analisi è un valore numerico (compreso tra 0 e 10), da comparare ad un range di valori:
+- Nessuno: 0
+- Basso: 0.1 - 3.9
+- Medio: 4.0 - 6.9
+- Alto: 7.0 - 8.9
+- Critico: 9.0 - 10.0
+
+In generale, ogni vulnerabilità  a cui è stato assegnato un valore superiore a 3.9, è da analizzare.
+
+### [NVD](https://nvd.nist.gov/)
+
 ## Security policy
 Documento che tratta i vincoli e i comportamenti all'interno di un'organizzazione e spesso i metodo ammessi di trattamento dei dati e chi ne ha accesso.
 
@@ -1268,6 +1323,29 @@ Un altro modo per nascondere dati durante è tramite l'uso di **Steganografia**,
 Preferire meccanismi semplici, ma efficaci di protezione, evitando l'utilizzo di meccanismi troppo complessi da impostare, che potrebbero ritorcersi contro il team di sicurezza stesso per problemi di configurazione, o altro. Preferire invece soluzioni che siano facili da utilizzare, ma complesse da attaccare.
 
 # Strumenti di analisi
+## Profilazione
+La profilazione della permette di schematizzare gli aspetti principali della struttura, del funzionamento e delle modalità d’uso (standard o supposte) di un elemento, per facilitare l’identificazione di alcune vulnerabilità a cui potrebbe essere soggetto.
+
+### Rete
+Gli elementi base per una buona profilazione di una rete sono:
+- Durata della sessione (tempo trascorso tra lo stabilimento di una connessione per lo scambio di un flusso di dati e la sua fine)
+- [Throughput](./Tecnologia/Macchina#Throughput) totale (la totalità di dati in transito da un dispostiivo ad un altro in un determinato arco di tempo)
+- Porte utilizzate (facendo riferimento ai protocolli TCP e UDP)
+- Spazio degli indirizzi critici (ovvero il la localizzazione degli indirizzi che contengono dati essenziali per il funzionamento del sistema)
+
+Altri parametri fondamentale, ma non direttamente collegati alla rete sono:
+- Traffico host-to-host
+- Comportamento standard degli utenti
+
+È possibile utilizzare tool come [Wireshark] e [NetFlow](#netflow) per identificare una baseline del traffico della rete.
+
+### Server
+Utile per definire una baseline comportamentale accettabile del server stesso. I parametri analizzati spesso sono:
+- Porte in ascolto
+- Account e utenti collegati
+- Servizi resi disponibili agli account
+- Ambiente software (o software environment, inteso come insieme di task, processi e applicazioni che permettono il funzionamento del server)
+
 ## Applicazione
 ### AVC
 Gli Application Visibility Control sono tool che permettono l'analisi delle applicazioni in uso da un dispositivo. Un esempio è il Cisco Application Visibility Control.
@@ -1278,7 +1356,13 @@ Questi software offrono servizi di:
 - Controllo
 
 ## Rete
-### [[#NetFlow]]
+### [NetFlow](#protezione#netflow)
+
+### NBA
+La Network behavior analysis è un approccio che consiste nell’analizzare il flusso di rete attraverso tecniche di analisi per i Big Data e compararle con la baseline di comportamento della rete stessa. Una deviazione significativa dal comportamento della baseline potrebbe indicare un attacco in corso. Un esempio di algoritmo per una NBA è il seguente:
+
+![[algoritmo_nba.png]]
+Dove X, Y e Z sono variabili impostabili a discrezione del cybersecurity analyst.
 
 ## log
 I log sono file che tengono traccia di avvenimenti all’interno della rete. Gli eventi di solito monitorati tramite log possono essere categorizzati in:
@@ -1480,10 +1564,16 @@ Questa fase di solito è preceduta da una fase di ricognizione (reconnaiscance),
 - Attiva: nel caso venga effettuata direttamente sulla rete
 - Passiva: nel caso venga fatta all'esterno (es. social network, motore di ricerca o altro)
 
+### Network Vulnerability Testing
+Comprende una serie di test da effettuare periodicamente sulla rete, per verificarne lo stato:
+- [Analisi dei rischi](<#risk analysis>) (Risk Analysis)
+- [Valutazione delle vulnerabilità](<#vulnerability assessment>) (Vulnerability Assessment)
+- [Penetration testing](#pentest)
+
 ### Pentest
 Il Penetration test è un test (effettuato spesso dal [Red-team]) attraverso il quale un tecnico prova ad accedere ed utilizzare una rete tramite meccanismi di forzatura ed attacchi noti (es. brute-force delle password di accesso), per poi raccogliere i risultati in un documento di **audit**.
 
-L'obbiettivo è determinare la presenza di vulnerabilità della rete e le attività permesse nel caso esse vengano sfruttate, per determinare i possibili danni. Per fare ciò spesso si utilizzano dei [[#Packet analyzer]]
+L'obbiettivo è determinare la presenza di vulnerabilità della rete e le attività permesse nel caso esse vengano sfruttate, per determinare i possibili danni. Per fare ciò spesso si utilizzano dei [[#Packet analyzer]] come[Metasploit], [CORE], [Impact]
 
 #### Tipologie
 ##### Back-box
@@ -1510,6 +1600,19 @@ I team che operano i nun pentest test sono:
 
 ### Regression test
 Il #regression-test può essere fatto con [[Postman]], [[Python 1]] e consiste nell'analizzare il contenuto della #response ad una chiamata #http 
+
+### Risk analysis
+Analisi approfondita dell'impatto che gli attacchi informatici possono avere sulle funzionalità di base di un'azienda e sugli asset.
+
+Per effettuare questo tipo di analisi, si fa ricorso ad [appositi framework].
+
+### Vulnerability Assessment
+Si effettua un controllo dello stato degli aggiornamenti dei componenti di un sistema (OS, patch, porte aperte, ecc.). E' possibile utilizzare appositi tools, come:
+- [OpenVas]
+- [Microsoft Baseline Analyzer]
+- [Nessus]
+- [Qualys]
+- [[Nmap]]
 
 # Protezione
 Esistono strumenti pensati per proteggere in maniera passiva i sistemi.
@@ -2376,6 +2479,60 @@ Le macchine virtuali possono essere soggette a particolari attacchi rispetto all
 ## Web Proxy
 Dispositivo di protezione che si interpone durante ula navigazione web tra l'utente e la rete esterna. Permette di scansionare il traffico in uscita per verificare la presenza ed in caso la tipologia di dati in uscita (quindi evitare fuga di dati sensibili, confidenziali, ...)
 
+## Gestione
+
+### Risk management
+La gestione del rischio consiste nella selezione delle specifiche dei controlli di sicurezza di un'organizzazione. Il Risk Management è un processo ciclico, che comprende 5 fasi:
+- Identificazione del rischio
+- [Risk assessment](<#Risk Assessment>)
+- Pianificazione delle risposte al rischio
+- Implementazione della risposta
+- Monitoraggio e valutazione dei risultati
+
+### Vulnerability Management
+La gestione delle vulnerabilità è un processo circolare, che consiste in 6 passaggi:
+- **Scoperta**: Analisi di tutti gli asset ([Asset Management](<#Asset Management>)) per scoprire nuove vulnerabilità e definizione di una base-line
+- **Prioritizzazione degli asset:** Assegnazione di un valore di priorità in base al valore dell'asset
+- **Valutazione**: Determinare il profilo di rischio in base alle informazioni in possesso
+- **Report**: Valutare il livello di rischio a livello commerciale in base alle [Policy di sicurezza](<#Policy di sicurezza>) e documentare un **piano di sicurezza** che descriva le vulnerabilità scoperte
+- **Rimediare**: Pianificare una soluzione alle varie vulnerabilità in base alla loro categoria di rischio commerciale
+- **Verifica**: Verificare che le minacce siano state eliminate tramite degli audit
+
+### Asset Management
+La gestione delle risorse consiste nell'implementare un sistema di tracciamento e configurazione dei dispositivi e dei software utilizzati nella rete (o che ne hanno accesso). Una [lista delle risorse da gestire](https://csrc.nist.gov/pubs/ir/8011/v2/final) è fornita dal [NIST](#NIST), che fornisce anche una procedura standard per effettuarne la gestione:
+1. Automatizzare la scoperta e l'inventario delle risorse e del loro stato
+2. Definire lo stato desiderato di ciascun dispositivo in base a [Policy](#policy), piani e procedure
+3. Identificare le risorse che non rispettano i requisiti
+4. Riparare le risorse identificate (sostituirle le la correzione non è possibile)
+5. Ritornare al punto 1
+
+#### MDM
+La Gestione dei Dispositivi Mobile (Mobile Device Management) rappresenta una particolare sfida per la gestione della rete (in particolare se sono in atto politiche [BYOD](#BYOD)). Un fattore importante da considerare per la gestione dei dispositivi mobile è che **una parte della procedura è a responsabilità del proprietario del dispositivo**.
+
+Una buona prassi è non dare nessun livello di fiducia a tutti i dispositivi mobile.
+
+#### Software
+Dei software che possono aiutare nella gestione dei dispositivi sono:
+- [Cisco Meraki System Manager](https://meraki.cisco.com/) (MDM)
+
+### Configuration Management
+Processo che consiste nell'assegnare le corrette configurazioni ai dispositivi e monitorarne lo stato. Il NIST offre [un esempio](https://csrc.nist.gov/pubs/sp/800/128/upd1/final) (scaricabile) di Configuration Management per la sicurezza della rete. 
+
+### Enterprise Patch Management
+Operazione correlata al [Vulnerability Management](<#Vulnerability Management>), spesso richiesta a livello legale (negli [USA](#US) ad esempio dalla SOX e dalla HIPAA)
+
+#### Tecniche
+La EPM può essere effettuata in 3 modi diversi:
+- **Agent-based**, ovvero quando ogni dispositivo monitora e richiede l'aggiornamento ad un **Patch Management Server** (da preferire per i dispositivi mobile)
+- **Agentless scanning**, quando il **Patch Management Server** monitora ed invia gli aggiornamenti agli altri dispositivi della rete che ne hanno bisogno
+- **Passive Network Monitoring**: nel caso il **Patch Management Server** invii automaticamente le patch da installare ai dispositivi
+
+#### Software
+Ci sono aziende che offrono software per l'Enterprise Patch Management, come:
+- SolarWinds
+- LANDesk
+- Microsoft Windows Configuration Manager (SCCM
+
 ## Buone pratiche
 
 ### Disponibilità
@@ -3006,7 +3163,7 @@ Gli obiettivi da raggiungere a seguito dei test sono:
 
 ### Software
 Alcuni software utili per effettuare test della rete (alcuni potrebbero essere datati) sono:
-- [Nmap/Zenmap](./Software/Zenmap): Scansione dei dispositivi e dei servizi della rete e mappatura
+- [Nmap/Zenmap](Nmap.md): Scansione dei dispositivi e dei servizi della rete e mappatura
 - [SuperScan](./Software/Superscan): Port scanner per protocolli TCP e UDP per determinare quali servizi siano disponibili nelle porte utilizzate (es. ping, traceroute, hostname, ecc.)
 - [[#SIEM]]: Fornisce report e analisi i sicurezza della rete a lungo termine
 - [GFI LANguard]: Scanner di sicurezza della rete

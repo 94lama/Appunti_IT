@@ -1,4 +1,4 @@
-
+Anche noto come Zenmap (versione precedente?)
 # Nmap
 Scanner low-level disponibile al pubblico. Fornisce un set di funzionalità base, utili per effettuare test di rete come:
 - Scanning classico TCP/UDP: cerca servizi disponibili di uno o più host
