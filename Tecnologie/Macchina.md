@@ -128,6 +128,14 @@ Random Access Memory.
 
 # CPU
 Central Processing Unit, o Unità Centrale di Processamento.
+# Kernel
+Il kernel di un sistema operativo è il componente che alloca le risorse ([memoria](<#Locazione di memoria>), [CPU](#CPU), [spazio su disco](#RAM)) della macchina richieste dai software (e decide quali software prioritizzare nel caso di più richieste contemporanee delle stesse risorse), gestisce la transizione tra più risorse (**multitasking**), verifica se sia necessario terminare un'applicazione e occupa di astrarre delle informazioni dal software (es. la tipologia di supporto della locazione di memoria utilizzata dalla macchina).
+
+Ogni azione richiesta (e successivamente elaborata) al kernel prende il nome di **Processo**.
+
+# Shell
+Software che permette di ricevere comandi anche da remoto, di processarli ed inviarli al [kernel](#Kernel) del Sistema Operativo.
+
 # File system
 Esistono diverse metodologie di gestione dei file all'interno di un dispositivo di memoria. Per utilizzare (o cambiare) sistema di gestione del File System è necessario creare una partizione sul dispositivo, nella quale verrà installato il File System desiderato.
 
@@ -257,6 +265,12 @@ Vengono utilizzati per memorizzare dati relativi a:
 - Contabilità (accounting)
 
 I server AAA devono essere impostati per accettare unicamente messaggi tramite protocolli [RADIUS](./protocolli#radius) o [TACACS+] (uno dei due, da decidere in base alle necessità della rete, tenendo conto che il RADIUS non effettua cifratura del nome utente e dei dati contabili).
+
+### Web Server
+Server specializzato a comunicare tramite protocollo [HTTP](./Protocolli#HTTP) o [HTTPS](./Protocolli#HTTPS) per l'hosting e la gestione di siti web. Tra i web server più utilizzati ci sono:
+- Wordpress
+- [Apache](Apache.md)
+- [NGINX](../Software/NGINX)
 
 ## IoT
 L'Internet delle cose indica un'insieme di dispositivi di uso comune, forniti di un supporto tecnologico che li rende capaci di collegarsi ad una [rete](./reti) per inviare e ricevere informazioni.

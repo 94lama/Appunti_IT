@@ -1,5 +1,5 @@
-Linux è un Os Open Source, disponibile in varie versioni (chiamate Distro).
-Le varie versioni di Linux sono disponibili [qua]([https://distrowatch.com/](https://distrowatch.com/ "https://distrowatch.com/")).
+Linux è un sistema operativo Open Source, scritto in [C](../Linguaggi/C) basato su Unix, disponibile in varie versioni (chiamate Distro).
+La lista e il download delle varie versioni delle distro di Linux è disponibile [qua]([https://distrowatch.com/](https://distrowatch.com/ "https://distrowatch.com/")).
 # Permessi
 - r = read (1): è possibile aprire il file
 - w = write (2): è possibile modificare il file
@@ -487,7 +487,15 @@ Distro specializzata nell’analisi della sicurezza delle reti, molto utilizzata
 ### Tools
 
 
-# UNIX
+## Ubuntu
+### Software
+#### UFW
+Il Firewall non Complicato di Ubuntu è un semplice [Firewall basato sull'host](../Cybersecurity#HBF), installato di default, che si basa su [iptables](#iptables).
+
+##### Gufw
+E' l'interfaccia grafica con cui è possibile utilizzare UFW.
+
+# GUI
 
 ```unix
 top # mostra i processi attivi nella macchina
@@ -758,13 +766,172 @@ L’estensione dei file di applicazioni su Linux dipende dalla distro:
 
 Dove presente apt, il comando `apt-get` permette di scaricare app.
 
-## X Window System
+I software eseguibili su Linux sono divisi in 3 categorie, in base a determinate caratteristiche:
+- **Applicazioni server**: software che non hanno bisogno di un monitor e di una tastiera per funzionare. Il loro scopo è interagire con altri dispositivi (chiamati **client**)
+- **Applicazioni Desktop**: Utilizzano monitor e tastiere per operare. Esempi sono i Browser e editor di testo
+- **Tool***: Software utilizzati per agevolare la gestione del sistema del computer. Di solito vengono utilizzati tramite **CLI**
+
+
+## Applicazioni Server
+### [Apache](Apache.md)
+### [NGINX](../Software/NGINX)
+### Private Cloud Server
+#### ownCloud
+Progetto lanciato nel 2016 per fornire un software che permetta di memorizzare, sincronizzare e condividere dati con un [Cloud Server Privato](<../Server/Cloud#Private Cloud>). Il progetto è disponibile in Open Source con licenza GNU AGPLv3 o in versione Enterprise.
+
+#### NextCloud
+Progetto parallelo a [ownCloud](#ownCloud) (creato dallo steso sviluppatore, partendo dallo stesso software), punta ad un processo di sviluppo totalmente aperto e trasparente
+
+### Database Server
+I database servono per velocizzare la memorizzazione e la manipolazione dei dati tramite l'utilizzo di linguaggio a richieste strutturate (Structured Query Language, **SQL**). I database server più utilizzati sono
+
+#### [MariaDB](../Database/MariaDB)
+#### [MySQL](../Database/MySQL)
+#### [PostgreSQL](../Database/Postgre)
+
+### Mail Server
+Sono composti dall'unione di 3 servizi:
+
+#### MTA
+Agent di trasferimento delle mail.
+
+##### Sendmail
+##### Postfix
+Software più semplice e sicuro di [Sendmail](#Sendmail)
+
+#### MDA
+L'Agente di consegna locale (Mail Delivery Agent, MDA) si occupa di salvare le mail nella mailbox dell'utente. Di solito è il nodo finale del [MTA](#MTA)
+
+#### POP/IMAP Server
+Permette la comunicazione tramite protocolli [POP](../Tecnologie/Protocolli#POP3) e [IMAP](../Tecnololgie/Protocolli#IMAP)
+
+##### Dovecot
+##### Cyrus IMAP
+##### Microsoft Exchange
+Software proprietario di Microsoft.
+
+### Condivisione di File
+Esistono software specifici per condividere file tra ambienti diversi. In particolare è da considerare il protocollo di condivisione utilizzato dall'altro computer. I più utilizzati sono i l[DNS](../Tecnologie/Protocolli#DNS) e il [LDAP](../Tecnologie/Protocolli#LDAP). In entrambi i casi, il dispositivo Linux deve avere abilitato al protocollo [DHCP](../Tecnologie/Protocolli#DHCP), in quanto entrambi i protocolli precedentemente nominati utilizzano l'identificazione dei dispositivi tramite [IP](../Tecnologie/Protocolli#IP).
+
+#### Samba
+E' il software più utilizzato per permettere la condivisione file all'interno del dominio [Windows](./Windows)
+
+#### Netatalk
+Permette di comunicare all'interno del dominio [Apple](<./MAC OS X>).
+
+## Applicazioni Desktop
+### Desktop
+#### X Window System
 Interfaccia grafica basica per Sistemi operativi Linux. Da accoppiare ad altri software per la gestione dele finestre, come:
 - KDE Windows manager
 - Gnome Windows Manager (usata da Ubuntu)
 
+### Mail
+#### Thunderbird
+Software di email client della Mozilla Foundation. Si collega ad un [server POP/IMAP](<#POP/IMAP Server>) e permette di visualizzare i dati in esso contenuti e di inviare mail tramite un server SMTP.
 
-## [Security Onion](https://securityonionsolutions.com/)
+#### Evolution
+#### KMail
+
+### Creatività
+#### Blender
+Permette di manipolare elementi 3D
+
+#### GIMP
+Permette di manipolare elementi grafici in 2D
+
+#### Audacity
+Permette di manipolare file audio
+
+### Produttività
+#### LibreOffice
+Suite di software per la creazione, modifica di gestione di elaborati testuali, presentazioni, fogli di calcolo, creata partendo da [OpenOffice](#OpenOffice).
+
+#### OpenOffice
+Suite di software per la creazione, modifica di gestione di elaborati testuali, presentazioni, fogli di calcolo.
+
+### Browser
+#### Firefox
+#### Chrome
+
+## Tool
+### Shell
+Linux utilizza due tipologie di [shell](../Tecnologie/Macchina#Shell):
+- Bash
+- tcsh
+
+#### Bash
+E' la shell predefinita dei sistemi Linux.
+
+#### tcsh
+Shell che utilizza un linguaggio simile al C.
+
+### Editor di testo
+#### Vi
+#### Vim
+Versione avanzata di [Vi](#Vi) che permette l'utilizzo di funzionalità avanzate, come il key-binding.
+
+#### Emacs
+#### Nano
+Software Open Source che utilizza come base di partenza [Pico](#Pico).
+
+#### Pico
+Software proprietario.
+
+### Package manager
+Il software predefinito dal sistema per gestire i pacchetti dipende dalla distro che si sta utilizzando.
+
+#### dpkg
+E' il tool di più basso livello per la gestione dei pacchetti.
+
+#### apt-get
+Software front-end di supporto per il [dpkg](#dpkg) che ne semplifica l'utilizzo.
+
+#### RPM
+E' un software che incarna il set di standard definito dalla Linux Foundation per permettere una più agevole compatibilità tra le varie distro. Utilizza il formato ```.rpm``` per definire un pacchetto e l'omologo comando di backend
+```sh
+rpm
+```
+per la gestione dei pacchetti. e delle relative dependency (pacchetti esterni che ne permettono il funzionamento).
+
+E' possibile utilizzarlo tramite comandi lato front-end che ne automatizzano il processo come
+```sh
+yum
+```
+```sh
+up2date
+```
+
+#### libzypp
+#### Yumex
+#### Gnome PackageKit
+
+### Password manager
+#### KeePassX
+
+### chrootkit
+Software basato su Linux che permette di controllare la presenza di noti [rootkit](../cybersecurity#rootkit) all’interno della macchina. Utilizza comandi shell (prevalentemente strings, grep e ps)
+
+### iptables
+[Firewall](../cybersecurity#firewall) disponibile per Linux, che consente all'amministratore di sistema di configurare le regole di accesso, incorporandole nei moduli Netfilter del kernel di Linux.
+
+### inetsim
+Simulatore di ambienti (virtualizzatore), con opzioni di verifica per i protocolli:
+
+### nftables
+Diretta evoluzione di [iptables](#iptables), che utilizza una semplice macchine virtuale nel kernel di Linux. Utilizza la macchina virtuale per analizzare i pacchetti di rete ed implementare regole decisionali di accettazione e inoltro dei pacchetti.
+
+### steghide
+Tool utilizzabile per effettuare la steganografia di dati, ovvero l'inserimento dei dati all'interno di un altro file, per renderli difficilmente raggiungibili.
+
+### TCP Wrappers
+Tool di [controllo degli accessi](#acl) basato su regole e sistema di logging. Opera attraverso il filtraggio dei pacchetti basato sugli indirizzi IP e i servizi di rete.
+
+### ufw
+Firewall semplificato
+
+## Suite
+### [Security Onion](https://securityonionsolutions.com/)
 È una suite open source pure il monitoraggio della sicurezza della rete (NSM), formata da 3 funzioni alla base:
 - Cattura dell’intero pacchetto e della tipologia di dati
 - [[#IDS]] (sia network che host-based)
@@ -772,22 +939,22 @@ Interfaccia grafica basica per Sistemi operativi Linux. Da accoppiare ad altri s
 
 ![[security_onion.png]]
 
-### Data
-#### PCAPS
-#### Contenuti
-#### Transazioni
-#### Sessione
-#### Log degli host
-#### Alert
-#### Syslog
-#### Metadata
+#### Data
+##### PCAPS
+##### Contenuti
+##### Transazioni
+##### Sessione
+##### Log degli host
+##### Alert
+##### Syslog
+##### Metadata
 
-### Identificazione
-#### CapME
+#### Identificazione
+##### CapME
 Web app che permette di visualizzare facilmente tutte le comunicazioni che avvengono nella rete al [livello 4](../tecnologie/protocolli#trasporto). I dati sono ottenuti tramite [[#Zeek]] o [tcpflow].
 Il tool può essere utilizzato come plugin di [[#ELSA]] (Enterprise Log Search and Archive). In questo caso, i file possono essere visualizzati tramite [[#Wireshark]]
 
-#### Snort
+##### Snort
 E' un [NIDS](../Cybersecurity#NIDS) (sistema di identificazione delle intrusioni di rete) utilizzato per creare dati di tipo [alert](../cybersecurity#alert) tramite l'implementazione di regole e firme. E' anche possibile scaricare automaticamente nuove regole tramite [[#PulledPork]] (entrambi sponsorizzati da Cisco).
 
 Le regole sono strutturate in due componenti: header e opzioni.
@@ -798,7 +965,7 @@ Le regole sono strutturate in due componenti: header e opzioni.
 | Opzioni        | (msg:"GPL ATTACK_RESPONSE ID CHECK RETURNED ROOT";...)                                                         | Messaggio da mostrare con dettagli relativi il contenuto del pacchetto, tipo di alert, ID della fonte e altri dettagli |
 | Localizzazione | /nsm/server_data/securityonion/rules/...                                                                       | Localizzazione del file della regola                                                                                   |
 
-##### Header
+###### Header
 Ogni dato è configurabile anche tramite l'utilizzo di variabili, configurabili sul file **snort.conf**:
 
 | Variabile     | Utilizzo        |
@@ -806,7 +973,7 @@ Ogni dato è configurabile anche tramite l'utilizzo di variabili, configurabili 
 | $HOME_NET     | Rete analizzata |
 | $EXTERNAL_NET | Rete esterna    |
 
-##### Opzioni
+###### Opzioni
 I messaggi inviati da Snort possono essere creati in base a regole. Le regole più comunemente utilizzate sono:
 - **GPL**: Regola datata, creata da SourceFire
 - **ET**: Emerging Threats (collezione di regole categorizzate, raccolte da risorse multiple Open Source sotto licenza BSD)
@@ -821,50 +988,30 @@ I messaggi inviati da Snort possono essere creati in base a regole. Le regole pi
 | sid:       | ID della regola                                            |
 | rev:       | Revisione della regola rappresentata dal SID               |
 
-#### Suricata
+##### Suricata
 E' un [NIDS](../Cybersecurity#NIDS) signature-based (basato sulla firma) utilizzato anche per prevenzione di intrusioni inline. Sebbene sia simile a [[#Zeek]], Suricata utilizza il [Multithread] nativo, che permette l'utilizzo contemporaneo di più core del processore e include funzioni di blocco in base alla reputazione e supporto al multithread tramite GPU per aumentarne le performance.
 
-#### Zeek
+##### Zeek
 Precedentemente chiamato Bro, Zeek è un [NIDS](../Cybersecurity#NIDS) che utilizza un [approccio comportamentale](../Cybersecurity#Behavior-based) basato sulle policy (sotto forma di script che determinano quali dati avviano i log, quali gli alert, ecc.). Zeek permette anche di memorizzare file per una successiva analisi di malware, bloccare l'accesso a siti malevoli e spegnere in computer nel caso stia violando delle policy.
 
-#### OSSEC
+##### OSSEC
 E' un [HIDS](../Cybersecurity#HIDS) che permette di monitorare le attività dell'host e effettuare analisi di integrità, monitoraggio (di log e processi del sistema) e identificazione di [rotkit](../Cybersecurity#Rootkit)
 
-#### Wazuh
+##### Wazuh
 E' un [HIDS](../Cybersecurity#HIDS) che aggiorna il precedentemente tool ([[#OSSEC]]), grazie all'integrazione di meccanismi di protezione dell'endpoint, incluso un sistema di analisi dei logfile dell'host, identificazione delle vulnerabilità, analisi delle configurazioni e incident response.
 Richiede l'esecuzione di [agent] nella rete dell'host.
 
-### Analisi
+#### Analisi
 
-#### Wireshark
+##### Wireshark
 Tool che permette di monitorare i pacchetti inviati e ricevuti da un host.
 
-#### Sguil
+##### Sguil
 Fornisce una console di alto livello per monitorare gli alert provenienti da varie fonti. Viene utilizzato come punto di partenza per l'analisi degli alert di sicurezza tramite l'appoggio di Sguil (che fornisce i dati) ad altri tool.
 
-#### Kibana
+##### Kibana
 Dashboard interattiva di [Elasticsearch](https://www.elastic.co/) data. Permette l'interrogazione dei dai [NSM] (Monitoraggio della Sicurezza della Rete) e la visualizzazione dei dati flessibile. E' possibile ottenere i dati da interrogare tramite [[#Sguil]] e visualizzarli, ad esempio, filtrandoli per IP associato ad un alert.
 
-## chrootkit
-Software basato su Linux che permette di controllare la presenza di noti [rootkit](../cybersecurity#rootkit) all’interno della macchina. Utilizza comandi shell (prevalentemente strings, grep e ps)
-
-## iptables
-[Firewall](../cybersecurity#firewall) disponibile per Linux, che consente all'amministratore di sistema di configurare le regole di accesso, incorporandole nei moduli Netfilter del kernel di Linux.
-
-## inetsim
-Simulatore di ambienti (virtualizzatore), con opzioni di verifica per i protocolli:
-
-## nftables
-Diretta evoluzione di [iptables](#iptables), che utilizza una semplice macchine virtuale nel kernel di Linux. Utilizza la macchina virtuale per analizzare i pacchetti di rete ed implementare regole decisionali di accettazione e inoltro dei pacchetti.
-
-## steghide
-Tool utilizzabile per effettuare la steganografia di dati, ovvero l'inserimento dei dati all'interno di un altro file, per renderli difficilmente raggiungibili.
-
-## TCP Wrappers
-Tool di [controllo degli accessi](#acl) basato su regole e sistema di logging. Opera attraverso il filtraggio dei pacchetti basato sugli indirizzi IP e i servizi di rete.
-
-## ufw
-Firewall semplificato
 
 ## Red team
 ### John the ripper

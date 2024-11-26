@@ -7,7 +7,7 @@ La cybersecurity si occupa di prevenire e contrastare minacce ai sistemi informa
 - Furto
 - Danni all’hardware
 - Interruzione delle utilities (es. interruzione della corrente elettrica)
-- Disastri naturali
+- [Disastri](#Disastri) naturali
 
 Per analizzare il livello di sicurezza di una rete, spesso si fa riferimento a 4 concetti chiave:
 - **Minaccia**, ovvero il potenziale danno causato al proprietario della rete
@@ -113,7 +113,21 @@ La gestione dei diritti può essere suddivisa in:
 Consiste nell'assegnare ad ogni utente un valore che serva ad identificarlo indipendentemente (o non indipendentemente, in base alle necessità) dal mezzo con il quale sta cercando di effettuare l'accesso.
 
 #### Controllo degli accessi
-Avviene su più livelli, ognuno dei quali deve essere te tuo in considerazione:
+Il controllo degli accessi serve a monitorare persone, processi e tecnologie che operano all'interno della rete. Avviene su più livelli, ognuno dei quali deve essere tenuto in considerazione:
+- Fisico
+- Logico
+- Amministrativo
+
+Ogni tipologia di controllo deve essere attuata in base alle effettive esigenze dell'organizzazione e può essere di tipo:
+- **Preventivo**: Blocca l'azione in via cautelativa (es. [Firewall](#Firewall))
+- **Deterrente**: Punta a scoraggiare l'esecuzione dell'azione
+- **Identificativo**: Si adotta a seguito di un attacco, con lo scopo di identificare l'attaccante o la falla di sicurezza
+- **Correttivo**: Serve a correggere le conseguenze di un evento indesiderato tramite il reset del sistema ad uno stato funzionale
+- **Di recupero**: Ripristina un sistema a seguito di un attacco informatico allo stato precedente
+- **Compensativo**: Fornisce opzioni alternative ad altri controlli (es. la supervisione).
+
+Le policy possono essere soggette a forme di controllo di tipo correttivo e di recupero.
+
 ##### Fisico
 Consiste in tutti quegli ostacoli che permettono di prevenire o controllare l’accesso fisico alla rete. Alcune misure di controllo fisico sono:
 - Guardie
@@ -191,7 +205,7 @@ La necessità di avere dati integri durante tutto il processo però si scontra c
 ### Disponibilità
 L’accesso ai dati deve essere il più possibile costante. Richiede l’implementazione di pratiche di ridondanza di servizi, link e gateway. Alcuni momenti in cui la disponibilità dei dati diventa un parametro critico sono:
 - Manutenzione (a volte)
-- Disastri naturali
+- [Disastri](#Disastro) naturali
 - Attacchi informatici
 - Danneggiamenti dell’hardware
 
@@ -279,6 +293,7 @@ Stato nel quale il dato viene preparato per il trasporto (es. inserimento del da
 
 ## Salvaguardie
 ### Persone
+
 ### Tecnologia
 #### Ridondanza della localizzazione
 Viene effettuata in maniera:
@@ -307,6 +322,7 @@ Definiscono degli obiettivi di sicurezza da raggiungere e degli standard (tecnol
 
 # Domini
 La [[#ISO 27001]] e la [[#ISO 27002]] hanno definito 12 domini della cybersecurity, gestendo rispettivamente gli obiettivi dei controlli e i controlli.
+
 ## Risk assessment
 Si occupa di determinare i valori qualitativi e quantitativi dei rischi relativi situazioni specifiche o minacce. Il [NIST](#NIST) definisce la valutazione del rischio come
 ```
@@ -314,6 +330,22 @@ Un processo sistematico per decidere il livello di rischio associato a un partic
 ```
 Un passaggio fondamentale della valutazione del rischio è l'identificazione di tutte le minacce, le vulnerabilità, e il loro collegamento (chiamato *threat-vulnerability pairing*, o accoppiamento minaccia-vulnerabilità). Questo passaggio serve a identificare il profilo di rischio inerente di un'organizzazione.
 
+### Cause
+Le cause di un rischio sono identificate come minacce e possono essere classificate in 4 categorie:
+- **Avversarie**: provenienti da persone, gruppi di persone, organizzazioni o intere nazioni
+- **Accidentali**: azioni che avvengono senza che ci sia una volontà di danneggiare l'organizzazione
+- **Strutturali**: causate dal danneggiamento o malfunzionamento delle risorse (siano esse software o hardware)
+- **Ambientali**: [disastri](#Disastro) causati da eventi naturali o antropici (tipo incendi)
+
+La procedura di identificazione dei rischi in base alle minacce si chiama [analisi dei rischi](<#Risk Analysis>)
+
+### Valutazione
+Le minacce vengono categorizzate in base alla probabilità che esse avvengano e al loro impatto sull'organizzazione. La combinazione di questi due fattori produce un valore di criticità (numerico), utilizzato per ordinarle:
+- **Probabilità**: dipende da fattori come la complessità  della rete, le misure di protezione adottate, l'importanza dell'organizzazione (quanto un attaccante può trarre vantaggio dall'attacco)
+- **Facilità di identificazione**: Quanto facilmente la vulnerabilità può essere identificata e sfruttata
+- **Impatto**: Quanti danni vengono potenzialmente prodotti dallo sfruttamento della vulnerabilità
+
+### Azioni
 Una volta identificati i rischi, essi possono essere pesati per identificare le priorità di intervento. Le priorità generalmente utilizzate sono:
 - **Risk avoidance**: interrompere i servizi che creano il rischio
 - **Risk reduction**: Prendere contromisure per ridurre il peso del rischio
@@ -340,7 +372,7 @@ Il gruppo delle metriche base è composto da 2 classi:
 | Exp  | Privilegi richiesti                 | Livello necessario di privilegi richiesti per eseguire con successo l'attacco                                                         | N: nessuno<br>L: bassi<br>H: alti                         |
 | Exp  | Interazioni dall'utente             | Presenza o assenza di azioni che un utente interno dele eseguire affinchè l'attacco possa venire eseguito                             | U: Nessuna<br>R: richieste                                |
 | Exp  | Ambito                              | Necessità (dell'attaccante) di cambiare authority durante l'esecuzione dell'attacco                                                   | U: non cambia<br>C: cambia                                |
-| Imp  | [Confidenzialità](#Confidenzialità) | Impatto che l'esecuzione dell'atatcco avrebbe a livello di Confidenzialità                                                            | H: alto<br>L: basso<br>N: nessuno                         |
+| Imp  | [Confidenzialità](#Confidenzialità) | Impatto che l'esecuzione dell'attacco avrebbe a livello di Confidenzialità                                                            | H: alto<br>L: basso<br>N: nessuno                         |
 | Imp  | [Integrità](#integrità)             | Impatto che l'esecuzione dell'atatcco avrebbe a livello di Integrità                                                                  | H: alto<br>L: basso<br>N: nessuno                         |
 | Imp  | [Disponibilità](#availability)      | Impatto che l'esecuzione dell'atatcco avrebbe a livello di Disponibilità                                                              | H: alto<br>L: basso<br>N: nessuno                         |
 
@@ -399,10 +431,12 @@ La conformità (compliance) descrive il processo che porta a confermare la confo
 - **SSAE + SOC** (Statement on Standards fort Attestation Engagements): audit indipendente eseguito da azienda terza, che ha lo scopo di confermare la presenza dei [controlli di sicurezza](<#CIS Security Controls>) necessari nel momento dell'analisi (Tipo 1), o in un arco di tempo di almeno sei mesi (Tipo 2)
 - **CMMC** Cybersecurity Maturity Model Certification: Certificazione rilasciata per valutare il livello di sicurezza di un'organizzazione (su 5 livelli) in base ai criteri stabiliti dal Dipartimento della Difesa.
 
+### Controlli
+Il controllo di conformità dei [controlli](<#Controllo degli accessi>) è agevolata dal [CIS](#CIS),che fornisce una [mappatura di 18 Controlli di Sicurezza Critici](https://www.cisecurity.org/cybersecurity-tools/mapping-compliance) e alcuni framework di compliance.
 # Security Standards
 Gli standard di sicurezza hanno l'obiettivo di categorizzare e valutare le #vulnerabilità.
 
-Gli standard sulla sicurezza sono gestiti da apposite agenzie e costantemente aggiornati tramite analisi dei contenuti presenti al dark web, [[#AIS]] (Indicatore di Condivisione Automatizzato), ovvero un’infrastruttura che permette lo scambio in tempo reale di indicatori sulle vulnerabilità utilizzando determinati linguaggi standardizzati e strutturati come lo [[#STIX]] (Espressione Strutturata delle Informazioni della Minaccia) o il [[#TAXII]] (Scambio Automatizzato e Fidato di Informazioni di Intelligence)
+Gli standard sulla sicurezza sono gestiti da apposite agenzie e costantemente aggiornati tramite analisi dei contenuti presenti al dark web, [[#AIS]] (Indicatore di Condivisione Automatizzato), ovvero un’infrastruttura che permette lo scambio in tempo reale di indicatori sulle vulnerabilità utilizzando determinati linguaggi standardizzati e strutturati come lo [[#STIX]] (Espressione Strutturata delle Informazioni della Minaccia) o il [TAXII](#TAXII) (Scambio Automatizzato e Fidato di Informazioni di Intelligence)
 
 Le aziende più famose che operano in questo ambito sono:
 
@@ -470,6 +504,134 @@ Permette lo scambio in tempo reale degli indicatori di minacce alla sicurezza in
 ## CISCO Talos
 Software che permette di scambiare informazioni riguardo vulnerabilità, indicatori di compromissione ([IOC]) e tecniche di mitigazione a livello globale. Inoltre fornisce e gestisce un set di regole per la protezione da intrusioni per software come [[#Snort]], [[#ClamAV]] e [[#SpamCop]] 
 
+## NIST
+Il National Institute of Standards and Technology è un'organizzazione che offre strumenti di standardizzazione per metodi e procedure.
+
+### Incident Response Life Cycle
+Procedura basata su 4 passaggi che descrivono il ciclo di vita dell'[incident response](<#Incident Response>):
+
+- **Preparazione**: Addestramento costante dei membri del [CSIRT](#CSIRT) alla risposta agli incidenti
+- **Identificazione ed analisi**: Monitoraggio costante per identificare potenziali incidenti, riconoscerli e convalidarli
+- **Contenimento, rimozione e recupero**: Esecuzione delle procedure per contenere la minaccia, eradicare l'impatto sugli asset dell'organizzazione e utilizzare backup per ripristinare i dati e i software (se non c'è perdita di dati o servizi, si ritorna direttamente alla fase 1)
+- **Attività post incidente**: Documentazione delle attività di risposta con descrizione di raccomandazioni future sulle procedure di risposta e sulle implementazioni per evitare che l'attacco avvenga di nuovo
+
+#### Preparazione
+Alcuni esempi di azioni che rientrano in questa fase sono:
+- Creazione dei processi organizzativi per definire le metodologie comunicative tra le varie squadre ed eventuali altre [persone interessate](#Stakeholders)
+- Definizione dell'infrastruttura del team di risposta e creazione del [SOC](#SOC)
+- Acquisizione dei software e hardware per effettuare procedure di risposta e mitigazione dell'incidente (inclusi i software forensi)
+- [Valutazione dei rischi](<#Risk Assessment>) per implementare controlli che permettano il verificarsi di incidenti simili
+- Creazione di materiale per gli addestramenti alla consapevolezza della sicurezza dei dipendenti
+
+#### Identificazione e analisi
+Questo processo è il più complicato da tradurre in un processo a passaggi, in quanto la metodologia e la tipologia di attacco modificano fortemente i procedimenti con cui lo stesso avviene (e attraverso i quali ci si può difendere). Una classificazione può essere fatta riguardo:
+
+##### Vettore d'attacco
+- Web
+- Email
+- Furto o perdita
+- Impersonificazione
+- Logoramento (es. brute-force)
+- Dispositivi esterni
+
+##### Identificazione
+Un attacco può essere identificato in maniera automatica (es. tramite [IDS](#IDS)), o manuale. in entrambi i casi il metodo di identificazione è la ricerca di segnali che indichino la presenza e l'eventuale tipologia di un incidente. In linea generale i segnali possono essere:
+- **Precursori**: segnali che indicano la possibilità che un indicente accada (es. log di un port scanning)
+- **Indicatori**: Segnale che indica che un incidente possa già essersi verificato (es. malware)
+
+##### Analisi
+Il problema principale del processo di analisi è l'incertezza legata alla bontà degli indicatori raccolti e all'impossibilità di utilizzare un metodo automatizzato per definirne la stessa. Inoltre alcuni indicatori, sebbene veritieri, non implicano necessariamente la presenza di un attacco.
+Da qui nasce la necessità di un controllo ed una documentazione costante degli indicatori da parte del [CIST](#CIST).
+
+##### Ambito
+Viene identificato dal CIST nel caso un incidente avvenga. L'ambito descrive le tecnologie e/o strutture bersagliate dall'attacco (es. specifici computer, applicazioni, sistemi o parte di reti). La corretta identificazione dell'ambito permette di definire con precisione le attività da prioritizzare per mettere in sicurezza la rete.
+
+##### Notifica
+Una volta identificata e analizzata la minaccia, delimitato l'ambito e stabilite le priorità di intervento, si procede a comunicare i fatti e i dati raccolti e analizzati al personale addetto:
+- **CIO**: Chief Information Officer
+- **Head del dipartimento di sicurezza**
+- Addetto locale alla sicurezza delle informazioni
+- Altri membri del team di Incident Response all'interno dell'organizzazione
+- Team di Risposta all'Incidente esterni all'organizzazione (se necessario)
+- Proprietario del sistema
+- Risorse umane
+- Affari pubblici (se necessario)
+- Dipartimento legale (se necessario)
+- US-CERT (se negli USA e se necessario)
+- Forze dell'ordine (se necessario)
+
+#### Contenimento, rimozione e recupero
+Una volta identificato ed analizzato l'incidente, si procede con le operazioni di contenimento dei danni. Durante questa fase vengono svolte 4 operazioni:
+- Creazione ed attuazione di una strategia di contenimento
+- Raccolta delle prove
+- Identificazione dell'attaccante
+- Rimozione, recupero e rimedio all'attacco
+
+##### Strategia di contenimento
+Deve tenere conto di:
+- Tempistiche necessarie per l'attuazione
+- Risorse impiegate (di tempo, economiche e di personale)
+- Quali processi utilizzare per mantenere intatte le prove
+- Possibilità di dirigere l'attaccante verso una sandbox per permettere al [CSIRT](#CSIRT) di monitorare le attività e raccogliere informazioni
+- Analisi di impatto delle operazioni sulla disponibilità dei servizi
+- Efficacia della strategia
+
+E' inoltre da considerare la possibilità che azioni considerate cautelative, come il disconnettere l'utente infettato dalla rete, possano portare conseguenze negative per il processo di risposta all'incidente, come il reset del dispositivo infettato o la sua cifratura (che danneggerebbe le prove).
+
+##### Prove
+Le prove hanno una duplice scopo:
+- Aiutare ad identificare il problema e le soluzioni allo stesso
+- Essere utilizzate durante le indagini a seguito dell'attacco.
+
+Per poter assolvere a quest'ultima funzione, è necessario che la metodologia di raccolta e memorizzazione delle stesse avvenga seguendo la [catena di custodia](<#Analisi forense#Metodologia>), memorizzando:
+- Localizzazione dei dati di recupero e di salvataggio delle prove
+- Dati identificativi delle operazioni (come codici MAC, IP o hostname)
+- Informazioni riguardanti le identità di tutti gli addetti alla raccolta e memorizzazione delle prove
+- timestamp di raccolta e salvataggio e descrizione delle metodologie utilizzate.
+
+##### Identificazione
+Processo secondario al ripristino delle normali funzionalità della rete, ma spesso utile a minimizzare l'impatto dell'attacco sugli asset critici per il business dell'organizzazione. Le azioni più importanti da effettuare sono:
+- Utilizzare il database dei dati dell'incidente per cercare le attività da analizzare
+- Verificare se l'indirizzo IP dell'attaccante sia valido e nel caso se sia raggiungibile
+- Cercare ulteriori informazioni su un motore di ricerca può portare ad identificare attacchi simili avvenuti ad altre organizzazioni
+- Monitorare i canali più usati dagli attaccanti, come l'[IRC], per verificare che l'attaccante non sia presente all'interno della rete in forma anonima.
+
+#### Attività post incidente
+##### Hardening
+A seguito di un indicente di sicurezza, si effettua l'hardening dei sistemi in base alle scoperte fatte durante l'analisi dell'attacco, per impedirne una ripetizione. Per questo è fondamentale capire:
+- Come l'attacco sia avvenuto
+- Come ha reagito lo staff all'attacco
+- Se sono state seguite o meno le procedure descritte nella documentazione (e nel caso se fossero adeguate all'evento)
+- Quali informazioni sarebbero state utili nell'immediato
+- Quali passaggi possono aver impedito il recupero
+- Come avrebbe potuto operare lo staff
+- Quali precauzioni possono essere implementate per impedire una nuova esecuzione dell'attacco
+- Quali dati devono essere monitorati per identificare immediatamente l'attacco
+- Quali sono i miglior istrumenti per monitorare ed identificare futuri incidenti
+
+##### Raccolta dati
+Quando si memorizzano dati relativi la risposta ad un incidente, è importante tenere traccia della metodologia di risposta, economico e di tipologia di dati da memorizzare. Il NIST fornisce una [lista](https://csrc.nist.gov/pubs/sp/800/61/r2/final) (Pubblicazione speciale 800-61) del tipo di attività che è utile eseguire a seguito di un incidente:
+- Revisionare log, form, report e documentazione dell'incidente per analizzare l'efficacia delle policy e delle procedure aziendali
+- Identificare i [segni precursori](<#Identificazione ed analisi#Identificazione>) dell'attacco registrati dal sistema e analizzare come sono stati trattati
+- Verificare se la notifica dell'attacco è avvenuta dopo che un danno sia effettivamente avvenuto all'interno della rete
+- Verificare se siano stati identificati i danni subiti, i vettori di attacco, le vulnerabilità sfruttate e le caratteristiche del sistema attaccato
+- Determinare se l'incidente sia già avvenuto altre volte in passato
+- Calcolare il danno economico subito (o una stima)
+- Misurare la differenza tra valutazione dell'impatto prima e dopo l'attacco
+- Valutazione (e autovalutazione) delle azioni effettuate da ogni membro del team di risposta durante l'attacco
+
+E' importante notare come la normativa abba specifiche richieste riguardo:
+- Tempo di archiviazione delle prove da parte dell'organizzazione
+- Tipi di dati da memorizzare (alcuni tipi di dati hanno tempi di archiviazione o metodologie i salvataggio diverse)
+- Preservazione dei supporti hardware correlato all'incidente (da considerare anche i costi di stoccaggio dei dispositivi)
+
+Può anche rivelarsi utile (si aper l'organizzazione che per la comunità) la comunicazione di informazioni relative l'incidente su piattaforme o form appositi (come il community database [VERIS]). Le raccomandazioni del NIST in tema sono:
+- Piani di coordinamento con team esterni all'organizzazione
+- Consulta con il dipartimento legale prima di condividere informazioni sull'incidente
+- Condividi informazioni relative l'intero ciclo di vita dell'incidente
+- Automatizzare il più possibile la condivisione delle informazioni 
+- Bilanciare i benefici con i possibili malus prima di condividere informazioni
+
 ## FireEye
 Azienda di sicurezza che offre servizi per la messa in sicurezza della rete di aziende. Utilizza un approccio basato su 3 punti:
 - Security intelligence
@@ -515,6 +677,9 @@ Questi comportamenti, tra l'altro, sono punibili a livello legale. La tipologia 
 - Diretto diretto al computer: es. malware, DoS
 - Diretto alla persona: frode, surto identità
 - Indiretto: utilizzo del pc per ottenere informazioni utili a commetter un crimine.
+
+# Disastro
+Un disastro è un evento (scaturito da cause naturali o antropiche) che danneggia risorse e/o proprietà e riduce l'abilità di un'organizzazione a continuare ad operare.
 
 # Attacco
 ## Introduzione
@@ -614,6 +779,9 @@ Di norma si attuano partendo da un attacco di #phishing per estrapolare i dati n
 - Utilizzare la #re-autentication
 - Utilizzare token usa e getta
 - Utilizzare tecnologia #captcha
+### [Data Breach](https://www.garanteprivacy.it/data-breach)
+Consiste nella modifica, distruzione, furto, perdita o divulgazione non autorizzata di dati. 
+
 ### Directory traversal
 Anche noto come Path traversal, consiste nella manipolazione del percorso di un sito web per leggere dati sensibili o eseguire file altrimenti protetti.
 
@@ -1322,7 +1490,7 @@ Un altro modo per nascondere dati durante è tramite l'uso di **Steganografia**,
 ### Semplicità
 Preferire meccanismi semplici, ma efficaci di protezione, evitando l'utilizzo di meccanismi troppo complessi da impostare, che potrebbero ritorcersi contro il team di sicurezza stesso per problemi di configurazione, o altro. Preferire invece soluzioni che siano facili da utilizzare, ma complesse da attaccare.
 
-# Strumenti di analisi
+# Analisi
 ## Profilazione
 La profilazione della permette di schematizzare gli aspetti principali della struttura, del funzionamento e delle modalità d’uso (standard o supposte) di un elemento, per facilitare l’identificazione di alcune vulnerabilità a cui potrebbe essere soggetto.
 
@@ -1602,9 +1770,31 @@ I team che operano i nun pentest test sono:
 Il #regression-test può essere fatto con [[Postman]], [[Python 1]] e consiste nell'analizzare il contenuto della #response ad una chiamata #http 
 
 ### Risk analysis
-Analisi approfondita dell'impatto che gli attacchi informatici possono avere sulle funzionalità di base di un'azienda e sugli asset.
+Analisi approfondita dell'impatto che eventi dannosi per un'azienda possono avere sulle funzionalità di base di un'azienda e sugli asset. Esempi di eventi dannosi sono:
+- Perdita di dati, funzionalità, processi o prodotti
+- Attacchi informatici
+- Guasto di componenti
+- Danno reputazionale
+- Perdita di proprietà intellettuale
 
-Per effettuare questo tipo di analisi, si fa ricorso ad [appositi framework].
+Per effettuare questo tipo di analisi, si fa ricorso ad [appositi framework], da selezionare in base alla tipologia di analisi che si vuole effettuare:
+- Analisi quantitativa
+- Analisi qualitativa
+
+#### Analisi quantitativa
+Si basa sull'assegnazione di valori numerici a parametri, per poi calcolare un valore finale, utilizzato per descrivere il valore di rischio.
+
+I valori utilizzati sono:
+- **Fattore di esposizione (EF)**: Valore soggettivo, espresso in percentuale, che esprima le quantità di dati persi a seguito del verificarsi dell'evento analizzato
+- **Numero di avvenimenti annui (RAO)**: probabilità che l'evento si verifichi una volta l'anno (se is verifica più volte l'anno, il valore sarà maggiore di 100%)
+
+La moltiplicazione di questi valori, permette di identificare la **stima della perdita annua* (ALE)*
+
+#### Analisi qualitativa
+Utilizza opinioni e previsione di scenari per valutare l'impatto degli eventi. Di solito si fa uso della [matrice dei rischi](<#Matrice dei rischi>) 
+
+##### Matrice dei rischi
+![[matrice_dei_rischi.png]]
 
 ### Vulnerability Assessment
 Si effettua un controllo dello stato degli aggiornamenti dei componenti di un sistema (OS, patch, porte aperte, ecc.). E' possibile utilizzare appositi tools, come:
@@ -1613,6 +1803,53 @@ Si effettua un controllo dello stato degli aggiornamenti dei componenti di un si
 - [Nessus]
 - [Qualys]
 - [[Nmap]]
+
+# Prevenzione
+## DRP
+Il Piano per il recupero a seguito di un [disastro](#Disastro) (Disaster Recovery Plan) è un documento che contiene un elenco di azioni e procedimenti da attuare in caso di disastro. La pianificazione include le attività che l'organizzazione deve intraprendere per valutare, mettere in sicurezza, riparare e ripristinare risorse. Le domande che si pongono durante il processo di redazione di un DRP sono:
+- Chi è il responsabile del processo
+- Quali azioni devono essere intraprese dalla persona per eseguire il processo
+- Dove deve essere intrapreso il processo
+- In cosa consiste il processo
+- Perché il processo in questione è critico
+
+### Controlli
+I controlli del DRP minimizzano gli effetti di un disastro, permettendo all'organizzazione di riprendere le operazioni. Ci sono 3 tipologie di controlli:
+- **Preventivi**: includono misure preventive per prevenire l'avvenire di un disastro
+- **Identificativi**: Le misure di identificazione servono a scoprire nuove potenziali minacce
+- **Correttivi**: Le misure correttive hanno lo scopo di ripristinare il sistema a seguito di un disastro
+
+## BCP
+Il Business Continuity Planning (Pianificazione della continuità del Business) è un documento di pianificazione più ampio rispetto al [DRP](#DRP) in quanto deve includere i processi di movimentazione degli hardware per permetter di continuare le operazioni dell'organizzazione anche in caso di riparazioni della struttura fisica dell'azienda. Aspetti fondamentali per un buon BCP sono:
+- L'identificazione delle risorse ottimali per i compiti richiesti
+- La documentazione delle configurazioni
+- Stabilire mezzi di comunicazione alternativi sia per la voce che per i dati
+- Fornire corrente elettrica
+- Identificare tutte le dependency delle applicazioni e dei processi al fine di comprenderli a fondo
+- Capire come svolgere le funzioni automatiche manualmente
+
+Per redigere un BCP, occorre iniziare da un'Analisi dell'Impatto sul Business ([BIA](#BIA)), per identificare i processi critici del business dell'organizzazione e le loro risorse e relazioni con gli altri processi. La BIA analizza i casi di interruzione delle funzioni critiche per il business e esamina i seguenti punti:
+- **RTO**: Obiettivi riguardanti il tempo di recupero, ovvero il limite di tempo nel quale un servizio può essere non disponibile
+- **RPO**: Obiettivi relativi il Punto di Recupero, ovvero la lunghezza di vita di una determinata risorsa
+- **MTTR**: Tempo medio di riparazione
+- **MTBF**: Tempo medio tra due malfunzionamenti della stesa risorsa 
+
+### Best Practices
+Le linee guida del [NIST](#NIST) offrono una lista di operazioni da condurre per redigere un BCP:
+1. Sviluppare delle [policy](#Policy) che guidino lo sviluppo di un business plan e assegnino ruoli chiari alle persone
+2. Condurre l'Analisi di Impatto Economico (Business Impact Analysis) per identificare le risorse critiche da prioritizzare
+3. Identificare le vulnerabilità, le minacce e calcolare i rischi
+4. Identificare ed attivare i controlli preventivi per ridurre i rischi
+5. Sviluppare strategie di recupero
+6. Sviluppare un piano di contingenza
+7. Testare i piani
+8. Mantenere i piani
+
+#### Mettere in pratica il DRP
+Ci sono metodologie da utilizzare per mettere in pratica i Disaster Recovery Plan:
+- **Tabletop**: I partecipanti si siedono attorno ad un tavolo con un aiutante che fornisce informazioni relative lo scenario. I partecipanti discutono i processi da intraprendere
+- **Test di funzionalità**: Vengono testati solo alcuni componenti del DRP per verificarne il funzionamento
+- **Esercizi operativi**: Vengono interrotti i servizi per verificare il corretto funzionamento del piano
 
 # Protezione
 Esistono strumenti pensati per proteggere in maniera passiva i sistemi.
@@ -2489,6 +2726,37 @@ La gestione del rischio consiste nella selezione delle specifiche dei controlli 
 - Implementazione della risposta
 - Monitoraggio e valutazione dei risultati
 
+#### Tipi di rischio
+- **Alto**: L'avvenimento (a seguito di negligenza nel trattarlo) potrebbe avere conseguenze catastrofiche per l'organizzazione
+- **Basso**: L'utilizzo di cautela riduce sensibilmente la probabilità che esso avvenga.
+- **Accettabile**: Le conseguenze del rischio sono minori (nessuna perdita) e sono state prese precauzioni per ridurre la probabilità che esso si verifichi
+
+Il rischio può essere sia interno che esterno.
+
+#### Procedura
+Per eseguire la procedura del Risk Management, bisogno effettuare 4 passaggi.
+
+##### Inquadramento
+Identificazione delle minacce che aumentano il rischio analizzato tramite [risk analysis](<#Risk Analysis>). Le minacce possono comprendere:
+- Perdita di dati, funzionalità, processi o prodotti
+- Attacchi informatici
+- Guasto di componenti
+- Danno reputazionale
+- Perdita di proprietà intellettuale
+
+##### Valutazione
+Si effettua una [valutazione del rischio](<#Risk Assessment>). I rischi possono essere prioritizzati sia in base al danno finanziario che a quello operativo (analisi qualitativa).
+
+##### Risposta
+Consiste nell'attuare procedure atte a ridurre o eliminare l'esposizione al rischio, tramite:
+- mitigazione
+- trasferimento
+- accettazione
+- eliminazione
+
+##### Monitoraggio
+Controllo costante dei rischi accettabili. Uno strumento utile è il [Registro dei rischi], che contiene un'elenco dei rischi e delle misure di intervento adottate in risposta.
+
 ### Vulnerability Management
 La gestione delle vulnerabilità è un processo circolare, che consiste in 6 passaggi:
 - **Scoperta**: Analisi di tutti gli asset ([Asset Management](<#Asset Management>)) per scoprire nuove vulnerabilità e definizione di una base-line
@@ -3246,11 +3514,258 @@ I Packet Analyzers (o Packet Sniffers) sono software utili per monitorare il tra
 - Rilevamento di tentativi di intrusione nella rete
 - Isolamento dei sistemi compromessi
 
-# Incident handling
-Consiste nel rispondere ad un **incidente di sicurezza** (evento con un reale effetto pregiudizievole per al sicurezza della rete e dei sistemi informativi), avendo l'obiettivo di:
+# Attività forense
+## Incident Analysis
+### Cyber Kill Chain
+Metodologia sviluppata da Lockheed Martin per identificare e prevenire intrusioni informatiche, che consiste in 7 passaggi eseguiti tipicamente da un attaccante (se durante uno qualunque dei passaggi la catena si attiva, significa che l’attacco è stato scentato):
+1. **Ricognizione**: identificazione sull’obiettivo
+2. **Armamento**: si preparano il malware e la backdoor
+3. **Consegna**: malware e script di creazione della backdoor vengono inviati tramite mail (o simili) alla vittima
+4. **Sfruttamento** della vulnerabilità per attivare lo script
+5. **Installazione** della backdoor per installare il malware
+6. **CnC** (Command and Control) per manipolare l’obiettivo 
+7. **Azioni e obbiettivi**: l’attaccante usa l’accesso al dispositivo del bersaglio per portare a compimento l’attacco
+
+#### Ricognizione
+Attività di ricerca e raccolta di informazioni riguardanti la rete bersaglio dell'attacco. Le informazioni possono provenire sia dall'interno della rete (eventuali porte aperte, messaggi informatici, ecc.), che dall'esterno (es. informazioni trovate sui social o sui motori di ricerca). Le informazioni trovate possono essere utili per analizzare la fattibilità dell'attacco ed eventuali ulteriori diramazioni che lo stesso può prendere.
+
+Metodi comuni di raccolta informazioni sono:
+- Raccolta delle email aziendali
+- Identificazione dei dipendenti tramite social media
+- Raccolta delle informazioni riguardanti le pubbliche relazioni
+- Analisi dei servizi che si interfacciano con la rete (es. siti web)
+- Scansioni della rete, identificazione degli IP e delle porte aperte
+
+In questa fase di solito le attività del SOC a difesa dell'attacco sono:
+- Creazione di avvisi di web log e ricerca di dati storici
+- Analisi degli analytics del browser
+- Creazione di un playbook per identificare il comportamento e le modalità di ricognizione utilizzate
+- Prioritizzare la difesa degli account analizzati dall'attaccante
+
+#### Armamento
+Le informazioni trovate vengono utilizzate per identificare falle del sistema e creare un software che le possa sfruttare per ottenere dati o danneggiare l'organizzazione. Per la creazione dell'attacco è anche possibile utilizzare attacchi già preimpostati da utenti terzi, che si adattano alle vulnerabilità del bersaglio.
+
+Gli attacchi più pericolosi sono i cosiddetti **Zero-day attack** ()attacchi eseguiti al giorno zero), in quanto non offrono tempo sufficiente per identificare, analizzare o prepararsi a rispondere all'attacco.
+
+L'attaccante di solito:
+- Cerca online il tool di attacco più adeguato
+- Prepara un documento da inviare alla vittima
+- Seleziona o crea un sistema di backdoor e un'infrastruttura [CnC](#CnC)
+
+In questa fase di solito le attività del SOC a difesa dell'attacco sono:
+- Assicurarsi che le configurazioni degli IDS siano aggiornate
+- Effettuare analisi complete per malware
+- Impostare sistemi di identificazione di comportamenti sospetti basate sui malware attualmente conosciuti
+- Identificare eventuali ,malware vecchi o costruiti su misura per la rete
+- Identificare i mezzi di armamento siano più comuni in base alle varie campagne
+
+#### Consegna
+In questa fase l'attaccante trasmette il vettore dell'attacco al bersaglio. Questo  può avvenire tramite mail, dispositivi USB, sito web o altro. Spesso il codice viene mascherato per evitare i controlli di sicurezza (a discapito della velocità di esecuzione)
+
+L'attaccante agisce tramite sistemi diretti (sito web) o indiretti (mail, chiavetta USB, interazioni nei social o siti compromessi)
+
+In questa fase di solito le attività del SOC a difesa dell'attacco sono:
+- Analizza il percorso utilizzato per la consegna
+- Identifica i server, le persone e i dati bersaglio dell'attacco
+- Inferisce l'intento dell'attaccante in base al suo obbiettivo
+- Raccoglie le mail e i log di web per una successiva fase di ricostruzione [forense](<#Analisi Forense>)
+
+#### Sfruttamento
+L'attaccante utilizza il tool inviato per sfruttare le vulnerabilità dell'infrastruttura, attaccando specifici bersagli (che possono essere utenti, sistemi operativi o applicazioni) e prendere controllo degli stessi. L'attaccante pone particolare attenzione a questo passaggio, in quanto l'utilizzo di elementi non previsti può far scattare conseguenze indesiderate (come attacchi DoS o riavvi di sistema, che potrebbero allarmare l'organizzazione).
+
+L'attaccante di solito:
+- Utilizza i bersagli scelti
+- Acquisisce o sviluppa il metodo di sfruttamento
+- Utilizza un metodo di sfruttamento attivato dall'avversario per sfruttare vulnerabilità del server
+- Utilizza un metodo di sfruttamento attivato dall'utente nel caso di invio del vettore tramite metodi indiretti
+
+In questa fase di solito le attività del SOC a difesa dell'attacco sono:
+- Aumentare la consapevolezza dei dipendenti ed effettuare test tramite finte spam
+- Allenare gli sviluppatori al [Secure Coding](<#Secure Coding>)
+- Attuare misure di [hardening](#Hardeinig) per gli endpoint
+- Effettuare attività forense sugli endpoint bersagliati da un attacco
+
+#### Installazione
+L'attaccante inserisce la backdoor nel sistema per assicurargli un accesso alla rete (è importante per l'attaccante che la backdoor non faccia scattare sistemi di allarme dell'organizzazione o processi di comunicazione automatica con altri dispositivi). La backdoor deve persistere anche nel caso di riavvii della macchina nella quale è isntallata
+
+L'attaccante di solito:
+- Installa una webshell o il collegamento ad un webserver per assicurarsi un accesso
+- Crea dei punti persistenti di conenssione tramite servizi, [chiavi di AutoRun], ecc.
+- A volte modifica i timestamp del malware, per farlo apparire come file del Sistema Operativo
+
+In questa fase di solito le attività del SOC a difesa dell'attacco sono:
+- Configurazione corretta degli [HIPS](#HIPS)
+- Determinare i requisiti di accesso utilizzati dal malware
+- Effettuare un audit dell'endpoint per scoprire file creati in modo anomalo
+- Determinare se il malware è già conosciuto, o se sia una variante nuova
+
+#### CnC
+In questa fase l'attaccante stabilisce una connessione con il dispositivo infettato e lo sfrutta per operare all'interno della rete. Di solito le comunicazioni avvengono tramite [IRC] (Chat di Relay tramite Internet) non autorizzate.
+
+L'attaccante di solito:
+- Avvia una comunicazione a due vie con l'infrastruttura
+- Di solito opera tramite [DNS](./Tecnologie/Protocolli#DNS), web e [protocolli di email](./Tecnologie/Protocolli#Email)
+- Può utilizzare un suo dispositivo per operare, o un'altra rete precedentemente infettata
+
+In questa fase di solito le attività del SOC a difesa dell'attacco sono:
+- Ricerca eventuali infrastrutture CnC
+- Scopre infrastrutture CnC tramite analisi dei Malware
+- Previene l'esecuzione di azioni bloccando o disabilitando al connessione CnC
+- Controlla il numero di Internet Points attivi
+- Aggiorna o personalizza le regole di blocco dei CnC nei [Web Proxy](<#Web Proxy>)
+
+#### Azioni e obbiettivi
+L'attaccante utilizza la CnC per navigare nella rete, trovare le informazioni bersaglio ed effettuare azioni con le stesse (esfiltrazione, cifratura, modifica, cancellazione, ecc.) o con la rete stessa (mining di bitcoin, DoS, ecc.). In questa fase l'attaccante ha accesso completo alla rete come utente infettato.
+
+L'attaccante di solito:
+- Raccoglie credenziali di utenti
+- Effettua [privilege escalation](<#Privilege Escalation>)
+- Effettua operazioni di ricognizione della rete
+- Si muove all'interno dell'ambiente
+- Raccoglie ed esfiltra dati
+- Modifica, corrompe o sovrascrive i dati
+
+In questa fase di solito le attività del SOC sono prevalentemente di tipo [forense](<#Analisi forense>):
+- Definire il playbook dell'attaccante
+- Identificare i dati manipolati
+- Effettuare l'analisi degli alert
+- Effettuare un'[analisi forense](<#Analisi Forense>) completa dei dispositivi infetti
+- Catturare lo scambio di pacchetti del computer e ricreare lo storico dell'attacco
+- Effettuare un'analisi dei danni subiti
+
+#### Analisi delle intrusioni
+
+### Diamond Model
+![[diamond_model.png]]
+Il modello a diamante di analisi delle intrusioni è composto da 4 parti, utilizzate per rappresentare un incidente di sicurezza o un evento di sicurezza. L'evento rappresenta un'attività effettuata in un determinato arco di tempo, limitata a passaggi predefiniti, tramite i quali un **avversario** usa le proprie **capacità** su un'**infrastruttura** per attaccare una **vittima** e ottenere determinati risultati.
+- **Avversario**: Entità responsabile dell'attacco
+- **Capacità**: Strumenti, conoscenze e tecnologie adoperate per portare a segno l'attacco
+- **Infrastruttura**: Infrastruttura utilizzata per stabilire e mantenere una connessione con la rete bersaglio dell'attacco
+- **Vittima**: Bersaglio dell'attacco
+
+#### Meta-feature
+Altri elementi fondamentali per riassumere un attacco sono:
+- **Timestamp**: periodo di inizio e fine di un evento
+- **Fase**: Le fasi sono le stesse della[Cyber-Kill chain](<#Cyber Kill Chain>)
+- **Risultato**: Identifica cosa sia stato ottenuto dall'avversario
+- **Direzione**: Indica la direzione dell'evento nel modello a diamante
+- **Metodologia**: Utilizzato per classificare il tipo di evento (es. port scan, phishing, consegna di contenuti, syn flood, ecc.)
+- **Risorse**: Set di elementi esterni utilizzati dall'avversario per portare a segno l'attacco (es. conoscenza del bersaglio, software, informazioni come username e password, hardware utilizzati) 
+
+
+## Incident Response
+Insieme di metodologie, policy e procedure, utilizzate per rispondere ad un **incidente di sicurezza** (evento con un reale effetto pregiudizievole per al sicurezza della rete e dei sistemi informativi), avendo l'obiettivo di:
 - Impedire ad eventuali intrusi di operare all'interno della rete
 - Minimizzare i danni apportati dall'incidente
 - Riportare la situazione in regime di sicurezza
+
+Il NIST offre una [guida per la gestione degli incidenti](https://csrc.nist.gov/pubs/sp/800/61/r2/final) che fornisce linee guida (non dipendenti dall'infrastruttura hardware e software colpita dall'attacco) per:
+- Analizzare dati correlati all'incidente
+- Determinare l'approccio migliore per rispondere ad ogni incidente
+
+### CSIRC
+Il primo step della guida consiste nello stabilire le capacità di risposta di un computer a seguito di incidenti di sicurezza (CSIRC) e di creare un set di [Policy](#Policy), piani e procedure a supporto. 
+
+#### Policy
+Devono includere dettagli riguardo:
+- Definizione dell'impegno di gestione
+- Scopi e obbiettivi delle policy
+- Definizione degli incidenti di sicurezza e relativa terminologia
+- Struttura organizzativa e definizione di ruoli, responsabilità e livelli di autorità
+- Definizione della priorità e della gravità degli incidenti di sicurezza
+- Misurazione delle prestazioni
+- Report e moduli di contatto
+
+#### Pianificazione
+Gli elementi di pianificazione devono coprire le seguenti aree:
+- Missione
+- Strategie e obbiettivi
+- Approvazione da parte di un Senior Manager
+- Approccio organizzativo della risposta ad un incidente
+- Metodologie comunicative della squadra di Incidente Response con il resto dell'organizzazione
+- Metriche di misurazione delle capacità di risposta agli incidenti
+- Come il programma venga inquadrato all'interno dell'organizzazione
+
+#### Procedure
+Le procedure devono descrivere come comportarsi durante il processo di risposta ad un incidente e devono includere:
+- Processi tecnici
+- Tecniche da utilizzare
+- Moduli da compilare
+- Checklist da seguire
+
+### Stakeholders
+Gli attori interessati (stakeholders) durante la fase di incident response sono:
+- **Management**: Definiscono le policy da seguire, stabiliscono l'ammontare di risorse da utilizzare (economiche e umane) e coordinano il resto della squadra
+- **Information assurance**: Provvede a modificare le impostazioni dei dispositivi di rete (quando previsto) durante le varie fasi di risposta ad un incidente
+- **IT Support**: Personale con più alto livello di conoscenza della rete. SI occupa di effettuare le azioni per minimizzare l'efficacia dell'attacco e preservare dati e/o prove
+- **Legali**: Revisionano policy, piani e procedure per confermare la conformità alle disposizioni normative vigenti
+- **Public affairs/Media relations**: Informano la popolazione (quando previsto) delle conseguenze di eventuali esfiltrazioni di dati
+- **Risorse Umane**: Prendono contromisure disciplinari quando previsto
+- **Business Continuity Planner**: Si occupano di minimizzare 'impatto di un attacco informatico sulla continuità dell'attività
+- **Personale di sicurezza**: Si attivano nel caso di attacco fisico all'organizzazione
+
+### Cybersecurity Maturity Model Certification
+Framework utilizzato per valutare la capacità di un'organizzazione (che opera a contatto con il Dipartimento della Difesa degli US) di proteggere dai rallentamenti la catena delle forniture o da perdite. Si compone di 5 livelli , assegnati in base al livello di sicurezza richiesto all'organizzazione.
+I criteri di valutazione sono categorizzati in base a 17 domini di interesse, ognuno dei quali fornisce un valore di maturità dell'infrastruttura in base a:
+- Piano di risposta all'incidente
+- Identificazione e report degli eventi
+- Sviluppo e implementazione di una risposta ad un'incidente dichiarato
+- Effettuazione di revisioni a seguito di un incidente
+- Test di risposta ad un incidente
+
+La somma dei valori fa ottenere un punteggio finale, che rientrerà in uno dei 5 livelli previsti:
+1. Non descritto
+2. Il piano di risposta all'incidente rispetta i criteri del [NIST](#NIST) per identificazione, report e prioritizzazione degli eventi e analizza correttamente l'incidente per mitigare problematiche future
+3. Documenta e riporta gli incidenti agli stakeholders identificati nel piano. Testa le capacità di risposta all'incidente dell'organizzazione
+4. Utilizza le tecnologie, tecnologie e metodi ([TTP](#TTP)) per affinare la pianificazione e l'esecuzione dei piani di risposta. Definizione di un Centro Operativo di Sicurezza (SOC) che agevola la capacità di risposta 24/7
+5. Utilizza tecniche forensi di raccolta dati sistematica dei dati per maneggiare e memorizzare dati provenienti da attività forensi. Sviluppa ed utilizza procedure di risposta manuale ed automatica a potenziali incidenti che seguono pattern conosciuti.
+
+## Analisi forense
+Anche nota come Digital Forensics, consiste nell'analizzare attività sospette, identificare le cause degli attacchi, procurare prove certe riguardo l’identità e ripristinare il sistema ad uno stato sano.
+L’identificazione di un’attaccante avviene attraverso l’analisi delle tracce lasciate dallo stesso, come log e pcaps.
+
+A seguito di un attacco è importante raccogliere prove ed informazioni riguardo l’ambito dell’attacco. La tipologia è la quantità di informazioni da raccogliere è definita spesso anche da normative (es. HIPAA per gli USA). Per questo è molto importante stabilire delle procedure ferree per il processo di analisi forense all’interno di un’organizzazione.
+
+### Metodologia
+Il processo di analisi forense è composto da 4 step:
+- **Raccolta dei dati**: si identificano le fonti di dati utili per l’analisi e se ne prelevano i dati. Per massimizzare i dati raccolti, conviene sempre iniziare dai dati volatili (es. quelli localizzati 
+- all’interno delle RAM)
+- **Esame**: i dati vengono processati per essere leggibili (es decodifica) e vengono scartate le informazioni inutili
+- **Analisi**: L’analisi permette di trarre conclusioni riguardanti l’attacco e raccogliere ed organizzare le prove trovate 
+- **Documentazione**: le informazioni vengono preparate per l’inserimento in un documento finale, che permetta di riassumere i risultati ottenuti e suggerire i passaggi successivi.
+
+Un’esempio di ordine di raccolta dati è quello di prelevare quelli memorizzati all’interno di:
+1. Cache e dischi di memoria
+2. Tabelle di Routing, ARP cache, tabella dei processi, statistiche del kernel, RAM
+3. File temporanei di sistema
+4. Media non volatili, fissi o rimuovibili
+5. Logging di attività da remoto e monitoraggio dei dati
+6. Interconnessioni fisiche a topologie
+7. Media archiviati, registrazioni e altre forme di backup
+
+Deve essere registrato anche il supporto dal quale è stato prelevato il dato. Durante lo scambio dei dati per l’analisi, si deve registrare per ogni passaggio da un utente all’altro:
+- Chi ha scoperto e raccolto la prova
+- Tutti i dettagli relativi il passaggio dei dati (orari, luoghi e persone coinvolte)
+- Personale che ha accesso ai dati registrati
+
+Questo viene effettuato per assicurare l’identificazione di possibili eventi di sabotaggio dei dati. Questo processo prende il nome di **Catena della custodia** (chain of custody).
+
+### Prove
+Le prove sono suddivise in 3 categorie, in base al grado di certezza offerto:
+- **Dirette**: prove trovate in diretto possesso dell’accusato 
+- **Migliori**: es. archivi di file non alterati, dispositivi di memoria utilizzati durante l’attacco
+- **Corroboranti**: supportano una tesi che deriva dalle prove migliori
+- **Indirette**: note anche come prove circostanziali, permettono di fare ipotesi riguardo gli avvenimenti (es la presenza certa di altri crimini effettuati dell’attaccante accusato)
+
+Durante il processo di analisi, è sempre una buona prassi lavorare su copie (e registrare le copie) dei dati per evitare perdite accidentali.
+
+### Documentazione
+La documentazione deve includere:
+- Tattiche
+- Tecniche 
+- Procedure
+Utilizzate per portare a segno l’attacco.
+Il [MITRE](#MITRE) offre un framework per analizzare questi dati: l’[ATT&CK](#ATT&CK) (Adversial Tactics, Techniques and Common Knowledge)
 
 # Normativa
 ## Italia
