@@ -27,28 +27,40 @@ I permessi vengono mostrati tramite una stringa suddivisa in 3 parti, ciascuna d
 ### ACL
 Le Access Control List (Liste di Controlli di Accesso) permettono di dare permessi extra ad utenti specifici per uno specifico file o directory.
 
-# Comandi
-Concatenare comandi
-```Linux
-<comando_1> && <comando_2>
-```
+# Shell
+## Comandi
+I comandi sono stringhe a cui è collegato un determinato file che esegue operazioni. Essi possono avere **opzioni** per specificare il tipo di comportamento richiesto e un **argomento** per specificare l'oggetto su cui effettuare l'operazione
 
-Eseguire un comando nel caso quello precedente non venga eseguito correttamente 
-```Linux
-<comando_1> || <comando_2> 
-```
-
-Piping di due comandi
-```sh
-<comando 1> | <comando 2>
-```
-	Il piping serve a filtrare i risultati del primo comando attraverso il secondo
-	ES. ls -l | grep file
-
+### Lista comandi
 Inserire un commento  
 ```Linux
 # commento 
 ```
+
+Prevenire l'interpretazione di uno specifico carattere (di solito speciale)
+```sh
+\<carattere>
+```
+	ESEMPIO:
+	echo \$PATH # risultato: $PATH
+	echo $PATH # ritultato: /usr/local/sbin/...
+
+Inserire un testo
+```sh
+"<testo>"
+```
+	Le virgolette doppie permettono di utilizzare caratteri speciali, ma di leggere le variabili
+	ALTERNATIVE:
+	'<testo>' # Non permettono di utlizzare le variabili
+	`<testo>` # Permettono di utilizzare un comando all'interno di un altro comando
+		ESEMPIO: echo Today is `date`
+
+Utilizzare un comando all'interno di un altro comando
+```sh
+<comando> <inizio argomento> $(<secondo comando>) <fine argomento>
+```
+	NOTE:
+	- Questa operazione è realizzazbile anche tramite backtick (``)
 
 Accedere ad una rete come cliente
 ```shell
@@ -60,14 +72,58 @@ Filtro un comando in base ad una determinata stringa
 <comando> | grep <stringa>
 ```
 
+Utilizzare un comando presente nello storico della bash
+```sh
+!<numero nello storico>
+```
+	NOTE:
+		Nel caso voglia utilizzare l'ultimo comando inviato, posso anche scrivere:
+			!!
+	
+	ES: Nel caso ho inviato precedetnemente i comandi:
+		1. cd /
+		2. ls -a
+		3. cd home
+	Posso chiedere una lista degli elementi presenti in cartella anche tramite
+		!2
+
+Visualizzare l'ultima interazione con un comando specifico (mostra sia il comando inserito che il risultato ottenuto)
+```sh
+!<comando>
+```
+
+Creare una funzione
+```sh
+<nome_funzione> () {
+	<comando 1>
+	<comando 2>
+}
+```
+
+Riassumere più comandi in uno solo (creare un alias)
+```sh
+alias <nome_alias>='<comando> <opzioni> <argomento>'
+```
+	ESEMPIO:
+	alias la='ls -a' # una volta utilizzato la, il sistema utilizzerà il comando impostato
+
+Fornisce una breve lista dei contenuti delle pagine del manuale del comando
+```sh
+apropos <comando>
+```
+	NOTE:
+	- Da gli stessi risultati di man -k
+
 Modificare i software installati all’interno della macchina
 ```Sh
-sudo apt-get
+apt-get
 ```
 	OPZIONI: 
 	install <nome app> # installa il software
 	upgrade # aggiorna tutti i software installati
 	dist-upgrade # aggiorna la distro
+	
+	N.B. Il comando necessita dei permessi di root.
 
 Visualizzare la [tabella ARP](./Tecnologie/Protocolli#ARP) del dispositivo
 ```sh
@@ -82,11 +138,6 @@ awk
 Leggere il contenuto di un file
 ```sh
 cat <nome_file>
-```
-
-Ripulire lo schermo
-```sh
-clear
 ```
 
 Modifica il gruppo proprietario dell'elemento
@@ -119,6 +170,11 @@ Modifica il proprietario di un file
 chown <nome_utente>:<nome_gruppo> <nome_file>
 ```
 
+Ripulire lo schermo
+```sh
+clear
+```
+
 Copia un dato da un input ad un output 
 ```Shell
 dd
@@ -133,6 +189,19 @@ dig <sito web (opzionale)>
 Controllare lo spazio disponibile nelle varie partizioni del volume
 ```shell
 df -hT
+```
+
+Stampare un testo
+```sh
+echo <argomento>
+```
+	N.B.
+	- Legge le directory (es. echo D* ritorna tutti i file presenti su D)
+	- Non legge altri comandi (es. echo cal ritorna la scritta cal)
+
+Ottenere una lista della variabili d'ambiente
+```sh
+env
 ```
 
 Fare robe
@@ -161,7 +230,7 @@ find <directory> <nome file>
 	-perm #cerca i file che hanno i permessi specificati
 	permessi: 1=read, 2=write, 3=execute, 4=SUID
 
-Visualizzare le #ACL di un file
+Visualizzare le [ACL](#ACL) di un file
 ```sh
 getfacl <nome_file>
 ```
@@ -194,6 +263,13 @@ groups <utente>
 	Se non si inserisce l'utente, ritornerà tutti i gruppi del sistema
 	OPZIONI:
 
+Visualizzare lo storico dei comandi utilizzati
+```sh
+history
+```
+	ARGOMENTI:
+	- Numero degli ultimi comandi da visualizzare
+
 Assembla e analizza i pacchetti utilizzati per port scanning, path discovery, OS fingerprinting e testing del firewall
 ```Terminal
 hping
@@ -208,6 +284,13 @@ Mostrare i parametri delle interfacce di connessione (tipo IPv4, Ethernet)
 ```sh
 ifconfig
 ```
+
+Visualizzare la documentazione relativa il sistema operativo o le feature
+```sh
+info <comando>
+```
+	NOTE:
+	- nel caso non si inserisca nessun comando, ritornerà le informazioni di sistema
 
 Visualizzare le regole di accesso alla macchina ( #firewall)
 ```shell
@@ -225,6 +308,17 @@ Modificare il comportamento di un processo
 kill
 ```
 
+Localizzare un file
+```sh
+locate <nome file>
+```
+	NOTE:
+	- la ricerca viene effettuata tramite database
+	
+	OPZIONI:
+	-c # conta il numero di file trovati
+	-b # limita la ricerca ai soli file e non alle directory nelle quali si trovano
+
 Creare un link
 ```Sh
 ln <nome file>
@@ -239,20 +333,51 @@ ls
 	-a # mostra anche i file nascosti
 	-all # mostra tutte le directory e i file contenuti, in una vista tabellare che comprende permessi, 
 	-l # mostra i dati in tabella
-	tabella: directory_1 directory_2 directory_3|permessi|utente|gruppo utente|dimensione|data di creazione|nome del file 
-	categorie utenti: proprietario, gruppo del proprietario, altri
-	directory può essere "d" se directory o "-"
-	permessi: r=read, w=write, x=execute, -=nessun perm
+		tabella: directory_1 directory_2 directory_3|permessi|utente|gruppo utente|dimensione|data di creazione|nome del file 
+		categorie utenti: proprietario, gruppo del proprietario, altri
+		directory può essere "d" se directory o "-"
+		permessi: r=read, w=write, x=execute, -=nessun perm
+		dimensione: espressa in bytes
+	-r # inverte l'ordine di visualizzazione dei file
 
 Controllare lo spazio utilizzato dalle varie partizioni
 ```shell
 lsblk
 ```
 
-Aprire il manuale dei #comandi del #terminale per verificare le modalità d'uso di un comando
+Aprire il manuale dei #comandi del #terminale per verificare le modalità d'uso di un comando (deriva da UNIX)
 ```sh
 man <comando>
 ```
+	NOTE:
+	- I documenti ritornati da man sono divisi in sezioni
+	- Le pagine di man rientrano in una di 9 sezioni:
+		1. COmandi generali
+		2. Chiamate al sistema
+		3. Chiamate alla libreria
+		4. File speciali
+		5. Formati di file e convenzioni
+		6. GIochi
+		7. Miscellanei
+		8. Comandi di amministratore di sistema
+		9. Routine del kernel
+	- Shift+H permette di visualizzare le shortcut per navigare sulle pagine
+	
+	SEZIONI:
+	- 	NAME: fornisce il nome del comando e una breve descrizione
+	- SYNOPSIS: Fornisce esmepi di esecuzione del comando
+	- DESCRIPTION: fornisce una descrizione dettagliata del comando
+	- OPTIONS: fornisce una lista delle opzioni disponibili per il comando
+	- FILES: lista dei file associati al comando
+	- REPORTING BUGS: modalità di report dei bug
+	- COPYRIGHT: fornisce informazioni base sul copyright del file
+	- SEE ALSO: link a fonti esterne per ulteriori informazioni
+	
+	OPZIONI:
+	-f # filtra le pagine in base al nome (argomento inserito)
+	-k # fornisce una breve descrizione dei contenuti delle varie pagine del manuale
+
+Filtrare tra le pagine di un documento
 
 Modificare il contenuto di un file
 ```sh
@@ -334,8 +459,9 @@ python
 
 Riviste il sistema
 ```Sh
-sudo reboot
+reboot
 ```
+	N.B. Il comando ha bisogno dei permessi di root
 
 Interagire con un database remoto
 ```shell
@@ -350,7 +476,7 @@ rm <nome_file>
 	-r # Rimuove una cartella non vuota
 	-rf # Forza la rimozione
 
-Impostare una #ACL di un file
+Impostare una [ACL](#ACL) di un file
 ```sh
 setfacl u:<user>:<permessi> <file>
 ```
@@ -422,6 +548,36 @@ Tracciare il percorso dei pacchetti fino alla destinazione
 traceroute
 ```
 
+Ottenere informazioni riguardo il tipo di comando
+```sh
+type <comando>
+```
+	OPZIONI:
+	-a # mostra tutte le informazioni (se è interno e percorso assoluto)
+	NOTE:
+	- Se il comando è interno, si otterrà:
+		<nome_comando> is a shell builtin
+	- Se il comando è esterno, si otterrà il percorso assoluto dove è situato il file che attiva il comando
+
+Ottenere il nome del sistema
+```sh
+uname
+```
+	OPZIONI:
+	-n # ritorna il nome del nodo in cui ci si trova (es. localhost)
+
+Cancellare una variabile
+```sh
+unset <nome_variabile>
+```
+	NOTE:
+	- Non è necessario anteporre $ alla variabile in questo caso
+
+Aggiornare il database dei nomi di tutti i file del sistema
+```sh
+updatedb
+```
+
 Creare un nuovo utente (richiede permessi root)
 ```sh
 useradd <nome_utente>
@@ -455,11 +611,25 @@ usermod
 	Di solito si usa con sudo
 	OPZIONI:
 	-aG <gruppo> <user> # Aggiunge l'user al gruppo
-	
 
 Modificare il contenuto di un file
 ```sh
 vim <nome_file>
+```
+
+Filtra i contenuti del man in base al nome della pagina
+```sh
+whatis <nome>
+```
+
+Localizzare il file del comando
+```sh
+whereis <comando>
+```
+
+Visualizzare il percorso assoluto del file di un comando
+```sh
+which <nome_comando>
 ```
 
 Verificare l'utente con cui si sta operando
@@ -471,12 +641,81 @@ Comandi da inserire
 ```shell
 chroot
 getent
-env
 sh #shell
+sed
 ```
 
-## Info utili
+### Operazioni tra comandi
+Indicare la fine di un comando
+```sh
+;
+```
+	Questo permette di utilizzare più comandi alla volta
+
+Concatenare comandi
+```Linux
+<comando_1> && <comando_2>
+```
+
+Eseguire un comando nel caso quello precedente non venga eseguito correttamente (doppia pipe)
+```Linux
+<comando_1> || <comando_2> 
+```
+
+Piping di due comandi
+```sh
+<comando 1> | <comando 2>
+```
+	Il piping serve a filtrare i risultati del primo comando attraverso il secondo
+	ES. ls -l | grep file
+
+### Info utili
 - Premendo Tab, il terminale completa automaticamente il comando (o il file). Nel caso ci siano più risultati possibili, ritorna sotto la linea di comando la lista delle possibilità
+- I comandi presenti di default nella shell vengono chiamati **comandi interni**
+- I comandi creati dall'utente (o da altri utenti) vengono chiamati **comandi esterni**
+- Ogni comando è scritto ed evocato tramite relativo file
+
+## Variabili
+La shell utilizza due tipi di variabile:
+- Locali
+- Di ambiente
+
+### Locali
+Le variabili locali sono valid solo per la sessione di bash nella quale sono state impostate.
+
+Le **variabili locali** sono impostabili tramite dichiarazione del nome della variabile e contenuto:
+```sh
+<nome_variabile>=<valore>
+```
+	NOTE:
+	Il contenuto può essere di tipo:
+		- stringa (es. 'ciao')
+	
+	ESEMPIO:
+	variabile1='ciao'
+
+E sono utilizzabili anteponendo il simbolo "**$**" al nome della variabile
+```sh
+$<nome_variabile>
+```
+	ESEMPIO:
+		echo $variabile1 # la shell ritornerà
+			ciao
+
+### Ambiente
+Le variabili d'ambiente vengono utilizzate dall'intero sistema e vengono create nella shell al suo avvio. Questo tipo di variabili è salvato all'interno del sistema.
+
+La creazione e l'utlilizzo delle **variabili d'ambiente** è simile a quello delle variabili locali, ma il loro nome è sempre scritto con caratteri maiuscoli
+
+```ESEMPIO
+variabile_locale=1
+VARIABILE_DI_AMBIENTE='valore'
+```
+
+| Variabile di default | Descrizione                                           |
+| -------------------- | ----------------------------------------------------- |
+| PATH                 | Mostra tutte le directory dove sono salvati i comandi |
+
 # Distro
 
 ## Kali
@@ -692,39 +931,28 @@ Configura Nginx, un web server leggero per Linux.
 ### ntp.conf
 File di configurazione per il protocollo [NTP](../tecnologie/protocolli#ntp) (Network time protocol)
 
+### ppp
+#### ip-down.d
+#### ip-up.d
+
+
 ### snort.conf
 File di configurazione per Snort, un [IDS] (Software di Identificazione delle Intrusioni)
+
+### ssh
+Contiene i file delle chiavi pubbliche e provate del sistema
+
+#### ssh_config
+#### ssh_config.d
+#### sshd_config
+#### sshd_config.d
 
 ## home/
 Contiene i file e le impostazioni di ogni utente registrato nella macchina (ogni utente avr° una cartella personale).
 
-## var/
-### log/
-Contiene i file di [log](../cybersecurity#log) 
-
-#### messages
-Contiene log di attività generiche, utilizzate prevalentemente per il salvataggio di messaggi informativi non critici di sistema (nelle distro Debian è chiamato **syslog**)
-
-#### auth.log
-Contiene i log degli accessi al dispositivo per distro Debian e Ubuntu, con tutte le informazioni relative all’accesso.
-
-#### secure
-Variante di [auth.log](#auth.log) utilizzata da RedHat e CentOS. Tiene traccia anche di eventi che coinvolgono l’uso di sudo, login tramite SSH, e altri errori provenienti da SSSD.
-
-#### boot.log
-Contiene informazioni relative al boot e messaggi di log creati durante la fase di startup del dispositivo.
-
-#### dmesg
-Contiene messaggi del ring buffer del kernel, contenenti informazioni riguardanti i dispositivi hardware e i relativi drivers. È un file molto importante data la natura di basso livello delle informazioni (gli eventi avvengono prima che altri file di log entrino in azione)
-
-#### kern.log
-Contiene log relativi al kernel
-
-#### cron
-File utilizzato per salvare i dati relativi le automazioni su Linux, come le loro pianificazioni, stati di esecuzione e messaggi di errore.
-
-#### mysql.log
-Memorizzato come mysqld.log nelle distro RedHat, CentOS e Fedora, contiene i log del database MySQL, con informazioni relative I debug, funzionalità, messaggi di successo, il processo mysqld, e il daemon (un processo che viene eseguito senza bisogno di interazione da parte dell’utente) mysqld_safe.
+## usr/
+### /doc
+Include file con documentazione ulteriore (utile per imparare o per gli amministratori di sistema  nel caso debbano imparare come impostare servizi software complessi)
 
 ## sys/
 Contiene i file di sistema
@@ -757,6 +985,34 @@ File System sviluppato da Apple come diretta evoluzione dell’HFS+. Supporta fu
 #### MBR
 Il Registro Master di Avvio (Master Boot Record) è localizzato nella prima partizione del computer e contiene tutte le informazioni sull’organizzazione del File System. Una volta utilizzato, richiama una funzione di caricamento, che carica il sistema operativo.
 
+
+## var/
+### log/
+Contiene i file di [log](../cybersecurity#log) 
+
+#### messages
+Contiene log di attività generiche, utilizzate prevalentemente per il salvataggio di messaggi informativi non critici di sistema (nelle distro Debian è chiamato **syslog**)
+
+#### auth.log
+Contiene i log degli accessi al dispositivo per distro Debian e Ubuntu, con tutte le informazioni relative all’accesso.
+
+#### secure
+Variante di [auth.log](#auth.log) utilizzata da RedHat e CentOS. Tiene traccia anche di eventi che coinvolgono l’uso di sudo, login tramite SSH, e altri errori provenienti da SSSD.
+
+#### boot.log
+Contiene informazioni relative al boot e messaggi di log creati durante la fase di startup del dispositivo.
+
+#### dmesg
+Contiene messaggi del ring buffer del kernel, contenenti informazioni riguardanti i dispositivi hardware e i relativi drivers. È un file molto importante data la natura di basso livello delle informazioni (gli eventi avvengono prima che altri file di log entrino in azione)
+
+#### kern.log
+Contiene log relativi al kernel
+
+#### cron
+File utilizzato per salvare i dati relativi le automazioni su Linux, come le loro pianificazioni, stati di esecuzione e messaggi di errore.
+
+#### mysql.log
+Memorizzato come mysqld.log nelle distro RedHat, CentOS e Fedora, contiene i log del database MySQL, con informazioni relative I debug, funzionalità, messaggi di successo, il processo mysqld, e il daemon (un processo che viene eseguito senza bisogno di interazione da parte dell’utente) mysqld_safe.
 
 # Software
 L’estensione dei file di applicazioni su Linux dipende dalla distro:
@@ -855,7 +1111,7 @@ Suite di software per la creazione, modifica di gestione di elaborati testuali, 
 #### Chrome
 
 ## Tool
-### Shell
+### shell
 Linux utilizza due tipologie di [shell](../Tecnologie/Macchina#Shell):
 - Bash
 - tcsh
@@ -870,6 +1126,37 @@ Shell che utilizza un linguaggio simile al C.
 #### Vi
 #### Vim
 Versione avanzata di [Vi](#Vi) che permette l'utilizzo di funzionalità avanzate, come il key-binding.
+
+| Comando            | Descrizione                                                  |
+| ------------------ | ------------------------------------------------------------ |
+| Esc                | Esce dalla modalità scrittura e permette di eseguire comandi |
+| :x                 | Salva ed esci                                                |
+| :wq                | Salva ed esci                                                |
+| :q                 | Esci (se il file non è stato modificato)                     |
+| :q!                | Esci senza salvare                                           |
+
+##### Movimenti
+
+| Comando            | Movimento                  |
+| ------------------ | -------------------------- |
+| j                  | In basso di una linea      |
+| freccia in basso   | In basso di una linea      |
+| Invio              | In basso di una linea      |
+| k                  | In alto di una linea       |
+| freccia in alto    | In alto di una linea       |
+| h                  | A sinistra di un carattere |
+| Backspace          | A sinistra di un carattere |
+| freccia a sinistra | A sinistra di un carattere |
+| l                  | A destra di un carattere   |
+| Spazio             | A destra di un carattere   |
+| freccia a destra   | A destra di un carattere   |
+| 0                  | Ad inizio linea            |
+| $                  | A fine linea               |
+| w                  | A inizio parola successiva |
+| b                  | A inizio parola precedente |
+| :0 + Invio         | Alla prima riga del file   |
+
+
 
 #### Emacs
 #### Nano
