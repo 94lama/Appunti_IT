@@ -89,6 +89,21 @@ Trasporta il fascio di luce (prodotto da un LED) tramite riflessione nelle varie
 Fiber-to-the-Cabin
 ### FTTH
 Fiber-to-the-House
+## Video
+Per il trasporto di dati di tipo grafico, speso si utilizzano cavi specifici.
+
+### VGA
+Vecchia tipologia di cavo a 15 spinotti (Video Graphics Array)
+
+### DVI
+La Digital Visual Interface è un modello più recente rispetto alla VGA, che utilizza terminazioni con 29 spinotti.
+
+### HDMI
+Il cavo High-Definition Multimedia Interface ha terminazioni a 19 o 29 spinotti, e permette il trasferimento di grafiche con risoluzione fino al 4K (o UltraHD)
+
+### DP
+Il cavo DisplayPort è un cavo realizzato dalla Apple per i suoi dispositivi.
+
 # Cache
 
 # NIC
@@ -123,11 +138,65 @@ Questa rappresentazione delle porte prende il nome di socket.
 La [Internet Assigned Number Authority](https://www.iana.org/) è un organismo che ha la responsabilità di assegnare gli [indirizzi IP](./Protocolli#IP) e mantenere un registro dei protocolli utilizzati su [internet](<./Reti#Rete pubblica>).
 Le porte più utilizzate tramite protocollo [TCP](./Protcolli#TCP) o [UDP](./Protoclli#UDP) (dove segnalato) sono segnalate dalle  cosiddette [Well-known ports](<protocolli#well-known ports>)
 
+# Motherboard
+Elemento hardware che connette [CPU](#CPU), [RAM](#RAM) e altri componenti di una macchina tra loro. I componenti possono essere collegati tramite saldatura diretta sulla scheda madre, o tamite l'utilizzo di [bus](#bus)
+
 # RAM
-Random Access Memory.
+La Random Access Memory è un componente che permette di memorizzare velocemente dati da processare. 
+
+La memoria massima della RAM nel caso di [architetture](#CPU) a 32-bit è pari a 4GB, mentre nel caso di architetture a 64-bit è maggiore. Nel caso sia necessaria più memoria di quella fornita dagli slot di RAM della macchina, si utilizza la RAM virtuale (anche chiamata **swap**), che consiste nell'utilizzo temporaneo di spazio della [memoria](#Memoria) della macchina per supportare la RAM (lo spazio in swap ha una velocità di lettura inferiore rispetto a quello dei blocchi della RAM).
 
 # CPU
-Central Processing Unit, o Unità Centrale di Processamento.
+Central Processing Unit, o Unità Centrale di Processamento è l'elemento hardware che esegue i processi e i calcoli all'interno di una macchina. Essendo un elemento vincolante per il funzionamento e l'architettura della macchina, di solito è direttamente saldata alla scheda madre.
+
+I processori più utilizzati sono e 32-bit 0 a 64-bit (il valore rappresenta il numero massimo di bit processabili alla volta), e sono indicati:
+- **x86**: 32-bit
+- **x86-64**: 64-bit o 32-bit
+
+## Intel
+Sviluppa processori di varie fasce, raggruppate in base alla serie di distribuzione:
+
+| Serie       | Descrizione |
+| ----------- | ----------- |
+| Pentium     |             |
+| Pentium Pro |             |
+
+**N.B.**
+- Alcune distro di [Linux](../OS/Linux) (come Ubuntu, RedHat) di solito funzionano solo con processori della serie Pentium Pro o successive.
+
+## AMD
+## Cyrix
+
+# bus
+Un bus è un dispositivo di connessione ad alta velocità tra elementi hardware.
+
+## USB
+L'Universal Serial Bus è un tipo di bus periferico che permettono un collegamento rapido di elementi.
+
+## Hard drive
+Gli Hard drive (o Hard Disk, Storage Device, Disk Device) sono dispositivi hardware adibiti alla memorizzazione di grandi quantità di dati. Possono essere collegati alla [scheda madre](#Motherboard) tramite [USB](#USB)o [PCI](#PCI), in base alle esigenze della macchina (e dell'utente).
+
+### HDD
+### SSD
+I Dischi allo Stato Solido sono un'alternativa più performante (e costosa) dei vecchi [HDD](#HDD). Sono dotati di un processore integrato, che gestisce lalettura e la scrittura dei dati.
+
+### Dischi ottici
+I dischi ottici sono dispositivi di memorizzazione (CD, DVD, Blu-Ray) rimuovibili che permettono di memorizzare (nel caso il disco sia di tipo scrivibile) e leggere dati.
+
+### Partizione
+Alcuni hard drive possono utilizzare meccanismi di partizione di memoria. I più comuni sono:
+
+#### MBR
+Master Boot Record
+
+#### GPT
+La GUID Partitioning Type è una  metodologia di partizione per dischi di memoria utilizzata dal 2000.
+
+## Periferiche
+Le periferiche esterne sono tutti quei dispositivi che possono essere collegati ad un computer, come chiavette USB, hard disk, monitor esterni, mouse, ecc.
+
+# Memoria
+
 # Kernel
 Il kernel di un sistema operativo è il componente che alloca le risorse ([memoria](<#Locazione di memoria>), [CPU](#CPU), [spazio su disco](#RAM)) della macchina richieste dai software (e decide quali software prioritizzare nel caso di più richieste contemporanee delle stesse risorse), gestisce la transizione tra più risorse (**multitasking**), verifica se sia necessario terminare un'applicazione e occupa di astrarre delle informazioni dal software (es. la tipologia di supporto della locazione di memoria utilizzata dalla macchina).
 
@@ -179,6 +248,9 @@ NTFS memorizza i file come una serie di attributi (come nome del file, timestamp
 
 I file con degli ADS collegati vengono visualizzati col suffisso ```
 :<nome ADS>``` dopo il nome del file.
+
+# Alimentazione
+I computer di solito usano sistemi di alimentazione per convertire la corrente alternata a 120 o 240V in corrente diretta a voltaggio inferiore (3,3, 5 o 12V). Per la scelta di un determinato sistema di alimentazione per i dispositivi della rete, è necessario tenere conto anche della possibilità degli alimentatori di ammortizzare le oscillazioni di tensione, che potrebbero creare problemi all'hardware.
 
 # Particolari tipologie di macchine
 ## HUB

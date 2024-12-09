@@ -123,7 +123,7 @@ nmap
 
 Aprire un [socket](./../TEcnologia/Macchina#Socket) per l'invio di richieste [DNS](./../Tecnologia/Protocolli#DNS) nel server locale. Una volta lanciato il comando si riceveranno informazioni riguardo il server locale, poi sarà possibile effettuare altre ricerche.
 ```Terminal
-nslookup
+- [ ] nslookup
 ```
 	N.B. Dopo il comando sarà possibile cercare un sito web tramite indirizzo URL.
 	Il comando exit permetterà di uscire dalla funzione

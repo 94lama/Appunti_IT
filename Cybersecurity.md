@@ -1220,6 +1220,7 @@ Sono metodologie utilizzate per nascondere la propria identità al bersaglio.
 ##### Fast flux
 Tecnica utilizzata per nascondere i siti di invio di malware e [phishing](#phishing) al bersaglio. Di solito avvengono tramite il cambio rapido di indirizzo DNS tra  una lista di indirizzi compromessi. Questo tipo di attacchi è utilizzato spesso dai Botnet.
 
+
 ##### Double IP flux
 L'attaccante modifica velocemente sia l'hostname (in base ad un pool di indirizzi IP) che il [nome autoritativo del server](https://en.wikipedia.org/wiki/Name_server#:~:text=An%20authoritative%20name%20server%20is,specifically%20configured%20by%20its%20administrator).
 
