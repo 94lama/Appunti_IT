@@ -241,6 +241,9 @@ Cercare un Fully Qualified Domain Name nel server DNS di default (può essere an
 ```sh
 dig <sito web (opzionale)>
 ```
+	OPZIONI:
+	-x # 
+	
 	N.B. Se non viene inserito nessun indirizzo, la shell entrerà in modelità lookup, dove potrai effettuare le ricerche inserendo il nome del sito desiderato (inserisci il comando exit per terminare il processo).
 
 #### df
@@ -461,6 +464,26 @@ history
 	ARGOMENTI:
 	- Numero degli ultimi comandi da visualizzare
 
+#### host
+Verifica l'indirizzo IP di un nome di dominio ([DNS](../Tecnologie/Protocolli#DNS))
+```host
+host https://google.com
+```
+	OPZIONI:
+	-a # accettta ogni tipo di richiesta (ANY)
+	-m # attiva i lflag di debugging
+	-t <nome> # specifica il tipo di richiesta
+	-w # rimane in attesa fin quando non riceve una risposta (wait)
+	-4 # usa solo il protocollo IPv4
+	-6 # usa solo il protocollo IPv6
+	
+	RISULTATO: 8.8.8.8
+	N.B. host può anche essere utilizzato per trovare il nameserver partendo da un indirizzo IP
+
+I parametri accettati dall'opzione "-t" sono:
+- **ANY**: accetta qualunque valore
+- **SOA**: Start Of Authorioty. Accetta solo i valori del server primario
+- **CNAME**: Canonical Name -alias
 #### hping
 Assembla e analizza i pacchetti utilizzati per port scanning, path discovery, OS fingerprinting e testing del firewall
 ```Terminal
@@ -479,6 +502,40 @@ Mostrare i parametri delle interfacce di connessione (tipo IPv4, Ethernet)
 ifconfig
 ```
 
+```Esempio
+eth0:     Link encap:Ethernet  HWaddr b6:84:ab:e9:8f:0a    
+          inet addr:192.168.1.2  Bcast:0.0.0.0  Mask:255.255.255.0  
+          inet6 addr: fe80::b484:abff:fee9:8f0a/64 Scope:Link       
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1        
+          RX packets:95 errors:0 dropped:4 overruns:0 frame:0       
+          TX packets:9 errors:0 dropped:0 overruns:0 carrier:0      
+          collisions:0 txqueuelen:1000                              
+          RX bytes:25306 (25.3 KB)  TX bytes:690 (690.0 B)
+  
+lo:       Link encap:Local Loopback                               
+          inet addr:127.0.0.1  Mask:255.0.0.0                       
+          inet6 addr: ::1/128 Scope:Host                           
+          UP LOOPBACK RUNNING  MTU:65536  Metric:1                  
+          RX packets:6 errors:0 dropped:0 overruns:0 frame:0        
+          TX packets:6 errors:0 dropped:0 overruns:0 carrier:0      
+          collisions:0 txqueuelen:0                                 
+          RX bytes:460 (460.0 B)  TX bytes:460 (460.0 B)
+```
+	- eth0: porta analizzata
+	- lo: loopback, ovvero dispositivo speciale, che la macchina utilizza per effettuare chiamate di rete a se stessa
+
+#### ifdown
+Disattivare un'interfaccia di connessione
+```sh
+ifdown <porta>
+```
+
+#### ifup
+Attivare un'interfaccia di connessione
+```sh
+ifup<porta>
+```
+
 #### info
 Visualizzare la documentazione relativa il sistema operativo o le feature
 ```sh
@@ -486,6 +543,20 @@ info <comando>
 ```
 	NOTE:
 	- nel caso non si inserisca nessun comando, ritornerà le informazioni di sistema
+
+#### ip
+Visualizzare le configurazioni IP
+```sh
+ip
+```
+	VALORI:
+	- route: permette di interagire con la tabella di routing
+	
+	AZIONI:
+	- show: mostra informazioni riguardo il valore selezionato
+	
+	ESEMPI:
+		ip route show
 
 #### iptables
 Visualizzare le regole di accesso alla macchina ( #firewall)
@@ -498,18 +569,6 @@ iptables -L -v -n
 Mostrare i parametri delle interfacce di connessione wireless
 ```sh
 iwconfig 
-```
-
-#### last
-Tradurre in formato leggibile e visualizzare i log contenuti in [/var/log/wtmp] (richiede permessi di root)
-```sh
-last
-```
-
-#### lastb
-Tradurre in formato leggibile e visualizzare i log contenuti in [/var/log/btmp] (richiede permessi di root)
-```sh
-lastb
 ```
 
 #### jobs
@@ -535,6 +594,18 @@ kill <processo>
 Terminare tutti i processi correlati ad uno specifico comando
 ```sh
 killall <comando>
+```
+
+#### last
+Tradurre in formato leggibile e visualizzare i log contenuti in [/var/log/wtmp] (richiede permessi di root)
+```sh
+last
+```
+
+#### lastb
+Tradurre in formato leggibile e visualizzare i log contenuti in [/var/log/btmp] (richiede permessi di root)
+```sh
+lastb
 ```
 
 #### less
@@ -574,7 +645,7 @@ ls
 	OPZIONI:
 	-a # mostra anche i file nascosti
 	-all # mostra tutte le directory e i file contenuti, in una vista tabellare che comprende permessi, 
-	-d # previene la visualizzazione dei file presenti nelle sottocartelle (utile nel caso si tuilzzion caratteri speciali per la ricerca)
+	-d # previene la visualizzazione dei file presenti nelle directory (utile nel caso si tuilzzion caratteri speciali per la ricerca)
 	-h # mostra i risultati in un formato più facile da leggere
 	-l # mostra i dati in tabella
 		tabella: directory_1 directory_2 directory_3|permessi|utente|gruppo utente|dimensione|data di creazione|nome del file 
@@ -705,6 +776,29 @@ Mostra le porte aperte al momento
 ```sh
 netstat
 ```
+	OPZIONI:
+	-i # mostra informazioni sul traffico di rete
+	-l # mostra solo le porte in ascolto (listening)
+	-n # mostra i nomi degli endpoint
+	-r # mostra informaizoni di routing
+	-t # mostra il traffico tramite protocollo TCP
+
+**ESEMPI**: 
+- netstat -i
+	```Risultato
+	Kernel Interface table                                                        
+	Iface   MTU Met   RX-OK RX-ERR RX-DRP RX-OVR    TX-OK TX-ERR TX-DRP TX-OVR Flg
+	eth0       1500 0       137      0      4 0        12      0      0      0 BMRU
+	lo        65536 0        18      0      0 0        18      0      0      0 LRU
+	```
+	- TX-OK segnala che la connessione è funzionante
+	- TX-ERR segnala la presenza di un errore di connessione
+
+**N.B.**
+- Il comando ```netstat -g``` da lo stesso risultato di "[maddr](#maddr)"
+- Il comando ```netstat -r``` da lo stesso risultato di "[route](#route)" o del più recente "[ip route show](#ip)"
+- Il comando ```netstat -i``` da lo stesso risultato di "[ip -s link](#ip)"
+- Il comando netstat è stato sostituito dai più recente [ss](#ss)
 
 #### nl
 Aggiunge un elenco numerato alla lista di valori
@@ -730,6 +824,14 @@ Eseguire un file con [[Node.js]]
 node <nome file>.js 
 ```
 
+#### nohup
+Cancellare l'invio di segnali HUP (utilizzato per permettere la prosecuzione del processo anche a seguito di logout dell'utente che lo ha lanciato)
+```sh
+nohup <comando> <argomento>
+```
+	NOTE:
+	- E' possibile aggiungere alla fine del comando il carattere "&" per indicare che il processo è un job (esecuzione in background)
+
 #### passwd
 Aggiungere una password di un utente
 ```sh
@@ -749,10 +851,13 @@ Richiedere un messaggio di risposta da un altro dispositivo
 ```sh
 ping <indirizzo_ip>
 ```
-	N.B. I seguenti indirizzi IPv4 sono utilizzati spesso durante i processi di troubleshooting:
-		  127.0.0.1 - Indirizzo di Loopback, che permette di verificare se l'interfaccia TCP/IP del dispositivo è configurata correttamente
-		  
-	N.B. I seguenti indirizzi IPv6 sono utilizzati spesso durante i processi di troubleshooting:
+	OPZIONI:
+	-c <numero> # indica il numero di iterazioni da eseguire
+	
+	N.B. 
+	- I seguenti indirizzi IPv4 sono utilizzati spesso durante i processi di troubleshooting:
+		  127.0.0.1 - Indirizzo di Loopback, che permette di verificare se l'interfaccia TCP/IP del dispositivo è configurata correttamente  
+	-I seguenti indirizzi IPv6 sono utilizzati spesso durante i processi di troubleshooting:
 		  ::1 - Indirizzo di Loopback, che permette di verificare se l'interfaccia TCP/IP del dispositivo è configurata correttamente
 
 #### pkill
@@ -856,6 +961,24 @@ rm <nome_file>
 	-r # Effettua la rimozione in maniera ricorsiva (da usare ad es. per eliminare cartelle non vuote)
 	-rf # Forza la rimozione ricorsiva
 
+#### router
+Visualizzare la tabella di routing. In alcune distro, il comando è deprecato e sostituito da [ip route show](#ip)
+```sh
+router
+```
+	OPZIONI:
+	-n # mostra le informazioni in formato solo numerico
+#### service
+Gestire un servizio
+```sh
+service <servizio> <operazione>
+```
+	SERVIZI:
+	- network
+	
+	OPERAZIONI:
+	- restart
+
 #### setfacl
 Impostare una [ACL](#ACL) di un file
 ```sh
@@ -888,16 +1011,64 @@ Verificare la velocità di connessione ad internet
 speedtest
 ```
 
-#### ssh
-Connettersi ad un'altra macchina da remoto tramite protocollo #ssh 
+#### ss
+Abbreviazione di *socket statistics*. Permette di visualizzare le metriche di utilizzo dei [socket](../Tecnologie/Macchina#Socket) (supporta la maggior parte delle porte e dei pacchetti). E' pensato per sostituire il comando [netstat](#netstat).
+
 ```sh
-ssh <indirizzo_ip> -i <chiave>
+ss
 ```
-	Per chiudere la connessione, prenere Ctrl+D
-	Nel caso si voglia accedere come uno specifico utente:
-	ssh <nome_utente>@<indirizzo_ip>
 	OPZIONI:
+	-s # mostra i protocolli di livello 4 - Trasporto (righe) e il numero di porte che lo utilizzano e i protocolli di livello 3 - Rete (colonne)
+
+```Risultato
+Netid  State      Recv-Q Send-Q   	Local Address:Port       	   Peer Address:Port
+u_str  ESTAB      0      0                    * 104741                     * 104740 
+u_str  ESTAB      0      0      /var/run/dbus/system_bus_socket 14623      * 14606  
+u_str  ESTAB      0      0      /var/run/dbus/system_bus_socket 13582      * 13581  
+u_str  ESTAB      0      0      /var/run/dbus/system_bus_socket 16243      * 16242  
+u_str  ESTAB      0      0                    * 16009                      * 16010  
+u_str  ESTAB      0      0      /var/run/dbus/system_bus_socket 10910      * 10909  
+u_str  ESTAB      0      0      @/tmp/dbus-LoJW0hGFkV 15706                * 15705  
+u_str  ESTAB      0      0                    * 24997                 	   * 24998  
+u_str  ESTAB      0      0                    * 16242                      * 16243  
+u_str  ESTAB      0      0      	@/tmp/dbus-opsTQoGE 15471              * 15470
+```
+	COLONNE:
+	- Netid: Tipo di socket e protocollo di trasporto (livello 4)
+	- State: Connesso o disconnesso
+	- Recv-Q: Quantità di dati ricevuti
+	- Send-Q: Quantità di dati inviati
+	- Local Address:Port: indirizzo locale : porta utilizzata
+	- Peer Address:Port: Indirizzo del destinatario : porta in ascolto
+#### ssh
+Connettersi ad un'altra macchina da remoto tramite protocollo [SSH](../Tecnologie/Protocolli#SSH)
+```sh
+ssh <utente>@><indirizzo_ip>
+```
+	NOTE:
+	- Per chiudere la connessione, prenere Ctrl+D o utilizare in comando "exit"
+	- Nel caso si voglia accedere come uno specifico utente:
+		ssh <nome_utente>@<indirizzo_ip>
+	
+	OPZIONI:
+	-i <chiave> # identificativo, ovvero chiave ssh da utilizzare per autenticarsi
 	-p # porta
+
+**N.B.** Nel caso si tenti una connessione ad una macchina già conosciuta (ovvero con la quale è già stata stabilita una connessione in passato, e la cui chiave di autenticazione è memorizzata all'interno di [~/.ssh/known_hosts](#known_hosts)), ma che ha cambiato la sua chiave [RSA](../Algoritmi#RSA) (ad esempio a seguito di un ripristino), può essere necessario rimuovere il link dal file **~/.ssh/known/hosts**.:
+	Esempio di messaggio d'errore:
+	@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+	@   WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!   @
+	@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+	IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!
+	Someone could be eavesdropping on you right now (man-in-the-middle attack)!
+	It is also possible that the RSA host key has just been changed.
+	The fingerprint for the RSA key sent by the remote host is
+	c2:0d:ff:27:4c:f8:69:a9:c6:3e:13:da:2f:47:e4:c9.
+	Please contact your system administrator.
+	Add correct host key in /home/sysadmin/.ssh/known_hosts to get rid of this message.
+	Offending key in /home/sysadmin/.ssh/known_hosts:1
+	RSA host key for test has changed and you have requested strict checking.
+	Host key verification failed.
 
 #### ssh-add
 Aggiungere una chiave ssh all'agent
@@ -919,6 +1090,12 @@ ssh-keygen
 ```
 	-t # Definire la tipologia di criptazione [dsa, ecdsa, ecdsa-k, ed25519, ed25519-sk, rsa]
 	-C <nome utente>
+
+#### start_webserver
+
+```sh
+start_webserver
+```
 
 #### su
 Accedere come utente root (chiede la password)
@@ -1541,8 +1718,35 @@ Contiene la lista dei gruppi
 	x = password del gruppo (se 'x' non c'è password)
 	a = Group ID
 	b = Utenti appartenenti al guppo
+#### hosts
+File che gestisce i nomi degli host. Può essere utilizzato come supporto di [resolv.conf](#resolv.conf) per la gestione del server [DNS](../Tecnologie/Protocolli#DNS).
+```hosts
+nameserver 127.0.0.1
+```
+
 #### journald.conf
 File di configurazione per i log tramite [journalctl](#journalctl).
+
+#### nsswitch.conf
+File che contiene direttive per l'ordine di consultazione delle risorse di name server ([resolv.conf](#resolv.conf) e [hosts](#hosts)).
+```nsswitch.conf
+#                                                                               
+# Example configuration of GNU Name Service Switch functionality.               
+# If you have the `glibc-doc-reference' and `info' packages installed, try:     
+# `info libc "Name Service Switch"' for information about this file.            
+
+passwd:         compat systemd                                                  
+group:          compat systemd                                                  
+shadow:         compat                                                          
+gshadow:        files                                                           
+hosts:          files dns                                                       
+networks:       files                                                           
+protocols:      db files                                                        
+services:       db files                                                        
+ethers:         db files                                                        
+rpc:            db files                                                        
+netgroup:       nis
+```
 
 #### passwd
 Il file contiene la lista di utenti registrati e i dati ad essi relativi. La password verrà inserita nel file solo nel caso l'utente venga creato non di default (es. root non avrà la password segnata nel file)
@@ -1555,6 +1759,16 @@ root:0:0:
 	c = Group ID 
 	: #nuovo campo
 	:: = campo vuoto
+#### resolv.conf
+File di configurazione utilizzato per gestire il Server DNS del dispositivo.
+```resolv.conf
+nameserver 127.0.0.1
+domain google.com # opzionale
+search dominio1, dominio2 # opzionale
+```
+
+- **domain**: Permette di utilizzare il dominio indicato come destinatario nel caso di insuccesso di risoluzione del nameserver. Per es., nel caso nameserver non dia risposta, il computer tenterà di stabilire una connessione con il dominio google.com e sottodominio nameserver (**nameserver.google.com**)
+- **search**: Come domain, ma accetta una serie di domini su cui effettuare tentativi di connessione a seguito di fallimento di connessione con l'IP del nameserver.
 #### rsyslog.conf
 Variante di [/etc/syslog.conf](#syslog.conf) per alcune distro di Linux.
 
@@ -1586,6 +1800,72 @@ Gestire gli accessi al gruppo #root
 # ClientAliveCountMax 3 # numero massimo di utenti collegati cotemporaneamente alla macchina
 
 ```
+#### sysconfig/
+Directory presente solo per i sistemi [CentOs], che contiene informazioni riguardo le connessioni alla rete.
+
+##### network-scripts/
+##### ifcfg-eth0
+File presente per ogni periferica connessa alla rete del dispositivo (l'ultima parte del nome descrive la periferica che gestisce), che contiene una serie di variabili che ne riassumono le caratteristiche
+
+Vari esempi di configurazione sono
+```IPv4
+DEVICE="eth-0"
+BOOTPROTO=none # valore attivo nel caso il device sia impostato come client di un particolare protocollo (es. DHCP client)
+NM_CONTROLLED="yes"
+ONBOT=yes
+TYPE="Ethernet"
+UUID="98cf38bf-d91c-49b3-bb1b-f48ae7f2d3b5"
+DEFROUTE=yes
+IPV4_FAILURE_FATAL=yes
+IPV6INIT=no
+NAME="System eth0"
+IPADDR=192.168.1.1
+PREFIX=24
+GATEWAY=192.168.1.1
+DNS1=192.168.1.2
+HWADDR=00:50:56:90:18:18
+LAST_CONNECT=1376319928
+```
+
+```IPv6
+DEVICE="eth-0"
+BOOTPROTO=none # valore attivo nel caso il device sia impostato come client di un particolare protocollo (es. DHCP client)
+NM_CONTROLLED="yes"
+ONBOT=yes
+TYPE="Ethernet"
+UUID="98cf38bf-d91c-49b3-bb1b-f48ae7f2d3b5"
+DEFROUTE=yes
+IPV4_FAILURE_FATAL=yes
+IPV6INIT=yes
+IPV6ADDR=<IPv6 IP Address>
+IPV6_DEFAULTGW=<IPv6 IP Gateway Address>
+NAME="System eth0"
+PREFIX=24
+DNS1=192.168.1.2
+HWADDR=00:50:56:90:18:18
+LAST_CONNECT=1376319928
+```
+
+```DHCP
+DEVICE="eth-0"
+BOOTPROTO=DHCP
+NM_CONTROLLED="yes"
+ONBOT=yes
+TYPE="Ethernet"
+UUID="98cf38bf-d91c-49b3-bb1b-f48ae7f2d3b5"
+DEFROUTE=yes
+IPV4_FAILURE_FATAL=yes
+IPV6INIT=no
+DHCPV6INIT=yes
+NAME="System eth0"
+IPADDR=192.168.1.1
+PREFIX=24
+GATEWAY=192.168.1.1
+DNS1=192.168.1.2
+HWADDR=00:50:56:90:18:18
+LAST_CONNECT=1376319928
+```
+
 #### sysctl.conf
 Il file ha tutti i parametri commentati. Nel caso si vogliano attivare alcuni comandi, basta rimuovere il \# ed impostare i parametri con il valore desiderato.
 Connettersi alla rete pubblica dal dispositivo
@@ -1638,6 +1918,14 @@ In alcune distro nominato **rsyslog.conf**, permette di gestire i log da memoriz
 
 ### home/
 Contiene i file e le impostazioni di ogni utente registrato nella macchina (ogni utente avrà una cartella personale).
+
+#### user
+Cartella dedicata allo specifico utente. Ogni utente ha una cartella (nominata con il nome dell'utente stesso) a lui dedicata.
+##### .ssh
+Cartella che contiene dati e informazioni utili (o necessarie) per l'utilizzo del protocollo [SSH](../Tecnologie/Protocolli#SSH). E' buona prassi memorizzare in questa cartella le chiavi RSA per l'autenticazione.
+
+###### known_hosts
+File che contiene la lista di tutti gli endpoint con cui è già stata effettuata con successo una connessione tramite CLI (known hosts, ovvero host conosciuti) e di cui è stata richiesta la memorizzazione (digitando "Y" durante la richiesta effettuata durante una connessione tramite comando [ssh](#ssh))
 
 ### lib/
 #### system
