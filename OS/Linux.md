@@ -165,6 +165,21 @@ Leggere il contenuto di un file
 cat <nome_file>
 ```
 
+#### chage
+Modificare le informazioni relative l'invecchiamento (aging) delle password, memorizzato su [/etc/shadow](#etc#shadow)
+```sh
+chage <utente>
+```
+	OPZIONI:
+	-d <valore> # modifica il valore di LAST_DAY
+	-l # fornisce informazioni sull'aging dell'account
+	-m <valore> # modifica il valore di MIN_DAYS
+	-E <valore> # modifica il valore di EXPIRE_DATE
+	-I <valore> # modifica il valore di INACTIVE (come trattare l'account dopo la scadenza della password)
+	-M <valore> # modifica il valore di MAX_DAYS
+	-W <valore> # modific ail valore di WARN_DAYS
+	
+
 #### chgrp
 Modifica il gruppo proprietario dell'elemento
 ```sh
@@ -347,6 +362,7 @@ find <directory> <nome file>
 ```
 	OPZIONI:
 	-name <valore> # identifica solo i file con il nome indicato
+	-nogroup # trova tutti i file non collegati ad alcun GID nella cartella
 	
 	ESEMPIO:
 	find / -perm -4000
@@ -372,6 +388,19 @@ Un esempio di ritulato è la tabella eguente:
 | Swap:              | 0        | 0        | 0        |        |         |          |
 - -/+ buffers/cache: rappresenta la quantità di memoria fisica utilizzata dal kernel per buffers o cache (che quindi potrebbe essere liberata)
 - [Swap](<#Swap file system>)
+
+#### getent
+Ottenere informazioni riguardo un dato
+```sh
+getent <database> <dato>
+```
+	- database: si riferisce al file (di /env) nel quale il dato è salvato
+	- dato: ad es. un nome utente
+	
+	ESEMPIO:
+		getent passwd sysadmin
+	NOTE:
+	- Il comando da risultati simili a "grep <utente> /etc/passwd"
 
 #### getfacl
 Visualizzare le [ACL](#ACL) di un file
@@ -408,11 +437,22 @@ grep <espressione> <files>
 #### groupadd
 Creo un nuovo gruppo
 ```sh
-groupadd <nome_gruppo>
+groupadd <nome_gruppo*>
 ```
+	OPZIONI:
+	-g <GID> # assegna l'id di gruppo (GID) specificato al gruppo
+	-r # Permette di assegnare un GID riservato all'utilizzo di sistema**
+	
 	ATTENZIONE:
 	Richiede l'accesso come root
 
+\* Il nome deve rispettare i seguenti criteri:
+	- Il primo carattere deve essere minuscolo o il simbolo "\_"
+	- Deve essere composto da massimo 32 caratteri (16 per alcune distro)
+	- Tutti i caratteri dopo il primo devono essere alfanumerici, "\_" o "\-"
+	- L'ultimo carattere non può essere "\-"
+
+\*\* Per Debian tutti gli id minori di 1000, per RedHat tutti gli id minori di 500
 #### groupdel
 Elimino un gruppo
 ```sh
@@ -422,6 +462,17 @@ groupdel <nome_gruppo>
 	OPZIONI:
 	-f # forza la rimozione
 	-r # 
+
+#### groupmod
+Modificare le caratteristiche di un gruppo
+```sh
+groupmod <gruppo>
+```
+	OPZIONI:
+	-g <GID> # modifica il GID (id) del gruppo
+	-n <nome> # cambia il nome del gruppo
+
+**N.B.** Il comando modifica i dati relativi al gruppo sia agli utenti appartenenti che a tutti i file ad esso correlati, a meno che non venga modificato il GID (id del gruppo), nel qual caso il collegamento al gruppo viene rimosso dal file. I file senza nessun GID collegato, prendono il nome di *orphaned files*.
 
 #### groups
 Visualizzare i gruppi a cui appartiene un utente
@@ -495,6 +546,12 @@ Verificare le informazioni di un utente
 ```sh
 id <user>
 ```
+	OPZIONI:
+	-g # stampa solo il gruppo principale
+	-G # stampa gli id dei gruppi a cui appartiene l'utente
+	
+	RISULTATO:
+		uid=1001(sysadmimn) gid=1001(sysadmin) groups=1001(sysadmin),4(adm),27(sudo)
 
 #### ifconfig
 Mostrare i parametri delle interfacce di connessione (tipo IPv4, Ethernet)
@@ -597,10 +654,14 @@ killall <comando>
 ```
 
 #### last
-Tradurre in formato leggibile e visualizzare i log contenuti in [/var/log/wtmp] (richiede permessi di root)
+Tradurre in formato leggibile e visualizzare i log relativi gli accessi alla macchina, contenuti in [/var/log/wtmp](#wtmp) (richiede permessi di root)
 ```sh
 last
 ```
+	RISULTATO:
+	sysadmin console Tue Sep 18 02:31   still logged in
+	sysadmin console                    Tue Sep 18 02:31 - 02:31  (00:00)
+	wtmp begins Tue Sep 18 02:31:57 2018
 
 #### lastb
 Tradurre in formato leggibile e visualizzare i log contenuti in [/var/log/btmp] (richiede permessi di root)
@@ -616,6 +677,24 @@ less <file>
 	NOTE:
 	- ?: permette di effettuare una ricerca sul testo già letto
 	- Shift+N: passa al successivo match con i criteri di ricerca 
+
+**COMANDI**
+
+| Comando                   | Descrizione                                               |
+| ------------------------- | --------------------------------------------------------- |
+| h, H                      | Apre il menu con la lista comandi                         |
+| q, :q, Q, :Q, ZZ          | Esce dal lettore                                          |
+| e, Ctrl+E, j, Ctrl+N, CR  | Andare avanti di una (o N) righe                          |
+| y, Ctrl+Y                 | Torna indietro di una (o N) righe                         |
+| f, Ctrl+F, Ctrl+V, Spazio | Avanti di una pagina o N righe                            |
+| b, Ctrl+B, ESC+V          | Torna indietro di una pagina o N righe                    |
+| z                         | Avanti di una pagina                                      |
+| w                         | Indietro di una pagina                                    |
+| ESC + Spazio              | Va avanti di una pagina, senza fermarsi a fine file (EOF) |
+| d, Ctrl+D                 | Va avanti di mezza pagina                                 |
+| u, Ctrl+U                 | Va indietro di mezza pagina                               |
+| ESC+)                     | Va a destra di mezzo schermo                              |
+**N.B.** per pagina si intende l'insieme di righe visualizzati in una schermata
 
 #### locate
 Localizzare un file
@@ -702,7 +781,7 @@ lsusb
 ```
 
 #### man
-Aprire il manuale dei #comandi del #terminale per verificare le modalità d'uso di un comando (deriva da UNIX)
+Aprire il manuale dei comandi del terminale per verificare le modalità d'uso di un comando (deriva da UNIX) tramite il lettore di file [less](#less)
 ```sh
 man <comando>
 ```
@@ -837,6 +916,7 @@ Aggiungere una password di un utente
 ```sh
 passwd <user>
 ```
+	N.B. Verrà chiesto alllàutente di inserire la password. Nel caso la stessa no rispetitii criteri di sistema, verrà stampato un messaggio di avviso (impostato dall'amministratore) e verrà richiesto di utilizzarne una diversa
 
 #### php
 Aprire una #shell in [[Php]]
@@ -1098,12 +1178,19 @@ start_webserver
 ```
 
 #### su
-Accedere come utente root (chiede la password)
+Cambiare utente (chiede la password)
 ```shell
-su
+su <utente>
 ```
 	OPZIONI:
-	-l # 
+	- #come "-l"
+	-l # cambia user tramite login shell
+	-m # preserva le variabili d'ambiente
+	-p # come "-m"
+	-s # usa la SHELL invece che quella di default
+	--login # come "-l"
+	
+	N.B. Se non viene specificato nessun utente, viene effettuato un tentativo di accesso come root
 
 #### sudo
 Effettuare un comando come #superuser (SUperuser DO). Effettuabile solo se l'utente fa parte dei **sudoers**
@@ -1245,17 +1332,22 @@ useradd <nome_utente>
 ```
 	L'utente viene registrato in 3 file: /etc/passwd, /etc/shadow e /etc/group
 	OPZIONI:
-	-c #
+	-b <direcrtory> # indica di creare una directory diversa da quella di default (/home/<utente>)
+	-c # aggiunge valori al campo COMMENT dell'utente
 	-d # crea una home directory
 	-e # inserisce una data di "scadenza" all'utente
-	-f 
+	-f <valore> # modifica il valore INACTIVE
 	-g <nome_gruppo> # aggiunge l'utente al gruppo come gruppo primario
-	-G <nome_gruppo> # aggiunge l'utente al gruppo come gruppo secondario (accetta anche array)
-	-m # sposta la directory corrente nella home del nuovo utente
+	-m # crea una home directory dedicata e si posta nella stessa
 	-p <password> # imposta la password. Sconsigliato perchè rende la password visibile nella lista dei processi
 	-r # crea un account di sistema
-	-s /sbin/nologin # non imposta una shell di accesso per l'utente
+	-s <shell> # indica di collegare l'utente ad una particolare shell (di default si usa quella indicata in /etc/default/useradd)
+		-s /sbin/nologin # non imposta una shell di accesso per l'utente
+	-D # permette di visualizzare e/o modificare alcuni parametri* dell'utente
+	-G <nomi_gruppo> # aggiunge l'utente ai gruppi come gruppo secondario (i nomi dei gruppi separati da una virgola)
+	-M # indica al sistema di non creare una home directory per l'utente
 
+\* GROUP, HOME, INACTIVE, EXPIRE, SHELL, SKEL, CREATE_MAIL_SPOOL (?)
 #### userdel
 Eliminare un utente
 ```sh
@@ -1264,6 +1356,7 @@ userdel <nome_utente>
 	ATTENZIONE:
 	Nel caso si cancellino più utenti, è possibile che Debian cancelli anche le password di root
 	OPZIONI:
+	-r # cancella utente e relativi mail spool e home directory (eventuali file esterni alla home directory diventano orfani, ovvero senza utente proprietario)
 	
 
 #### usermod
@@ -1273,7 +1366,19 @@ usermod
 ```
 	Di solito si usa con sudo
 	OPZIONI:
-	-aG <gruppo> <user> # Aggiunge l'user al gruppo
+	-a # aggiunge dati (append) invece che sovrascriverli
+		-aG <gruppo> <user> # Aggiunge l'user al gruppo
+	-c # permette di aggiungere un commento nel campo GECOS o dei commenti
+	-d <HOME_DIR> # cambia il valore di HOME_DIR nella nuova directory indicata
+	-e <valore> # cambia il valore di EXPIRY_DATE
+	-f <valore> # cambia il valore di INACTIVE
+	-g <gruppo> # imposta il gruppo come primario
+	-l <nome> # cambia il nome di login dell'utente
+	-s <shell> # specifica la shell di login da utilizzare
+	-u <id> # modifica l'id dell'user (UID)
+	-G <gruppi> # imposta i gruppi secondari dell'utente
+	-L # blocca l'utente
+	-U # sblocca l'utente
 
 #### vim
 Modificare il contenuto di un file
@@ -1313,6 +1418,44 @@ Visualizzare il percorso assoluto del file di un comando
 which <nome_comando>
 ```
 
+#### w
+Visualizzare informazioni dettagliate sugli utenti
+```sh
+w
+```
+	RISULTATO:
+	 10:44:03 up 50 min,  4 users,  load average: 0.78, 0.44, 0.19
+	USER     	TTY     FROM	    LOGIN@   IDLE  	JCPU   	PCPU    WHAT
+	root     	tty2    -           10:00    43:44 	0.01s  	0.01s   -bash
+	sysadmin 	tty1    :0          09:58    50:02	5.68s 	0.16s   pam: gdm-password
+	sysadmin	pts/0   :0.0        09:59    0.00s      0.14s  	0.13s   ssh 192.168.1.2
+	sysadmin 	pts/1   example.com 10:00    0.00s  	0.03s  	0.01s   w
+
+| colonna | Descrizione                                     |
+| ------- | ----------------------------------------------- |
+| USER    | Nome utente                                     |
+| TTY     | Terminale utilizzato per il login               |
+| FROM    | Dove è l'utente                                 |
+| LOGIN@  | Quando ha effettuato l'accesso                  |
+| IDLE    | Da quanto tempo non viene eseguito un comando   |
+| JCPU    | CPU utilizzata per qualunque processo dal login |
+| PCPU    | CPU utilizzata per il processo in corso         |
+| WHAT    | Il processo in corso per l'utente               |
+#### who
+Visualizzare informazioni riguardo gli utenti del sistema, memorizzate all'interno di [/var/log/utmp](#utmp)
+```sh
+who
+```
+	OPZIONI:
+	-b # mostra l'ultima data di avvio del sistema (boot)
+	-r # mostra quando il sistema ha raggiunto l'attuale runlevel
+	
+	RISULTATO:
+		root      tty2       2013-10-11 10:00
+		sysadmin  tty1       2013-10-11 09:58 (:0)
+		--------------------------------------------
+		utente    terminale  ultimo login     login tramite terminale grafico
+
 #### whoami
 Verificare l'utente con cui si sta operando
 ```Shell
@@ -1334,7 +1477,6 @@ zip <file>
 Comandi da inserire
 ```shell
 chroot
-getent
 sed
 ```
 
@@ -1724,6 +1866,27 @@ File che gestisce i nomi degli host. Può essere utilizzato come supporto di [re
 nameserver 127.0.0.1
 ```
 
+#### login.defs
+File che contiene informazioni e valori da applicare di default ai nuovi utenti creati tramite [useradd](#useradd). A differenza del simile [/etc/default/useradd](#etc#useradd), questo file è gestio direttamente dall'amministratore di sistema.
+
+Un esempio di file (ottenuto tramite ```grep -Ev '^#|^$' /etc/login.defs```, ovvero senza commenti e righe vuote) è il seguente:
+```login.defs
+MAIL_DIR	/var/mail/spool
+PASS_MAX_DAYS	99999
+PASS_MIN_DAYS	0
+PASS_MIN_LEN	5
+PASS_WARN_AGE	7
+UID_MIN			  500
+UID_MAX			60000
+GID_MIN			  500
+GID_MAX			60000
+CREATE_HOME	yes
+UMASK           077
+USERGROUPS_ENAB yes
+ENCRYPT_METHOD SHA512
+MD5_CRYPT_ENAB no
+```
+
 #### journald.conf
 File di configurazione per i log tramite [journalctl](#journalctl).
 
@@ -1752,12 +1915,15 @@ netgroup:       nis
 Il file contiene la lista di utenti registrati e i dati ad essi relativi. La password verrà inserita nel file solo nel caso l'utente venga creato non di default (es. root non avrà la password segnata nel file)
 ```passwd
 root:0:0:
-<nome_utente>:a:b:c:<nome>,,,:<home_directory>:<shell_directory>
+<nome_utente>:a:b:c:<commento>:<home_directory>:<shell_directory_dell'utente>
 ```
-	a = password (se localizzata in un altro file sarà x) # rivedere: permessi_root (0 si, 1 no)
-	b = User ID
-	c = Group ID 
-	: #nuovo campo
+	a: password (se salvata in un altro file sarà x, mentre gli account di sistema hanno "*")
+	b: User ID
+	c: Group ID principale
+	comemnto: di solito nome utente e altre informazioni
+	shell_directory: gli account di sistema di solito hanno una shell non abilitata al login su altri utenti (segnalata ad esempio come "/usr/sbin/nologin")
+	
+	: = separatore di campi
 	:: = campo vuoto
 #### resolv.conf
 File di configurazione utilizzato per gestire il Server DNS del dispositivo.
@@ -1775,14 +1941,18 @@ Variante di [/etc/syslog.conf](#syslog.conf) per alcune distro di Linux.
 #### shadow
 File contenente le password.
 ```shadow
-<username>:<password_cifrata>:a:b:c:d:e:f
+<username>:<password_cifrata>:a:MIN_DAYS:MAX_DAYS:WARN_DAYS:e:f:g
 ```
+	password cifrata = viene cifrata ad una sola via, senza meccanismo di decriptazione a supporto
 	a = Data dell'ultimo cambio password
-	b = Numero minimo di giorni di attesa tra due cambi password
-	c = Numero massimo di giorni tra due cambi password
-	d = Giorni di preavviso per la scadenza della password
-	e = Numero di giorni per la disabilitazione dell'account dopo la scadenza della password
-	f = campo riservato
+	MIN_DAYS = Numero minimo di giorni di attesa tra due cambi password
+	MAX_DAYS = Numero massimo di giorni tra due cambi password
+	WARN_DAYS = Giorni di preavviso prima della scadenza della password
+	e = Periodo di grazia per cambiare la passowrd prima della cancellazione dell'account
+	f = Data di scadenza dell'account
+	g = campo riservato (attualmente non utilizzato)
+	
+	N.B. Tutte le date sono in formato epoch (giorni passati dal 1 Gennaio 1970)
 #### ssh/
 Contiene i file delle chiavi pubbliche e provate del sistema
 
@@ -2082,6 +2252,9 @@ Variante di [auth.log](#auth.log) utilizzata da RedHat e CentOS. Tiene traccia a
 
 ##### Xorg.0.log
 FIle che contiene i log del server [X Windows](<#X Window System>)
+
+##### wtmp
+File che contiene informazioni riguardo gli accessi e le uscite (logout) alla macchina dal suo ultimo avvio.
 
 #### lib/
 Contiene file di software o applicazioni terze.
