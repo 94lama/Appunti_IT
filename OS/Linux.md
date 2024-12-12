@@ -184,7 +184,7 @@ chage <utente>
 Modifica il gruppo proprietario dell'elemento
 ```sh
 chgrp <nome_gruppo> <nome_file>
-	```
+```
 	OPZIONI:
 	-R # modifica tutti i file selezionati in maniera ricorsiva
 
@@ -193,25 +193,42 @@ Modifica i permessi granulari di un file. #SUID, #SGID
 ```sh
 chmod <permessi_utente><permessi_gruppo><permessi_utente_generico> <nome_file>
 ```
-	chmod u-x, o-r <nome_file>
-	u: proprietario
-	g: gruppo
-	o: altri utenti (other)
-	aggiungere un permesso: +
-	rimuovere un permesso: -
-	r: read - 4
-	w: write - 2
-	x: execute - 1
-	s: ovvero Set owner (user o group). Permette di far eseguire il file ad un utente (indipendentemente dai permessi assegnati) come fosse root
-	t: (Sticky bit) Imposta gli utenti proprietari come unici utenti con permessi di cancellazione file (a parte il super user)
+	ESEMPI:
+		chmod u-x, o-r <nome_file>
+	NOTE:
 	- Nel caso si vogliano utilizzare i numeri, nel caso di combinazione di permessi, si possono sommare i numeri (6 per lettura e scrittura, 7 per tutti e 3)
 	- Se le cartelle non hanno almeno permesso 4, verrà negato l'accesso
+	s: ovvero Set owner (user o group). Permette di far eseguire il file ad un utente (indipendentemente dai permessi assegnati) come fosse root
+	t: (Sticky bit) Imposta gli utenti proprietari come unici utenti con permessi di cancellazione file (a parte il super user)
+
+E' possibile definire i permessi tramite [valore numerico](#Permessi) o tramite l'utilizzo dei seguenti simboli:
+
+| Simbolo | Descrizione           |
+| ------- | --------------------- |
+| u       | Proprietario          |
+| g       | Gruppo                |
+| o       | Altri utenti (others) |
+| +       | Aggiungi permesso     |
+| -       | Rimuovi permesso      |
+| =       | Uguale                |
+| r       | Lettura               |
+| w       | Scrittura             |
+| x       | Esecuzione            |
+
+I simboli possono essere utilizzati per semplificare la modifica dei permessi. Alcuni esempi sono:
+- chmod g+w abc.txt
+- chmod u=r+x,o-r abc.txt
 
 #### chown
-Modifica il proprietario di un file
+Modifica il proprietario di un file (eseguibile solo con permessi di root)
 ```sh
-chown <nome_utente>:<nome_gruppo> <nome_file>
+chown <nome_utente> <nome_file>
 ```
+
+Ci sono 3 modi per utilizzare il comando chown:
+- ```chown <nome> <file>``` modifica l'utente proprietario
+- ```chown <utente>:<gruppo> <file>``` modifica sia utente che gruppo proprietari del file
+- ```chown .<gruppo> <file>``` modifica il gruppo proprietario del file
 
 #### clear
 Ripulire lo schermo
@@ -743,12 +760,12 @@ ls
 	?: qualunque carattere/simbolo (1 carattere) 
 	[]: match con un carattere all'interno di un preciso set di caratteri (indicato all'interno delle parentesi)
 	!: qualunque carattere tranne quello successivo al simbolo
-	
-	N.B. I file ritornati saranno colorati in base al loto tipo:
-	- bianco/nero: file normali
-	- blu: cartelle
-	- ciano: link simbolici
-	- verde: file eseguibili (programma)
+
+**N.B.** I file ritornati saranno colorati in base al loto tipo:
+- bianco/nero: file normali
+- blu: cartelle
+- ciano: link simbolici
+- verde: file eseguibili (programma)
 
 #### lsblk
 Controllare lo spazio utilizzato dalle varie partizioni
@@ -878,6 +895,12 @@ netstat
 - Il comando ```netstat -r``` da lo stesso risultato di "[route](#route)" o del più recente "[ip route show](#ip)"
 - Il comando ```netstat -i``` da lo stesso risultato di "[ip -s link](#ip)"
 - Il comando netstat è stato sostituito dai più recente [ss](#ss)
+
+#### newgrp
+Creare un nuovo gruppo
+```sh
+newgrp <nome>
+```
 
 #### nl
 Aggiunge un elenco numerato alla lista di valori
@@ -1177,6 +1200,20 @@ ssh-keygen
 start_webserver
 ```
 
+#### stat
+Visualizzare le proprietà di un file 
+```sh
+stat <file>
+```
+	RISULTATO:
+	  File: `/tmp/filetest1'
+	  Size: 0         	Blocks: 0          IO Block: 4096   regular empty file
+	Device: fd00h/64768d	Inode: 31477       Links: 1
+	Access: (0664/-rw-rw-r--)  Uid: ( 1001/sysadmin)   Gid: ( 1001/sysadmin) 
+	Access: 2013-10-21 10:18:02.809118163 -0700
+	Modify: 2013-10-21 10:18:02.809118163 -0700
+	Change: 2013-10-21 10:18:02.809118163 -0700
+
 #### su
 Cambiare utente (chiede la password)
 ```shell
@@ -1266,6 +1303,24 @@ type <comando>
 	- Se il comando è interno, si otterrà:
 		<nome_comando> is a shell builtin
 	- Se il comando è esterno, si otterrà il percorso assoluto dove è situato il file che attiva il comando
+
+#### umask
+Gestire i [permessi](#Permessi) di default per la creazione di una directory (cartella). I permessi non possono superare quelli di lettura + scrittura (666)
+```sh
+umask <valore>
+```
+	N.B. Se non si inserisce alcun valore, il comando mostrerà i permessi di default attualmente in uso
+
+Il **metodo di calcolo** utilizzato per determinare il valore da utilizzare è la sottrazione del valore inserito da quello di default:
+
+Nel caso il valore di default sia 666:
+```Esempio
+umask 027
+```
+	RISULTATO: 640
+		666 -
+		027 =
+		640
 
 #### umount
 Smontare una [periferica](../Tecnologie/Macchina#Periferiche) di memoria
@@ -1742,6 +1797,13 @@ Le proprietà di un file sono visualizzabili tramite comando [ls](#ls), assegnan
 d rwxr-x--x 2 syslog root 4096 Jul 19 06:51 journal
 ```
 	d: tipo di file
+		-: file normale
+		d: cartella
+		l: link simbolico
+		b: blocco
+		c: file carattere (correlato ad un hardware)
+		p: file pipe (che invia la comunicazione ad un altro file)
+		s: file socket (permette la comunicazione tra due processi)
 	rwx: permessi del creatore deil file
 	r-x: permessi del gruppo del creatore
 	--x: permessi degli altri utenti
@@ -1768,9 +1830,9 @@ Le convenzioni per la nomenclatura dei file e delle cartelle in base a queste ca
 Gli pseudo file di sistema sono file che non vengono memorizzati in un dispositivo di memoria, bensì vengono salvati solo nella memoria temporanea. Di solito vengono utilizzati per contenere informazioni relative a [processi](#Processo) attivi.
 
 ## Permessi
-- r = read (1): è possibile aprire il file
-- w = write (2): è possibile modificare il file
-- x = execute (4): è possibile eseguire il file
+- r = read (1): è possibile aprire, visualizzare e copiare il file (possibile effettuare un "ls" nel caso sia una cartella)
+- w = write (2): è possibile modificare e salvare il file (di solito funziona correttamente solo se accoppiato con permessi di lettura)
+- x = execute (4): è possibile eseguire il file (o entrarci dentro nel caso di directory) ed eliminarlo (nel caso ci siano anche i permessi di scrittura)
 
 I permessi vengono mostrati tramite una stringa suddivisa in 3 parti, ciascuna di 3 caratteri
 ```permessi
@@ -1792,6 +1854,8 @@ I permessi vengono mostrati tramite una stringa suddivisa in 3 parti, ciascuna d
 5. Lettura ed esecuzione
 6. Lettura e scrittura
 7. Lettura, scrittura ed esecuzione
+
+Il comando per modificare i permessi è [chmod](#chmod)
 
 ### ACL
 Le Access Control List (Liste di Controlli di Accesso) permettono di dare permessi extra ad utenti specifici per uno specifico file o directory.
