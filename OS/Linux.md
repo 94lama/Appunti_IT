@@ -189,7 +189,7 @@ chgrp <nome_gruppo> <nome_file>
 	-R # modifica tutti i file selezionati in maniera ricorsiva
 
 #### chmod
-Modifica i permessi granulari di un file. #SUID, #SGID
+Modifica i permessi granulari di un file. Tramite questo comando è possibile impostare valori di [suid](#suid), [sgid](#sgid) e [sticky bit](<#sticky bit>) per permettere l'accesso o impedire la modifica di file ad utenti che di norma non avrebbero i permessi necessari.
 ```sh
 chmod <permessi_utente><permessi_gruppo><permessi_utente_generico> <nome_file>
 ```
@@ -726,7 +726,7 @@ locate <nome file>
 	-b # limita la ricerca ai soli file e non alle directory nelle quali si trovano
 
 #### ln
-Creare un link
+Creare un [link](#link)
 ```Sh
 ln <nome file>
 ```
@@ -743,6 +743,7 @@ ls
 	-all # mostra tutte le directory e i file contenuti, in una vista tabellare che comprende permessi, 
 	-d # previene la visualizzazione dei file presenti nelle directory (utile nel caso si tuilzzion caratteri speciali per la ricerca)
 	-h # mostra i risultati in un formato più facile da leggere
+	-i # mostra l'inode* del file
 	-l # mostra i dati in tabella
 		tabella: directory_1 directory_2 directory_3|permessi|utente|gruppo utente|dimensione|data di creazione|nome del file 
 		categorie utenti: proprietario, gruppo del proprietario, altri
@@ -767,6 +768,8 @@ ls
 - ciano: link simbolici
 - verde: file eseguibili (programma)
 
+**Link**
+\* [inode](#inode)
 #### lsblk
 Controllare lo spazio utilizzato dalle varie partizioni
 ```shell
@@ -1874,6 +1877,39 @@ Linux supporta 7 tipi di file (la tipologia di un file è visualizzabile nel pri
 | c       | Carattere               | Utilizzato per comunicazioni con l'hardware               |
 
 
+### setuid
+Permette di avviare un file eseguibile binario (programma) come se si fosse l'utente che ha creato il file stesso. Per abilitare il setuid si possono utilizzare vari metodi:
+- Aggiungere 4000 ai permessi (es. 4770)
+- tramite comando ```chmod u+s <file>```
+
+Per rimuovere il setuid, basta eseguire il processo inverso.
+
+A seguito dell'invio del comando ```ls -l```, il risultato per un file con setuid sarà
+```RISULTATO
+-rwsrw-r--. 1 root root ... <file>
+```
+	N.B. Se il file ha anceh setgid attivato, ma il file non ha i permessi di esecuzione per il gruppo, il carattere "S" sarà maiuscolo (s = S + x)
+
+### setgid
+Tipologia di permesso simile al [setuid](#setuid), ma dedicato ai gruppi invece che agli utenti. A differenza del primo, questo può essere utilizzato sia per impostare i permessi nei file, che per le cartelle. Si abilita con:
+- Inserimento del valore 2000 ai permessi (es. 2770)
+- tramite comando ```chmod g+s <file>```
+
+A seguito dell'invio del comando ```ls -l```, il risultato per un file con setgid sarà
+```RISULTATO
+-rw-rwsr--. 1 root root ... <file>
+```
+	N.B. Se il file ha anceh setgid attivato, ma il file non ha i permessi di esecuzione per il gruppo, il carattere "S" sarà maiuscolo (s = S + x)
+
+### sticky bit
+Lo sticky bit viene utilizzato per impedire agli utenti di cancellare i file che non possiedono all'interno di una cartella condivisa (in cui hanno permessi di scrittura). Un esempio di cartelle di questo tipo sono:
+- [/tmp](#tmp)
+- [/var/tmp](#var#tmp)
+
+Lo sticky bit si attiva tramite:
+- Comando ```chmod o+t <directory>```
+- Assegnazione del valore 1000, sommato ai permessi della cartella su cui si vuole applicare lo sticky bit 
+
 ## Link
 Un link è un collegamento tra un file ed un altro. Può essere di due tipi:
 - Hard link: i file sono collegati e le modifiche ad uno verranno effettuate anche sul secondo (cancellazione del file inclusa)
@@ -1881,6 +1917,34 @@ Un link è un collegamento tra un file ed un altro. Può essere di due tipi:
 
 Il percorso dei soft link viene segnalato dal comando `ls -l`, mentre gli hard link sono più difficili da localizzare.
 Gli hard link inoltre possono essere creati solo per file localizzato sullo stesso File System (e non possono essere collegati direttamente ad una directory, perché il sistema stesso usa gli hard link per gestire le cartelle).
+
+Il comando per gestire i link è [ln](#ln), mentre di solito è comodo utilizzare in comando "find" per cercare su tutta la macchina file con lo stesso inode del file originale: 
+```
+find <cartella> -inum <inode del file originale>
+```
+	RISULTATO: il comando ritornaerà una lista dei file trovati
+
+
+### Hard
+Sono file copia dell'originale persistenti (cancellare l'originale non cancella le copie), collegati tramite identico [inode](#inode).
+
+Sono identificabili tramite comandi ```ls -l <hard link>```
+```RISULTATO
+l<permessi>. 1 <utente> <gruppo> <timestamp> <hard link> -> <file originale> 
+```
+
+### Symbolic
+Sono copie volatili di un file (rimuovendo l'originale vengono automaticamente cancellate anche le copie), collegate all'originale tramite identico [inode](#inode) e identificabili anche tramite comando 
+```
+ls -l <symbolic link>
+```
+	RISULTATO
+	l<permessi>. 1 <utente> <gruppo> <timestamp> <symbolic link> -> <file originale> 
+
+Alcuni benefici dei symbolic links (anche noti come soft links) sono:
+- E' possibile creare link di cartelle
+- E' possibile creare un soft link di qualsiasi file
+- Sono più facili da trovare
 
 ## Navigazione
 La navigazione avviene tramite inserimento dei percorso del bersaglio. Il percorso può essere inserito sia in maniera **assoluta** che **relativa**:
@@ -1892,6 +1956,9 @@ La navigazione avviene tramite inserimento dei percorso del bersaglio. Il percor
 | ./      | Inzio percorso relativo |
 | /       | Root directory          |
 | ..      | Cartella genitore       |
+
+### inode
+Un [inode](https://www.ionos.it/digitalguide/server/know-how/inode/) (index node) è una struttura dati contenente informazioni sui file presenti in un file system di Linux. Solo un inode è presente per ogni file, ed il file stesso viene identificato in modo unico dal file system sul quale risiede, e dal proprio numero inode presente sul sistema in questione.
 
 ## Struttura
 ![[linux_struttura_cartelle.png]]
@@ -2367,87 +2434,6 @@ Un processo rappresenta una o più comandi di azioni che il kernel deve effettua
 
 Nel caso un processo avvii un secondo processo, il primo prenderà il nome di processo genitore (parent process) ed il secondo il nome di processo figlio (child process). Se un processo è genitore, il suo identificativo verrà indicato come PPID, altrimenti semplicemente PID.
 
-## Applicazioni Server
-### [Apache](Apache.md)
-### [NGINX](../Software/NGINX)
-### Private Cloud Server
-#### ownCloud
-Progetto lanciato nel 2016 per fornire un software che permetta di memorizzare, sincronizzare e condividere dati con un [Cloud Server Privato](<../Server/Cloud#Private Cloud>). Il progetto è disponibile in Open Source con licenza GNU AGPLv3 o in versione Enterprise.
-
-#### NextCloud
-Progetto parallelo a [ownCloud](#ownCloud) (creato dallo steso sviluppatore, partendo dallo stesso software), punta ad un processo di sviluppo totalmente aperto e trasparente
-
-### Database Server
-I database servono per velocizzare la memorizzazione e la manipolazione dei dati tramite l'utilizzo di linguaggio a richieste strutturate (Structured Query Language, **SQL**). I database server più utilizzati sono
-
-#### [MariaDB](../Database/MariaDB)
-#### [MySQL](../Database/MySQL)
-#### [PostgreSQL](../Database/Postgre)
-
-### Mail Server
-Sono composti dall'unione di 3 servizi:
-
-#### MTA
-Agent di trasferimento delle mail.
-
-##### Sendmail
-##### Postfix
-Software più semplice e sicuro di [Sendmail](#Sendmail)
-
-#### MDA
-L'Agente di consegna locale (Mail Delivery Agent, MDA) si occupa di salvare le mail nella mailbox dell'utente. Di solito è il nodo finale del [MTA](#MTA)
-
-#### POP/IMAP Server
-Permette la comunicazione tramite protocolli [POP](../Tecnologie/Protocolli#POP3) e [IMAP](../Tecnololgie/Protocolli#IMAP)
-
-##### Dovecot
-##### Cyrus IMAP
-##### Microsoft Exchange
-Software proprietario di Microsoft.
-
-### Condivisione di File
-Esistono software specifici per condividere file tra ambienti diversi. In particolare è da considerare il protocollo di condivisione utilizzato dall'altro computer. I più utilizzati sono i l[DNS](../Tecnologie/Protocolli#DNS) e il [LDAP](../Tecnologie/Protocolli#LDAP). In entrambi i casi, il dispositivo Linux deve avere abilitato al protocollo [DHCP](../Tecnologie/Protocolli#DHCP), in quanto entrambi i protocolli precedentemente nominati utilizzano l'identificazione dei dispositivi tramite [IP](../Tecnologie/Protocolli#IP).
-
-#### Samba
-E' il software più utilizzato per permettere la condivisione file all'interno del dominio [Windows](./Windows)
-
-#### Netatalk
-Permette di comunicare all'interno del dominio [Apple](<./MAC OS X>).
-
-## Applicazioni Desktop
-### Desktop
-#### X Window System
-Interfaccia grafica basica per Sistemi operativi Linux. Da accoppiare ad altri software per la gestione dele finestre, come:
-- KDE Windows manager
-- Gnome Windows Manager (usata da Ubuntu)
-
-### Mail
-#### Thunderbird
-Software di email client della Mozilla Foundation. Si collega ad un [server POP/IMAP](<#POP/IMAP Server>) e permette di visualizzare i dati in esso contenuti e di inviare mail tramite un server SMTP.
-
-#### Evolution
-#### KMail
-
-### Creatività
-#### Blender
-Permette di manipolare elementi 3D
-
-#### GIMP
-Permette di manipolare elementi grafici in 2D
-
-#### Audacity
-Permette di manipolare file audio
-
-### Produttività
-#### LibreOffice
-Suite di software per la creazione, modifica di gestione di elaborati testuali, presentazioni, fogli di calcolo, creata partendo da [OpenOffice](#OpenOffice).
-
-#### OpenOffice
-Suite di software per la creazione, modifica di gestione di elaborati testuali, presentazioni, fogli di calcolo.
-
-### Browser
-#### Firefox
-#### Chrome
 
 ## Tool
 ### shell
@@ -2560,8 +2546,6 @@ Versione avanzata di [Vi](#Vi) che permette l'utilizzo di funzionalità avanzate
 | b                  | A inizio parola precedente |
 | :0 + Invio         | Alla prima riga del file   |
 
-
-
 #### Emacs
 #### Nano
 Software Open Source che utilizza come base di partenza [Pico](#Pico).
@@ -2623,6 +2607,93 @@ Tool di [controllo degli accessi](#acl) basato su regole e sistema di logging. O
 
 ### ufw
 Firewall semplificato
+
+## Probe
+Un *probe* (sonda) è un elemento utilizzato per raccogliere dati di un'infrastruttura hardware e restituirli in forma digitale.
+
+### Linux::inodes
+
+## Applicazioni Server
+### [Apache](Apache.md)
+### [NGINX](../Software/NGINX)
+### Private Cloud Server
+#### ownCloud
+Progetto lanciato nel 2016 per fornire un software che permetta di memorizzare, sincronizzare e condividere dati con un [Cloud Server Privato](<../Server/Cloud#Private Cloud>). Il progetto è disponibile in Open Source con licenza GNU AGPLv3 o in versione Enterprise.
+
+#### NextCloud
+Progetto parallelo a [ownCloud](#ownCloud) (creato dallo steso sviluppatore, partendo dallo stesso software), punta ad un processo di sviluppo totalmente aperto e trasparente
+
+### Database Server
+I database servono per velocizzare la memorizzazione e la manipolazione dei dati tramite l'utilizzo di linguaggio a richieste strutturate (Structured Query Language, **SQL**). I database server più utilizzati sono
+
+#### [MariaDB](../Database/MariaDB)
+#### [MySQL](../Database/MySQL)
+#### [PostgreSQL](../Database/Postgre)
+
+### Mail Server
+Sono composti dall'unione di 3 servizi:
+
+#### MTA
+Agent di trasferimento delle mail.
+
+##### Sendmail
+##### Postfix
+Software più semplice e sicuro di [Sendmail](#Sendmail)
+
+#### MDA
+L'Agente di consegna locale (Mail Delivery Agent, MDA) si occupa di salvare le mail nella mailbox dell'utente. Di solito è il nodo finale del [MTA](#MTA)
+
+#### POP/IMAP Server
+Permette la comunicazione tramite protocolli [POP](../Tecnologie/Protocolli#POP3) e [IMAP](../Tecnololgie/Protocolli#IMAP)
+
+##### Dovecot
+##### Cyrus IMAP
+##### Microsoft Exchange
+Software proprietario di Microsoft.
+
+### Condivisione di File
+Esistono software specifici per condividere file tra ambienti diversi. In particolare è da considerare il protocollo di condivisione utilizzato dall'altro computer. I più utilizzati sono i l[DNS](../Tecnologie/Protocolli#DNS) e il [LDAP](../Tecnologie/Protocolli#LDAP). In entrambi i casi, il dispositivo Linux deve avere abilitato al protocollo [DHCP](../Tecnologie/Protocolli#DHCP), in quanto entrambi i protocolli precedentemente nominati utilizzano l'identificazione dei dispositivi tramite [IP](../Tecnologie/Protocolli#IP).
+
+#### Samba
+E' il software più utilizzato per permettere la condivisione file all'interno del dominio [Windows](./Windows)
+
+#### Netatalk
+Permette di comunicare all'interno del dominio [Apple](<./MAC OS X>).
+
+## Applicazioni Desktop
+### Desktop
+#### X Window System
+Interfaccia grafica basica per Sistemi operativi Linux. Da accoppiare ad altri software per la gestione dele finestre, come:
+- KDE Windows manager
+- Gnome Windows Manager (usata da Ubuntu)
+
+### Mail
+#### Thunderbird
+Software di email client della Mozilla Foundation. Si collega ad un [server POP/IMAP](<#POP/IMAP Server>) e permette di visualizzare i dati in esso contenuti e di inviare mail tramite un server SMTP.
+
+#### Evolution
+#### KMail
+
+### Creatività
+#### Blender
+Permette di manipolare elementi 3D
+
+#### GIMP
+Permette di manipolare elementi grafici in 2D
+
+#### Audacity
+Permette di manipolare file audio
+
+### Produttività
+#### LibreOffice
+Suite di software per la creazione, modifica di gestione di elaborati testuali, presentazioni, fogli di calcolo, creata partendo da [OpenOffice](#OpenOffice).
+
+#### OpenOffice
+Suite di software per la creazione, modifica di gestione di elaborati testuali, presentazioni, fogli di calcolo.
+
+### Browser
+#### Firefox
+#### Chrome
 
 ## Suite
 ### [Security Onion](https://securityonionsolutions.com/)
