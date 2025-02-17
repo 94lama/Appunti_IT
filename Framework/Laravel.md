@@ -35,7 +35,7 @@ Si devono creare almeno due controllers: uno per i file pubblici ed uno per quel
 All'interno del file si possono ridefinire le funzioni di visualizzazione delle pagine:
 
 	 ---
-# Comandi da #terminale 
+# Comandi da terminale 
 ### [Composer](https://getcomposer.org/)
 E' un gestore di pacchetti ( #package-manager ) per il linguaggio #PhP, La lista delle #librerie è indicata su **composer.json**  
 ### Artisan
@@ -69,32 +69,47 @@ Può essere:
 	- model -mc -  creerà automaticamente una migration ed un controller
 	- model -mcr - migration, controller, resources
 # Installazione
+## Nuovo progetto
+In questo paragrafo vengono segnati i processi iniziali per eseguire un'app Laravel nel computer. Il paragrafo [apertura progetto esistente](<#Apertura progetto esistente>) contiene altri processi complementari per avere l'app funzionante.
 
 Scaricare Composer model
 ```
 composer global require laravel/installer
 laravel new app_name
 ```
-### Collegare il progetto a github
+
+## Apertura progetto esistente
+Nel caso si apra un progetto già impostato, è necessario creare e compilare il file **.env**. Di solito è presente un file .env.example per elencare le variabili utilizzate (nel caso l'app si crei da zero, questo passaggio non è necessario)
+```sh
+cp .env.example .env
 ```
-git init -b main
-git add .
-git commit -m 'Progetto inizializzato'
-git remote add origin REMOTE-URL
-git remote -v
-git push origin main
-```
-### Collegare il progetto al #database 
-1. aprire il file #nascosto  #env
-2. inserire i dati:
-	1. DB_CONNECTION
-	2. DB_HOST
-	3. DB_PORT
-	4. DB_DATABASE 
-	5. DB_USERNAME
-	6. DB_PASSWORD
-	**nota!** i dati non verranno pushati su #git 
-#### Migrazioni
+	NOTE: Si può compilare il file tramite un editor di testo, o tramite nano, vim o vi
+
+Una volta copiato il file, è necessario seguire i seguenti passaggi:
+- Compilare il file .env con i [settaggi previsti](#.env)
+- Creare una chiave da utilizzare per la variabile **APP_KEY** presente nel file .env
+	```sh
+	php artisan key>generate
+	```
+- Impostare il database con le migrazioni (e, se previsto i seed) necessari
+	```sh
+	php artisan migrate:fresh
+	```
+- Eseguire l'app
+	```sh
+	php artisan serve
+	```
+
+## .env
+### Collegamento al #database 
+I dati relativi alla connessione tra app e database sono:
+1. DB_CONNECTION
+2. DB_HOST
+3. DB_PORT
+4. DB_DATABASE 
+5. DB_USERNAME
+6. DB_PASSWORD
+## Migrazioni
 Le #migration sono dei file in cui viene definito come devono essere fatte le tabelle
 
 |funzione|descrizione|
@@ -202,7 +217,7 @@ dove **percorso** rappresenta il percorso della vista (all'interno della cartell
 ### /Providers
 #### AppServiceProvider
 Viene usata per condividere piccoli dati
-# #Comandi
+# Comandi
 
 ### Classi
 
@@ -262,24 +277,24 @@ Nel caso l'attributo venga evocato, ma non richiamato nelle singole pagine #Blad
 ```
 ### Invio di mail
 #### Creo una nuova pagina per il form di invio
-1. creo una nuova route nella cartella /routes
-2. creo il relativo controller su /app/http/controllers, dentro la quale la funzione di invio del messaggio dal form deve essere di tipo **Request** (classe preimpostata, da inserire tramite #dependency-injection  )
-3. creo la pagina da visualizzare
+7. creo una nuova route nella cartella /routes
+8. creo il relativo controller su /app/http/controllers, dentro la quale la funzione di invio del messaggio dal form deve essere di tipo **Request** (classe preimpostata, da inserire tramite #dependency-injection  )
+9. creo la pagina da visualizzare
 
 #### Preparo il form
-1. Creo un modulo di form base
-2. il div form dovrà avere attributo **method="POST"** e **action={{route('email')}}**
-3. aggiungo la direttiva **@csrf** (cross site request forgery), che aggiungerà un input nascosto contenente un token univoco che permetterà di sorpassare i filtri del server per le mail non pre-impostate
-4. Per rendere i dati da inviare riconoscibili da Laravel, forniamo un attributo **name** con un valore univoco per tutti i campi che contengono valori da inviare (@csrf ha attributo nome preimpostato)
-5. aggiunge la nuova route "email" in /routes/web.php
+10. Creo un modulo di form base
+11. il div form dovrà avere attributo **method="POST"** e **action={{route('email')}}**
+12. aggiungo la direttiva **@csrf** (cross site request forgery), che aggiungerà un input nascosto contenente un token univoco che permetterà di sorpassare i filtri del server per le mail non pre-impostate
+13. Per rendere i dati da inviare riconoscibili da Laravel, forniamo un attributo **name** con un valore univoco per tutti i campi che contengono valori da inviare (@csrf ha attributo nome preimpostato)
+14. aggiunge la nuova route "email" in /routes/web.php
 
 #### Preparo il messaggio da inviare
 #### Configuro la mail da cui inviare il messaggio
 Laravel non può inviare mail, deve quindi affidarsi a servizi di terzi (come [mailtrap](https://www.mailtrap.io) )
 #### Invio la mail
-1. creo una funzione per l'invio della mail su PublicController
-2. Inserisco la classe per l'invio della mail
-3. ritorno la pagina da visualizzare una volta inviata la mail e un alert per confermare l'invio della mail
+15. creo una funzione per l'invio della mail su PublicController
+16. Inserisco la classe per l'invio della mail
+17. ritorno la pagina da visualizzare una volta inviata la mail e un alert per confermare l'invio della mail
 ```
 return redirect() ->route('uri_da_visualizzare')->with('message', 'contennuto_del_messaggio');
 ```
@@ -308,43 +323,43 @@ così da poter avere una variabile *Storage::url($movie->img)*, da poter inserir
 $item = ClassName::find($id) //trova l'elemento con l'id desiderato
 ```
 ### Validazione dei dati
-1. Creare una richiesta tramite
+18. Creare una richiesta tramite
 ```
 php artisan make:request NomeRequest
 ```
-2. Apro il file e creo un metodo rules
+19. Apro il file e creo un metodo rules
 ```
 public rules():array{return ['parametro_1'=>'required|min:2|max:300']}
 ```
-3. Sostituisco NomeRequest tramite #dependency-injection a nel metodo store() del Controller che gestisce gli elementi da inserire nel form (in questo modo nel caso di dati non accettati, il programma di default ricaricherà la pagina, azzerando tutti i campi)
+20. Sostituisco NomeRequest tramite #dependency-injection a nel metodo store() del Controller che gestisce gli elementi da inserire nel form (in questo modo nel caso di dati non accettati, il programma di default ricaricherà la pagina, azzerando tutti i campi)
 ```
 public function store(NomeRequest $request)
 ```
-4. Nel caso io voglia mostrare gli errori all'utente, devo aggiungere un metodo error() nel form (HTML) ed un metodo messages() alla classe che gestisce i dati del form
+21. Nel caso io voglia mostrare gli errori all'utente, devo aggiungere un metodo error() nel form (HTML) ed un metodo messages() alla classe che gestisce i dati del form
 ### #API
 Sand tube, VIRT (view Inertial Laravel Tailwind)
 
 ### #CRUD - Create, Read, Update, Delete
-1. Creo il #database
-2. Mi connetto al db
-3. Effettuo le #migration
-4. creazione del #model che gestirà la il database
-5. Gestione dei campi da inserire
+22. Creo il #database
+23. Mi connetto al db
+24. Effettuo le #migration
+25. creazione del #model che gestirà la il database
+26. Gestione dei campi da inserire
 #### Create
-1. Creo il form in HTML su cui inserire i dati
-2. Collego i vari input tramite attributo **name** al #Model
+27. Creo il form in HTML su cui inserire i dati
+28. Collego i vari input tramite attributo **name** al #Model
 #### Read
-1. Creo una rotta **nome_rotta.index**
-2. Creo un metodo all'interno del Controller, che legge i file dal [db](#database) e li ritorna come variabile php
+29. Creo una rotta **nome_rotta.index**
+30. Creo un metodo all'interno del Controller, che legge i file dal [db](#database) e li ritorna come variabile php
 
 		$nome_variabile = $nome_database->all(); //oppure
 		$nome_variabile = NomeModello::orderBy('parametro', 'desc/asc')->get(); //query builder
 
 	Tramite #model-binding è possibile automatizzare la funzione di ricerca dell'oggetto nel database
 #### Update
-1. Creo una rotta ed un metodo che mi permettano di accedere alla vista del form di modifica dell'elemento
-2. Digito le modifiche
-3. Ricevo le modifiche tramite #dependency-injection  Request e le passo ad un secondo metodo che mi permette di inviare le modifiche al server e di ritornare ad una pagina del sito con le modifiche apportate
+31. Creo una rotta ed un metodo che mi permettano di accedere alla vista del form di modifica dell'elemento
+32. Digito le modifiche
+33. Ricevo le modifiche tramite #dependency-injection  Request e le passo ad un secondo metodo che mi permette di inviare le modifiche al server e di ritornare ad una pagina del sito con le modifiche apportate
 
 Nel **Controller**
 
@@ -381,7 +396,7 @@ Permettono di popolare automaticamente le tabelle con contenuti composti da
 ## [Fortify](https://laravel.com/docs/10.x/fortify#:~:text=Laravel%20Fortify%20is%20a%20frontend,%2C%20email%20verification%2C%20and%20more.) - Autenticazione
 Laravel #Fortify ci permette di lavorare con le autenticazioni e la creazione di account
 #### Installazione
-1. Si digita il comando in bash
+34. Si digita il comando in bash
 ```
 composer require laravel/fortify
 php artisan vendor:publish --provider="Laravel\Fortify\FortifyServiceProvider"
@@ -390,24 +405,24 @@ php artisan vendor:publish --provider="Laravel\Fortify\FortifyServiceProvider"
 	- Actions/Fortify/ - si trovano le categorie di validazione
 	- providers/
 	- -
-2. E' necessario effettuare una migrazione
+35. E' necessario effettuare una migrazione
 ```
 php artisan migrate
 ```
-3. Si apre il file **config/app.php** e si inserisce la stringa
+36. Si apre il file **config/app.php** e si inserisce la stringa
 
 ```
 App\Providers\FortifyServiceProvider::class,
 ```
 	all'interno della sezione **providers**. Ciò permetterà di aggiungere i metodi di Fortify nel nostro progetto, ovvero **register()** e **boot()** (boot si attiverà all'apertura dell'app)
-4. Ora possiamo accedere alle funzioni di autenticazione, registrazione
+37. Ora possiamo accedere alle funzioni di autenticazione, registrazione
 ##### Registrazione
-1. Aprire **AppServiceProvider.php** e aggiungere a boot il metodo 
+38. Aprire **AppServiceProvider.php** e aggiungere a boot il metodo 
 ```
 Fortify::registerView(function(){return view('auth.register');});
 Fortify::loginView(function(){return view('auth.login');});
 ```
-2. Creo un file **register.blade.php** all'interno di **auth/**, che conterrà il form di registrazone
+39. Creo un file **register.blade.php** all'interno di **auth/**, che conterrà il form di registrazone
 --------- SE NON SONO LOGGATO AUTH::USER=null -------------------------
 @auth / @endauth == @if(Auth::user!=null) / @endif
 @guest / @endguest == @if(Auth::user == null) / @endif
@@ -524,32 +539,32 @@ Laravel include un metodo per creare un #middleware all'interno della classe **R
 |Auth::|Vede se l'utente è autenticato|
 
 Una volta creato un Middleware (tramite #artisan), aggiorno la lista dei #middleware su Kernel (app/Http/Middleware) nella proprietà **$middlewareAliases**
-# #Eloquent #ORM 
+# Eloquent ORM 
 Laravel gestisce le interazione con il #database tramite la libreria Eloquent ORM (Object-Relational Mapper).
 ## [[Relazioni]]
 ### #1-n 
-1. Aggiunta di una colonna per la #foreign-key (FK)
+40. Aggiunta di una colonna per la #foreign-key (FK)
 ```
 php artisan make:
 ```
-2. Aggiungo al metodo **up()** della #migration un vincolo di integrità referenziale
+41. Aggiungo al metodo **up()** della #migration un vincolo di integrità referenziale
 ```
 $table->unsignedBigInteger('user_id')->after('id')->default(1) //il metodo after si usa se si vuole specificare la posizione nella tabella
 $table->foreign('user_id')->references('id')->on('users');
 ```
-3. Aggiungo al metodo down() della stessa #migration per gestire l'eliminazione del dato dalle tabelle
+42. Aggiungo al metodo down() della stessa #migration per gestire l'eliminazione del dato dalle tabelle
 ```
 $table->drop('user_id')
 $table->
 ```
-4. Aggiorno i #fillable e il metodo #create del Model 
-5. Effettuo la migrazione
+43. Aggiorno i #fillable e il metodo #create del Model 
+44. Effettuo la migrazione
 ```
 php artisan migrate
 ```
 #### Lettura della #foreign-key
-1. Apro il modello di riferimento
-2. creo una funzione con il nome della tabella  originale della [FK]( #foreign-key )
+45. Apro il modello di riferimento
+46. creo una funzione con il nome della tabella  originale della [FK]( #foreign-key )
 	1. La #foreign-key collega il dato a più elementi
 ```
 public function table_names(){return $this->hasMany(ModelName::class);} //nel caso di relazione 1-1, non si usa il metodo hasMany
@@ -558,8 +573,8 @@ public function table_names(){return $this->hasMany(ModelName::class);} //nel ca
 ```
 public function table_name(){return $this->belongsTo(ModelName::class);}
 ```
-1. Per richiamare l'elemento indicato dalla #foreign-key (l'intero oggetto), basta utilizzare il metodo table_name/table_names come fosse una proprietà (ovvero senza parentesi).
-2. Aggiorno le #migration, #request, #Model e #Controller, in modo tale da avere la #foreign-key indicata in maniera corretta
+47. Per richiamare l'elemento indicato dalla #foreign-key (l'intero oggetto), basta utilizzare il metodo table_name/table_names come fosse una proprietà (ovvero senza parentesi).
+48. Aggiorno le #migration, #request, #Model e #Controller, in modo tale da avere la #foreign-key indicata in maniera corretta
 	Nel caso il progetto sia già online, è consigliato creare una nuova migration tramite
 	1. Terminal
 ```
@@ -574,8 +589,8 @@ public function up():void{ //void viene utilizzato quando la funzione non ritorn
 	})
 }
 ```
-1. Implemento nel #Model un metodo che colleghi la #foreign-key alla tabella di riferimento
-2. aggiungere eventuale #input nel form e coppia key=>value
+49. Implemento nel #Model un metodo che colleghi la #foreign-key alla tabella di riferimento
+50. aggiungere eventuale #input nel form e coppia key=>value
 ### #n-n 
 Per modellare le relazioni n-n, si usa una tabella intermedia, detta #tabella-pivot,  dove ogni riga rappresenterà la singola relazione tra gli oggetti, rappresentati dalle #foreign-key.
 
@@ -613,7 +628,7 @@ public function tables2 () {return $this->belongsToMany(Model_2::class);} //La f
 
 	$
 # Clonare un progetto Laravel
-1. Clonare il progetto da GitHub
+51. Clonare il progetto da GitHub
 	Su [[Github]] vengono pushati tutti i file, tranne quelli elencati su .gitignore, ciò vuol dire che sarebbe impossibile clonare il file correttamente su un secondo computer.
 	
 		git clone

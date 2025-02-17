@@ -8,6 +8,7 @@ Una problematica di Docker è l'assenza di meccanismi di gestione e controllo de
 L' #alm, o Application Lifecycle Management rappresenta tutti i processi 
 **![](https://lh7-us.googleusercontent.com/tB1J4EOxXgNBNC9eI7uwd-HVolNAZWlLhBDomq4jyZkd-dG7LzGCOygfZ4VqTlFrzOH9QkqeN3s4-_ApI8i2AP-kiqNZkK9OPYt-k9iBGQPX0RjPx2TDwKATdJjejsPkg_7-R9joYvPuy_yPRjOhQA=s2048)**
 # Struttura
+Docker viene gestito da file, che ne definiscono le caratteristiche della macchina da virtualizzare o dei software da eseguire al suo interno.
 ## Makefile
 E' un file che gestisce le operazioni da effettuare all'apertura o a seguito di richiesta tramite bash
 ```Docker
@@ -23,6 +24,8 @@ make operazione_1 #risultato: "inizia"
 
 ```
 ## Dockerfile
+Dockerfile è un file che contiene le istruzioni da eseguire per eseguire un immagine Docker. Una guida dei principali comandi da utilizzare può essere trovata [qua](https://docs.docker.com/build/concepts/dockerfile/).
+
 ```DOCKERFILE
 FROM <>
 CMD [<comando_1>, <comando_2>, ..., <comando_n>]
@@ -33,31 +36,47 @@ docker build <percorso>
 docker run 
 ```
 ## docker-compose.yml
-E' un file che contiene i dati necessari (incluse #porte, localizzazioni di #database, dati di accesso, ) per creare l'ambiente su cui far partire il programma.
-**NB. in environment non inserire le porte, perché renderebbe il container vulnerabile**
+Il [docker-compose.yaml](https://docs.docker.com/compose/) è un file che contiene i dati necessari (incluse #porte, localizzazioni di [database](../Database/Database), dati di accesso, ecc.) per creare l'ambiente su cui far partire il programma.
+**NB. in environment non inserire le porte, perché renderebbe il container vulnerabile**.
 ## Container
 ## Image
 ## Volume
 E' la componente correlata al [[Database]] e ne permette il collegamento con i [[#Container]]
 # Comandi
-Mostrare i processi in esecuzione
+
+#### Mostrare i processi in esecuzione
 ```Docker
 docker ps
 ```
-Arrestare il container selezionato
+
+#### Arrestare il container selezionato
 ```Docker
-docker stop nome_container o id_container
+docker stop <nome_container o id_container>
 ```
-Eseguire in container selezionato nella porta selezionata
+
+#### Eseguire in container selezionato nella porta selezionata
 ```Docker
-docker run -it <nome_container> o <id_container> <continua>
+docker run <nome_container> o <id_container> <comando>
 ```
-Inizializzare un processo nel #kernel [[Linux]]
+	OPZIONI
+	-i #
+	-t #
+
+#### Inizializzare un processo nel #kernel [[Linux]]
 ```Docker
 docker run -it ubuntu bash
 ```
-Collegare il terminale al #container già avviato 
+
+#### Collegare il terminale al #container già avviato 
 ```Docker
-docker exec -it <id container> bash
+docker exec -it <id container> <comando>
 ```
+	OPZIONI
+	-i #
+	-t #
+	
+	ESEMPI
+	- Aprire il terminale del container
+		docker exec -it <nome_container> 
+
 # [[Cybersecurity]]

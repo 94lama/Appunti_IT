@@ -14,7 +14,7 @@
               "type": "markdown",
               "state": {
                 "file": "OS/Linux.md",
-                "mode": "source",
+                "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
@@ -48,7 +48,7 @@
         "state": {
           "type": "search",
           "state": {
-            "query": "Apple",
+            "query": "ram",
             "matchingCase": false,
             "explainSearch": false,
             "collapseAll": false,
@@ -83,7 +83,7 @@
         }
       }
     ],
-    "currentTab": 0
+    "currentTab": 1
   },
   "right": {
     "id": "13acd9c335e97714",
@@ -99,8 +99,8 @@
             "collapseAll": false,
             "extraContext": false,
             "sortOrder": "alphabetical",
-            "showSearch": false,
-            "searchQuery": "",
+            "showSearch": true,
+            "searchQuery": "Ram",
             "backlinkCollapsed": false,
             "unlinkedCollapsed": true
           },
@@ -149,13 +149,14 @@
   },
   "active": "50510b0122f45abe",
   "lastOpenFiles": [
-    "Cybersecurity.md",
+    "OS/Algoritmi.md",
     "OS/Linux.md",
+    "Tecnologie/Reti.md",
+    "Cybersecurity.md",
     "OS/MAC OS X.md",
     "Tecnologie/Protocolli.md",
     "Helpdesk.md",
     "Tecnologie/Macchina.md",
-    "Tecnologie/Reti.md",
     "<Tecnologie/protocolli.md",
     "<Tecnologie",
     "social engineering.md",
@@ -177,7 +178,6 @@
     "Linguaggi/CSS.md",
     "Linguaggi/TypeScript.md",
     "Immagini/Pasted image 20240108202659.png",
-    "Software/Burp.md",
     "Immagini/SQL Join.png",
     "Immagini/Pasted image 20240219204523.png",
     "Immagini/Pasted image 20240502095612.png"

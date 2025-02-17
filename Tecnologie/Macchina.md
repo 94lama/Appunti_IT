@@ -187,15 +187,14 @@ I dischi ottici sono dispositivi di memorizzazione (CD, DVD, Blu-Ray) rimuovibil
 Alcuni hard drive possono utilizzare meccanismi di partizione di memoria. I più comuni sono:
 
 #### MBR
-Master Boot Record
+Il Master Boot Record è un metodo di memorizzazione di dati in memoria, residuo dei vecchi sistemi MS-DOS (in particolare del PC-DOS del 1983) 
 
 #### GPT
-La GUID Partitioning Type è una  metodologia di partizione per dischi di memoria utilizzata dal 2000.
+La GUID Partitioning Type è una  metodologia di partizione per dischi di memoria utilizzata dal 2000, come evoluzione del precedente modello ([MBR](#MBR)), per risolvere i suoi problemi e le limitazioni. Viene utilizzato da macchine che utilizzano il sistema [UEFI] invece che il più vecchio [BIOS] ([fonte](https://learning.lpi.org/it/learning-materials/101-500/104/104.1/104.1_01/)). 
 
 ## Periferiche
 Le periferiche esterne sono tutti quei dispositivi che possono essere collegati ad un computer, come chiavette USB, hard disk, monitor esterni, mouse, ecc.
 
-# Memoria
 
 # Kernel
 Il kernel di un sistema operativo è il componente che alloca le risorse ([memoria](<#Locazione di memoria>), [CPU](#CPU), [spazio su disco](#RAM)) della macchina richieste dai software (e decide quali software prioritizzare nel caso di più richieste contemporanee delle stesse risorse), gestisce la transizione tra più risorse (**multitasking**), verifica se sia necessario terminare un'applicazione e occupa di astrarre delle informazioni dal software (es. la tipologia di supporto della locazione di memoria utilizzata dalla macchina).

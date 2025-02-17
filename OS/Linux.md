@@ -189,7 +189,7 @@ chgrp <nome_gruppo> <nome_file>
 	-R # modifica tutti i file selezionati in maniera ricorsiva
 
 #### chmod
-Modifica i permessi granulari di un file. Tramite questo comando è possibile impostare valori di [suid](#suid), [sgid](#sgid) e [sticky bit](<#sticky bit>) per permettere l'accesso o impedire la modifica di file ad utenti che di norma non avrebbero i permessi necessari.
+Modifica i permessi granulari di un file. Tramite questo comando è possibile impostare valori di [suid](#suid), [sgid](#sgid) e [sticky bit](<#sticky bit>) per permettere l'accesso o impedire la modifica di file ad utenti che di norma non avrebbero i permessi necessari. Il comando è utilizzabile dal **creatore** del file e da **root**
 ```sh
 chmod <permessi_utente><permessi_gruppo><permessi_utente_generico> <nome_file>
 ```
@@ -341,7 +341,7 @@ fallocate <directory_file>
 	-n <nome_file>
 
 #### fdisk
-Visualizza e gestisce i [dischi di memoria](../Tecnologie/Macchina#Memoria)
+Visualizza e gestisce i [dischi di memoria](../Tecnologie/Macchina#Memoria) di tipo [MBR](../Tecnologie/Macchina#MBR) ([guida all'utilizzo](https://learning.lpi.org/it/learning-materials/101-500/104/104.1/104.1_01/))
 ```sh
 fdisk <disco>
 ```
@@ -405,6 +405,11 @@ Un esempio di ritulato è la tabella eguente:
 | Swap:              | 0        | 0        | 0        |        |         |          |
 - -/+ buffers/cache: rappresenta la quantità di memoria fisica utilizzata dal kernel per buffers o cache (che quindi potrebbe essere liberata)
 - [Swap](<#Swap file system>)
+
+#### gdisk
+Permette di gestire partizioni per dischi [GPT](../Tecnologie/Macchina#GPT), in modo equivalente al comando [fdisk](#fdisk).
+
+#### gfdisk
 
 #### getent
 Ottenere informazioni riguardo un dato
@@ -714,7 +719,7 @@ less <file>
 **N.B.** per pagina si intende l'insieme di righe visualizzati in una schermata
 
 #### locate
-Localizzare un file
+Localizzare un file all'interno del sistema tramite corrispondenza con i dati contenuti in un apposito database.
 ```sh
 locate <nome file>
 ```
@@ -725,10 +730,12 @@ locate <nome file>
 	-c # conta il numero di file trovati
 	-b # limita la ricerca ai soli file e non alle directory nelle quali si trovano
 
+**N.B.** Nel caso si voglia aggiornare il database contenente gli indirizzi dei file, si deve utilizzare [updatedb](#updatedb)
+
 #### ln
 Creare un [link](#link)
 ```Sh
-ln <nome file>
+ln <nome file> <nome link>
 ```
 	OPZIONI:
 	-s # crea un link simbolico
@@ -753,7 +760,7 @@ ls
 	-r # inverte l'ordine di visualizzazione dei file
 	-t # ordina gli elementi in base al timestamp (data di modifica)
 	-R # esegue il comando in maniera ricorsiva anche nelle cartelle figlie
-	-S # ordgina gli elementi in base alle loro dimensioni
+	-S # ordina gli elementi in base alle loro dimensioni (dal più grande al più piccolo)
 	--full-time # mostra maggiori dettagli dei timestamp dei file
 	
 	WILDCARDS:
@@ -900,7 +907,7 @@ netstat
 - Il comando netstat è stato sostituito dai più recente [ss](#ss)
 
 #### newgrp
-Creare un nuovo gruppo
+Creare un nuovo gruppo e lo imposta come gruppo primario dell'utente che utilizza il comando.
 ```sh
 newgrp <nome>
 ```
@@ -1074,6 +1081,18 @@ router
 ```
 	OPZIONI:
 	-n # mostra le informazioni in formato solo numerico
+#### scp
+Secure Copy (scp) permette di copiare file da una macchina in locale ad una in remoto.
+```sh
+scp [OPTION] [user@]SRC_HOST:]file1 [user@]DEST_HOST:]file2
+```
+	OPZIONI:
+	-P # Specifica la porta di destinazione
+	-p # Mantiene le moiìdifiche e i timestamp di accesso
+	-q # Sopprime le metriche di progresso e i messaggi che non siano di errore
+	-C # Forza la compressione dei file durante il trasferimento
+	-r # Copia le directory in maniera ricorsiva
+
 #### service
 Gestire un servizio
 ```sh
@@ -1094,6 +1113,8 @@ setfacl u:<user>:<permessi> <file>
 	-m # modifica la #ACL del file
 	-R # applica la regola in maniera ricorsiva
 	-x # riomuove la #ACL impostata
+
+#### sfdisk
 
 #### sh
 Eseguire uno [shell script](#Script) tramite shell
@@ -1257,15 +1278,27 @@ tail  <file>
 #### tar
 Archiviare (compressione di un gruppo di file) elementi
 ```sh
-tar
+tar [OPZIONI] <file di destinazione>.tgz <file originale> 
 ```
+	OPZIONI:
 	-c # Crea un archivio
 	-cf # crea e usa archivio (inserisci file)
 	EXTRACT
+	-j # comprime o decomprime tramite bzip2
 	-t # mostra lista di elementi inclusi nellarchivio
-	-j # comprime o decomprime tramite bzip2 
 	-V # stampa i file inclusi nell’archivio mentre li processa
 	-x # comprime o decomprime un file tramite gzip
+
+##### Esempi
+```sh
+tar -cvzf file.tgz /Documents/file.txt
+```
+	DESCRIZIONE: comprimere il file file.txt, situato nella cartella Documents dentro un nuovo file file.tgz nella cartella corrente
+
+```sh
+tar -xvzf file.tgz
+```
+	DESCRIZIONE: decomprimere il file file.tgz, situato nella cartella corrente in nuovo file dal nome "file" nella cartella corrente
 
 #### test
 Effettuare test su un comando
@@ -1401,6 +1434,7 @@ useradd <nome_utente>
 	-r # crea un account di sistema
 	-s <shell> # indica di collegare l'utente ad una particolare shell (di default si usa quella indicata in /etc/default/useradd)
 		-s /sbin/nologin # non imposta una shell di accesso per l'utente
+	-u <UID> # specifica l'UID da assgnare all'utente
 	-D # permette di visualizzare e/o modificare alcuni parametri* dell'utente
 	-G <nomi_gruppo> # aggiunge l'utente ai gruppi come gruppo secondario (i nomi dei gruppi separati da una virgola)
 	-M # indica al sistema di non creare una home directory per l'utente
@@ -1465,7 +1499,7 @@ whatis <nome>
 ```
 
 #### whereis
-Localizzare il file del comando
+Localizzare il file che gestisce un determinato comando
 ```sh
 whereis <comando>
 ```
@@ -1527,7 +1561,7 @@ xz <file>
 ```
 
 #### zip
-Comprimere un archivio tramite zip
+Copiare i file selezionati in un archivio, compresso tramite algoritmo zip
 ```sh
 zip <file>
 ```
@@ -1650,9 +1684,12 @@ variabile_locale=1
 VARIABILE_DI_AMBIENTE='valore'
 ```
 
-| Variabile di default | Descrizione                                           |
-| -------------------- | ----------------------------------------------------- |
-| PATH                 | Mostra tutte le directory dove sono salvati i comandi |
+#### PATH
+Contiene tutte le directory dove sono memorizzati i comandi.
+DI default il valore è importato uguale a
+```PATH
+/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+```
 
 ## Scripting
 Uno script shell è un file che contiene un'istruzione eseguibile su shell tramite comando **sh**. Il sistema operativo contiene alcuni [script precompilati](<#Script precompilati>).
@@ -1690,7 +1727,7 @@ Distro specializzata nell’analisi della sicurezza delle reti, molto utilizzata
 
 ## Ubuntu
 ### Software
-#### UFW
+#### [UFW](../Software/UFW)
 Il Firewall non Complicato di Ubuntu è un semplice [Firewall basato sull'host](../Cybersecurity#HBF), installato di default, che si basa su [iptables](#iptables).
 
 ##### Gufw
@@ -1891,7 +1928,9 @@ A seguito dell'invio del comando ```ls -l```, il risultato per un file con setui
 	N.B. Se il file ha anceh setgid attivato, ma il file non ha i permessi di esecuzione per il gruppo, il carattere "S" sarà maiuscolo (s = S + x)
 
 ### setgid
-Tipologia di permesso simile al [setuid](#setuid), ma dedicato ai gruppi invece che agli utenti. A differenza del primo, questo può essere utilizzato sia per impostare i permessi nei file, che per le cartelle. Si abilita con:
+Tipologia di permesso simile al [setuid](#setuid), ma dedicato ai gruppi invece che agli utenti. A differenza del primo, questo può essere utilizzato sia per impostare i permessi nei file, che per le cartelle. Nel secondo caso permetterà di impostare automaticamente il gruppo utenti dei file che verranno creati all'interno uguale al GID del proprietario della cartella stessa (utile nel caso di condivisione cartelle, in quanto permette di utilizzare un gruppo secondario invece che il principale, come avverrebbe di default).
+
+Si abilita con:
 - Inserimento del valore 2000 ai permessi (es. 2770)
 - tramite comando ```chmod g+s <file>```
 
@@ -2056,6 +2095,8 @@ root:0:0:
 	
 	: = separatore di campi
 	:: = campo vuoto
+Il file ha permessi **731**, con permessi [setuid](#setuid).
+
 #### resolv.conf
 File di configurazione utilizzato per gestire il Server DNS del dispositivo.
 ```resolv.conf
@@ -2217,6 +2258,9 @@ In alcune distro nominato **rsyslog.conf**, permette di gestire i log da memoriz
 #### sshd_config
 #### sshd_config.d
 
+#### wall
+File con permessi **741** e [setgid](#setgid) abilitato.
+
 ### home/
 Contiene i file e le impostazioni di ogni utente registrato nella macchina (ogni utente avrà una cartella personale).
 
@@ -2332,7 +2376,7 @@ Contiene i file di applicazioni o software terzi.
 Contiene i file di applicazioni o software terzi.
 
 ### var/
-Il nome è un accorciamento di **variabile** e include file di tipo variabile (che possono essere modificati nel tempo, come i log)
+Il nome è un accorciamento di **variabile** e include file di tipo variabile (che possono essere modificati nel tempo, come i log). La cartella ha permessi ampi (777), rendendola potenzialmente dannosa nel caso di eliminazione accidentale (o volontaria) di file preesistenti.
 
 #### log/
 Contiene i file di [log](../cybersecurity#log). Genericamente Linux gestisce il logging con due metodologie diverse:
@@ -2557,7 +2601,11 @@ Software proprietario.
 Il software predefinito dal sistema per gestire i pacchetti dipende dalla distro che si sta utilizzando.
 
 #### dpkg
-E' il tool di più basso livello per la gestione dei pacchetti.
+E' il tool di più basso livello per la gestione dei pacchetti. [link](https://phoenixnap.com/kb/fix-sub-process-usr-bin-dpkg-returned-error-code-1)
+##### Riconfigurare il database dpkg
+```sh
+dpkg --configure -a
+```
 
 #### apt-get
 Software front-end di supporto per il [dpkg](#dpkg) che ne semplifica l'utilizzo.
@@ -2606,7 +2654,7 @@ Tool utilizzabile per effettuare la steganografia di dati, ovvero l'inserimento 
 Tool di [controllo degli accessi](#acl) basato su regole e sistema di logging. Opera attraverso il filtraggio dei pacchetti basato sugli indirizzi IP e i servizi di rete.
 
 ### ufw
-Firewall semplificato
+Firewall semplificato. [Guida](https://help.ubuntu.com/community/UFW)
 
 ## Probe
 Un *probe* (sonda) è un elemento utilizzato per raccogliere dati di un'infrastruttura hardware e restituirli in forma digitale.
@@ -2786,3 +2834,12 @@ Dashboard interattiva di [Elasticsearch](https://www.elastic.co/) data. Permette
 
 # Annotazioni
 - Le distribuzioni di Linux, di solito, vengono provviste nativamente di [[Python]]
+
+## Script utili
+##### Copiare un file da locale a remoto tramite ssh
+```sh
+tar -c dir/ | gzip | gpg -c | ssh user@remote 'dd of=dir.tar.gz.gpg'
+```
+```sh
+scp [-P <SERVER_PORT>] <PATH_TO_LOCAL_FILE> <SERVER_USER@SERVER_IP_ADDRESS>:<PATH_TO_DESTINATION_FOLDER>
+```

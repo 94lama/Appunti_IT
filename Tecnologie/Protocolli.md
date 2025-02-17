@@ -373,6 +373,13 @@ Protocollo definito dalla IEEE per generare indirizzo IPv6 [GUA](#ipv6#gua), che
 	1. 0 - Nel caso di indirizzo statico
 	2. 1 - Nel caso di dispositivo collegato alla rete
 
+### GRE
+Il Generic Routing Encapsulation (incapsulamento generico del routing) è un protocollo utilizzato per incapsulare fino a 20 tipi di protocolli, utilizzato per creare una [connessione virtuale](./Reti#VPN) tra due dispositivi tramite [tunneling](#tunneling). Le fasi di lavoro sono le seguenti:
+
+- Il [computer](https://it.wikipedia.org/wiki/Computer "Computer") [host](https://it.wikipedia.org/wiki/Host "Host") sorgente crea su una [LAN](https://it.wikipedia.org/wiki/LAN "LAN") un [pacchetto](https://it.wikipedia.org/wiki/Pacchetto_(reti) "Pacchetto (reti)"), utilizzando un proprio protocollo nativo e lo spedisce sulla [rete](https://it.wikipedia.org/wiki/Rete_informatica "Rete informatica").
+- Il [router](https://it.wikipedia.org/wiki/Router "Router") di [default](https://it.wikipedia.org/wiki/Default_(informatica) "Default (informatica)"), poiché il computer di destinazione non è locale, prende il pacchetto e lo incapsula usando il _carrier protocol_ per creare il [tunnel](https://it.wikipedia.org/wiki/Tunneling "Tunneling") GRE: in questo modo si stabilisce una [connessione](https://it.wikipedia.org/wiki/Connessione_(informatica) "Connessione (informatica)") virtuale punto a punto con un router presente all'altro capo di [Internet](https://it.wikipedia.org/wiki/Internet "Internet").
+- Quando giunge a destinazione, il pacchetto viene spogliato dell'[header](https://it.wikipedia.org/wiki/Header "Header") IP e lasciato con il protocollo nativo nella LAN di destinazione.
+
 ### ICMP
 #### Descrizione
 L'Internet Control Message Protocol è un protocollo *stateless* utilizzato per inviare messaggi informativi relativi allo stato delle sessioni IP (disponibile sia per IPv4 che per IPv6). I messaggi si possono dividere in categorie, in base alla loro funzione:
@@ -484,14 +491,13 @@ Gli indirizzi IPv4 possono essere privati (indicati anche come indirizzi privati
 	Questi IP privati sono relativi al network in cui si trovano (intranet), quindi non sono univoci per la rete pubblica: due reti diverse possono avere gli stessi IP privati.
 
 La traduzione da IP privato a pubblico avviene tramite [NAT], ovvero Network Address Translation (di solito la funzione è svolta dal [Router](./Macchina#Router)). Un'altra funzione svolta dal router è la frammentazione:
-Nel caso di pacchetti aventi dimensioni troppo elevate, infatti, il protocollo include un processo di divisione del pacchetto in più pacchetti per agevolarne il trasporto. Questo processo prende il nome di **Fragmentation** (processo che tuttavia, causa latenza nella connessione.
+Nel caso di pacchetti aventi dimensioni troppo elevate, infatti, il protocollo include un processo di divisione del pacchetto in più pacchetti per agevolarne il trasporto. \ processo prende il nome di **Fragmentation** (processo che tuttavia, causa latenza nella connessione.
 
 ##### Routing
 La traduzione da IP privato a pubblico avviene tramite [NAT], ovvero Network Address Translation (di solito la funzione è svolta dal [Router](./Macchina#Router)). Un'altra funzione svolta dal router è la frammentazione:
 Nel caso di pacchetti aventi dimensioni troppo elevate, infatti, il protocollo include un processo di divisione del pacchetto in più pacchetti per agevolarne il trasporto. Questo processo prende il nome di **Fragmentation** (processo che tuttavia, causa latenza nella connessione.
 
 Una volta raggiunto il server avente indirizzo #ip desiderato, il [Router](Macchina.md#Router) si occuperà di smistare i dati tramite l'utilizzo di [tabelle di routing](Macchina.md#Tabelle%20di%20routing di routing>).
-Ovvero Internet Protocol versione 4. Si occupa della metodologia di frammentazione de instradamento ( #routing) del pacchetto.
 L' #IPv4 è un indirizzo, assegnato ad una rete [LAN](./Reti#LAN), che si basa su dati di dimensione standard da 32 bit (ovvero 4 byte). Ogni byte rappresenta un numero (da 0 a 255) ed è separato dagli altri byte da un punto.
 
 	102.54.94.97
@@ -518,7 +524,7 @@ Alcuni indirizzi IP sono dedicati a funzionalità specifiche, come il [broadcast
 Alcuni indirizzi IP sono dedicati a funzionalità specifiche, come il [broadcast]() di messaggi e gli indirizzi di rete e non possono essere assegnati agli **host**.
 
 ###### Loopback
-Gli indirizzi loopbacksono utilizzati da un host per attrarre il traffico su se stesso (ad esempio per effettuare il **ping**)
+Gli indirizzi loopback sono utilizzati da un host per attrarre il traffico su se stesso (ad esempio per effettuare il **ping**)
 ```
 127.0.0.0/8
 127.0.0.1
