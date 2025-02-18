@@ -49,8 +49,7 @@
               "title": "Docker"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -192,10 +191,10 @@
       "command-palette:Apri riquadro comandi": false
     }
   },
-  "active": "f2ea05750f31e423",
+  "active": "e110c5f0b99f0eaf",
   "lastOpenFiles": [
-    "Software/UFW.md",
     "Software/WireGuard.md",
+    "Software/UFW.md",
     "OS/Linux.md",
     "Software/Docker.md",
     "Database/Database.md",

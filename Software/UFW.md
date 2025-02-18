@@ -61,6 +61,13 @@ Per la configurazione di UFW vengono utilizzati dei file di configurazione (in b
 ## before.rules
 File di configurazione della prima fase della trasmissione di messaggi.
 
+
+## Applicazioni
+Le configurazioni per le applicazioni possono essere definite all'interno del file specifico (per l'applicazione considerata), all'intero della directory /etc/ufw/applications.d
+
+### Samba
+Permette di monitorare le porte utilizzate dal protocollo.
+
 ## Esempi
 ### Forwarding
 Per abilitare l'inoltro di pacchetti tra interfacce diverse, è necessario:

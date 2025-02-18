@@ -76,6 +76,58 @@ Per terminare il servizio basta digitare
 wg-quick down myconf
 ```
 
+
+# Peer
+Il peer può essere configurato lato server o lato peer. Nel caso lo si configuri da server, bisogna innanzitutto creare le chiavi di sicurezza:
+```sh
+wg genkey | tee privatekey | wg pubkey > publickey
+```
+
+## wg-client.conf
+Il permette di gestire la configurazione del peer. Il file ha una struttura simile a:
+```wg-client.conf
+[Interface]
+PrivateKey=
+Address=
+MTU=
+ListenPort=
+
+[Peer]
+PublicKey=
+PreSharedKey=
+AllowedIPs=
+PersistentKeepalive=
+Endpoint=
+```
+	N.B. I campi saranno da compilare inserendo su Interface i dati del dispositiv che si vuole collegare alla VPN e su Peer i dati del Server VPN
+
+Per generare una chiave precondivisa, è sufficiente utliizzare
+```sh
+wg genpsk
+```
+### QRcode
+**N.B.** Per utilizzare questa modalità, è possibile utilizzare un tool per la generazione di qrcode (in questa guida verrà utilizzato **qrencode**) partendo dal file wg-client.conf.
+
+Per ottenere un qrcode del file **wg-client.conf** basta utilizzare lo script
+```sh
+qrencode -t ansiutf8 < wg-client.conf
+```
+	OPZIONI:
+	-t [formato] # indica i lformato del qrcode. I formati disponibili sono
+		- ansiutf8
+		- pngpng32
+		- eps
+		- svg
+		- xpm
+		- ansi
+		- sndi256
+		- ascii
+		- asciii
+		- utf8
+
+## Online
+Il sito https://www.wireguardconfig.com/ offre la possibilità di creare il file di configurazione in maniera agevolata.
+
 # Firewall
 Per permettere il corretto funzionamento di Wireguard, è necessario inserire delle regole di permesso di accesso nelle impostazioni del firewall utilizzato nel dispositivo. I comandi elencati sono relativi al Firewall [UFW](./UFW).
 
