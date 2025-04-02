@@ -12,7 +12,7 @@ Su terminal:
 # Comandi
 I comandi originariamente dovevano essere scritti in MAIUSCOLO. Successivamente questa pratica è diventata opzionale.
 
-Creazione di un #database 
+### Creazione 
 ```MySQL
 CREATE DATABASE <nome_database>;
 ```
@@ -46,16 +46,18 @@ CREATE TABLE <nome_tabella> (
 	- UNIQUE
 	- UNSIGNED # utilizzabile per dati numerici. Corrisponde al modulo del numero (sempre positivo)
 	- ZEROFILL # utilizzabile per dati numerici. Permette di inserire degli zeri all'inizio del numero, in modo tale da avere numeri con lunghezza uguale
-Per popolare una tabella
+
+### Inserimento dati
 ```MySQL
 INSERT INTO <tabella> (<nome_colonna_1>, <nome_colonna_2>...)
 VALUES (<valore_1>, <valore_2>) (<valore_1>, <valore_2>);
 ```
-Aggiornare un record
+
+### Aggiornamento dati
 ```MySQL
 UPDATE <database>.<tabella> WHERE <condizioni>
 ```
-## Query
+### Query
 Selezionare determinate colonne di una tabella
 ```MySQL
 SELECT <colonna> FROM <tabella>;
@@ -69,7 +71,7 @@ SELECT <colonna_1>, <colonna_2> FROM <tabella> WHERE <colonna> <operazione>;
 	- BETWEEN <min> AND <max> # Ritorna parametri compresi tra due valori
 	- ORDER BY [ASC, DESC] # Ordina i risultati in ordine ascendente o discendente
 	- LIKE <pattern> # Trova i parametri che rientrano nel pattern
-### LIKE
+#### LIKE
 
 | Pattern | Descrizione                               |
 | ------- | ----------------------------------------- |
@@ -79,6 +81,48 @@ SELECT <colonna_1>, <colonna_2> FROM <tabella> WHERE <colonna> <operazione>;
 SELECT * FROM <table> WHERE <colonna> LIKE "_a%d"
 ```
 	La query selezionerà tutti i record che abbiano (nella colonna selezionata) la seconda lettera "a" e "d" come ultima lettera.
+### TRIGGER
+Il TRIGGER serve per attivare operazioni da eseguire automaticamente ogni volta che viene eseguita una particolare azione. I trigger, come le tabelle, sono elementi che possono essere creati e eliminati.
+
+#### Creazione
+```MySQL
+CREATE TRIGGET <nome> <condizioni d attivazione>;
+```
+
+#### Eliminazione
+```MySQL
+DROP TRIGGER <database>.<nome>;
+```
+
+#### Esempio
+
+```Esempio
+CREATE TRIGGER ins_sum BEFORE INSERT ON account
+FOR EACH ROW SET @sum = @sum + NEW.amount;
+```
+	DESCRIZIONE:
+	Creazione di un TRIGGER con nome "int_sum" che si attiva PRIMA dell'INSERIMENTO di valori nella tabella "account".
+	Il TRIGGER aggiunge al valore @sum la colonna "amount" dei record aggiunti alla tabella
+
+**N.B.** In questo caso il valore @sum deve essere dichiarato prima di attivare il TRIGGER
+```Esempio
+SET sum=0;
+```
+
+
+### Operazioni tra tabelle
+#### JOIN
+Variante del prodotto cartesiano di più tabelle (che mostra tutte le possibili combinazioni tra i file)
+![[SQL Join.png]]
+
+	SELECT key1, key2, key3 from table1, table2 where table1_fk == table2_pk;
+	SELECT key1, key2, key3 from table1, table2 inner JOIN on table1_fk == table2_pk;
+Le JOIN possono essere effettuate in varie maniere diverse, in base alla tipologia di inclusione dei dati delle tabelle:
+- INNER - ritorna solo i dati presenti contenuti in entrambe le tabelle
+- LEFT - ritorna i dati presenti in entrambe le tabelle e quelli presenti solo nella prima tabella
+- RIGHT - ritorna i dati presenti in entrambe le tabelle e quelli presenti solo nella seconda tabella
+- 
+
 ## Relazioni
 **ATTENZIONE**
 Per creare relazioni tra tabelle, MySQL utilizza [[#InnoDB]] per la definizione delle tabelle
@@ -117,17 +161,7 @@ FOREIGN KEY(<colonna>) REFERENCES <tabella>(<colonna>)
 	drop table nome_tabella; //cancella la tabella selezionata
 	quit //esce dal database
 
-## Join
-Variante del prodotto cartesiano di più tabelle (che mostra tutte le possibili combinazioni tra i file)
-![[SQL Join.png]]
 
-	SELECT key1, key2, key3 from table1, table2 where table1_fk == table2_pk;
-	SELECT key1, key2, key3 from table1, table2 inner JOIN on table1_fk == table2_pk;
-Le JOIN possono essere effettuate in varie maniere diverse, in base alla tipologia di inclusione dei dati delle tabelle:
-- INNER - ritorna solo i dati presenti contenuti in entrambe le tabelle
-- LEFT - ritorna i dati presenti in entrambe le tabelle e quelli presenti solo nella prima tabella
-- RIGHT - ritorna i dati presenti in entrambe le tabelle e quelli presenti solo nella seconda tabella
-- 
 # Tipologie di dati
 | Comando                                        | Descrizione                                             |
 | ---------------------------------------------- | ------------------------------------------------------- |
@@ -156,6 +190,29 @@ Sono delle tabelle virtuali definite da #query. Si utilizzano per salvare e rich
 Si possono visualizzare i dati tramite:
 
 	SELECT * from table_name*
+
+# Backup
+MySQL fornisce funzionalità di backup automatizzato tramite comando [mysqldump](https://dev.mysql.com/doc/refman/8.4/en/mysqldump.html), utilizzabile tramite CLI Linux o Windows.
+
+```sh
+mysqldump > <nome file>
+```
+	OPZIONI:
+	--add-drop-database # aggiunge un DROP DATABASE prima del CREATE DATABASE
+	--add-drop-table # aggiunge un DROP TABLE prima del CREATE TABLE
+	--ignore-error <errore> # ignora l'errore specificato
+	--ignore-table <tabella> # salta il backup della tabella selezionata
+	--ignore-views # salta il backup delle viste delle tabelle
+	--port <porta> # assegna una porta per l'utilizzo del database
+	--routines # aggiunge tutte le routine memorizzate per i database selezionati
+	--triggers # salva i trigger per ogni tabella computata
+
+E' possibile concatenare altri tool pe ottimizzare il backup, come ad esempio: 
+- Effettuare una #compressione dei dati prima di creare il file
+	```sh
+	mysqldump | gzip -c > backup_compresso.sql.gz
+	```
+
 # Esempi di queries
 
 	CREATE Table directors (id int auto_increment,name VARCHAR(40), surname VARCHAR(40), PRIMARY KEY(id));

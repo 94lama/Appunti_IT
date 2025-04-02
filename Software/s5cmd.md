@@ -60,6 +60,7 @@ s5cmd ls
 		--exclude # esclude i percorsi indicati
 		--humanize, -H # mostra i dati in formato facilmente leggibile
 		--storage-class, -s # mostra il nome completo dell'oggetto
+		
 	RISULTATO:
 		CREAZIONE (data ora) NOME BUCKET S3
 		2025/01/01 00:00:00  s3://myawsbucket
