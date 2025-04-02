@@ -12,13 +12,32 @@ Per rendere un database #normalizzato bisogna rispettare i seguenti parametri:
 - Vincolo di integrità referenziale: Attributo di una tabella che permette di collegare il campo con uno o più campi di un'altra tabella ( #foreign-key )
 - #primary-key: non può essere nulla, dev'essere univoca
 un database #normalizzato è più lento in scrittura, ma più veloce in lettura
+
+## SQL
+Tipologia di database più comunemente utilizzato per memorizzare i dati in maniera **strutturata** in gruppi (tabelle) di dati normalizzati (aventi attributi comuni, rappresentati dalle colonne). Di solito viene utilizzato per memorizzare numerosi dati di piccola dimensione (numeri, testi, date, o oggetti aventi proprietà in uno dei formati precedentemente elencati).
+Tra i più comuni database relazionali di tipo SQL ci sono:
+- [MySQL](./MySQL)
+- [MariaDB](https://mariadb.com/kb/)
+- [PostgreSQL](https://www.postgresql.org/)
+
+## File storage
+
+## Block storage
+## Object storage
+E' un metodo di memorizzazione dei dati di tipo **non strutturato** tramite l'[utilizzo di oggetti](https://cloud.google.com/learn/what-is-object-storage?hl=en). Ogni oggetto deve possedere 3 proprietà:
+- **Dati**
+- **Metadati**, ovvero le proprietà dell'oggetto 
+- **Identificatore**
+
+## NoSQL
+Abbreviazione di *Not Only SQL* (ovvero non solo SQL), è un tipo di database non relazionale, che permette di registrare dati in formato coppia **chiave-valore** all'interno di un ambiente orizzontale (ovvero non suddiviso in gruppi come cartelle, ecc.).
+
 # Manipolazione dei dati
 Ci sono 4 tipologie di #query:
 ## DDL
 ## 
 
-# NoSQL
-Formato di database di tipo non relazionale, che permette di registrare dati in formato coppia **chiave-valore**.
+
 # Software per la visualizzazione
 [TablePlus](https://tableplus.com/) è un software che permette di connettersi ad un database a fare operazioni su di esso
 

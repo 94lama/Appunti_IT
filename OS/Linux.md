@@ -1181,7 +1181,7 @@ ssh <utente>@><indirizzo_ip>
 	-i <chiave> # identificativo, ovvero chiave ssh da utilizzare per autenticarsi
 	-p # porta
 
-**N.B.** Nel caso si tenti una connessione ad una macchina già conosciuta (ovvero con la quale è già stata stabilita una connessione in passato, e la cui chiave di autenticazione è memorizzata all'interno di [~/.ssh/known_hosts](#known_hosts)), ma che ha cambiato la sua chiave [RSA](../Algoritmi#RSA) (ad esempio a seguito di un ripristino), può essere necessario rimuovere il link dal file **~/.ssh/known/hosts**.:
+**N.B.** Nel caso si tenti una connessione ad una macchina già conosciuta (ovvero con la quale è già stata stabilita una connessione in passato, e la cui chiave di autenticazione è memorizzata all'interno di [~/.ssh/known_hosts](#known_hosts)), ma che ha cambiato la sua chiave [RSA](Algoritmi.md#RSA) (ad esempio a seguito di un ripristino), può essere necessario rimuovere il link dal file **~/.ssh/known/hosts**.:
 	Esempio di messaggio d'errore:
 	@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	@   WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!   @

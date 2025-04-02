@@ -1,4 +1,4 @@
-E' una piattaforma basata su [git](./Git)
+E' una piattaforma basata su [git](Git.md)
 
 # Comandi
 ## Inizializzazione di un progetto

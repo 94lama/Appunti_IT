@@ -21,6 +21,7 @@ AWS ha un programma di pagamento basato sullo spazio utilizzato per tempo utiliz
 ```sh
 ssh ubuntu@<indirizzo_ip_server> -i <user_ssh>
 ```
+
 # VPC
 L'Amazon Virtual Private Cloud è una rete privata ed isolata all'interno del Cloud AWS, che richiede un range di indirizzi [IPv4](Protocolli di comunicazione#IPv4) o [IPv6](Protocolli%20di%20comunicazione.md#IPv6 di comunicazione#IPv6>) e permette di scegliere un range #cidr in base alle necessità.
 E' possibile scegliere in quale datacenter utilizzare in base all'***Availability Zone***, ovvero l'insieme di server AWS utilizzabili dall'utente, in base alla posizione geografica dello stesso.
@@ -50,8 +51,7 @@ Domain Name System. E' un servizio a pagamento utilizzabile tramite Route 53.
 ### VPC Peering
 ### VPC Endpoints
 ### VPC Flow logs
-# API
-Amazon usa #S3 per integrare le #API all'interno del sistema.
+
 # IAM
 La [#IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html), o Identity Access Management è un servizio web che aiuta a controllare in modo sicuro l'accesso alle risorse di AWS tramite l'assegnazione di ruoli. E' il [Domain controller](<Reti#Domain controller>) di AWS.
 ## Termini
@@ -210,10 +210,10 @@ Per ridurre lo spazio utilizzato, si deve creare un nuovo volume da uno #snapsho
 # EKS
 Elastic Kubernetes Services implementa [[Kubernetes]] all'interno di AWS.
 # S3
-Il Simple Storage Service è il servizio di #storage  principale di Amazon, fruibile tramite [http](<Protocolli%20di%20comunicazione.md#HTTP di comunicazione#HTTP>). Alcuni punti di forza de lservizio sono:
-- Possiblilita di memorizzare un numero illimitato di oggetti in un bucket
+Il Simple Storage Service è il servizio di #storage  principale di Amazon, fruibile tramite [http](<Protocolli%20di%20comunicazione.md#HTTP di comunicazione#HTTP>). Alcuni punti di forza del servizio sono:
+- Possibilità di memorizzare un numero illimitato di oggetti in un bucket
 - Oggetti fino a 5TB
-- Durability e disponibilita del 99,9%
+- Durability e disponibilità del 99,9%
 - Endpoint HTTP/S
 - Altamente scalabile, affidabile, veloce
 - Tool di stima del costo mensile - [AWS Simple Monthly Calculator](https://calculator.aws/#/), calcolati in base a
@@ -229,6 +229,17 @@ http://<nome_bucket>.s3.amazonaws.com/<Object_key>
 	versioning
 ## Glacier
 Servizio a pagamento utilizzato in coppia con [[#S3]], utilizzato per recuperare dati (anche grandi) entro 3-5 ore per definire il ciclo di vita dei dati del bucket.
+
+## API
+AWS offre delle [API](https://docs.aws.amazon.com/AmazonS3/latest/API/Type_API_Reference.html) per interagire con i servizi S3, suddivise in Actions e Data types.
+
+### Actions
+
+### Data types
+
+### Tools di terze parti
+- [s5cmd](../Software/s5cmd)
+
 # Dynamo DB
 Database non relazionale #nosql.
 ```Dymano

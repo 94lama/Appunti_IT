@@ -885,8 +885,7 @@ Modifica un'informazione in maniera parziale
 #### DELETE
 Cancella un'informazione
 ### SOAP
-Il Simple Object Access Protocol, o #soap un protocollo per lo scambio di messaggi tra componenti software. Comunemente comunica tramite il protocollo #http tramite il #metalinguaggio [[XML]] ed una struttura head-body, dove la head contiene parametri relativi instradamento, sicurezza, transazioni, mentre il body contiene il messaggio (chiamato anche carico utile o #payload).
-
+Il Simple Object Access Protocol, o #soap un protocollo per lo scambio di messaggi tra componenti software. Comunemente comunica con messaggi in [[XML]], scambiati utilizzando  il protocollo [HTTP](#HTTP), ed una struttura head-body, dove la head contiene parametri relativi instradamento, sicurezza, transazioni, mentre il body contiene il messaggio (chiamato anche carico utile o #payload).
 
 ## Da smistare
 

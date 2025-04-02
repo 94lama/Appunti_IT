@@ -6,6 +6,18 @@ Consiglio di utilizzare Obsidian per la lettura (se si decide di scaricare la re
 
 - [Cybersecurity](./Cybersecurity.md)
 - [Helpdesk](Helpdesk.md)
+- Database
+	- [Database](./Database/Database)
+	- [MongoDB](./Database/MongoDB)
+	- [MySQL](./Database/MySQL)
+	- [Relazioni](./Database/Relazioni)
+- Framework
+	- [Angular](./Framework/Angular)
+	- [Django](./Framework/Django)
+	- [Laravel](./Framework/Laravel)
+	- [Node.js](./Framework/Node.js)
+	- [React](./Framework/React)
+	- [Vue.js](./Framework/Vue.js)
 - Linguaggi
 	- [CSS](./Linguaggi/CSS)
 	- [HTML](./Linguaggi/HTML)
@@ -19,15 +31,23 @@ Consiglio di utilizzare Obsidian per la lettura (se si decide di scaricare la re
 	- [Windows](./OS/Windows)
 	- [Virtualizzazione](./OS/Virtualizzazione)
 - Server
+	- [Apache](./Server/Apache)
 	- [Cloud](./Server/Cloud)
 	- [AWS](./Server/AWS)
 - Software
+	- [DevProxy](./Software/DevProxy)
 	- [Docker](./Software/Docker)
+	- [Git](./Software/Git)
+	- [Git-secrets](./Software/git-secrets)
 	- [Jenkins](./Software/Jenkins)
 	- [Kubernetes](./Software/Kubernetes)
 	- [Postman](./Software/Postman)
+	- [s5cmd](./Software/s5cmd)
 	- [Terraform](./Software/Terraform)
+	- [UFW](./Software/UFW)
+	- [WireGuard](./Software/WireGuard)
 - Tecnologie
+	- [Algoritmi](./Tecnologie/Algoritmi)
 	- [Macchina](./Tecnologie/Macchina)
 	- [Networking](./Tecnologie/Networking)
 	- [Protocolli](./Tecnologie/Protocolli)
